@@ -1,0 +1,43 @@
+# ==========================================
+# GitHub GitIgnore Rule for Youtube Pipeline
+# ==========================================
+
+# Ignore Large Audio & Video Render Outputs
+*.mp3
+*.wav
+*.mp4
+*.m4a
+*.flac
+*.aac
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Ignore Python Caches & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Ignore Terminal Logs & Temp Files
+*.log
+.terminal-logs/
+.agent/
+.ds_store
+Thumbs.db
+*.tmp
+
+# Ignore Large Model Cache Weights
+.cache/
+*.bin
+*.pt
+*.safetensors
+*.pth
+*.onnx
+
+# Allow Git tracking of empty folder structures via .gitkeep
+!.gitkeep
