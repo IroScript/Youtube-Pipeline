@@ -39,5 +39,11 @@ Thumbs.db
 *.pth
 *.onnx
 
+# Ignore API Keys & Secrets (NEVER push keys!)
+**/NVIDIA NIM API KEY.txt
+*.env
+**/secrets/
+**/api_keys/
+
 # Allow Git tracking of empty folder structures via .gitkeep
 !.gitkeep
