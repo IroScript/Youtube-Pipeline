@@ -64,11 +64,20 @@ Colab-এ নতুন সেলে রান করুন:
 ### ধাপ ৫: অডিও জেনারেট করুন
 
 ```bash
-# Edge-TTS + Bark AI + OmniVoice — সবগুলো একসাথে
-python "google colab/generate_v1_all.py" <PORT>
+# V1 Test (Edge-TTS, Bark, OmniVoice)
+python "google colab/generate_v1_test_all.py" <PORT>
 
-# অথবা v2 (McCullen dialogue)
-python "google colab/generate_v2_all.py" <PORT>
+# V2 GI Joe McCullen Dialogue
+python "google colab/generate_v2_gi_joe_mccullen_nanomites_all.py" <PORT>
+
+# V3 Movie Dialogues (Sholay, Ammajan, Gladiator)
+python "google colab/generate_v3_movie_dialogues_all.py" <PORT>
+
+# V4 Deep Male Voice Exploration (14 samples)
+python "google colab/generate_v4_deep_male_voice_all.py" <PORT>
+
+# V5 Ultra Human Voice & Emotional Expressions (Shimmer)
+python "google colab/generate_v5_ultra_human_voice_all.py" <PORT>
 ```
 
 ---
@@ -107,27 +116,32 @@ client.close()
 
 ```
 google colab/
-├── CONNECTION_GUIDE.md           ← এই গাইড
-├── OmniVoice_Studio.ipynb        ← Colab-এ আপলোড করার notebook
-├── colab_ssh.py                  ← SSH helper (PORT argument নেয়)
-├── setup_omnivoice.py            ← OmniVoice Colab-এ install করার script
-├── generate_v1_all.py            ← V1 সব AI generate
-├── generate_v2_all.py            ← V2 সব AI generate
+├── CONNECTION_GUIDE.md                       ← এই গাইড
+├── OmniVoice_Studio.ipynb                    ← Colab-এ আপলোড করার notebook
+├── colab_ssh.py                              ← SSH helper (PORT argument নেয়)
+├── setup_omnivoice.py                        ← OmniVoice Colab-এ install করার script
+├── generate_v1_test_all.py                   ← V1 সব AI generate
+├── generate_v2_gi_joe_mccullen_nanomites_all.py ← V2 McCullen dialogue
+├── generate_v3_movie_dialogues_all.py        ← V3 (Sholay, Ammajan, Gladiator)
+├── generate_v4_deep_male_voice_all.py        ← V4 (14 deep male samples)
+├── generate_v5_ultra_human_voice_all.py      ← V5 (Rage, Sadness, Laughter, Whisper, etc.)
 │
-├── edge_tts/                     ← Microsoft Cloud TTS (GPU নয়)
-│   ├── v1_edge_tts.py
-│   ├── v2_edge_tts.py
-│   └── v*_*.mp3                  ← generated audio
+├── edge_tts/                                 ← Microsoft Cloud TTS
+│   ├── v1_test_edge_tts.py
+│   ├── v2_gi_joe_mccullen_nanomites_edge_tts.py
+│   └── v3_movie_dialogues_edge_tts.py
 │
-├── bark_ai/                      ← HuggingFace Bark (GPU)
-│   ├── v1_bark_ai.py
-│   ├── v2_bark_ai.py
-│   └── v*_*.wav                  ← generated audio
+├── bark_ai/                                  ← HuggingFace Bark (GPU)
+│   ├── v1_test_bark_ai.py
+│   ├── v2_gi_joe_mccullen_nanomites_bark_ai.py
+│   └── v3_movie_dialogues_bark_ai.py
 │
-└── omnivoice/                    ← OmniVoice Studio (GPU, সবচেয়ে দ্রুত)
-    ├── v1_omnivoice.py
-    ├── v2_omnivoice.py
-    └── v*_*.wav                  ← generated audio
+└── omnivoice/                                ← OmniVoice Studio (GPU, সবচেয়ে দ্রুত)
+    ├── v1_test_omnivoice.py
+    ├── v2_gi_joe_mccullen_nanomites_omnivoice.py
+    ├── v3_movie_dialogues_omnivoice.py
+    ├── v4_deep_male_voice_omnivoice.py
+    └── v5_ultra_human_voice_omnivoice.py
 ```
 
 ---
