@@ -41,9 +41,20 @@ Thumbs.db
 
 # Ignore API Keys & Secrets (NEVER push keys!)
 **/NVIDIA NIM API KEY.txt
+kaggle.json
+Kagle API Key.txt
+CWINDOWSsystem32cmd.exe*.txt
 *.env
 **/secrets/
 **/api_keys/
+
+# Ignore large zip/archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Ignore test_push directory
+kaggle video/test_push/
 
 # Allow Git tracking of empty folder structures via .gitkeep
 !.gitkeep
