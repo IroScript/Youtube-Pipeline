@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Storyboard Overview</title>
+    <link rel="stylesheet" href="storyboard.css">
+</head>
+
+<body>
+    <main class="storyboard-page">
+        <header class="storyboard-topbar">
+            <div>
+                <div id="storyboardTitle" class="storyboard-title">Storyboard Overview</div>
+                <p id="storyboardSubtitle" class="storyboard-subtitle">Review every scene before running.</p>
+            </div>
+            <div class="storyboard-actions">
+                <button id="helpBtn" class="btn-secondary">Help</button>
+                <button id="refreshBtn" class="btn-secondary">Refresh</button>
+                <button id="saveBtn" class="btn-secondary">Save Changes</button>
+                <button id="closeBtn" class="btn-primary">Close</button>
+            </div>
+        </header>
+        <section id="storyboardInstructions" class="storyboard-instructions hidden"></section>
+        <section id="storyboardMeta" class="storyboard-meta"></section>
+        <section id="storyboardList" class="storyboard-list"></section>
+    </main>
+    <script type="module" src="storyboard.js"></script>
+</body>
+
+</html>

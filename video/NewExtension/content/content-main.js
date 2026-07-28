@@ -17,6 +17,7 @@ class BatchRunner {
     this.isCancelling = false;
     this.isPaused = false;
     this.results = [];
+    this.previousOutput = null; // Video Chainer state
   }
 
   async run(selectors) {
@@ -41,6 +42,11 @@ class BatchRunner {
       item.promptIndex = item.promptIndex ?? (i + 1);
       this.currentPromptIndex = i;
 
+      // Pass previous video end-frame output for video chaining if available
+      if (this.previousOutput) {
+        item.outputPreviousPrompt = this.previousOutput;
+      }
+
       this.status = 'running';
       this.sendStatusUpdate();
 
@@ -55,22 +61,43 @@ class BatchRunner {
       if (result.success) {
         this.completedIndexes.add(i);
         this.results.push({ index: i, promptIndex: item.promptIndex, success: true });
+
+        // Update Video Chainer state for next prompt in queue
+        if (result.outputPreviousPrompt) {
+          this.previousOutput = result.outputPreviousPrompt;
+          Logger.info('🎞️ Video Chainer: Stored video end-frame for next prompt');
+        } else {
+          this.previousOutput = null;
+        }
+
         Logger.info(`✅ Prompt ${item.promptIndex}/${this.payloads.length} completed successfully`);
 
-        // Handle prompt delay pacing
+        // Handle prompt delay pacing matching user configuration & original extension
         if (i < this.payloads.length - 1 && !this.isCancelling) {
           const minDelay = item.promptDelaySecondsMin ?? 5;
           const maxDelay = item.promptDelaySecondsMax ?? 10;
           const delaySec = Math.floor(minDelay + Math.random() * (maxDelay - minDelay + 1));
-          Logger.info(`⏳ Delaying ${delaySec}s before next prompt...`);
-          await new Promise(r => setTimeout(r, delaySec * 1000));
+          Logger.info(`⏳ Human pacing delay: Waiting ${delaySec}s before next prompt...`);
+          
+          const delayEnd = Date.now() + (delaySec * 1000);
+          while (Date.now() < delayEnd) {
+            if (this.isCancelling) break;
+            while (this.isPaused && !this.isCancelling) {
+              await new Promise(r => setTimeout(r, 300));
+            }
+            await new Promise(r => setTimeout(r, 500));
+          }
         }
       } else {
         this.results.push({ index: i, promptIndex: item.promptIndex, success: false, error: result.error });
-        Logger.warn(`⚠️ Prompt ${item.promptIndex} failed: ${result.error}`);
-        if (!result.shouldRetry) {
-          this.completedIndexes.add(i);
-        }
+        Logger.error(`🛑 Prompt ${item.promptIndex} execution failed: ${result.error}`);
+
+        // If execution failed (e.g. submit button disabled / model not permitted), HALT batch
+        this.status = 'error';
+        this.sendStatusUpdate();
+        alert(`🛑 FlowCraft Automation Stopped at Prompt ${item.promptIndex}:\n\n${result.error}`);
+        activeBatchTask = null;
+        return;
       }
 
       this.sendStatusUpdate();

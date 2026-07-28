@@ -71,6 +71,7 @@ class DownloadManager {
       const filename = this.urlFilenameMap.get(item.url);
       this.urlFilenameMap.delete(item.url);
       suggest({ filename });
+      this.expectedCount++;
       return;
     }
 
@@ -80,6 +81,7 @@ class DownloadManager {
       let filename = (item.filename || '').split(/[\\/]/).pop() || `download_${Date.now()}`;
       if (!/\.[a-zA-Z0-9]{2,5}$/.test(filename)) filename += '.png';
       suggest({ filename: `${folder}/${filename}` });
+      this.expectedCount++;
       return;
     }
 
@@ -111,6 +113,7 @@ class DownloadManager {
         const cleanFolder = this.sanitizePath(folder ?? '');
         const targetPath = cleanFolder ? `${cleanFolder}/${filename}` : filename;
         this.urlFilenameMap.set(url, targetPath);
+        this.enableFilenameListener();
 
         chrome.downloads.download({ url, filename: targetPath, saveAs: false }, (downloadId) => {
           const err = chrome.runtime.lastError;

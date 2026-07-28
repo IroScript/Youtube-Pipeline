@@ -2,9 +2,49 @@
  * FlowCraft Status Tracker Module
  */
 import { DOMQueryEngine } from './dom-query.js';
-import { Logger } from '../utils/logger.js';
 
 export class StatusTracker {
+  /**
+   * Checks if a tile element is still actively rendering (% progress visible or queued)
+   */
+  static isTileRendering(tileElement) {
+    if (!tileElement) return false;
+    const innerDivs = Array.from(tileElement.querySelectorAll('div'));
+    
+    // Check for progress percentage text (e.g., "15%", "65%")
+    const hasPercent = innerDivs.some(d => /^\d+%$/.test((d.textContent ?? '').trim()));
+    
+    // Check for status keywords
+    const text = (tileElement.textContent ?? '').toLowerCase();
+    const isQueuedOrWorking = text.includes('queued') || text.includes('working on your request') || text.includes('generating');
+
+    return hasPercent || isQueuedOrWorking;
+  }
+
+  /**
+   * Checks if a tile element has completed video/image generation
+   */
+  static isTileComplete(tileElement, isVideoMode) {
+    if (!tileElement) return false;
+
+    // If still rendering or queued, it is NOT complete!
+    if (this.isTileRendering(tileElement)) {
+      return false;
+    }
+
+    const vids = tileElement.querySelectorAll('video');
+    const imgs = tileElement.querySelectorAll('img');
+    const hasMedia = isVideoMode ? vids.length > 0 : imgs.length > 0;
+    
+    // Safe DOM query using DOMQueryEngine for pseudo-selectors
+    const hasDownloadBtn = DOMQueryEngine.queryAll(
+      'button:has(i:contains("download")), button:has(i:contains("more_vert")), button:has(i:contains("more_horiz")), button[aria-haspopup="menu"]',
+      tileElement
+    ).length > 0;
+
+    return hasMedia || hasDownloadBtn;
+  }
+
   static checkUpscaleTextState() {
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let node;

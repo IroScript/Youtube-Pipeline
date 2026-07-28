@@ -199,26 +199,34 @@ export class DOMQueryEngine {
     return null;
   }
 
-  static async simulateClick(selector, label = 'element', timeoutMs = 5000) {
+  static async simulateClickElement(el, label = 'element') {
+    if (!el) return false;
+    const mouseEvents = ['pointerover', 'mouseover', 'pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'];
+    for (const evtName of mouseEvents) {
+      el.dispatchEvent(new MouseEvent(evtName, {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        view: window,
+        detail: 1
+      }));
+    }
+    await new Promise(r => setTimeout(r, 250));
+    return true;
+  }
+
+  static async simulateClick(selectorOrElement, label = 'element', timeoutMs = 5000) {
+    if (typeof selectorOrElement !== 'string' && selectorOrElement) {
+      return this.simulateClickElement(selectorOrElement, label);
+    }
     const deadline = Date.now() + timeoutMs;
     while (Date.now() < deadline) {
       await new Promise(r => setTimeout(r, 100));
-      const el = this.queryFirst(selector);
+      const el = this.queryFirst(selectorOrElement);
       if (el && this.isVisible(el)) {
-        const mouseEvents = ['pointerover', 'mouseover', 'pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'];
-        for (const evtName of mouseEvents) {
-          el.dispatchEvent(new MouseEvent(evtName, {
-            bubbles: true,
-            cancelable: true,
-            composed: true,
-            view: window,
-            detail: 1
-          }));
-        }
-        await new Promise(r => setTimeout(r, 250));
-        return true;
+        return this.simulateClickElement(el, label);
       }
     }
-    throw new Error(`Element "${label}" [${selector}] not found or not interactable within ${timeoutMs}ms`);
+    throw new Error(`Element "${label}" [${selectorOrElement}] not found or not interactable within ${timeoutMs}ms`);
   }
 }

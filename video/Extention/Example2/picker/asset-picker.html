@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Asset Picker</title>
+    <link rel="stylesheet" href="asset-picker.css">
+</head>
+<body>
+    <div class="picker-shell">
+        <header class="picker-header">
+            <div>
+                <div class="eyebrow">Video Asset Queue</div>
+                <h1>Full Asset Picker</h1>
+                <p>Load assets from Flow, move them to the right, reorder them, and assign prompts for the video queue.</p>
+            </div>
+            <div class="header-actions">
+                <button id="reloadAssetsBtn" class="btn-secondary">Reload Assets</button>
+                <button id="closeWindowBtn" class="btn-secondary">Close</button>
+                <button id="saveQueueBtn" class="btn-primary">Save Queue</button>
+            </div>
+        </header>
+
+        <div id="statusBanner" class="status-banner hidden"></div>
+
+        <main class="picker-layout">
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Available Assets</div>
+                        <div class="panel-subtitle">Loaded from the currently open Flow project.</div>
+                    </div>
+                    <span id="availableCount" class="count-badge">0</span>
+                </div>
+                <div id="availableGrid" class="asset-grid"></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Video Queue</div>
+                        <div id="selectedSummary" class="panel-subtitle">The order here becomes the queue order.</div>
+                    </div>
+                    <span id="selectedCount" class="count-badge">0</span>
+                </div>
+                <div class="bulk-prompt-wrap">
+                    <label class="bulk-prompt-label" for="bulkPromptInput">Video Prompts</label>
+                    <textarea id="bulkPromptInput" class="bulk-prompt-input" placeholder="Enter one prompt per line. They will be assigned to Scene 01, Scene 02, Scene 03... in order."></textarea>
+                </div>
+                <div id="selectedGrid" class="asset-grid selected-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="asset-picker.js"></script>
+</body>
+</html>

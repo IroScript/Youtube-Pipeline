@@ -1,0 +1,72 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+    "manifest_version": 3,
+    "name": "Google Flow Automator - Nano Banana, VEO and Omni Flash",
+    "description": "Premium automation for Google Flow project creation.",
+    "version": "2.2.1",
+    "icons": {
+        "16": "assets/icon16.png",
+        "32": "assets/icon32.png",
+        "48": "assets/icon48.png",
+        "128": "assets/icon128.png"
+    },
+    "action": {
+        "default_title": "Open Flow Automator Panel",
+        "default_icon": {
+            "16": "assets/icon16.png",
+            "32": "assets/icon32.png"
+        }
+    },
+    "side_panel": {
+        "default_path": "popup/popup.html"
+    },
+    "background": {
+        "service_worker": "background/service-worker.js",
+        "type": "module"
+    },
+    "permissions": [
+        "storage",
+        "downloads",
+        "activeTab",
+        "tabs",
+        "scripting",
+        "sidePanel",
+        "identity",
+        "alarms"
+    ],
+    "host_permissions": [
+        "*://flow.google/*",
+        "*://labs.google/*",
+        "*://google.com/labs/flow/*",
+        "*://www.google.com/labs/flow/*",
+        "*://identitytoolkit.googleapis.com/*",
+        "*://securetoken.googleapis.com/*",
+        "*://firestore.googleapis.com/*"
+    ],
+    "optional_host_permissions": [
+        "https://us-central1-youtubsubcheck.cloudfunctions.net/*"
+    ],
+    "oauth2": {
+        "client_id": "893441364470-gc0hug4mngplcqe4c4n63gvraqmgfgb4.apps.googleusercontent.com",
+        "scopes": [
+        "openid",
+        "email",
+            "profile"
+        ]
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "shared/*",
+                "assets/*"
+            ],
+            "matches": [
+                "*://flow.google/*",
+                "*://labs.google/*",
+                "*://google.com/*",
+                "*://www.google.com/*"
+            ]
+        }
+    ]
+}

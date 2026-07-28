@@ -53,6 +53,7 @@
         "*://labs.google/*"
       ],
       "resources": [
+        "shared/*",
         "content/*",
         "utils/*"
       ]

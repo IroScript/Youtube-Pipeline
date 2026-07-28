@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Flow Automator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- YouTube Promo Banner (populated from appConfig/promoBanner) -->
+        <div id="promoBanner" class="promo-banner hidden" role="banner">
+            <a id="promoBannerLink" class="promo-banner-link" href="#">
+                <span id="promoBannerLabel">🎬 See what I made with this app</span>
+                <span class="promo-banner-arrow">→</span>
+            </a>
+        </div>
+
+        <div class="app-scroll-area">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo">
+                    <img class="app-logo-mark" src="../assets/app-logo-mark.png" alt="" aria-hidden="true">
+                    <h1 class="header-title">Google Flow Automator</h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-actions-row">
+                    <button id="premiumFeatureBtn" class="icon-link-btn premium-feature-header-btn" title="Premium Feature">Premium Feature</button>
+                    <button id="forceRefreshBtn" class="icon-link-btn" title="Refresh Connection">Force Refresh</button>
+                    <button id="userGuideBtn" class="icon-link-btn" title="User Guide">User Guide</button>
+                </div>
+                <div class="header-version-row">
+                    <button id="darkModeToggleBtn" class="dark-mode-toggle-btn" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">🌙</button>
+                    <span id="extensionVersionBadge" class="version-badge header-version-badge">v2.2.1</span>
+                </div>
+            </div>
+            <button id="profileAvatarBtn" class="profile-avatar-btn header-profile-avatar hidden" title="Profile" aria-label="Profile">
+                <img id="profileAvatarImg" alt="" class="hidden">
+                <span id="profileAvatarFallback">G</span>
+            </button>
+        </header>
+
+        <!-- Main Navigation Tabs -->
+        <nav class="main-nav">
+            <button id="navControlTab" class="nav-tab active" data-nav="control">Control</button>
+            <button id="navSettingsTab" class="nav-tab" data-nav="settings">Setting</button>
+            <div class="header-status">
+                <div class="status-badge idle" id="queueStatusBadge">Idle</div>
+            </div>
+        </nav>
+
+        <main class="content-view">
+            <section id="authLandingPanel" class="auth-landing-panel hidden">
+                <div class="auth-card">
+                    <div class="auth-card-header">
+                        <div class="auth-icon">⌾</div>
+                        <div>
+                            <h2 id="authLandingTitle">Welcome Back</h2>
+                            <p id="authLandingSubtitle">Sign in to your account</p>
+                        </div>
+                    </div>
+                    <div id="authLandingNotice" class="auth-landing-notice hidden" role="status" aria-live="polite"></div>
+                    <button id="authGoogleBtn" class="auth-google-btn">
+                        <span class="auth-google-mark">G</span>
+                        <span id="authGoogleBtnText">Continue with Google</span>
+                    </button>
+                    <div class="auth-divider">
+                        <span></span>
+                        <em id="authEmailDividerText">or continue with email</em>
+                        <span></span>
+                    </div>
+                    <label class="auth-field">
+                        <span id="authEmailLabel">Email Address</span>
+                        <input id="authEmailInput" type="email" autocomplete="email" placeholder="your@email.com">
+                    </label>
+                    <label class="auth-field">
+                        <span class="auth-password-label">
+                            <span id="authPasswordLabel">Password</span>
+                            <button id="authForgotPasswordBtn" type="button">Forgot Password?</button>
+                        </span>
+                        <span class="auth-password-wrap">
+                            <input id="authPasswordInput" type="password" autocomplete="current-password" placeholder="••••••••">
+                            <button id="authTogglePasswordBtn" type="button" aria-label="Show password">◉</button>
+                        </span>
+                    </label>
+                    <button id="authEmailSubmitBtn" class="auth-submit-btn">Sign In</button>
+                    <button id="authAccessDeniedResetBtn" class="auth-submit-btn auth-access-denied-action auth-access-denied-reset hidden" type="button">Move Starter access here</button>
+                    <button id="authAccessDeniedUpgradeBtn" class="auth-submit-btn auth-access-denied-action hidden" type="button">Upgrade to Premium</button>
+                    <button id="authAccessDeniedSignOutBtn" class="auth-submit-btn auth-access-denied-action hidden" type="button">Use a different account</button>
+                    <div class="auth-switch-line">
+                        <span id="authSwitchPrompt">Don't have an account?</span>
+                        <button id="authModeToggleBtn" type="button">Create account</button>
+                    </div>
+                    <p class="auth-terms">
+                        <span id="authTermsPrefix">By continuing, you agree to our</span>
+                        <a href="https://googleautomator.com/terms" target="_blank" rel="noopener noreferrer">Terms</a>
+                        <span>&amp;</span>
+                        <a href="https://googleautomator.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    </p>
+                </div>
+            </section>
+            <div id="premiumLoginBanner" class="premium-login-banner">
+                <span id="labelPremiumLoginBanner">Login to unlock features</span>
+                <button id="premiumLoginBtn" class="btn-secondary btn-google">Sign in with Google</button>
+            </div>
+
+            <div id="controlPanel" class="nav-panel">
+                <div id="loginRequiredGate" class="login-required-gate hidden">
+                    <div class="login-required-icon">🔒</div>
+                    <div class="login-required-copy">
+                        <div id="labelLoginRequiredTitle" class="login-required-title">Sign in required</div>
+                        <div id="labelLoginRequiredBody" class="login-required-body">Sign in with Google to use Google Flow Automator.</div>
+                    </div>
+                    <button id="loginRequiredBtn" class="btn-secondary btn-google">Sign in with Google</button>
+                </div>
+
+                <div id="membershipUsageCard" class="membership-usage-card hidden" role="button" tabindex="0">
+                    <div>
+                        <div id="labelMembershipUsageTitle" class="membership-usage-title">Membership</div>
+                        <div id="labelMembershipUsageBody" class="membership-usage-body">0/50 prompts used today</div>
+                    </div>
+                    <span id="membershipUsageTier" class="membership-tier-pill">Starter</span>
+                </div>
+
+                <div id="controlOutputTypeCard" class="config-card" style="display:none;">
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div class="config-label">Mode</div>
+                        <div class="mode-selector">
+                            <button id="flowTypeImageBtn" class="mode-btn active" data-flow-type="image">Image</button>
+                            <button id="flowTypeVideoBtn" class="mode-btn" data-flow-type="video">Video</button>
+                        </div>
+                        <div id="imageOptionsPanel" class="video-options-panel">
+                            <label class="video-model-field">
+                                <span id="labelImageModel">Image Model</span>
+                                <select id="modelSelect" class="input-select">
+                                    <option value="Nano Banana Pro">Nano Banana Pro</option>
+                                    <option value="Nano Banana 2">Nano Banana 2</option>
+                                    <option value="Nano Banana 2 Lite">Nano Banana 2 Lite</option>
+                                </select>
+                            </label>
+                            <div class="video-model-field">
+                                <span id="labelImageAspectRatio">Aspect Ratio</span>
+                                <div class="mode-selector">
+                                    <button type="button" class="mode-btn" data-ratio="16:9">16:9</button>
+                                    <button type="button" class="mode-btn" data-ratio="4:3">4:3</button>
+                                    <button type="button" class="mode-btn" data-ratio="1:1">1:1</button>
+                                    <button type="button" class="mode-btn" data-ratio="3:4">3:4</button>
+                                    <button type="button" class="mode-btn active" data-ratio="9:16">9:16</button>
+                                </div>
+                            </div>
+                            <div class="video-model-field">
+                                <span id="labelImageQuantity">Quantity</span>
+                                <div class="mode-selector">
+                                    <button type="button" class="mode-btn active" data-qty="1">1x</button>
+                                    <button type="button" class="mode-btn" data-qty="2">x2</button>
+                                    <button type="button" class="mode-btn" data-qty="3">x3</button>
+                                    <button type="button" class="mode-btn" data-qty="4">x4</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="videoOptionsPanel" class="video-options-panel hidden">
+                            <p id="videoModeHelpText" class="config-help video-mode-help">
+                                Choose the default video mode and model here. Turn on "different model per prompt" to override these per queued prompt.
+                            </p>
+                            <div class="video-model-field">
+                                <span id="labelVideoMode">Video Mode</span>
+                                <div class="mode-selector">
+                                    <button type="button" id="videoModeFramesBtn" class="mode-btn" data-video-mode="frames">Frames</button>
+                                    <button type="button" id="videoModeIngredientsBtn" class="mode-btn active" data-video-mode="ingredients">Ingredients</button>
+                                </div>
+                            </div>
+                            <label class="video-model-field">
+                                <span id="labelVideoModel">Video Model</span>
+                                <select id="videoModelSelect" class="input-select">
+                                    <option value="Omni Flash">Omni Flash</option>
+                                    <option value="Veo 3.1 - Lite">Veo 3.1 - Lite</option>
+                                    <option value="Veo 3.1 - Fast">Veo 3.1 - Fast</option>
+                                    <option value="Veo 3.1 - Quality">Veo 3.1 - Quality</option>
+                                </select>
+                            </label>
+                            <div class="video-model-field">
+                                <span id="labelVideoAspectRatio">Aspect Ratio</span>
+                                <div class="mode-selector">
+                                    <button type="button" id="videoRatioPortraitBtn" class="mode-btn active" data-video-ratio="9:16">9:16</button>
+                                    <button type="button" id="videoRatioLandscapeBtn" class="mode-btn" data-video-ratio="16:9">16:9</button>
+                                </div>
+                            </div>
+                            <div id="videoDurationField" class="video-model-field hidden">
+                                <span id="labelVideoDuration">Duration</span>
+                                <div id="videoDurationBtns" class="mode-selector"></div>
+                            </div>
+                            <div class="config-row" style="margin-top: 6px;">
+                                <span id="labelVideoPerPromptModel">Use different model per prompt</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="videoPerPromptModelToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <p id="videoQuantityFixedNote" class="config-help">
+                                Quantity: 1 per prompt (fixed)
+                            </p>
+                            <p id="videoOmniEndFrameWarning" class="config-help video-warning hidden">
+                                Omni Flash does not support an end frame. End frame selection is disabled.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium upsell card — visible for starters, hidden for premium -->
+                <div id="premiumUpsellCard" class="config-card premium-upsell-card hidden">
+                    <div id="trialExpiredBanner" class="trial-expired-banner hidden">
+                        <span id="labelTrialExpired">Trial expired</span>
+                    </div>
+                    <div class="premium-upsell-header">
+                        <span class="premium-upsell-badge">Premium</span>
+                        <span id="labelPremiumUpsellTitle" class="premium-upsell-title">Unlock more features</span>
+                    </div>
+                    <ul class="premium-upsell-list">
+                        <li><span class="upsell-icon">🎭</span> <span id="labelUpsellCharacter">Character Assets — inject a consistent character into every prompt</span></li>
+                        <li><span class="upsell-icon">🖼️</span> <span id="labelUpsellReference">Reference Images — attach reference images per prompt or globally</span></li>
+                        <li><span class="upsell-icon">⚡</span> <span id="labelUpsellPerPrompt">Per-prompt Assets — different character/image for each prompt in the queue</span></li>
+                        <li><span class="upsell-icon">⬇️</span> <span id="labelUpsellDownloader">Image Downloader — batch download + 2K upscaled auto-download</span></li>
+                        <li><span class="upsell-icon">🎬</span> <span id="labelUpsellStoryboard">Storyboard — preview all queued scenes before generation</span></li>
+                    </ul>
+                    <button id="premiumUpsellBtn" class="btn-primary premium-upsell-btn">Try Premium Trial</button>
+                </div>
+
+                <!-- Professional trial upsell card — visible for non-professional users -->
+                <div id="professionalTrialCard" class="config-card premium-upsell-card hidden">
+                    <div class="premium-upsell-header">
+                        <span class="premium-upsell-badge">Professional</span>
+                        <span id="labelProfessionalTrialTitle" class="premium-upsell-title">Unlock more features</span>
+                    </div>
+                    <ul id="professionalTrialFeatureList" class="premium-upsell-list"></ul>
+                    <button id="professionalTrialBtn" class="btn-primary premium-upsell-btn">Try Professional Trial</button>
+                </div>
+
+                <div id="premiumAssetsGroup" class="premium-assets-group">
+                    <div id="premiumAssetsGroupOverlay" class="premium-assets-group-overlay">
+                        <div class="premium-feature-lock-card premium-assets-lock-card">
+                            <div class="premium-feature-lock-icon">🔒</div>
+                            <div>
+                                <div id="labelPremiumAssetsLockedTitle" class="premium-assets-lock-title">
+                                    Premium Feature - Unlock Required
+                                </div>
+                                <div id="labelPremiumAssetsLockedBody" class="premium-assets-lock-body">
+                                    Locked features: Character Assets and Reference Images.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="characterAssetSection" class="config-card premium-asset-section">
+                        <div class="config-header">
+                            <div id="labelCharacterTitle" class="config-label">Character</div>
+                            <div style="display: flex; gap: 6px;">
+                                <button id="openCharacterAssetPickerBtn" class="upload-btn" style="background: transparent; white-space: nowrap;">Open Picker</button>
+                                <button id="resetCharacterAssetBtn" class="upload-btn" disabled style="background: transparent; opacity: 0.45;">Reset</button>
+                            </div>
+                        </div>
+                        <div id="characterAssetSelectedList" style="margin-top: 10px; display: none;"></div>
+                        <div id="characterAssetHelpText" style="font-size: 0.68rem; color: var(--text-muted); margin-top: 6px;">
+                            Pick one created Flow character. The automation will search Characters and add it to the prompt.
+                        </div>
+                        <div id="characterAssetLockBadge" class="unlock-required-badge asset-section-lock-badge hidden">
+                            Premium Feature - Unlock Required
+                        </div>
+                    </div>
+
+                    <!-- Reference Asset Section -->
+                    <div id="referenceAssetSection" class="config-card premium-asset-section">
+                        <div class="config-header">
+                            <div id="labelReferenceAssetTitle" class="config-label">Reference Asset</div>
+                            <div style="display: flex; gap: 6px;">
+                                <button id="openReferenceAssetPickerBtn" class="upload-btn" style="background: transparent; white-space: nowrap;">Open Picker</button>
+                                <button id="resetReferenceAssetBtn" class="upload-btn" disabled style="background: transparent; opacity: 0.45;">Reset</button>
+                            </div>
+                        </div>
+                        <div id="referenceAssetSelectedList" style="margin-top: 10px; display: none;"></div>
+                        <div id="referenceAssetWarning" style="display: none; font-size: 0.72rem; color: #f59e0b; margin-top: 5px;">
+                            ⚠ Selected asset is not available in this project. Click Reset to clear.
+                        </div>
+                        <p id="referenceAssetHelpText" style="font-size: 0.68rem; color: var(--text-muted); margin-top: 6px;">
+                            Pick one or more reference images for image generation.
+                        </p>
+                        <div id="referenceAssetLockBadge" class="unlock-required-badge asset-section-lock-badge hidden">
+                            Premium Feature - Unlock Required
+                        </div>
+                        <p id="referenceAssetTwoImageNote" style="font-size: 0.68rem; color: #f59e0b; margin-top: 6px;">
+                            Please use 2 images as of now. If an image fails to be found, you may have too many images in the project. Please use a new project.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="videoAssetQueueSection" class="config-card">
+                    <div class="config-header">
+                        <div id="labelVideoAssetQueueTitle" class="config-label">Video Assets</div>
+                        <div style="display: flex; gap: 6px;">
+                            <button id="videoDryRunBtn" class="btn-secondary hidden" style="white-space: nowrap;">Dry Run</button>
+                            <button id="openReferenceAssetFullPickerBtn" class="btn-secondary" style="white-space: nowrap;">Open Picker</button>
+                        </div>
+                    </div>
+                    <div id="videoAssetQueueList" style="margin-top: 4px; display: none;"></div>
+                    <p id="videoAssetQueueHelpText" style="font-size: 0.68rem; color: var(--text-muted); margin-top: 6px;">
+                        Select the images you may want to use for video prompts. Each queued prompt can then use either Ingredients or Frames.
+                    </p>
+                </div>
+
+                <!-- Prompt Input Section -->
+                <div id="promptQueueCard" class="config-card">
+                    <div class="config-header">
+                        <div id="labelPromptQueue" class="config-label">Prompt Queue</div>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="csvUploadBtn" class="upload-btn" style="background: transparent;">Upload CSV</button>
+                            <button id="addPromptsBtn" class="upload-btn" style="background: transparent;">Add to
+                                Queue</button>
+                        </div>
+                    </div>
+                    <div class="config-row per-prompt-assets-toggle-row">
+                        <div class="per-prompt-assets-lock-overlay premium-feature-lock-overlay" id="perPromptAssetsLockOverlay">
+                            <div class="premium-feature-lock-card">
+                                <div class="premium-feature-lock-icon">🔒</div>
+                                <div>
+                                    <div id="labelPerPromptAssetsLocked">Premium Feature - Unlock Required</div>
+                                    <div id="labelPerPromptAssetsLockedDetail" class="premium-lock-detail">Use different character/reference images for each prompt.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="per-prompt-assets-title-line">
+                                <span id="labelPerPromptAssets">Use different assets per prompt</span>
+                                <span id="labelPerPromptAssetsUnlockRequired" class="unlock-required-badge">Unlock Required</span>
+                            </div>
+                            <p id="labelPerPromptAssetsNote" class="config-help">
+                                Google SSO required. Select character/reference images above, turn this on, click Queue & Select, then choose assets for each prompt.
+                            </p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="perPromptAssetsEnabled">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div id="autoMentionRow" class="config-row per-prompt-assets-toggle-row" style="margin-top: 6px;">
+                        <div>
+                            <div class="per-prompt-assets-title-line">
+                                <span id="labelAutoMention">Auto @mention image search</span>
+                            </div>
+                            <p id="labelAutoMentionNote" class="config-help">When enabled, @name in prompts automatically finds and attaches the matching reference image from your media library. Image mode only.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="autoMentionEnabled">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div id="videoMultilinePromptRow" class="config-row per-prompt-assets-toggle-row" style="margin-top: 6px; display: none;">
+                        <div>
+                            <div class="per-prompt-assets-title-line">
+                                <span id="labelVideoMultilinePrompt">Use multi-line prompt</span>
+                            </div>
+                            <p id="labelVideoMultilinePromptNote" class="config-help">
+                                Allows writing multi-line prompts for video mode, separating queue items with @@@NEXT@@@.
+                            </p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="videoMultilinePromptToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input id="csvImport" type="file" accept=".csv,text/csv" style="display:none;" />
+                    <textarea id="promptInput" placeholder="Paste your prompts here, separated by empty lines..."
+                        style="height: 120px;"></textarea>
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px;">
+                        <p id="csvUploadHint" style="font-size: 0.68rem; color: var(--text-muted); margin: 0;">
+                            Upload a CSV to load prompt rows into the editor, review/fix them, then add them to queue.
+                        </p>
+                        <button id="csvGuideBtn" class="btn-secondary" style="white-space: nowrap;">CSV Guide</button>
+                    </div>
+                    <p id="promptAssetsHint" class="config-help" style="display: none;">
+                        Current character and reference images are copied into each prompt when added. Use the queue buttons to edit assets per prompt before running.
+                    </p>
+
+                    <div id="promptPreviewContainer" class="prompt-preview hidden">
+                        <div id="labelDetectedPrompts" class="preview-header">Detected Prompts (<span
+                                id="previewCount">0</span>)</div>
+                        <ul id="previewList" class="preview-list"></ul>
+                    </div>
+                </div>
+
+                <!-- Queue Viewport -->
+                <div class="queue-card">
+                    <div class="config-header" style="background: var(--surface); padding: 0.75rem 1rem; margin: 0;">
+                        <div id="labelCurrentQueue" class="config-label" style="color: var(--text-main);">Current Queue
+                        </div>
+                        <span class="queue-meta"><span id="activeCount">0</span> <span
+                                id="labelTasksSuffix">tasks</span></span>
+                    </div>
+                    <div id="queueAutoResetNote" class="queue-subnote" style="padding: 0.35rem 1rem; font-size: 0.72rem; color: var(--text-muted);">
+                        Note: The queue is automatically reset every 24 hours.
+                    </div>
+                    <div class="queue-tabs">
+                        <button class="queue-tab active" id="queueTabOpen" data-tab="open">Open <span class="queue-tab-count" id="queueTabOpenCount"></span></button>
+                        <button class="queue-tab" id="queueTabFailed" data-tab="failed">Failed <span class="queue-tab-count" id="queueTabFailedCount"></span></button>
+                        <button class="queue-tab" id="queueTabCompleted" data-tab="completed">Completed <span class="queue-tab-count" id="queueTabCompletedCount"></span></button>
+                    </div>
+                    <div class="queue-viewport">
+                        <ul id="queueList"></ul>
+                        <ul id="queueFailedList" class="hidden"></ul>
+                        <ul id="queueCompletedList" class="hidden"></ul>
+                        <div id="emptyQueueMsg" class="empty-msg">No active tasks.</div>
+                    </div>
+                    <div class="queue-actions">
+                        <span id="storyboardLockBadge" class="unlock-required-badge premium-tool-lock-badge hidden">
+                            Premium Feature - Unlock Required
+                        </span>
+                        <button id="storyboardBtn" class="btn-secondary storyline-run-preview-btn" title="Advanced Storyboard">Advanced Storyboard</button>
+                        <button id="startBtn" class="btn-primary">Start Automation</button>
+                        <button id="rerunUnfinishedBtn" class="btn-secondary" style="display: none;">Retry Unfinished</button>
+                        <button id="resetBtn" class="btn-secondary">Clear Queue</button>
+                        <button id="sendBugReportBtn" class="bug-report-text-btn hidden" type="button">Send a bug report</button>
+                        <div id="bugReportStatus" class="bug-report-status hidden" role="status" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <!-- Extra Download Tools -->
+                <div class="config-card">
+                    <div id="labelBulkDownloaderTitle" class="config-label" style="margin-bottom: 4px;">Image Downloader</div>
+                    <button id="stopHistoryBtn" class="btn-danger hidden"
+                        style="width: 100%; margin-bottom: 12px; font-weight: 700;">Stop Active Task</button>
+                    <!-- Hidden legacy elements kept for JS references -->
+                    <span id="authStatusText" style="display:none;"></span>
+                    <button id="quickSignInBtn" style="display:none;"></button>
+                    <button id="signOutBtn" style="display:none;"></button>
+                    <div id="subscribeGateCard" style="display:none;"></div>
+                    <button id="subscribeYoutubeBtn" style="display:none;"></button>
+                    <button id="unlockSubscribeBtn" style="display:none;"></button>
+                    <div id="gateLockNote" style="display:none;"></div>
+                    <div id="imageDownloaderGateShell" class="image-downloader-gate-shell">
+                        <div id="downloadToolsArea">
+                            <!-- Auto-download: visible to all logged-in users (starter gets 1K) -->
+                            <div class="config-row" style="margin-bottom: 8px;">
+                                <span id="labelAutoDownload" style="font-size: 0.85rem; color: var(--text-muted);">Auto-download after image generation</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="autoDownload">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <!-- 2K upscale + page downloader: premium only, hidden for starters -->
+                            <div class="config-row upscale-download-row">
+                                <div class="upscale-download-copy">
+                                    <span id="labelUpscaleDownload" class="upscale-download-label">Download 2K Upscaled</span>
+                                    <span id="upscaleDownloadLockBadge" class="unlock-required-badge upscale-lock-badge hidden"></span>
+                                    <span id="upscaleDownloadQualityPill" class="upscale-quality-pill">Premium: 2K</span>
+                                </div>
+                                <label class="switch upscale-switch">
+                                    <input type="checkbox" id="flowUpscaledDownload">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <p id="upscaleDownloadToolsDisabledMsg"
+                                style="display: none; font-size: 0.72rem; color: #f59e0b; margin-bottom: 8px; font-weight: 700;">
+                                Not supported for Upscaled images
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <span id="imageDownloaderLockBadge" class="unlock-required-badge premium-tool-lock-badge hidden"></span>
+                                <button id="openDownloadPickerBtn" class="btn-secondary">Open Image Downloader</button>
+                            </div>
+                            <!-- Hidden legacy elements -->
+                            <div id="labelGenerationAutoDownloadTitle" style="display:none;"></div>
+                            <div id="labelDownloadTools" style="display:none;"></div>
+                            <p id="labelUpscaleDownloadNote" style="display:none;"></p>
+                            <p id="labelBulkDownloaderNote" style="display:none;"></p>
+                            <p id="labelImageDownloaderFeatures" style="display:none;"></p>
+                            <p id="downloadToolsLockedMsg" style="display:none;"></p>
+                            <p id="upscaleDownloadToolsDisabledMsg2" style="display:none;"></p>
+                        </div>
+                        <div id="ssoGateCard" class="image-downloader-overlay">
+                            <div class="image-downloader-lock-card">
+                                <div class="image-downloader-lock-icon">🔒</div>
+                                <div id="labelSsoGate" class="image-downloader-lock-title">Sign in with Google SSO
+                                    to enable Download Tools</div>
+                                <div id="labelSsoFeaturePreview" class="image-downloader-overlay-feature">
+                                    Includes 2K Upscaled Auto Downloader
+                                </div>
+                                <div style="display: flex; gap: 8px; width: 100%;">
+                                    <button id="googleSsoBtn" class="btn-secondary btn-google" style="flex: 1;">Sign in with
+                                        Google</button>
+                                    <button id="unlockSsoBtn" class="btn-primary" style="flex: 1;">I Signed In -
+                                        Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="imageDownloaderSignedInMsg" class="image-downloader-signed-in hidden">
+                            <span id="imageDownloaderSignedInText">Google SSO: Signed in</span>
+                            <button id="imageDownloaderSignOutBtn" class="btn-secondary">Sign out</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div id="labelSupportProject" class="config-label" style="margin-bottom: 6px;">Support this project
+                    </div>
+                    <p id="labelSupportDescription"
+                        style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">
+                        If this tool saves you time, you can support future updates.
+                    </p>
+                    <button id="donateBtn" class="btn-secondary" style="width: 100%;">Donate</button>
+                </div>
+
+            </div>
+
+            <!-- Settings Panel -->
+            <div id="settingsPanel" class="nav-panel hidden">
+                <div id="settingsAuthCard" class="config-card settings-auth-card">
+                    <span id="authStatusTextSettings" class="settings-auth-status">SSO: Signed out</span>
+                    <div style="display:flex; gap:8px;">
+                        <button id="settingsSignInBtn" class="btn-secondary btn-google">Sign in with Google</button>
+                        <button id="settingsSignOutBtn" class="btn-secondary">Sign out</button>
+                    </div>
+                </div>
+                <div id="firebaseUidRow" class="config-card firebase-uid-row settings-firebase-uid-row hidden">
+                    <span id="labelFirebaseUid">User ID</span>
+                    <code id="firebaseUidValue"></code>
+                    <button id="copyFirebaseUidBtn" class="btn-secondary">Copy</button>
+                </div>
+                <div id="subscriptionSupportCard" class="config-card hidden">
+                    <div id="labelSubscribeSupportTitle" class="config-label">Support this tool</div>
+                    <p id="labelSubscribeSupportNote"
+                        style="font-size: 0.72rem; color: var(--text-muted); opacity: 0.9; margin-top: 6px;">
+                        Please subscribe to my channel to support this tool.
+                    </p>
+                    <button id="settingsSubscribeYoutubeBtn" class="btn-secondary" style="width: 100%; margin-top: 10px;">Subscribe on YouTube</button>
+                    <div id="subscriberConfirmedStatus" class="subscriber-confirmed-status hidden">Subscription status: Confirmed</div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-row">
+                        <div id="labelUiLanguage" class="config-label">Language</div>
+                        <select id="uiLanguage" class="input-select" style="width: 140px;">
+                            <option value="en">English</option>
+                            <option value="ko">Korean</option>
+                            <option value="ja">Japanese</option>
+                            <option value="zh">Chinese</option>
+                            <option value="de">German</option>
+                            <option value="fr">French</option>
+                            <option value="hi">Hindi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="config-card hidden">
+                    <div class="config-row">
+                        <div id="labelUiTheme" class="config-label">Theme</div>
+                        <select id="uiTheme" class="input-select" style="width: 140px;">
+                            <option id="uiThemeDefaultOption" value="default">Default</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div id="importFromExtensionSection" class="config-card hidden">
+                    <div class="config-label" style="margin-bottom: 8px;">Import From Extension Source</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <select id="tempMediaSource" class="input-select">
+                            <option value="visible">Visible Flow tab only (Recommended)</option>
+                            <option value="queue">Completed extension queue only</option>
+                            <option value="auto">Try visible Flow tab, then completed queue</option>
+                        </select>
+                        <div style="font-size: 0.68rem; color: var(--text-muted);">
+                            This controls where Import From Extension reads media from.
+                            Visible Flow tab means the generated results must be open on the current Flow page.
+                        </div>
+                    </div>
+                </div>
+
+                <div id="concurrentCard" class="config-card">
+                    <div class="config-row">
+                        <div id="labelConcurrentProcessing" class="config-label">Concurrent Processing</div>
+                        <select id="concurrentCount" class="input-select"
+                            disabled style="width: 120px; background: var(--surface); opacity: 0.65; cursor: not-allowed;">
+                            <option value="1">1 at a time</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="config-card feature-disabled hidden">
+                    <div class="config-row">
+                        <div id="labelStaggerDelay" class="config-label">Stagger Delay</div>
+                        <div class="number-input">
+                            <button class="num-btn" id="delayDec" disabled style="cursor: not-allowed;">−</button>
+                            <input type="number" id="delaySeconds" value="30" min="1" max="120" disabled style="cursor: not-allowed;">
+                            <button class="num-btn" id="delayInc" disabled style="cursor: not-allowed;">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card feature-disabled hidden">
+                    <div class="config-row">
+                        <div id="labelGenerationTimeout" class="config-label">Generation Timeout (m)</div>
+                        <input type="number" id="timeoutSeconds" value="5" min="1" max="30" class="input-select"
+                            style="width: 80px; cursor: not-allowed;" disabled>
+                    </div>
+                </div>
+                <div class="config-card feature-disabled hidden">
+                    <div class="config-row">
+                        <div id="labelRetryCount" class="config-label">Retry Count</div>
+                        <input type="number" id="retryCount" value="2" min="0" max="5" class="input-select"
+                            style="width: 80px; cursor: not-allowed;" disabled>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-row" style="align-items: flex-start; gap: 12px;">
+                        <div style="flex: 1;">
+                            <div id="labelWaitForImageResponse" class="config-label">Wait for image response</div>
+                            <div id="labelWaitForImageResponseNote" style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px;">
+                                When off, the queue submits and moves to the next prompt without waiting for the image result.
+                            </div>
+                        </div>
+                        <label class="switch" style="margin-top: 2px;">
+                            <input type="checkbox" id="waitForImageResponse">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="randomizedDelayCard" class="config-card">
+                    <div class="config-row" style="align-items: flex-start; gap: 12px;">
+                        <div style="flex: 1;">
+                            <div id="labelRandomizedDelay" class="config-label">Randomized Delay</div>
+                            <div id="labelRandomizedDelayNote" style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px;">
+                                Randomized Delay stays active with safe default settings on this membership.
+                            </div>
+                        </div>
+                        <label class="switch" style="margin-top: 2px;">
+                            <input type="checkbox" id="randomizedDelayCustomEnabled">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div id="randomizedDelayDetails" class="hidden" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 0.68rem; color: var(--text-muted);">
+                            <span id="labelPromptDelaySeconds">Delay seconds</span>
+                            <input type="number" id="promptDelaySeconds" value="30" min="10" max="300" step="10" class="input-select">
+                        </label>
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 0.68rem; color: var(--text-muted);">
+                            <span id="labelRandomizedDelayJitter">+Random Delay (seconds)</span>
+                            <input type="number" id="randomizedDelayJitterMaxSeconds" value="30" min="0" max="60" step="5" class="input-select">
+                        </label>
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 0.68rem; color: var(--text-muted);">
+                            <span id="labelRandomizedDelayBreakEvery">Break every (prompts)</span>
+                            <input type="number" id="randomizedDelayBreakEveryCount" value="20" min="2" max="50" step="1" class="input-select">
+                        </label>
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 0.68rem; color: var(--text-muted);">
+                            <span id="labelRandomizedDelayBreakMin">Break min (minutes)</span>
+                            <input type="number" id="randomizedDelayBreakMinMinutes" value="4" min="0" max="30" step="1" class="input-select">
+                        </label>
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 0.68rem; color: var(--text-muted);">
+                            <span id="labelRandomizedDelayBreakMax">Break max (minutes)</span>
+                            <input type="number" id="randomizedDelayBreakMaxMinutes" value="5" min="0" max="60" step="1" class="input-select">
+                        </label>
+                    </div>
+                    <div id="labelRandomizedDelayProfessionalOnly" class="randomized-delay-default-status" style="display: none;"></div>
+                </div>
+
+                <div id="detailedAnalyticsCard" class="config-card">
+                    <div class="config-row" style="align-items: flex-start; gap: 12px;">
+                        <div style="flex: 1;">
+                            <div id="labelDetailedAnalytics" class="config-label">Share detailed analytics</div>
+                            <div id="labelDetailedAnalyticsNote" style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px; line-height: 1.45;">
+                                Panel open and first Run are measured once per day with membership type. Turn this on to additionally share approximate country, device, app version, and privacy-safe diagnostics.
+                            </div>
+                        </div>
+                        <label class="switch" style="margin-top: 2px;">
+                            <input type="checkbox" id="detailedAnalyticsEnabled">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="logsConfigCard" class="config-card hidden">
+                    <div class="config-row">
+                        <div id="labelLogViewer" class="config-label">Logs</div>
+                        <div style="display:flex; gap:6px;">
+                            <button type="button" id="logViewerCopyBtn" class="btn-secondary" style="padding: 4px 10px; font-size: 0.7rem;">Copy</button>
+                            <button type="button" id="logViewerRefreshBtn" class="btn-secondary" style="padding: 4px 10px; font-size: 0.7rem;">Refresh</button>
+                        </div>
+                    </div>
+                    <div id="logViewerList" class="log-viewer-list"></div>
+                </div>
+
+                <!-- Dev-only membership switcher — only visible to the admin account, for pre-deployment testing -->
+                <div id="devMembershipSwitcherCard" class="config-card hidden">
+                    <div class="config-row">
+                        <div class="config-label">Dev: Membership Switcher</div>
+                    </div>
+                    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+                        <button type="button" id="devSetStarterBtn" class="btn-secondary" style="padding: 6px 10px; font-size: 0.7rem;">Set Starter</button>
+                        <button type="button" id="devSetPremiumBtn" class="btn-secondary" style="padding: 6px 10px; font-size: 0.7rem;">Set Premium</button>
+                        <button type="button" id="devSetProfessionalBtn" class="btn-secondary" style="padding: 6px 10px; font-size: 0.7rem;">Set Professional</button>
+                        <button type="button" id="devResetTrialBtn" class="btn-secondary" style="padding: 6px 10px; font-size: 0.7rem;">Reset Trial</button>
+                    </div>
+                </div>
+
+            </div>
+            <footer class="app-footer">
+                <a href="https://forms.gle/XkkEouLgArqed1CM9" target="_blank" rel="noopener noreferrer" class="footer-link" id="reportBugLink">Report a Bug</a>
+                <a href="https://googleautomator.com/privacy" target="_blank" rel="noopener noreferrer" class="footer-link">Privacy Policy</a>
+                <a href="https://googleautomator.com/terms" target="_blank" rel="noopener noreferrer" class="footer-link">Terms & Conditions</a>
+            </footer>
+        </main>
+        <div class="fixed-footer">
+            <div class="status-panel-row">
+                <div id="statusBar" class="status-bar">Ready.</div>
+                <button id="headerStopBtn" class="btn-danger hidden status-stop-btn">Stop</button>
+            </div>
+        </div>
+        </div><!-- /.app-scroll-area -->
+    </div>
+    <div id="profileModal" class="modal-overlay hidden">
+        <div class="modal-content profile-modal">
+            <div class="profile-modal-header">
+                <div class="profile-modal-identity">
+                    <div class="profile-modal-avatar">
+                        <img id="profileModalAvatarImg" alt="" class="hidden">
+                        <span id="profileModalAvatarFallback">G</span>
+                    </div>
+                    <div>
+                        <h2 id="labelProfileTitle" class="profile-modal-title">User Profile</h2>
+                        <div id="profileEmailText" class="profile-email">Signed out</div>
+                    </div>
+                </div>
+                <button id="profileCloseBtn" class="profile-close-btn" aria-label="Close">×</button>
+            </div>
+            <div class="profile-field-grid">
+                <div class="profile-field">
+                    <span id="labelProfileUserId">User ID</span>
+                    <code id="profileUserIdValue">-</code>
+                    <button id="profileCopyUidBtn" class="btn-secondary">Copy</button>
+                </div>
+                <label class="profile-field profile-language-field">
+                    <span id="labelProfileLanguage">Language</span>
+                    <select id="profileLanguageSelect" class="input-select">
+                        <option value="en">English</option>
+                        <option value="ko">Korean</option>
+                        <option value="ja">Japanese</option>
+                        <option value="zh">Chinese</option>
+                        <option value="de">German</option>
+                        <option value="fr">French</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </label>
+                <div class="profile-field">
+                    <span id="labelProfileMembership">Membership</span>
+                    <strong id="profileMembershipValue">Starter</strong>
+                </div>
+                <div class="profile-field">
+                    <span id="labelProfileQuota">Prompt access</span>
+                    <strong id="profileQuotaValue">Unlimited</strong>
+                </div>
+            </div>
+            <div class="profile-membership-list">
+                <div class="profile-tier-card starter">
+                    <span class="profile-tier-active-badge">Active</span>
+                    <div id="labelStarterTier" class="profile-tier-title">Starter</div>
+                    <ul id="starterFeatureList"></ul>
+                </div>
+                <div class="profile-tier-card premium">
+                    <span class="profile-tier-active-badge">Active</span>
+                    <div id="labelPremiumTier" class="profile-tier-title">Premium</div>
+                    <ul id="premiumFeatureList"></ul>
+                </div>
+                <div class="profile-tier-card professional">
+                    <span class="profile-tier-active-badge">Active</span>
+                    <div class="profile-tier-title-row">
+                        <div id="labelProfessionalTier" class="profile-tier-title">Professional</div>
+                        <span class="profile-tier-supporter-badge">Supporter Only</span>
+                    </div>
+                    <ul id="professionalFeatureList"></ul>
+                </div>
+            </div>
+            <div id="starterInstallAccessNotice" class="starter-install-access-notice hidden"></div>
+            <div class="profile-actions">
+                <button id="starterInstallResetBtn" class="btn-secondary hidden">Move Starter access here</button>
+                <button id="profileSignOutBtn" class="btn-secondary">Sign out</button>
+            </div>
+        </div>
+    </div>
+    <div id="editModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="config-header">
+                <div id="labelEditPrompt" class="config-label">Edit Prompt</div>
+            </div>
+            <textarea id="editModalInput" style="height: 150px; margin: 12px 0;"></textarea>
+            <div style="display: flex; gap: 8px;">
+                <button id="saveEditBtn" class="btn-primary" style="flex: 1; padding: 10px;">Save Changes</button>
+                <button id="cancelEditBtn" class="btn-secondary" style="flex: 1; padding: 10px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="csvValidationModal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 360px;">
+            <div class="config-header">
+                <div class="config-label">CSV Prompt Fixer</div>
+            </div>
+            <p id="csvValidationSummary" style="font-size: 0.75rem; color: var(--text-muted); margin: 10px 0 8px 0;">
+                Review the problematic prompts and fix them before importing.
+            </p>
+            <div id="csvValidationList" style="display:flex; flex-direction:column; gap:10px; max-height: 280px; overflow:auto; margin-bottom: 10px;"></div>
+            <div style="display: flex; gap: 8px;">
+                <button id="csvValidationApplyBtn" class="btn-primary" style="flex: 1; padding: 10px;">Apply</button>
+                <button id="csvValidationCancelBtn" class="btn-secondary" style="flex: 1; padding: 10px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="errorPopupModal" class="modal-overlay hidden">
+        <div class="modal-content error-popup-modal">
+            <div id="errorPopupTitle" class="config-label">Action needed</div>
+            <p id="errorPopupMessage" class="error-popup-message"></p>
+            <div id="errorPopupCountdown" class="error-popup-countdown hidden" aria-live="off">
+                <span id="errorPopupCountdownLabel">Cooldown remaining</span>
+                <strong id="errorPopupCountdownValue">05:00</strong>
+            </div>
+            <div id="errorPopupRecoveryHelp" class="error-popup-recovery-help hidden">
+                <p id="errorPopupRecoveryCause"></p>
+                <a id="errorPopupRecoveryLink" href="https://support.google.com/flow/answer/16353333?hl=en" target="_blank" rel="noopener noreferrer">Google Flow Help Center</a>
+                <p id="errorPopupRecoveryAccountTip"></p>
+            </div>
+            <button id="errorPopupCloseBtn" class="btn-primary error-popup-close-btn">OK</button>
+        </div>
+    </div>
+    <div id="downloadPickerModal" class="modal-overlay hidden">
+        <div class="modal-content download-picker-modal">
+            <div class="download-picker-header">
+                <div>
+                    <div id="downloadPickerTitle" class="config-label">Select Images</div>
+                    <p id="downloadPickerSubtitle" class="download-picker-subtitle">Choose images, then download in 1K or 2K.</p>
+                </div>
+                <div class="download-picker-header-actions">
+                    <button id="downloadPickerRescanBtn" class="btn-secondary">Rescan</button>
+                    <button id="downloadPickerCloseBtn" class="btn-secondary">Close</button>
+                </div>
+            </div>
+            <div class="download-picker-toolbar">
+                <button id="downloadPickerSelectAllBtn" class="btn-secondary">Select all</button>
+                <button id="downloadPickerClearBtn" class="btn-secondary">Clear</button>
+                <span id="downloadPickerCount" class="download-picker-count">0 selected</span>
+            </div>
+            <div class="download-quality-row modal-download-quality-row">
+                <button type="button" class="download-quality-btn active" data-download-quality="1k">1K Original</button>
+                <button type="button" class="download-quality-btn" data-download-quality="2k">2K Upscaled</button>
+            </div>
+            <p id="downloadPickerImagesOnlyNote" class="download-picker-mode-note">Images and videos are supported. Videos download in original quality.</p>
+            <div id="downloadPickerGrid" class="download-picker-grid"></div>
+            <div class="download-picker-actions">
+                <button id="downloadPageBtn" class="btn-secondary">Download All Page Images</button>
+                <button id="downloadPickerDownloadBtn" class="btn-primary">Download Selected</button>
+            </div>
+            <div id="downloadPickerPremiumOverlay" class="download-picker-premium-overlay hidden">
+                <div class="download-picker-premium-card">
+                    <div class="premium-feature-lock-icon">🔒</div>
+                    <strong id="downloadPickerPremiumTitle">Premium Feature - Unlock Required</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="remoteNotificationModal" class="remote-notification-shell hidden">
+        <div class="remote-notification-content">
+            <div class="remote-notification-kicker">Important Notice</div>
+            <h2 id="remoteNotificationTitle" class="remote-notification-title">Extension Notice</h2>
+            <p id="remoteNotificationMessage" class="remote-notification-message"></p>
+            <div id="remoteNotificationVersion" class="remote-notification-version"></div>
+            <button id="remoteNotificationConfirmBtn" class="btn-primary remote-notification-confirm">Got it</button>
+        </div>
+    </div>
+    <div id="premiumFeatureModal" class="modal-overlay hidden">
+        <div class="modal-content premium-feature-modal">
+            <div class="premium-feature-modal-kicker" id="labelPremiumFeatureKicker">Premium Access</div>
+            <h2 id="labelPremiumFeatureTitle" class="premium-feature-modal-title">Premium Feature</h2>
+            <p id="labelPremiumFeatureMessage" class="premium-feature-modal-copy">
+                Premium features are available to eligible registered users or active subscribers.
+            </p>
+            <div class="premium-feature-modal-list">
+                <div id="labelPremiumFeatureFeedback">Google Flow Automator is a free tool, and your support helps us continue improving it. If you enjoy using the tool, we would really appreciate your honest feedback or review on the Chrome Web Store. Positive reviews help more users discover the tool and keep this project growing.</div>
+                <div id="labelPremiumFeatureManual">Leaving a review is completely optional and does not guarantee premium access. Eligibility will be checked automatically, and premium access may be updated or revoked if the requirements are no longer met.</div>
+                <div id="labelPremiumFeatureSupporter">Become a Supporter to unlock Dedicated Premium User status — you'll keep full access to all premium features with no interruptions.</div>
+            </div>
+            <div class="premium-feature-modal-actions">
+                <button id="premiumYoutubeBtn" class="btn-secondary">Subscribe on YouTube</button>
+                <button id="premiumReviewBtn" class="btn-secondary">Open Chrome Web Store</button>
+                <div class="premium-cta-row">
+                    <button id="premiumFormBtn" class="btn-primary">Request Access Form</button>
+                    <button id="premiumSupporterBtn" class="btn-primary premium-supporter-btn">Become a Supporter</button>
+                </div>
+            </div>
+            <button id="premiumFeatureCloseBtn" class="btn-secondary premium-feature-close-btn">Close</button>
+        </div>
+    </div>
+    <div id="storyboardOverviewModal" class="modal-overlay hidden">
+        <div class="modal-content storyboard-overview-modal">
+            <div class="storyboard-modal-header">
+                <div>
+                    <div id="storyboardOverviewTitle" class="config-label">Advanced Storyboard</div>
+                    <p id="storyboardOverviewSubtitle" class="storyboard-overview-subtitle">Preview queued image scenes before generation.</p>
+                </div>
+                <button id="storyboardOverviewCloseBtn" class="btn-secondary storyboard-close-btn">Close</button>
+            </div>
+            <div id="storyboardOverviewList" class="storyboard-overview-list"></div>
+        </div>
+    </div>
+    <div id="queueAssetPickerModal" class="modal-overlay hidden">
+        <div class="modal-content queue-asset-picker-modal">
+            <div class="config-header">
+                <div id="queueAssetPickerTitle" class="config-label">Select Prompt Assets</div>
+            </div>
+            <p id="queueAssetPickerSubtitle" class="queue-asset-picker-subtitle">
+                Choose from the assets selected at the top.
+            </p>
+            <div id="queueAssetPickerGrid" class="queue-asset-picker-grid"></div>
+            <div class="queue-asset-picker-footer">
+                <button id="queueAssetPickerCloseBtn" class="btn-primary">Done</button>
+            </div>
+        </div>
+    </div>
+    <div id="referenceAssetPickerModal" class="modal-overlay hidden">
+        <div class="modal-content asset-picker-modal">
+            <div class="config-header" style="display:none;">
+                <div id="referenceAssetPickerTitle" class="config-label">Reference Asset Picker</div>
+            </div>
+            <div class="asset-picker-toolbar">
+                <div id="referenceAssetPickerSummary" class="asset-picker-summary">Load assets from Flow, then move the reference images you want to the right.</div>
+                <div style="display:flex; gap:8px;">
+                    <button id="videoPromptModalBtn" class="btn-secondary" style="display:none;">Add Video Prompt</button>
+                    <button id="videoAutoAddBtn" class="btn-secondary" style="display:none;">Auto Add</button>
+                    <button id="videoClearQueueBtn" class="btn-secondary" style="display:none;">Delete</button>
+                    <button id="referenceAssetPickerReloadBtn" class="btn-secondary">Reload Assets</button>
+                </div>
+            </div>
+            <div id="videoPromptBatchModal" class="asset-submodal-overlay hidden">
+                <div class="asset-submodal">
+                    <div class="config-label">Edit Video Prompts</div>
+                    <textarea id="videoPromptBatchInput" class="asset-submodal-input" placeholder="Separate scenes with a blank line. Single line breaks inside a scene will be kept."></textarea>
+                    <div class="asset-submodal-actions">
+                        <button id="videoPromptBatchCancelBtn" class="btn-secondary">Cancel</button>
+                        <button id="videoPromptBatchSaveBtn" class="btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+            <div class="asset-picker-columns">
+                <div class="asset-picker-panel">
+                    <div class="asset-picker-panel-header">
+                        <div id="referenceAssetAvailableTitle" class="config-label">Available Assets</div>
+                        <span id="referenceAssetAvailableCount" class="queue-meta">0</span>
+                    </div>
+                    <div id="referenceAssetAvailableGrid" class="asset-picker-grid"></div>
+                </div>
+                <div class="asset-picker-panel">
+                    <div class="asset-picker-panel-header">
+                        <div id="referenceAssetSelectedTitle" class="config-label">Selected Reference Images</div>
+                        <span id="referenceAssetSelectedCount" class="queue-meta">0</span>
+                    </div>
+                    <div id="referenceAssetSelectedGrid" class="asset-picker-grid"></div>
+                </div>
+            </div>
+            <div class="asset-picker-footer">
+                <span id="referenceAssetPickerLockBadge" class="unlock-required-badge asset-picker-lock-badge hidden">
+                    Premium Feature - Unlock Required
+                </span>
+                <button id="referenceAssetPickerCancelBtn" class="btn-secondary">Cancel</button>
+                <button id="referenceAssetPickerApplyBtn" class="btn-primary">Use Selected</button>
+            </div>
+        </div>
+    </div>
+    <!-- Restricted Access Overlay -->
+    <div id="restrictedAccessOverlay" class="modal-overlay hidden" style="background: rgba(10, 10, 10, 0.98);">
+        <div class="modal-content" style="text-align: center; max-width: 280px;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
+            <h2 style="color: var(--text-main); margin-bottom: 1rem; font-size: 1.2rem;">Google Flow Only</h2>
+            <p id="labelRestrictedText"
+                style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.5;">
+                This automator only works on <strong>Google Flow</strong>.
+            </p>
+            <a id="goToFlowBtn" href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener noreferrer" class="btn-primary"
+                style="display: block; text-decoration: none; text-align: center; line-height: 2.4; padding: 0.5rem;">
+                Go to Google Flow
+            </a>
+            <p id="labelRestrictedFooter" style="font-size: 0.7rem; color: var(--text-muted); margin-top: 1.5rem;">
+                Please open or create a project to start.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                <a href="https://googleautomator.com/privacy" target="_blank" rel="noopener noreferrer" class="footer-link" style="font-size: 0.65rem;">Privacy Policy</a>
+                <a href="https://googleautomator.com/terms" target="_blank" rel="noopener noreferrer" class="footer-link" style="font-size: 0.65rem;">Terms & Conditions</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+
+</html>
