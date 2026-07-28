@@ -1,6 +1,6 @@
 /**
  * FlowCraft Execution Engine - Master automation pipeline for Google Labs / Google Flow
- * Configured with human pacing delays, robust model selection, and strict submit verification.
+ * Configured with human pacing delays, robust model selection, strict submit verification, output count selection, and scoped reference chip clearing.
  */
 import { DOMQueryEngine } from './dom-query.js';
 import { MediaUploader } from './media-uploader.js';
@@ -192,6 +192,54 @@ export class ExecutionEngine {
     }
   }
 
+  /**
+   * Clears ONLY attached reference image chips strictly inside the prompt composer input box
+   */
+  static async clearAllReferenceImages(selectors) {
+    const textarea = DOMQueryEngine.queryFirst(selectors.promptTextarea || '[role="textbox"]');
+    if (!textarea) return;
+
+    let composerBox = textarea.closest('form, section, div[data-testid*="prompt"]');
+    if (!composerBox) {
+      let curr = textarea.parentElement;
+      for (let depth = 0; depth < 5 && curr; depth++) {
+        if (DOMQueryEngine.queryFirst('button:has(i:contains("arrow_forward")), button:has(i:contains("arrow_upward"))', curr)) {
+          composerBox = curr;
+          break;
+        }
+        curr = curr.parentElement;
+      }
+    }
+
+    if (!composerBox) return;
+
+    const removeBtns = Array.from(composerBox.querySelectorAll('button, [role="button"]'))
+      .filter(b => DOMQueryEngine.isVisible(b))
+      .filter(b => {
+        if (DOMQueryEngine.queryFirst('i:contains("arrow_forward"), i:contains("arrow_upward")', b)) return false;
+        if ((b.getAttribute('role') || '').toLowerCase() === 'tab') return false;
+
+        const txt = (b.textContent ?? '').trim().toLowerCase();
+        const aria = (b.getAttribute('aria-label') ?? '').toLowerCase();
+        const icon = (b.querySelector('i, svg, span')?.textContent ?? '').trim().toLowerCase();
+        
+        const isRemoveWord = txt === '✕' || txt === 'x' || aria.includes('remove') || aria.includes('clear') || aria.includes('deselect');
+        const isRemoveIcon = icon === 'close' || icon === 'clear' || icon === 'cancel';
+        
+        const isReferenceChip = b.closest('[data-testid*="reference"], [data-testid*="chip"], [data-testid*="asset"], div:has(img), label:has(img)');
+        return (isRemoveWord || isRemoveIcon) && isReferenceChip;
+      });
+
+    if (removeBtns.length > 0) {
+      Logger.info(`🧹 Found ${removeBtns.length} attached reference image chip(s) in prompt composer. Clearing...`);
+      for (const btn of removeBtns) {
+        await DOMQueryEngine.simulateClickElement(btn, 'Remove reference image chip');
+        await new Promise(r => setTimeout(r, 400));
+      }
+      Logger.info('✅ Composer reference image chips cleared successfully!');
+    }
+  }
+
   static async configureVideoSettings(item, isCancelled, isPaused, selectors) {
     const sel = selectors;
     const checkState = async () => {
@@ -204,14 +252,25 @@ export class ExecutionEngine {
     try {
       if (await checkState()) return false;
 
+      // 1. Clear any previous reference chips attached in prompt composer
+      await this.clearAllReferenceImages(selectors);
+
+      // 2. Set "Start frame only" mode if option exists
+      const startFrameOnlyBtn = DOMQueryEngine.queryFirst(selectors.frameStartOnlyOption);
+      if (startFrameOnlyBtn && DOMQueryEngine.isVisible(startFrameOnlyBtn)) {
+        await DOMQueryEngine.simulateClickElement(startFrameOnlyBtn, 'Start frame only option');
+        await new Promise(r => setTimeout(r, 500));
+        Logger.info('✅ Set video frame mode to: "Start frame only"');
+      }
+
+      // 3. Handle video-to-video chaining frame injection
       if (item.outputPreviousPrompt && item.outputPreviousPrompt.extractedFrame) {
         item.mode = 'imageToVideo';
-        item.images = item.images ?? [];
-        item.images.unshift({
+        item.images = [{
           base64: item.outputPreviousPrompt.extractedFrame,
           name: `extracted-frame-${Date.now()}.jpg`
-        });
-        Logger.info('✅ Video Chainer: Previous video end-frame injected as starting reference image');
+        }];
+        Logger.info('✅ Video Chainer: Previous video end-frame injected as single starting reference image');
       }
 
       if (await checkState()) return false;
@@ -244,11 +303,32 @@ export class ExecutionEngine {
 
       await this.configureAspectRatios(sel, item.aspectRatio);
 
-      const countLabel = item.outputCount === 1 ? '1x' : `x${item.outputCount}`;
-      const countSel = sel.outputCountTemplate.replace('{outputCount}', countLabel);
-      if (await DOMQueryEngine.waitForElement(countSel, 3000)) {
-        await DOMQueryEngine.simulateClick(countSel, `Count ${countLabel}`);
-        await new Promise(r => setTimeout(r, 500));
+      // Output count configuration (1x, x2, x4)
+      const qty = item.outputCount ?? 1;
+      Logger.info(`⚙️ Configuring Output Count to: ${qty}x...`);
+
+      const configPanel = DOMQueryEngine.queryFirst('div[data-state="open"], [role="dialog"]') || document;
+      const qtyButtons = Array.from(configPanel.querySelectorAll('button, .flow_tab_slider_trigger, [role="tab"]'))
+        .filter(b => DOMQueryEngine.isVisible(b));
+
+      let matchedQtyBtn = qtyButtons.find(b => {
+        const txt = (b.textContent ?? '').trim().toLowerCase();
+        return txt === `${qty}x` || txt === `x${qty}` || txt === `${qty}`;
+      });
+
+      if (!matchedQtyBtn) {
+        matchedQtyBtn = qtyButtons.find(b => {
+          const txt = (b.textContent ?? '').trim().toLowerCase();
+          return txt.includes(`${qty}x`) || txt.includes(`x${qty}`);
+        });
+      }
+
+      if (matchedQtyBtn) {
+        await DOMQueryEngine.simulateClickElement(matchedQtyBtn, `Output count ${qty}x`);
+        Logger.info(`✅ Output count successfully set to: "${matchedQtyBtn.textContent?.trim()}"`);
+        await new Promise(r => setTimeout(r, 600));
+      } else {
+        Logger.warn(`Output count button for ${qty}x not found in config panel.`);
       }
 
       // Model Selection with explicit Lower Priority support
@@ -273,10 +353,11 @@ export class ExecutionEngine {
 
       if (await checkState()) return false;
 
+      // Upload reference images (single Start frame image)
       if (item.images && item.images.length > 0) {
         for (let i = 0; i < item.images.length; i++) {
           if (await checkState()) return false;
-          Logger.info(`Uploading image ${i + 1}/${item.images.length}...`);
+          Logger.info(`Uploading reference image ${i + 1}/${item.images.length}...`);
           this.reportProgress({
             promptIndex: item.promptIndex,
             percentage: 0,
@@ -501,7 +582,6 @@ export class ExecutionEngine {
         if (isCancelled()) return { success: false };
         const tid = tileIds[i];
 
-        // Hover over tile element to reveal hidden action controls
         const tileEl = DOMQueryEngine.queryFirst(`div[data-tile-id="${tid}"]`);
         const vidBtn = DOMQueryEngine.queryFirst(`div[data-tile-id="${tid}"] button:has(video)`);
         if (tileEl) {
@@ -641,7 +721,7 @@ export class ExecutionEngine {
 
       if (isCancelled()) return { success: false, cancelled: true, steps };
 
-      // Step 2: Settings configuration with slow delays
+      // Step 2: Settings configuration with slow delays, output count matching, and reference image clearing
       steps[1].status = 'running';
       if (item.mode.includes('ToVideo')) {
         await this.configureVideoSettings(item, isCancelled, isPaused, selectors);
