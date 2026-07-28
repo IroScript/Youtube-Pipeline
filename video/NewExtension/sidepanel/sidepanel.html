@@ -209,7 +209,10 @@
       <section class="card terminal-card">
         <div class="terminal-header">
           <span>Execution Log</span>
-          <button id="clearLogsBtn" class="btn-xs">Clear</button>
+          <div class="terminal-actions">
+            <button id="exportLogsBtn" class="btn-xs primary">📥 Export Logs (.txt)</button>
+            <button id="clearLogsBtn" class="btn-xs">Clear</button>
+          </div>
         </div>
         <div class="terminal-body" id="logTerminal">
           <p class="log-line info">[System] Log initialized. Ready for automation.</p>

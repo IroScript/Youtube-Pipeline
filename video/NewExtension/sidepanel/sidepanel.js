@@ -54,6 +54,7 @@ class SidePanelApp {
     // Logs
     this.logTerminal = document.getElementById('logTerminal');
     this.clearLogsBtn = document.getElementById('clearLogsBtn');
+    this.exportLogsBtn = document.getElementById('exportLogsBtn');
     this.openOptionsBtn = document.getElementById('openOptionsBtn');
   }
 
@@ -90,11 +91,49 @@ class SidePanelApp {
       this.logTerminal.innerHTML = '<p class="log-line info">[System] Log cleared.</p>';
     });
 
+    if (this.exportLogsBtn) {
+      this.exportLogsBtn.addEventListener('click', () => this.exportLogsToFile());
+    }
+
     this.openOptionsBtn.addEventListener('click', () => {
       if (chrome.runtime.openOptionsPage) {
         chrome.runtime.openOptionsPage();
       }
     });
+  }
+
+  exportLogsToFile() {
+    const lines = Array.from(this.logTerminal.querySelectorAll('.log-line'))
+      .map(el => el.textContent.trim());
+
+    if (lines.length === 0) {
+      alert('Execution log terminal is empty.');
+      return;
+    }
+
+    const logText = lines.join('\r\n');
+    const blob = new Blob([logText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    const now = new Date();
+    const timestamp = now.getFullYear().toString() +
+      String(now.getMonth() + 1).padStart(2, '0') +
+      String(now.getDate()).padStart(2, '0') + '_' +
+      String(now.getHours()).padStart(2, '0') +
+      String(now.getMinutes()).padStart(2, '0') +
+      String(now.getSeconds()).padStart(2, '0');
+
+    const filename = `FlowCraft_Execution_Log_${timestamp}.txt`;
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    this.appendLog('info', `📥 Execution log exported to ${filename}`);
   }
 
   updatePromptCount() {
