@@ -1,0 +1,312 @@
+/**
+ * FlowCraft AI Studio - SidePanel Controller
+ */
+import { ACTIONS, STORAGE_KEYS, DEFAULT_SETTINGS } from '../utils/constants.js';
+
+class SidePanelApp {
+  constructor() {
+    this.attachedImages = [];
+    this.initElements();
+    this.bindEvents();
+    this.loadSettings();
+    this.setupMessageListener();
+  }
+
+  initElements() {
+    // Navigation
+    this.navBtns = document.querySelectorAll('.nav-btn');
+    this.tabContents = document.querySelectorAll('.tab-content');
+
+    // Form Controls
+    this.promptInput = document.getElementById('promptInput');
+    this.promptCountLabel = document.getElementById('promptCountLabel');
+    this.modeSelect = document.getElementById('modeSelect');
+    this.aspectSelect = document.getElementById('aspectSelect');
+    this.outputCountSelect = document.getElementById('outputCountSelect');
+    this.modelSelect = document.getElementById('modelSelect');
+    this.concatToggle = document.getElementById('concatToggle');
+
+    // Image Uploads
+    this.addImagesBtn = document.getElementById('addImagesBtn');
+    this.imageFileInput = document.getElementById('imageFileInput');
+    this.imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+    // Downloads
+    this.downloadFolder = document.getElementById('downloadFolder');
+    this.filePrefix = document.getElementById('filePrefix');
+    this.qualitySelect = document.getElementById('qualitySelect');
+    this.autoRenameToggle = document.getElementById('autoRenameToggle');
+
+    // Execution Controls
+    this.startBatchBtn = document.getElementById('startBatchBtn');
+    this.activeTaskControls = document.getElementById('activeTaskControls');
+    this.pauseBatchBtn = document.getElementById('pauseBatchBtn');
+    this.cancelBatchBtn = document.getElementById('cancelBatchBtn');
+
+    // Status Card
+    this.statusCard = document.getElementById('statusCard');
+    this.statusBadge = document.getElementById('statusBadge');
+    this.statusStep = document.getElementById('statusStep');
+    this.progressBarFill = document.getElementById('progressBarFill');
+    this.promptProgressLabel = document.getElementById('promptProgressLabel');
+    this.percentLabel = document.getElementById('percentLabel');
+
+    // Logs
+    this.logTerminal = document.getElementById('logTerminal');
+    this.clearLogsBtn = document.getElementById('clearLogsBtn');
+    this.openOptionsBtn = document.getElementById('openOptionsBtn');
+  }
+
+  bindEvents() {
+    // Tab switching
+    this.navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        this.navBtns.forEach(b => b.classList.remove('active'));
+        this.tabContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // Prompt counting
+    this.promptInput.addEventListener('input', () => this.updatePromptCount());
+
+    // Image uploading
+    this.addImagesBtn.addEventListener('click', () => this.imageFileInput.click());
+    this.imageFileInput.addEventListener('change', (e) => this.handleImageSelect(e));
+
+    // Batch Actions
+    this.startBatchBtn.addEventListener('click', () => this.startBatchExecution());
+    this.pauseBatchBtn.addEventListener('click', () => this.pauseBatchExecution());
+    this.cancelBatchBtn.addEventListener('click', () => this.cancelBatchExecution());
+
+    // Settings auto-save
+    [this.downloadFolder, this.filePrefix, this.qualitySelect, this.autoRenameToggle].forEach(el => {
+      el.addEventListener('change', () => this.saveSettings());
+    });
+
+    this.clearLogsBtn.addEventListener('click', () => {
+      this.logTerminal.innerHTML = '<p class="log-line info">[System] Log cleared.</p>';
+    });
+
+    this.openOptionsBtn.addEventListener('click', () => {
+      if (chrome.runtime.openOptionsPage) {
+        chrome.runtime.openOptionsPage();
+      }
+    });
+  }
+
+  updatePromptCount() {
+    const lines = this.promptInput.value.split('\n').filter(l => l.trim().length > 0);
+    this.promptCountLabel.textContent = `${lines.length} Prompt${lines.length === 1 ? '' : 's'}`;
+  }
+
+  async handleImageSelect(event) {
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
+
+    for (const file of files) {
+      const base64 = await this.fileToBase64(file);
+      this.attachedImages.push({ name: file.name, base64 });
+    }
+
+    this.renderImagePreviews();
+  }
+
+  fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  renderImagePreviews() {
+    this.imagePreviewContainer.innerHTML = '';
+    if (!this.attachedImages.length) {
+      this.imagePreviewContainer.innerHTML = '<p class="placeholder-text">No image assets attached</p>';
+      return;
+    }
+
+    this.attachedImages.forEach((imgObj, idx) => {
+      const imgEl = document.createElement('img');
+      imgEl.src = imgObj.base64;
+      imgEl.className = 'preview-thumb';
+      imgEl.title = `${imgObj.name} (Click to remove)`;
+      imgEl.addEventListener('click', () => {
+        this.attachedImages.splice(idx, 1);
+        this.renderImagePreviews();
+      });
+      this.imagePreviewContainer.appendChild(imgEl);
+    });
+  }
+
+  async loadSettings() {
+    try {
+      const stored = await chrome.storage.local.get(STORAGE_KEYS.SETTINGS);
+      const cfg = stored[STORAGE_KEYS.SETTINGS] ?? DEFAULT_SETTINGS;
+
+      this.downloadFolder.value = cfg.downloadFolder ?? DEFAULT_SETTINGS.downloadFolder;
+      this.filePrefix.value = cfg.filePrefix ?? '';
+      this.qualitySelect.value = cfg.autoDownloadQuality ?? DEFAULT_SETTINGS.autoDownloadQuality;
+      this.autoRenameToggle.checked = cfg.autoChangeFileName ?? true;
+    } catch {}
+  }
+
+  async saveSettings() {
+    const cfg = {
+      downloadFolder: this.downloadFolder.value,
+      filePrefix: this.filePrefix.value,
+      autoDownloadQuality: this.qualitySelect.value,
+      autoChangeFileName: this.autoRenameToggle.checked
+    };
+
+    await chrome.storage.local.set({ [STORAGE_KEYS.SETTINGS]: cfg });
+  }
+
+  async getActiveGoogleLabsTab() {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    let targetTab = tabs.find(t => t.url?.includes('labs.google'));
+    if (!targetTab) {
+      const allTabs = await chrome.tabs.query({ url: ['*://labs.google/*'] });
+      targetTab = allTabs[0];
+    }
+    return targetTab;
+  }
+
+  async startBatchExecution() {
+    const rawPrompts = this.promptInput.value.split('\n').filter(l => l.trim().length > 0);
+    if (!rawPrompts.length) {
+      alert('Please enter at least one prompt in the queue.');
+      return;
+    }
+
+    const tab = await this.getActiveGoogleLabsTab();
+    if (!tab || !tab.id) {
+      alert('Please navigate to Google Labs (labs.google) before starting automation.');
+      return;
+    }
+
+    const groupData = {
+      id: `group_${Date.now()}`,
+      payloads: rawPrompts.map((promptText, idx) => ({
+        promptIndex: idx + 1,
+        prompt: promptText,
+        mode: this.modeSelect.value,
+        aspectRatio: this.aspectSelect.value,
+        outputCount: parseInt(this.outputCountSelect.value, 10),
+        model: this.modelSelect.value,
+        isConcat: this.concatToggle.checked,
+        images: [...this.attachedImages],
+        folderName: this.downloadFolder.value,
+        filePrefix: this.filePrefix.value,
+        autoDownloadResourceQuality: this.qualitySelect.value,
+        autoChangeFileName: this.autoRenameToggle.checked
+      }))
+    };
+
+    this.startBatchBtn.classList.add('hidden');
+    this.activeTaskControls.classList.remove('hidden');
+    this.statusCard.classList.remove('hidden');
+
+    let resp;
+    try {
+      resp = await chrome.tabs.sendMessage(tab.id, {
+        type: 'START_BATCH_RUN',
+        groupData
+      });
+    } catch {
+      // Auto-inject content script if receiving end does not exist yet
+      try {
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ['content/content-loader.js']
+        });
+        await new Promise(r => setTimeout(r, 500));
+        resp = await chrome.tabs.sendMessage(tab.id, {
+          type: 'START_BATCH_RUN',
+          groupData
+        });
+      } catch (injectErr) {
+        this.appendLog('error', `Tab communication failed: Please refresh the Google Labs tab (${tab.url})`);
+        alert('Could not connect to Google Labs page. Please reload/refresh the Google Labs browser tab and try again.');
+        this.resetExecutionUI();
+        return;
+      }
+    }
+
+    if (!resp?.success) {
+      this.appendLog('error', `Failed to launch batch: ${resp?.error ?? 'Unknown error'}`);
+      this.resetExecutionUI();
+    } else {
+      this.appendLog('info', `🚀 Batch run launched with ${rawPrompts.length} prompt(s).`);
+    }
+  }
+
+  async pauseBatchExecution() {
+    const tab = await this.getActiveGoogleLabsTab();
+    if (tab?.id) {
+      const isPausing = this.pauseBatchBtn.textContent === 'Pause';
+      const actionType = isPausing ? 'PAUSE_BATCH_RUN' : 'RESUME_BATCH_RUN';
+      await chrome.tabs.sendMessage(tab.id, { type: actionType });
+      this.pauseBatchBtn.textContent = isPausing ? 'Resume' : 'Pause';
+    }
+  }
+
+  async cancelBatchExecution() {
+    const tab = await this.getActiveGoogleLabsTab();
+    if (tab?.id) {
+      await chrome.tabs.sendMessage(tab.id, { type: 'CANCEL_BATCH_RUN' });
+      this.resetExecutionUI();
+    }
+  }
+
+  resetExecutionUI() {
+    this.startBatchBtn.classList.remove('hidden');
+    this.activeTaskControls.classList.add('hidden');
+    this.pauseBatchBtn.textContent = 'Pause';
+  }
+
+  setupMessageListener() {
+    chrome.runtime.onMessage.addListener((message) => {
+      if (message.type === ACTIONS.PROGRESS_UPDATE && message.data) {
+        const d = message.data;
+        this.statusStep.textContent = d.status ? d.status.toUpperCase() : 'PROCESSING';
+        this.progressBarFill.style.width = `${d.percentage ?? 0}%`;
+        this.percentLabel.textContent = `${d.percentage ?? 0}%`;
+        if (d.promptIndex) {
+          this.promptProgressLabel.textContent = `Prompt #${d.promptIndex}`;
+        }
+      }
+
+      if (message.type === ACTIONS.BATCH_STATUS && message.data) {
+        const st = message.data;
+        this.statusBadge.textContent = (st.status || 'RUNNING').toUpperCase();
+        this.promptProgressLabel.textContent = `${st.completedCount} / ${st.totalCount} Done`;
+
+        if (st.status === 'completed' || st.status === 'cancelled') {
+          this.resetExecutionUI();
+        }
+      }
+
+      if (message.type === ACTIONS.ACTION_LOG && message.data) {
+        this.appendLog(message.data.level, message.data.message);
+      }
+    });
+  }
+
+  appendLog(level, text) {
+    const p = document.createElement('p');
+    p.className = `log-line ${level}`;
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    p.textContent = `[${timeStr}] ${text}`;
+    this.logTerminal.appendChild(p);
+    this.logTerminal.scrollTop = this.logTerminal.scrollHeight;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new SidePanelApp();
+});

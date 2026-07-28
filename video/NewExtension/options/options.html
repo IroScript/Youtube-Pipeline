@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowCraft AI Studio - Extension Options</title>
+  <link rel="stylesheet" href="options.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="options-container">
+    <header class="header">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#818CF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h1>FlowCraft Studio Settings</h1>
+          <p>Global automation preferences and dynamic DOM selector configuration</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-grid">
+      <!-- Section 1: Default Task Parameters -->
+      <section class="card">
+        <h2>Automation Defaults</h2>
+
+        <div class="form-group">
+          <label for="optFolder">Default Download Directory</label>
+          <input type="text" id="optFolder" placeholder="FlowCraft_Outputs">
+        </div>
+
+        <div class="form-group">
+          <label for="optPrefix">Default Filename Prefix</label>
+          <input type="text" id="optPrefix" placeholder="prefix_">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="optDelayMin">Min Delay Between Prompts (seconds)</label>
+            <input type="number" id="optDelayMin" min="1" max="60" value="5">
+          </div>
+
+          <div class="form-group">
+            <label for="optDelayMax">Max Delay Between Prompts (seconds)</label>
+            <input type="number" id="optDelayMax" min="1" max="120" value="10">
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Dynamic Selector Store Settings -->
+      <section class="card">
+        <h2>Selector Config API</h2>
+        <p class="description">Configure an optional remote JSON endpoint to automatically update Google Labs DOM selectors when Google modifies their web app interface.</p>
+
+        <div class="form-group">
+          <label for="optRemoteConfig">Remote Selector Endpoint URL</label>
+          <input type="text" id="optRemoteConfig" placeholder="https://your-domain.com/selectors.json">
+        </div>
+
+        <div class="btn-row">
+          <button id="clearCacheBtn" class="btn-secondary">Clear Selector Cache</button>
+        </div>
+      </section>
+
+      <!-- Save Actions -->
+      <div class="actions-row">
+        <button id="saveBtn" class="btn-primary">Save Settings</button>
+        <span id="saveStatus" class="save-status hidden">Settings saved!</span>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

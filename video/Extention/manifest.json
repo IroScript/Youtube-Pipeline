@@ -1,0 +1,70 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+    "manifest_version":  3,
+    "name":  "Free VEO Automation - Bulk VEO 3 & Nano Banana Google Flow",
+    "short_name":  "Veo Automation",
+    "description":  "Free bulk VEO 3 \u0026 Nano Banana automation on Google Flow. Batch generate videos \u0026 images, auto-download 4K, queue prompts at scale.",
+    "version":  "1.0.9",
+    "homepage_url":  "https://veoautomation.com/",
+    "action":  {
+                   "default_title":  "Veo Automation",
+                   "default_icon":  {
+                                        "16":  "icons/icon16.png",
+                                        "32":  "icons/icon32.png",
+                                        "48":  "icons/icon48.png",
+                                        "128":  "icons/icon128.png"
+                                    }
+               },
+    "background":  {
+                       "service_worker":  "service-worker-loader.js",
+                       "type":  "module"
+                   },
+    "content_scripts":  [
+                            {
+                                "js":  [
+                                           "assets/content.js"
+                                       ],
+                                "all_frames":  false,
+                                "matches":  [
+                                                "*://labs.google/*"
+                                            ],
+                                "run_at":  "document_end"
+                            }
+                        ],
+    "side_panel":  {
+                       "default_path":  "src/sidepanel/index.html"
+                   },
+    "offline_enabled":  true,
+    "host_permissions":  [
+                             "*://labs.google/*"
+                         ],
+    "permissions":  [
+                        "storage",
+                        "unlimitedStorage",
+                        "tabs",
+                        "sidePanel",
+                        "activeTab",
+                        "downloads",
+                        "scripting",
+                        "debugger",
+                        "windows"
+                    ],
+    "web_accessible_resources":  [
+                                     {
+                                         "matches":  [
+                                                         "*://labs.google/*"
+                                                     ],
+                                         "resources":  [
+                                                           "assets/content.js"
+                                                       ],
+                                         "use_dynamic_url":  false
+                                     }
+                                 ],
+    "icons":  {
+                  "16":  "icons/icon16.png",
+                  "32":  "icons/icon32.png",
+                  "48":  "icons/icon48.png",
+                  "128":  "icons/icon128.png"
+              }
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowCraft AI Studio</title>
+  <link rel="stylesheet" href="sidepanel.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="paint0_linear" x1="2" y1="2" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#818CF8"/>
+                <stop offset="1" stop-color="#C084FC"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear" x1="2" y1="17" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366F1"/>
+                <stop offset="1" stop-color="#A855F7"/>
+              </linearGradient>
+              <linearGradient id="paint2_linear" x1="2" y1="12" x2="22" y2="17" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#4F46E5"/>
+                <stop offset="1" stop-color="#9333EA"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>FlowCraft <span class="badge-v3">AI</span></h1>
+          <p>Google Flow Bulk Studio</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="openOptionsBtn" title="Extension Settings" class="btn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-btn active" data-tab="tab-generator">Batch Generator</button>
+      <button class="nav-btn" data-tab="tab-downloads">Downloads</button>
+      <button class="nav-btn" data-tab="tab-logs">Console Log</button>
+    </nav>
+
+    <!-- Tab 1: Batch Generator -->
+    <main class="tab-content active" id="tab-generator">
+      <!-- Prompt List Input -->
+      <section class="card">
+        <div class="card-header">
+          <label for="promptInput">Prompt Queue (Line-by-Line)</label>
+          <span class="prompt-count" id="promptCountLabel">0 Prompts</span>
+        </div>
+        <textarea id="promptInput" placeholder="Enter one prompt per line...&#10;A cinematic futuristic city in sunset 8k&#10;Neon cybernetic warrior running down a rainy alleyway" rows="5"></textarea>
+      </section>
+
+      <!-- Generation Configuration Card -->
+      <section class="card">
+        <h2 class="card-title">Generation Settings</h2>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="modeSelect">Generation Mode</label>
+            <select id="modeSelect">
+              <option value="textToVideo">Text to Video</option>
+              <option value="imageToVideo">Image to Video</option>
+              <option value="componentsToVideo">Ingredients to Video</option>
+              <option value="textToImage">Text to Image</option>
+              <option value="imageToImage">Image to Image</option>
+              <option value="agent">Agent Mode</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="aspectSelect">Aspect Ratio</label>
+            <select id="aspectSelect">
+              <option value="16:9">16:9 Landscape</option>
+              <option value="9:16">9:16 Portrait</option>
+              <option value="1:1">1:1 Square</option>
+              <option value="4:3">4:3 Standard</option>
+              <option value="21:9">21:9 Ultrawide</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="outputCountSelect">Outputs per Prompt</label>
+            <select id="outputCountSelect">
+              <option value="1">1 Tile (1x)</option>
+              <option value="2">2 Tiles (x2)</option>
+              <option value="4" selected>4 Tiles (x4)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="modelSelect">AI Model</label>
+            <select id="modelSelect">
+              <option value="Veo 3.1">Veo 3.1</option>
+              <option value="Veo 3.1 (Lower Priority)">Veo 3.1 (Lower Priority)</option>
+              <option value="Veo 3.1 Fast">Veo 3.1 Fast</option>
+              <option value="VEO 3">VEO 3 (High Quality)</option>
+              <option value="Nano Banana">Nano Banana (Fast)</option>
+              <option value="Omni Flash">Omni Flash</option>
+              <option value="Imagen 3.1">Imagen 3.1</option>
+              <option value="Imagen 3">Imagen 3</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Chaining Toggle -->
+        <div class="toggle-row">
+          <label for="concatToggle" class="toggle-label">
+            <input type="checkbox" id="concatToggle">
+            <span class="toggle-custom"></span>
+            <span class="toggle-text">Video Chainer (Use last video frame as start of next prompt)</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Image Attachments Section -->
+      <section class="card">
+        <div class="card-header">
+          <label>Input Reference Images</label>
+          <button id="addImagesBtn" class="btn-sm">+ Upload Images</button>
+        </div>
+        <input type="file" id="imageFileInput" accept="image/*" multiple hidden>
+        <div id="imagePreviewContainer" class="image-preview-grid">
+          <p class="placeholder-text">No image assets attached</p>
+        </div>
+      </section>
+
+      <!-- Execution Action Controls -->
+      <section class="action-bar">
+        <button id="startBatchBtn" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Batch Generation
+        </button>
+        <div class="btn-group hidden" id="activeTaskControls">
+          <button id="pauseBatchBtn" class="btn-secondary">Pause</button>
+          <button id="cancelBatchBtn" class="btn-danger">Cancel</button>
+        </div>
+      </section>
+
+      <!-- Live Status Card -->
+      <section class="card status-card hidden" id="statusCard">
+        <div class="status-header">
+          <span class="status-badge" id="statusBadge">RUNNING</span>
+          <span class="status-step" id="statusStep">Initializing...</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+        </div>
+        <div class="status-footer">
+          <span id="promptProgressLabel">0 / 0 Prompts</span>
+          <span id="percentLabel">0%</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Tab 2: Downloads Configuration -->
+    <div class="tab-content" id="tab-downloads">
+      <section class="card">
+        <h2 class="card-title">Download Routing</h2>
+        
+        <div class="form-group">
+          <label for="downloadFolder">Subfolder Name</label>
+          <input type="text" id="downloadFolder" value="FlowCraft_Outputs" placeholder="e.g., FlowCraft_Outputs">
+        </div>
+
+        <div class="form-group">
+          <label for="filePrefix">Filename Prefix</label>
+          <input type="text" id="filePrefix" placeholder="e.g., project1_">
+        </div>
+
+        <div class="form-group">
+          <label for="qualitySelect">Resolution Quality</label>
+          <select id="qualitySelect">
+            <option value="1080p">1080p / 1K (Recommended)</option>
+            <option value="4k">4K Ultra HD</option>
+            <option value="2k">2K Quad HD</option>
+            <option value="720p">720p HD</option>
+            <option value="gif">Animated GIF</option>
+            <option value="no-download">Do Not Download (Render Only)</option>
+          </select>
+        </div>
+
+        <div class="toggle-row">
+          <label for="autoRenameToggle" class="toggle-label">
+            <input type="checkbox" id="autoRenameToggle" checked>
+            <span class="toggle-custom"></span>
+            <span class="toggle-text">Auto-name files with prompt title & index</span>
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <!-- Tab 3: Console Log -->
+    <div class="tab-content" id="tab-logs">
+      <section class="card terminal-card">
+        <div class="terminal-header">
+          <span>Execution Log</span>
+          <button id="clearLogsBtn" class="btn-xs">Clear</button>
+        </div>
+        <div class="terminal-body" id="logTerminal">
+          <p class="log-line info">[System] Log initialized. Ready for automation.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>
