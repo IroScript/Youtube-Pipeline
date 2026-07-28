@@ -24,6 +24,7 @@ class SidePanelApp {
     this.aspectSelect = document.getElementById('aspectSelect');
     this.outputCountSelect = document.getElementById('outputCountSelect');
     this.modelSelect = document.getElementById('modelSelect');
+    this.durationSelect = document.getElementById('durationSelect');
     this.concatToggle = document.getElementById('concatToggle');
 
     // Image Uploads
@@ -237,6 +238,7 @@ class SidePanelApp {
         aspectRatio: this.aspectSelect.value,
         outputCount: parseInt(this.outputCountSelect.value, 10),
         model: this.modelSelect.value,
+        duration: this.durationSelect?.value || 'auto',
         isConcat: this.concatToggle.checked,
         images: [...this.attachedImages],
         folderName: this.downloadFolder.value,

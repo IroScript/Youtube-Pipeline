@@ -1,6 +1,6 @@
 /**
  * FlowCraft Execution Engine - Master automation pipeline for Google Labs / Google Flow
- * Configured with human pacing delays, robust model selection, strict submit verification, output count selection, and scoped reference chip clearing.
+ * Configured with human pacing delays, robust model selection, strict submit verification, output count, video duration, and scoped reference chip clearing.
  */
 import { DOMQueryEngine } from './dom-query.js';
 import { MediaUploader } from './media-uploader.js';
@@ -193,6 +193,44 @@ export class ExecutionEngine {
   }
 
   /**
+   * Configures Video Duration (e.g. 4s, 6s, 8s, 10s) based on user preference
+   */
+  static async configureVideoDuration(durationSec, selectors) {
+    if (!durationSec || durationSec === 'auto') return true;
+    const durNum = parseInt(durationSec, 10);
+    if (![4, 6, 8, 10].includes(durNum)) return true;
+
+    Logger.info(`⚙️ Configuring Video Duration to: ${durNum}s...`);
+
+    const configPanel = DOMQueryEngine.queryFirst('div[data-state="open"], [role="dialog"]') || document;
+    const durButtons = Array.from(configPanel.querySelectorAll('button, .flow_tab_slider_trigger, [role="tab"], [role="option"]'))
+      .filter(b => DOMQueryEngine.isVisible(b));
+
+    const targetLabel = `${durNum}s`;
+    let matchedDurBtn = durButtons.find(b => {
+      const txt = (b.textContent ?? '').trim().toLowerCase();
+      return txt === targetLabel || txt === `${durNum} sec` || txt === `${durNum}s`;
+    });
+
+    if (!matchedDurBtn) {
+      matchedDurBtn = durButtons.find(b => {
+        const txt = (b.textContent ?? '').trim().toLowerCase();
+        return txt.includes(targetLabel) || txt.includes(`${durNum}s`);
+      });
+    }
+
+    if (matchedDurBtn) {
+      await DOMQueryEngine.simulateClickElement(matchedDurBtn, `Duration ${durNum}s`);
+      Logger.info(`✅ Video Duration successfully set to: "${matchedDurBtn.textContent?.trim()}"`);
+      await new Promise(r => setTimeout(r, 600));
+      return true;
+    } else {
+      Logger.warn(`Duration option button for ${durNum}s not found in config panel.`);
+      return false;
+    }
+  }
+
+  /**
    * Clears ONLY attached reference image chips strictly inside the prompt composer input box
    */
   static async clearAllReferenceImages(selectors) {
@@ -330,6 +368,9 @@ export class ExecutionEngine {
       } else {
         Logger.warn(`Output count button for ${qty}x not found in config panel.`);
       }
+
+      // Video Duration configuration (4s, 6s, 8s, 10s)
+      await this.configureVideoDuration(item.duration, sel);
 
       // Model Selection with explicit Lower Priority support
       await this.configureModelSelection(item.model, sel);
@@ -721,7 +762,7 @@ export class ExecutionEngine {
 
       if (isCancelled()) return { success: false, cancelled: true, steps };
 
-      // Step 2: Settings configuration with slow delays, output count matching, and reference image clearing
+      // Step 2: Settings configuration with slow delays, output count, video duration, and reference image clearing
       steps[1].status = 'running';
       if (item.mode.includes('ToVideo')) {
         await this.configureVideoSettings(item, isCancelled, isPaused, selectors);
