@@ -138,8 +138,16 @@ class SidePanelApp {
   }
 
   updatePromptCount() {
-    const lines = this.promptInput.value.split('\n').filter(l => l.trim().length > 0);
-    this.promptCountLabel.textContent = `${lines.length} Prompt${lines.length === 1 ? '' : 's'}`;
+    let count = 0;
+    try {
+      const parsedJson = JSON.parse(this.promptInput.value);
+      const scenes = parsedJson.scenes || (Array.isArray(parsedJson) ? parsedJson : []);
+      count = scenes.length;
+    } catch (e) {
+      const lines = this.promptInput.value.split('\n').filter(l => l.trim().length > 0);
+      count = lines.length;
+    }
+    this.promptCountLabel.textContent = `${count} Prompt${count === 1 ? '' : 's'}`;
   }
 
   async handleImageSelect(event) {
@@ -217,9 +225,63 @@ class SidePanelApp {
   }
 
   async startBatchExecution() {
-    const rawPrompts = this.promptInput.value.split('\n').filter(l => l.trim().length > 0);
-    if (!rawPrompts.length) {
-      alert('Please enter at least one prompt in the queue.');
+    let payloads = [];
+    
+    // First, try parsing the input as JSON (Veo Auto-Prompts)
+    try {
+      const parsedJson = JSON.parse(this.promptInput.value);
+      const scenes = parsedJson.scenes || (Array.isArray(parsedJson) ? parsedJson : []);
+      
+      if (scenes.length > 0) {
+        payloads = scenes.map((scene, idx) => {
+          // Extract specific scene parameters from the JSON if available
+          const promptContent = scene.full_combined_prompt || scene.prompt || JSON.stringify(scene);
+          // If the JSON provides a specific duration (e.g. 4 or 6), use it. Otherwise fallback to UI.
+          const dur = scene.veo_target_duration ? String(scene.veo_target_duration) : (this.durationSelect?.value || 'auto');
+          const aspect = scene.aspect_ratio || this.aspectSelect.value;
+          
+          return {
+            promptIndex: scene.scene_number || (idx + 1),
+            prompt: promptContent,
+            mode: this.modeSelect.value,
+            aspectRatio: aspect,
+            outputCount: parseInt(this.outputCountSelect.value, 10),
+            model: this.modelSelect.value,
+            duration: dur,
+            isConcat: this.concatToggle.checked,
+            images: [...this.attachedImages],
+            folderName: this.downloadFolder.value,
+            filePrefix: this.filePrefix.value,
+            autoDownloadResourceQuality: this.qualitySelect.value,
+            autoChangeFileName: this.autoRenameToggle.checked
+          };
+        });
+      }
+    } catch (e) {
+      // Not JSON, fallback to standard line-by-line text parsing
+      const rawPrompts = this.promptInput.value.split('\n').filter(l => l.trim().length > 0);
+      
+      if (rawPrompts.length > 0) {
+        payloads = rawPrompts.map((promptText, idx) => ({
+          promptIndex: idx + 1,
+          prompt: promptText,
+          mode: this.modeSelect.value,
+          aspectRatio: this.aspectSelect.value,
+          outputCount: parseInt(this.outputCountSelect.value, 10),
+          model: this.modelSelect.value,
+          duration: this.durationSelect?.value || 'auto',
+          isConcat: this.concatToggle.checked,
+          images: [...this.attachedImages],
+          folderName: this.downloadFolder.value,
+          filePrefix: this.filePrefix.value,
+          autoDownloadResourceQuality: this.qualitySelect.value,
+          autoChangeFileName: this.autoRenameToggle.checked
+        }));
+      }
+    }
+
+    if (!payloads || payloads.length === 0) {
+      alert('Please enter at least one prompt (or valid JSON) in the queue.');
       return;
     }
 
@@ -231,21 +293,7 @@ class SidePanelApp {
 
     const groupData = {
       id: `group_${Date.now()}`,
-      payloads: rawPrompts.map((promptText, idx) => ({
-        promptIndex: idx + 1,
-        prompt: promptText,
-        mode: this.modeSelect.value,
-        aspectRatio: this.aspectSelect.value,
-        outputCount: parseInt(this.outputCountSelect.value, 10),
-        model: this.modelSelect.value,
-        duration: this.durationSelect?.value || 'auto',
-        isConcat: this.concatToggle.checked,
-        images: [...this.attachedImages],
-        folderName: this.downloadFolder.value,
-        filePrefix: this.filePrefix.value,
-        autoDownloadResourceQuality: this.qualitySelect.value,
-        autoChangeFileName: this.autoRenameToggle.checked
-      }))
+      payloads: payloads
     };
 
     this.startBatchBtn.classList.add('hidden');
