@@ -21,20 +21,28 @@ export class MediaUploader {
       const uploadButtonSel = sel.addFrameButton || sel.addImageButton;
       await DOMQueryEngine.simulateClick(uploadButtonSel, `Upload button (image ${index + 1})`);
 
-      // Sort by latest uploads
-      await DOMQueryEngine.simulateClick(sel.sortOptionsButton, 'Sort options menu');
-      await DOMQueryEngine.simulateClick(sel.sortLatestOption, 'Sort latest option');
+      try {
+        // Sort by latest uploads
+        await DOMQueryEngine.simulateClick(sel.sortOptionsButton, 'Sort options menu');
+        await DOMQueryEngine.simulateClick(sel.sortLatestOption, 'Sort latest option');
+      } catch (e) {
+        Logger.warn('Sort UI not found, skipping sort step.', e);
+      }
 
       const fileName = imageObj?.name ?? '';
       if (await checkState()) return false;
 
-      // Filter by image search name if available
-      await DOMQueryEngine.simulateClick(sel.searchUploadedImage, 'Image search input');
-      const searchInput = DOMQueryEngine.queryFirst(sel.searchUploadedImage);
-      if (searchInput) {
-        searchInput.value = fileName;
-        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-        await new Promise(r => setTimeout(r, 500));
+      try {
+        // Filter by image search name if available
+        await DOMQueryEngine.simulateClick(sel.searchUploadedImage, 'Image search input');
+        const searchInput = DOMQueryEngine.queryFirst(sel.searchUploadedImage);
+        if (searchInput) {
+          searchInput.value = fileName;
+          searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+          await new Promise(r => setTimeout(r, 500));
+        }
+      } catch (e) {
+        Logger.warn('Search UI not found, skipping search step.', e);
       }
 
       // Check if image already exists in uploaded asset list

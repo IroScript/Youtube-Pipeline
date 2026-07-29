@@ -7,8 +7,17 @@ import base64
 from groq import Groq
 from IPython.display import display, HTML
 
-# 🔴 Groq API Key
-GROQ_API_KEY = "YOUR_GROQ_API_KEY"
+# 🔴 Groq API Key - Loaded from an external file (Do not hardcode!)
+api_key_path = "/kaggle/working/groq_api_key.txt" 
+# (You can also change this path to your Kaggle Input dataset path if needed)
+
+try:
+    with open(api_key_path, "r", encoding="utf-8") as f:
+        GROQ_API_KEY = f.read().strip()
+except FileNotFoundError:
+    print(f"❌ Error: API key file not found at {api_key_path}.")
+    print("Please create this file and paste your API key inside it, or update the path.")
+    raise
 
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -26,30 +35,38 @@ else:
     with open(latest_txt, "r", encoding="utf-8") as f:
         transcript_data = f.read()
 
+    # 🔴 Character Gender Identity (Change to Female if needed)
+    CHARACTER_GENDER = "Male"
+
     system_prompt = """You are an expert AI Video Director creating prompts for Veo 3.1.
-You will receive an audio transcript with timestamps. Group consecutive lines into logical Scenes.
+You will receive an audio transcript with word-by-word timestamps. Your job is to group consecutive words into logical Scenes, and map out EXACTLY when actions should occur to sync perfectly with the spoken words.
 
 CRITICAL RULES:
-1. Target Durations allowed: ONLY 4 or 6 seconds. DO NOT use 8 or 10.
-2. Veo duration must be at least 0.5s longer than the scene's audio duration.
-3. Break long scenes down to fit the 4s or 6s limit.
+1. Target Durations allowed: ONLY 4, 6, or 8 seconds. DO NOT use any other duration.
+2. Minimum Scene Duration & Granularity: Each generated scene must have a total audio duration of at least 3 seconds (so it fits Veo's 4s limit). HOWEVER, inside the 'full_combined_prompt', you MUST still break down this 4s slot into granular sub-second timeline actions matching the exact words (e.g. 0.0-0.5s, 0.5-1.2s, etc). Do not skip the micro-timing!
+3. Veo duration must be at least 0.5s longer than the scene's audio duration.
 4. Output strict JSON with a single root key "scenes" containing an array of objects.
+5. TIMELINE PROMPTING (CRITICAL): Veo is not a strict timeline engine, but writing timeline ranges in the prompt vastly improves audio-video sync. Inside the "full_combined_prompt", you MUST use timestamp-based descriptive timelines (e.g. "0.0-1.2s: [action]. 1.2-3.0s: [action]"). Synchronize these visual descriptions directly with the exact word timestamps you receive.
+6. CHARACTER IDENTITY: The main character voice is """ + CHARACTER_GENDER + """. Ensure all prompts describe the main character consistently as a """ + CHARACTER_GENDER + """.
 
 JSON Structure for each object:
 {
   "scene_number": 1,
+  "start_time_seconds": 0.0,
+  "end_time_seconds": 3.44,
   "audio_duration_seconds": 3.44,
   "veo_target_duration": 4,
   "aspect_ratio": "9:16",
   "priority": "lower",
   "openmontage_prompt": {
-      "subject": "Detailed description of character action and expression",
+      "subject": "Detailed character action/expression mapped to the audio emotion",
       "environment": "Background and setting details",
-      "camera": "Specific camera movement (e.g. Slow push-in, Pan right)",
-      "lighting": "Cinematic lighting and atmosphere",
-      "consistency_notes": "Notes to keep character/style consistent with previous scenes"
+      "camera": "Specific camera movement",
+      "lighting": "Cinematic lighting",
+      "consistency_notes": "Notes to keep character consistent"
   },
-  "full_combined_prompt": "Combine the 5 openmontage layers into one fluid, highly detailed cinematic paragraph."
+  "final_movement_direction": "Overall continuous camera motion for the entire scene (e.g., Constant slow push-in while tilting up)",
+  "full_combined_prompt": "0.0-1.5s: A vast abandoned city under a blood-red sky. 1.5-2.8s: Dinosaurs emerge from the mist, their heavy footsteps echoing. 2.8-4.0s: Humanity watches from a hovering ship. OVERALL MOTION: Constant slow push-in while tilting up."
 }
 """
 
