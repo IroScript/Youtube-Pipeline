@@ -1,0 +1,43 @@
+# 🎙️ Step 6: Transcribe with Whisper Large-v3 and Generate Timestamps
+!pip install -q faster-whisper
+
+import os, time
+from faster_whisper import WhisperModel
+import glob
+
+print("⏳ Loading Whisper large-v3 model...")
+# Run on GPU with FP16
+model_size = "large-v3"
+model = WhisperModel(model_size, device="cuda", compute_type="float16")
+
+# Find the latest generated audio
+audio_dir = "/kaggle/working/outputs/v10_combine/"
+wav_files = glob.glob(os.path.join(audio_dir, "*.wav"))
+if not wav_files:
+    print("❌ No audio files found in", audio_dir)
+else:
+    # Sort by modification time to get the latest
+    latest_audio = max(wav_files, key=os.path.getctime)
+    print(f"✅ Found audio: {latest_audio}")
+    print("⏳ Transcribing... Please wait.")
+    
+    t0 = time.time()
+    segments, info = model.transcribe(latest_audio, beam_size=5)
+    
+    print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+    
+    # Save transcription with timestamps
+    transcription_text = ""
+    for segment in segments:
+        line = "[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text)
+        print(line)
+        transcription_text += line + "\n"
+        
+    print(f"✅ Transcription finished in {time.time()-t0:.1f}s")
+    
+    # Write to text file
+    txt_path = latest_audio.replace(".wav", "_transcription.txt")
+    with open(txt_path, "w", encoding="utf-8") as f:
+        f.write(transcription_text)
+    
+    print(f"📁 Transcription saved to: {txt_path}")

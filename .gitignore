@@ -58,3 +58,7 @@ kaggle video/test_push/
 
 # Allow Git tracking of empty folder structures via .gitkeep
 !.gitkeep
+
+# Ignore API Keys
+*API*Key*.txt
+*API*KEY*.txt

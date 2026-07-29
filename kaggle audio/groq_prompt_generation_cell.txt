@@ -1,0 +1,116 @@
+# 🎬 Step 7: Auto-generate Veo 3.1 JSON Prompts using Groq API
+!pip install -q groq
+
+import os
+import json
+import base64
+from groq import Groq
+from IPython.display import display, HTML
+
+# 🔴 Groq API Key
+GROQ_API_KEY = "YOUR_GROQ_API_KEY"
+
+client = Groq(api_key=GROQ_API_KEY)
+
+# Find the latest transcription text file
+import glob
+audio_dir = "/kaggle/working/outputs/v10_combine/"
+txt_files = glob.glob(os.path.join(audio_dir, "*_transcription.txt"))
+
+if not txt_files:
+    print("❌ No transcription files found in", audio_dir)
+else:
+    latest_txt = max(txt_files, key=os.path.getctime)
+    print(f"✅ Found transcript: {latest_txt}")
+    
+    with open(latest_txt, "r", encoding="utf-8") as f:
+        transcript_data = f.read()
+
+    system_prompt = """You are an expert AI Video Director creating prompts for Veo 3.1.
+You will receive an audio transcript with timestamps. Group consecutive lines into logical Scenes.
+
+CRITICAL RULES:
+1. Target Durations allowed: ONLY 4 or 6 seconds. DO NOT use 8 or 10.
+2. Veo duration must be at least 0.5s longer than the scene's audio duration.
+3. Break long scenes down to fit the 4s or 6s limit.
+4. Output strict JSON with a single root key "scenes" containing an array of objects.
+
+JSON Structure for each object:
+{
+  "scene_number": 1,
+  "audio_duration_seconds": 3.44,
+  "veo_target_duration": 4,
+  "aspect_ratio": "9:16",
+  "priority": "lower",
+  "openmontage_prompt": {
+      "subject": "Detailed description of character action and expression",
+      "environment": "Background and setting details",
+      "camera": "Specific camera movement (e.g. Slow push-in, Pan right)",
+      "lighting": "Cinematic lighting and atmosphere",
+      "consistency_notes": "Notes to keep character/style consistent with previous scenes"
+  },
+  "full_combined_prompt": "Combine the 5 openmontage layers into one fluid, highly detailed cinematic paragraph."
+}
+"""
+
+    print("⏳ Sending request to Groq API... (Trying openai/gpt-oss-120b first)")
+    json_output = ""
+    
+    # Try the big model first
+    try:
+        completion = client.chat.completions.create(
+            model="openai/gpt-oss-120b",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"Transcript:\n{transcript_data}"}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.3,
+            max_tokens=4000
+        )
+        json_output = completion.choices[0].message.content
+        print("✅ Success with openai/gpt-oss-120b!")
+    except Exception as e:
+        print(f"⚠️ Failed with openai/gpt-oss-120b ({e}). Falling back to llama-3.3-70b-versatile...")
+        # Fallback to Llama 3.3
+        completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"Transcript:\n{transcript_data}"}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.3,
+            max_tokens=4000
+        )
+        json_output = completion.choices[0].message.content
+        print("✅ Success with llama-3.3-70b-versatile!")
+
+    if json_output:
+        # Save to JSON file
+        json_path = latest_txt.replace("_transcription.txt", "_veo_prompts.json")
+        with open(json_path, "w", encoding="utf-8") as f:
+            f.write(json_output)
+        
+        print(f"📁 JSON saved to: {json_path}")
+        
+        # ⬇️ Auto-Download Script ⬇️
+        with open(json_path, "rb") as f:
+            b64 = base64.b64encode(f.read()).decode()
+        
+        filename = os.path.basename(json_path)
+        html = f'''
+        <a download="{filename}" id="download-json" href="data:application/json;base64,{b64}" target="_blank">
+            <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                ⬇️ Download Veo Prompts JSON
+            </button>
+        </a>
+        <script>
+            document.getElementById('download-json').click();
+        </script>
+        '''
+        display(HTML(html))
+        print("✅ Auto-download triggered!")
+    else:
+        print("❌ Error: Could not generate JSON output.")
+
