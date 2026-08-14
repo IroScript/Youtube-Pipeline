@@ -1,0 +1,13 @@
+{
+  "scenes": [
+    {
+      "scene_number": 1,
+      "title": "Alien Technology - Secondary Prototype",
+      "full_combined_prompt": "0.0-2.5s: Extreme close-up of Alien Technology - Secondary Prototype starting its intricate mechanism, glowing cyan plasma rings rotating in mid-air. 2.5-5.5s: Camera smoothly pans wide revealing the full impossible mechanical architecture of Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns. defying gravity. 5.5-8.0s: Slow motion macro shot of energy pulsing through polished brass cogs and glass conduits, hyper-detailed cinematic lighting, 8k resolution.",
+      "moderate_full_combined_prompt": null,
+      "soft_full_combined_prompt": null,
+      "veo_target_duration": 8,
+      "aspect_ratio": "9:16"
+    }
+  ]
+}

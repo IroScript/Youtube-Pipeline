@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alzig Flow Pro - Complete Tutorial</title>
+    <link rel="stylesheet" href="popup.css">
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .tutorial-header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 30px;
+        }
+
+        .tutorial-header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .tutorial-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .toc {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+        }
+
+        .toc a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            margin: 20px 0 10px 0;
+        }
+
+        .section p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .section ul,
+        .section ol {
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(20, 184, 166, 0.05) 100%);
+            border: 1px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .tip-box strong {
+            color: var(--color-primary);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid #F59E0B;
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning-box strong {
+            color: #F59E0B;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .feature-item {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+        }
+
+        .feature-item h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        code {
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .keyboard-shortcut {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-light);
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="tutorial-header">
+        <h1>Alzig Flow Pro</h1>
+        <p>Complete Tutorial - Bulk Video Automation for Google Flow</p>
+        <p><small>Version 2.3 | Updated January 2025</small></p>
+    </header>
+
+    <nav class="toc">
+        <h2>📚 Table of Contents</h2>
+        <ul>
+            <li><a href="#quick-start">⚡ Quick Start (30 seconds)</a></li>
+            <li><a href="#getting-started">1. Getting Started</a></li>
+            <li><a href="#license">2. License Activation</a></li>
+            <li><a href="#control-tab">3. Control Tab - Main Operations</a></li>
+            <li><a href="#ai-prompts">4. AI Prompt Generator (Gemini)</a></li>
+            <li><a href="#queue-management">5. Queue Management</a></li>
+            <li><a href="#settings">6. Settings Configuration</a></li>
+            <li><a href="#downloads">7. Downloads & Exports</a></li>
+            <li><a href="#cloud-sync">8. Cloud Sync</a></li>
+            <li><a href="#history">9. History & Logs</a></li>
+            <li><a href="#tips">10. Pro Tips & Best Practices</a></li>
+            <li><a href="#faq">11. FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Quick Start -->
+    <section class="section" id="quick-start"
+        style="background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(20, 184, 166, 0.05) 100%); border-color: var(--color-primary);">
+        <h2>⚡ Quick Start (30 seconds)</h2>
+
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <div style="flex: 1;">
+                <ol style="font-size: 16px;">
+                    <li><strong>Open Google Flow</strong> → <a href="https://labs.google/fx/tools/flow"
+                            target="_blank">labs.google/fx/tools/flow</a></li>
+                    <li><strong>Click the extension icon</strong> in your toolbar</li>
+                    <li><strong>Add prompts</strong> (type, paste, or import file)</li>
+                    <li><strong>Click "Add to Queue"</strong> then <strong>"Start Queue"</strong></li>
+                    <li><strong>Watch videos generate automatically!</strong></li>
+                </ol>
+
+                <div class="tip-box" style="margin-top: 15px;">
+                    <strong>🎉 That's it!</strong> Videos will download automatically when ready.
+                </div>
+            </div>
+            <div style="flex-shrink: 0;">
+                <img src="screenshot.png" alt="Alzig Flow Pro Interface"
+                    style="width: 200px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started -->
+    <section class="section" id="getting-started">
+        <h2>🚀 1. Getting Started</h2>
+
+        <h3>Installation</h3>
+        <ol>
+            <li>Download the extension files</li>
+            <li>Open Chrome and go to <code>chrome://extensions</code></li>
+            <li>Enable "Developer mode" (top right toggle)</li>
+            <li>Click "Load unpacked" and select the extension folder</li>
+            <li>Pin the extension to your toolbar for easy access</li>
+        </ol>
+
+        <h3>First Steps</h3>
+        <ol>
+            <li>Navigate to <a href="https://labs.google/fx/tools/flow" target="_blank">Google Flow</a></li>
+            <li>Click the Alzig Flow Pro icon in your toolbar</li>
+            <li>The side panel will open with the extension interface</li>
+        </ol>
+
+        <div class="tip-box">
+            <strong>💡 Tip:</strong> The extension only works on the Google Flow project page. Make sure you're on
+            <code>labs.google/fx/tools/flow</code>
+        </div>
+    </section>
+
+    <!-- License Activation -->
+    <section class="section" id="license">
+        <h2>🔑 2. License Activation</h2>
+
+        <h3>Register an Account</h3>
+        <ol>
+            <li>Click <strong>"Get License"</strong> in the extension</li>
+            <li>Create an account with your email</li>
+            <li>Verify your email address</li>
+            <li>Copy your license key from the portal</li>
+        </ol>
+
+        <h3>Activate Your License</h3>
+        <ol>
+            <li>Enter your email in the license popup</li>
+            <li>Paste your license key</li>
+            <li>Click <strong>"Activate License"</strong></li>
+        </ol>
+
+        <h3>License Plans</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4>🆓 Free</h4>
+                <p>Limited daily videos. Perfect for trying out.</p>
+            </div>
+            <div class="feature-item">
+                <h4>⭐ Standard</h4>
+                <p>More videos per day. Great for regular use.</p>
+            </div>
+            <div class="feature-item">
+                <h4>💎 Premium</h4>
+                <p>Maximum capacity. For power users.</p>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 15px;">
+            <a href="https://extensions.alzig.com/gflow/portal/pricing.php" target="_blank"
+                style="display: inline-block; padding: 10px 24px; background: var(--color-primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 500;">
+                💳 View Pricing & Upgrade
+            </a>
+        </p>
+
+        <div class="tip-box">
+            <strong>💡 Tip:</strong> Your settings are automatically saved to the cloud. If you reinstall the extension,
+            just enter your license key and all your settings will be restored!
+        </div>
+    </section>
+
+    <!-- Control Tab -->
+    <section class="section" id="control-tab">
+        <h2>🎮 2. Control Tab - Main Operations</h2>
+
+        <p>The Control tab is your main workspace for adding prompts and managing automation.</p>
+
+        <h3>Adding Prompts</h3>
+        <p>You have three ways to add prompts:</p>
+
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4>✍️ Write Mode</h4>
+                <p>Type prompts directly in the textarea. Separate each prompt with a blank line.</p>
+            </div>
+            <div class="feature-item">
+                <h4>📁 File Upload</h4>
+                <p>Upload .txt, .json, or .docx files. Drag & drop or click to browse.</p>
+            </div>
+            <div class="feature-item">
+                <h4>✨ AI Generator</h4>
+                <p>Use Gemini AI to generate scene-consistent video prompts automatically.</p>
+            </div>
+            <div class="feature-item">
+                <h4>📋 Clipboard</h4>
+                <p>Click "Paste from Clipboard" to quickly add copied text.</p>
+            </div>
+        </div>
+
+        <h3>Processing Controls</h3>
+        <ul>
+            <li><strong>▶️ Start Queue:</strong> Begin processing all prompts in the queue</li>
+            <li><strong>⏸️ Pause:</strong> Temporarily pause processing (resume with same button)</li>
+            <li><strong>⏹️ Stop:</strong> Completely stop and reset the processing</li>
+        </ul>
+
+        <h3>Status Display</h3>
+        <p>During processing, you'll see:</p>
+        <ul>
+            <li>Current prompt being processed</li>
+            <li>Progress bar showing completion percentage</li>
+            <li>Count of completed, failed, and remaining prompts</li>
+        </ul>
+    </section>
+
+    <!-- AI Prompt Generator -->
+    <section class="section" id="ai-prompts">
+        <h2>✨ 3. AI Prompt Generator (Gemini)</h2>
+
+        <p>The AI Prompt Generator uses Google's Gemini API to create scene-consistent prompts optimized for Veo 3.1.
+        </p>
+
+        <h3>Getting Your API Key</h3>
+        <ol>
+            <li>Click the <strong>"Get Free API Key from Google AI Studio"</strong> button</li>
+            <li>Sign in to Google AI Studio</li>
+            <li>Create a new API key (it's free!)</li>
+            <li>Copy the key and paste it in the extension</li>
+            <li>Click "Save" to store it securely</li>
+        </ol>
+
+        <h3>Configuration Options</h3>
+        <ul>
+            <li><strong>Number of Prompts:</strong> Generate 1-100 prompts at once</li>
+            <li><strong>Theme/Subject:</strong> Describe your video topic (optional)</li>
+            <li><strong>Style Presets:</strong> Cinematic, Documentary, Abstract, Product, Nature, Sci-Fi, Fantasy,
+                Minimal</li>
+            <li><strong>Prompt Length:</strong> Short (15-25 words), Medium (30-50), Long (50-80)</li>
+        </ul>
+
+        <h3>Advanced Options</h3>
+        <ul>
+            <li><strong>Creativity Level:</strong> Adjust from Focused to Creative</li>
+            <li><strong>Include in Prompts:</strong> Style, Composition, Colors, Lighting, Mood</li>
+            <li><strong>Keywords Filter:</strong> Must-include and exclude keywords</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>🔗 Consistency Block:</strong> Generated prompts include a Consistency Block showing the exact
+            character/subject description, style, and audio that repeats in every scene. This prevents identity drift in
+            Veo 3.1!
+        </div>
+
+        <h3>Export Options</h3>
+        <ul>
+            <li><strong>📄 TXT:</strong> All prompts in a single text file</li>
+            <li><strong>📋 JSON:</strong> Structured JSON with metadata</li>
+            <li><strong>📁 Individual Files:</strong> Each prompt as prompt001.txt, prompt002.txt (JSON format inside)
+            </li>
+            <li><strong>➕ Add to Queue:</strong> Import directly to the processing queue</li>
+        </ul>
+    </section>
+
+    <!-- Queue Management -->
+    <section class="section" id="queue-management">
+        <h2>📋 4. Queue Management</h2>
+
+        <p>The queue holds all prompts waiting to be processed.</p>
+
+        <h3>Queue Actions</h3>
+        <ul>
+            <li><strong>Add to Queue:</strong> Adds prompts from textarea or files</li>
+            <li><strong>Clear Queue:</strong> Removes all items from queue</li>
+            <li><strong>Manage:</strong> Opens detailed queue modal</li>
+        </ul>
+
+        <h3>Manage Queue Modal</h3>
+        <ul>
+            <li><strong>Search:</strong> Filter prompts by text</li>
+            <li><strong>Select All:</strong> Toggle selection of all items</li>
+            <li><strong>Remove Selected:</strong> Delete selected prompts from queue</li>
+        </ul>
+
+        <div class="warning-box">
+            <strong>⚠️ Important:</strong> Clearing the queue during processing will stop all pending prompts.
+            Already-completed videos will remain.
+        </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="section" id="settings">
+        <h2>⚙️ 5. Settings Configuration</h2>
+
+        <h3>Generation Settings</h3>
+        <ul>
+            <li><strong>Model Version:</strong> Select Veo 3.1 Fast, Standard, or other models</li>
+            <li><strong>Aspect Ratio:</strong> 16:9 (Landscape) or 9:16 (Portrait)</li>
+            <li><strong>Outputs Per Prompt:</strong> How many video variations per prompt</li>
+        </ul>
+
+        <h3>Processing Settings</h3>
+        <ul>
+            <li><strong>Batch Size:</strong> Number of concurrent prompts (1-5)</li>
+            <li><strong>Wait Time Range:</strong> Random delay between actions</li>
+            <li><strong>Start From N:</strong> Skip first N prompts in queue</li>
+        </ul>
+
+        <h3>Download Settings</h3>
+        <ul>
+            <li><strong>Auto Download:</strong> Automatically download completed videos</li>
+            <li><strong>Job Folder Naming:</strong> Create unique folders for each session</li>
+            <li><strong>Custom Download Path:</strong> Specify where to save files</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>💡 Developer Mode:</strong> Enable for detailed console logging and debugging information.
+        </div>
+    </section>
+
+    <!-- Downloads -->
+    <section class="section" id="downloads">
+        <h2>📥 6. Downloads & Exports</h2>
+
+        <h3>Video Downloads</h3>
+        <ul>
+            <li><strong>Download All Videos:</strong> Download all completed videos at once</li>
+            <li><strong>Download All Images:</strong> Download thumbnail images</li>
+            <li><strong>Auto Download:</strong> Videos download automatically when ready</li>
+        </ul>
+
+        <h3>Export Options</h3>
+        <ul>
+            <li><strong>Export Report:</strong> Generate a detailed processing report</li>
+            <li><strong>Generate Merge Script:</strong> Creates FFmpeg batch script to merge all videos</li>
+        </ul>
+
+        <h3>Video Merge Script</h3>
+        <p>The merge script generator creates a Windows batch file that:</p>
+        <ol>
+            <li>Lists all .mp4 files in the folder</li>
+            <li>Concatenates them using FFmpeg (must be installed)</li>
+            <li>Outputs a single merged video</li>
+        </ol>
+
+        <div class="warning-box">
+            <strong>⚠️ Requirement:</strong> FFmpeg must be installed and in your system PATH for the merge script to
+            work.
+        </div>
+    </section>
+
+    <!-- Cloud Sync -->
+    <section class="section" id="cloud-sync">
+        <h2>☁️ 8. Cloud Sync</h2>
+
+        <p>Your data is automatically synchronized to the cloud, so you never lose your settings!</p>
+
+        <h3>What Gets Synced</h3>
+        <ul>
+            <li><strong>Flow Settings:</strong> Model, aspect ratio, outputs per prompt</li>
+            <li><strong>Prompt History:</strong> All your previous prompts</li>
+            <li><strong>Statistics:</strong> Total videos generated, processing time</li>
+            <li><strong>Custom Presets:</strong> Your saved AI generator configurations</li>
+            <li><strong>Theme Preferences:</strong> Dark/light mode settings</li>
+        </ul>
+
+        <h3>How It Works</h3>
+        <ol>
+            <li>Activate your license key</li>
+            <li>Extension automatically syncs in the background</li>
+            <li>If you reinstall → Enter license key → Everything restored!</li>
+        </ol>
+
+        <div class="tip-box">
+            <strong>💡 Multi-Device:</strong> Use on up to 3 devices with the same license. Your settings sync
+            automatically across all your devices!
+        </div>
+    </section>
+
+    <!-- History -->
+    <section class="section" id="history">
+        <h2>📊 7. History & Logs</h2>
+
+        <h3>Processing Logs</h3>
+        <p>The History tab shows a real-time log of all actions:</p>
+        <ul>
+            <li><span style="color: var(--color-success);">✅ Green:</span> Successful operations</li>
+            <li><span style="color: var(--color-warning);">⚠️ Yellow:</span> Warnings</li>
+            <li><span style="color: var(--color-danger);">❌ Red:</span> Errors and failures</li>
+        </ul>
+
+        <h3>Failed Tasks</h3>
+        <ul>
+            <li><strong>Copy Failed:</strong> Copy failed prompts to clipboard</li>
+            <li><strong>Retry Failed:</strong> Add failed prompts back to queue</li>
+            <li><strong>Clear Logs:</strong> Clear the log history</li>
+        </ul>
+    </section>
+
+    <!-- Tips -->
+    <section class="section" id="tips">
+        <h2>💡 8. Pro Tips & Best Practices</h2>
+
+        <h3>For Best Results</h3>
+        <ol>
+            <li><strong>Use Google's 5-Part Formula:</strong>
+                <br><code>[Cinematography] + [Subject] + [Action] + [Context] + [Style]</code>
+            </li>
+            <li><strong>Keep Character Descriptions Identical:</strong> Use the same exact wording in every prompt for
+                consistent characters</li>
+            <li><strong>Include Audio Cues:</strong> Use <code>SFX:</code> and <code>Ambient noise:</code> for Veo 3.1's
+                audio generation</li>
+            <li><strong>Batch Size of 3-5:</strong> Optimal for most connections</li>
+            <li><strong>4-8 Second Clips:</strong> Ideal length for consistent generation</li>
+        </ol>
+
+        <h3>Troubleshooting</h3>
+        <ul>
+            <li><strong>Extension not working?</strong> Make sure you're on a Google Flow project page</li>
+            <li><strong>Videos not downloading?</strong> Check your browser's download permissions</li>
+            <li><strong>AI Generator errors?</strong> Verify your Gemini API key is valid</li>
+            <li><strong>Processing stuck?</strong> Try refreshing the page and restarting</li>
+        </ul>
+
+        <h3>Keyboard Shortcuts</h3>
+        <p>When focused on Google Flow:</p>
+        <ul>
+            <li>Click extension icon to open/close side panel</li>
+        </ul>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+        <h2>❓ 11. Frequently Asked Questions</h2>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: Is Google Flow free to use?</h3>
+            <p>Yes! Google Flow (VEO AI) is free to use. Our extension just automates the process of submitting prompts
+                and downloading videos.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: Do I need a license to use the extension?</h3>
+            <p>The free plan lets you generate a limited number of videos per day. For more capacity, you can upgrade to
+                Standard or Premium plans.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: Can I use the extension on multiple computers?</h3>
+            <p>Yes! Your license works on up to 3 devices. Your settings sync automatically between devices.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: Why isn't the extension connecting to Google Flow?</h3>
+            <p>Make sure you're on the correct page: <code>labs.google/fx/tools/flow</code>. The extension only works on
+                Google Flow project pages.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: How do I get a Gemini API key for AI prompts?</h3>
+            <p>Click the "Get Free API Key" button in the AI Prompt Generator. It will take you to Google AI Studio
+                where you can create a free API key.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: Videos are not downloading automatically?</h3>
+            <p>Check that: 1) Auto-download is enabled in Settings, 2) Your browser allows downloads from Google, 3) You
+                have a download folder selected.</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3>Q: How can I contact support?</h3>
+            <p>Email us at <a href="mailto:support@alzig.com">support@alzig.com</a> or visit <a href="https://alzig.com"
+                    target="_blank">alzig.com</a></p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Made with ❤️ by <a href="https://alzig.com" target="_blank">Alzig.com</a></p>
+        <p><small>Alzig Flow Pro v2.3 | January 2025</small></p>
+    </footer>
+</body>
+
+</html>

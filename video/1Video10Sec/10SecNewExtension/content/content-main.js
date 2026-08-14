@@ -93,45 +93,8 @@ class BatchRunner {
           }
         }
       } else {
-        // Fallback Mechanism implemented by Agent
-        if (item.fallbackLevel === undefined) item.fallbackLevel = 0;
-        
-        if (item.fallbackLevel === 0 && item.moderatePrompt) {
-            Logger.info(`⚠️ Prompt failed due to policy/error. Retrying with Moderate Prompt...`);
-            item.fallbackLevel = 1;
-            item.prompt = item.moderatePrompt;
-            i--; // Decrement index to re-process this scene
-            continue;
-        } else if (item.fallbackLevel === 1 && item.softPrompt) {
-            Logger.info(`⚠️ Moderate prompt failed. Retrying with Soft Prompt and NO REFERENCE IMAGE...`);
-            item.fallbackLevel = 2;
-            item.prompt = item.softPrompt;
-            this.previousOutput = null; // Clear image from chainer
-            item.outputPreviousPrompt = undefined;
-            item.images = [];
-            i--;
-            continue;
-        }
-
-        // If execution failed completely, DO NOT HALT. Retry infinitely as requested.
-        Logger.info(`⚠️ Fallbacks exhausted. Retrying this prompt again until success...`);
-        
-        const minDelay = item.promptDelaySecondsMin ?? 5;
-        const maxDelay = item.promptDelaySecondsMax ?? 10;
-        const delaySec = Math.floor(minDelay + Math.random() * (maxDelay - minDelay + 1));
-        Logger.info(`⏳ Waiting ${delaySec}s before retrying...`);
-        
-        const delayEnd = Date.now() + (delaySec * 1000);
-        while (Date.now() < delayEnd) {
-          if (this.isCancelling) break;
-          while (this.isPaused && !this.isCancelling) {
-            await new Promise(r => setTimeout(r, 300));
-          }
-          await new Promise(r => setTimeout(r, 500));
-        }
-        
-        i--; // Decrement index to retry indefinitely
-        continue;
+        Logger.warn(`⚠️ Prompt execution did not complete cleanly: ${result.error || 'Unknown'}`);
+        this.results.push({ index: i, promptIndex: item.promptIndex, success: false, error: result.error });
       }
 
       this.sendStatusUpdate();
@@ -157,6 +120,20 @@ class BatchRunner {
           results: this.results
         }
       }).catch(() => {});
+
+      // Forward status to Python bridge if running an automated job
+      if (this.id) {
+        fetch('http://127.0.0.1:8102/api/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            job_id: this.id,
+            status: this.status,
+            completedCount: this.completedIndexes.size,
+            totalCount: this.payloads.length
+          })
+        }).catch(() => {});
+      }
     } catch {}
   }
 }
@@ -215,4 +192,101 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return false;
 });
 
-Logger.info('FlowCraft content script initialized on Google Labs');
+// ═══════════════════════════════════════════════════════════════════
+// PYTHON BRIDGE LIVE PROMPT INJECTOR & TAB HEARTBEAT
+// ═══════════════════════════════════════════════════════════════════
+let lastProcessedJobId = null;
+
+// Send heartbeat to Python Bridge so Python knows Google Flow tab is 100% active and connected
+function sendTabHeartbeat() {
+  fetch('http://127.0.0.1:8102/api/tab_ping', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      url: window.location.href,
+      title: document.title,
+      isWorkspace: window.location.href.includes('/project/') || !!document.querySelector('[role="textbox"]'),
+      status: activeBatchTask ? activeBatchTask.status : 'idle'
+    })
+  }).catch(() => {});
+}
+setInterval(sendTabHeartbeat, 2000);
+sendTabHeartbeat();
+
+async function checkPythonBridge() {
+  if (activeBatchTask && activeBatchTask.status === 'running') {
+    return;
+  }
+
+  try {
+    const res = await fetch('http://127.0.0.1:8102/api/pending_prompt', {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) return;
+
+    const data = await res.json();
+    if (data && data.status === 'pending' && data.job_id && data.job_id !== lastProcessedJobId) {
+      lastProcessedJobId = data.job_id;
+      Logger.info(`⚡ [Python Bridge] Received pending prompt job: ${data.job_id}`);
+
+      // Notify Python server that the job was picked up
+      fetch('http://127.0.0.1:8102/api/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ job_id: data.job_id, status: 'started' })
+      }).catch(() => {});
+
+      const config = await chrome.runtime.sendMessage({ type: ACTIONS.GET_CONFIG });
+      const selectors = config?.selectors ?? {};
+
+      const payload = {
+        promptIndex: 1,
+        prompt: data.prompt,
+        moderatePrompt: data.moderatePrompt,
+        softPrompt: data.softPrompt,
+        mode: data.mode || 'textToVideo',
+        aspectRatio: data.aspectRatio || '9:16',
+        outputCount: data.outputCount || 1,
+        model: data.model || 'Veo 3.1 Lower Priority',
+        duration: data.duration || '8s',
+        omniFlashDuration: data.omniFlashDuration || 8,
+        isConcat: false,
+        images: data.images || [],
+        folderName: data.folderName || 'FlowCraft_Outputs',
+        filePrefix: data.filePrefix || '',
+        autoDownloadResourceQuality: data.quality || '1080p',
+        autoChangeFileName: true
+      };
+
+      const groupData = {
+        id: data.job_id,
+        payloads: [payload]
+      };
+
+      activeBatchTask = new BatchRunner(groupData);
+      activeBatchTask.run(selectors).then(() => {
+        Logger.info(`🎉 [Python Bridge] Job ${data.job_id} finished execution.`);
+        fetch('http://127.0.0.1:8102/api/completed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ job_id: data.job_id, status: 'completed' })
+        }).catch(() => {});
+      }).catch(err => {
+        Logger.error(`❌ [Python Bridge] Job ${data.job_id} failed:`, err);
+        fetch('http://127.0.0.1:8102/api/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ job_id: data.job_id, status: 'error', error: err.message })
+        }).catch(() => {});
+      });
+    }
+  } catch {
+    // Silently ignore if Python bridge server is not active
+  }
+}
+
+// Start background poller for Python bridge
+setInterval(checkPythonBridge, 2000);
+
+Logger.info('FlowCraft content script initialized on Google Labs with Python Bridge and Heartbeat active');

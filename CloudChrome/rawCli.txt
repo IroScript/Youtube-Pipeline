@@ -1,0 +1,77 @@
+PowerShell 7.6.3
+
+   A new PowerShell stable release is available: v7.6.4
+   Upgrade now, or check out the release page at:
+     https://aka.ms/PowerShell-Release?tag=v7.6.4
+
+
+[auto-save] Recording to: C:\Users\Irak\.terminal-logs\System32\session_2026-07-31_21-15-20.txt
+
+[21:15 System32] PS> raw login
+error: unknown command 'login'
+(Did you mean logs?)
+[21:15 System32] PS>
+>> raw init
+
+  RAW — bare metal in seconds
+
+  Sign up or log in with your email.
+
+  Email: alco.drivestorage@gmail.com
+  ✓ Welcome back. Token also sent to your email.
+
+  ✓ Signed in as alco.drivestorage@gmail.com
+  ✓ Region auto-set to eu (change: raw init)
+
+  raw deploy    — spin up your first server
+
+[21:16 System32] PS>
+>> raw deploy --type raw-free --region eu
+
+  RAW — bare metal in seconds
+
+  Type:   raw-free
+  Region: 🇩🇪  eu
+  Image:  ubuntu-24.04
+
+  ✓ Deploy failed
+
+  Deploy failed: the token you have provided is invalid
+
+[21:17 System32] PS>
+>> Remove-Item -Path "$HOME\.raw" -Recurse -Force -ErrorAction SilentlyContinue
+[21:17 System32] PS>
+>> raw init
+
+  RAW — bare metal in seconds
+
+  Sign up or log in with your email.
+
+  Email: alco.drivestorage@gmail.com
+  ✓ Welcome back. Token also sent to your email.
+
+  ✓ Signed in as alco.drivestorage@gmail.com
+  ✓ Region auto-set to eu (change: raw init)
+
+  raw deploy    — spin up your first server
+
+[21:18 System32] PS>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

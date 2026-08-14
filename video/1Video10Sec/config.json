@@ -1,0 +1,34 @@
+{
+  "project_name": "1Video10Sec Pipeline",
+  "base_dir": "C:\\Users\\Irak\\Desktop\\Youtube Pipeline\\video\\1Video10Sec",
+  "extension_dir": "C:\\Users\\Irak\\Desktop\\Youtube Pipeline\\video\\1Video10Sec\\10SecNewExtension",
+  "chrome_profile": "Profile 5",
+  "max_retries": 10,
+  "default_categories": [
+    "Impossible Machines",
+    "Futuristic Machines",
+    "Quantum Contraptions",
+    "Steampunk Wonders",
+    "Alien Technology",
+    "Cybernetic Gadgets",
+    "Perpetuum Mobile",
+    "Time Devices",
+    "Microscopic Bots",
+    "Cosmic Engines"
+  ],
+  "prompt_style": "open_montage_cinematic",
+  "target_duration_seconds": 8,
+  "aspect_ratio": "9:16",
+  "model": "Veo 3.1 Lower Priority",
+  "duration": "8s",
+  "telegram": {
+    "enabled": true,
+    "bot_token": "YOUR_TELEGRAM_BOT_TOKEN",
+    "chat_id": "YOUR_TELEGRAM_CHAT_ID"
+  },
+  "youtube": {
+    "auto_upload": true,
+    "privacy_status": "public",
+    "tags": ["#Shorts", "#AI", "#ImpossibleMachines", "#SciFi", "#Veo"]
+  }
+}

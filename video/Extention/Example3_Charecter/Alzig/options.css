@@ -1,0 +1,163 @@
+/*
+ ========================================
+ CSS for Flow Automation Pro Options Page
+ ========================================
+*/
+
+:root {
+    --color-primary: #367BF5;
+    --color-primary-dark: #2F6ADF;
+    --color-primary-light: #EAF1FE;
+    --color-secondary: #6C757D;
+    --color-bg: #F8F9FA;
+    --color-surface: #FFFFFF;
+    --color-border: #DEE2E6;
+    --color-text-primary: #212529;
+    --color-text-secondary: #495057;
+    --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+}
+
+.header {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.logo h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.header-title {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.section {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary-dark);
+    border-bottom: 2px solid var(--color-primary-light);
+    padding-bottom: 0.5rem;
+}
+
+.section p, .section li {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.section ul, .section ol {
+    padding-left: 2rem;
+}
+
+.section strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.section a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.section a:hover {
+    text-decoration: underline;
+    color: var(--color-primary-dark);
+}
+
+/* About Section Design Improvements */
+.about-content {
+    text-align: center;
+    /* নিচের লাইনটি সেন্টারে থাকা টেক্সট থেকে বর্ণনাকে আলাদা করবে */
+    margin-bottom: 1.5rem; 
+}
+
+.about-description {
+    text-align: left;
+    max-width: 800px; /* লেখা পড়তে সহজ করার জন্য */
+}
+
+/* Key Features হেডিং-এর জন্য স্টাইল */
+#about h4 {
+    text-align: left;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 18px;
+    color: var(--color-text-primary);
+}
+
+/* নতুন ফিচার লিস্টের জন্য স্টাইল */
+.features-list {
+    list-style: none; /* ডিফল্ট বুলেট চিহ্ন মুছে ফেলুন */
+    padding: 0;
+    text-align: left;
+}
+
+.features-list li {
+    display: flex;
+    align-items: flex-start; /* আইকন এবং টেক্সটকে উপরে অ্যালাইন করুন */
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: var(--color-text-secondary);
+}
+
+/* প্রতিটি লিস্ট আইটেমের আগে টিক চিহ্ন আইকন যোগ করুন */
+.features-list li::before {
+    content: '✓'; /* Unicode টিক চিহ্ন */
+    color: var(--color-success);
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 12px;
+    margin-top: -2px; /* আইকনটিকে টেক্সটের সাথে মেলাতে ফাইন-টিউন করা */
+}

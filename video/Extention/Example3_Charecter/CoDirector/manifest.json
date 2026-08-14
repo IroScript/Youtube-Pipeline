@@ -1,0 +1,25 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "CoDirector - Veo Prompt Assistant & Character Manager",
+  "version": "1.3",
+  "description": "Transform your ideas into cinematic Veo prompts and manage character consistency",
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "512": "icons/veo.png"  
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://labs.google/*", "https://gemini.google.com/*", "https://docs.google.com/videos*"], 
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ]
+}

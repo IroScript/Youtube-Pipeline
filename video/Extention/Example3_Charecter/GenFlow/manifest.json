@@ -1,0 +1,89 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "GenFlow — Veo & Banana Automation with Characters [4K]",
+  "version": "1.0.4",
+  "description": "Automate image and video generation with Veo 3 and Banana - 4K, references, batch queue",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "tabs",
+    "windows",
+    "scripting",
+    "alarms",
+    "sidePanel",
+    "browsingData"
+  ],
+  "host_permissions": [
+    "https://labs.google/*",
+    "https://labs.google.com/*",
+    "https://labs.google.com/fx/*",
+    "https://grovex.space/*"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://labs.google/*",
+        "https://labs.google.com/fx/*"
+      ],
+      "js": [
+        "content/upsample_hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://labs.google/*",
+        "https://labs.google.com/*"
+      ],
+      "js": [
+        "content/veo.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://labs.google/*",
+        "https://labs.google.com/fx/*"
+      ],
+      "js": [
+        "content/whisk.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://labs.google/*",
+        "https://labs.google.com/fx/*"
+      ],
+      "js": [
+        "content/banana.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}

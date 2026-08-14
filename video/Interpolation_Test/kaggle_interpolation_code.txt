@@ -1,0 +1,40 @@
+import os
+import subprocess
+import sys
+
+# ⚙️ Configuration Options
+INPUT_VIDEO = "/kaggle/input/your-dataset/final_combined_video.mp4"
+SNIPPET_VIDEO = "/kaggle/working/original_snippet.mp4"
+OUTPUT_VIDEO = "/kaggle/working/ai_interpolated_slow.mp4"
+
+ORIGINAL_DURATION = 2.0  # Duration of the original clip to extract (in seconds)
+TARGET_DURATION = 15.0   # Desired duration after slow-motion (in seconds)
+START_TIME = "00:00:10"   # Timestamp to start extraction from the main video
+
+# Calculate the slowdown rate dynamically
+slowdown_factor = TARGET_DURATION / ORIGINAL_DURATION
+print("🎯 Configuration:")
+print(f"   Original Duration: {ORIGINAL_DURATION}s | Target Duration: {TARGET_DURATION}s")
+print(f"   🚀 Slowdown Factor: {slowdown_factor:.2f}x (0.13x speed)")
+
+if not os.path.exists(INPUT_VIDEO):
+    print(f"❌ Error: Video not found at {INPUT_VIDEO}. Please upload the video first!")
+else:
+    print(f"\n✂️ 1. Extracting a {ORIGINAL_DURATION}-second test snippet from {START_TIME}...")
+    subprocess.run([
+        "ffmpeg", "-y", "-ss", START_TIME, "-i", INPUT_VIDEO, 
+        "-t", str(ORIGINAL_DURATION), "-c", "copy", SNIPPET_VIDEO
+    ])
+    
+    print("\n🧠 2. Applying AI Motion Interpolation (Generating missing frames with Optical Flow)...")
+    print("⏳ Please wait, calculating optical flow... (Very fast on Kaggle GPU!)")
+    
+    # setpts=slowdown_factor*PTS slows the video, minterpolate generates new frames to maintain 30fps
+    subprocess.run([
+        "ffmpeg", "-y", "-i", SNIPPET_VIDEO,
+        "-filter:v", f"setpts={slowdown_factor:.2f}*PTS,minterpolate='fps=30:mi_mode=mci:mc_mode=aobmc:vsbmc=1'",
+        "-c:v", "libx264", "-preset", "fast", OUTPUT_VIDEO
+    ])
+    
+    print(f"\n✅ Success! Check the '/kaggle/working/' folder for '{OUTPUT_VIDEO}'")
+    print(f"Original {ORIGINAL_DURATION}s snippet saved as: {SNIPPET_VIDEO}")

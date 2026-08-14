@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- GenFlow has its own in-app translator; browser auto-translation mutates text nodes and
+       breaks React (removeChild NotFoundError → blank popup), so disable it. -->
+  <meta name="google" content="notranslate" />
+  <title>GenFlow Automation</title>
+  <script type="module" src="popup.js"></script>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="notranslate">
+  <div id="root"></div>
+</body>
+</html>

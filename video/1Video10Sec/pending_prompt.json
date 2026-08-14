@@ -1,0 +1,54 @@
+{
+  "category": "Alien Technology",
+  "all_5_ideas": [
+    {
+      "id": 1,
+      "title": "Alien Technology - Primary Impossible Construct",
+      "concept": "An incredible 10-second visual display of Alien Technology with glowing energy conduits and self-assembling mechanical parts.",
+      "style": "Open Montage Cinematic"
+    },
+    {
+      "id": 2,
+      "title": "Alien Technology - Secondary Prototype",
+      "concept": "Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns.",
+      "style": "Cinematic Macro"
+    },
+    {
+      "id": 3,
+      "title": "Alien Technology - Quantum Matrix",
+      "concept": "Futuristic visualization of Alien Technology harnessing anti-gravity forces in a high-tech laboratory.",
+      "style": "Sci-Fi Surreal"
+    },
+    {
+      "id": 4,
+      "title": "Alien Technology - Steampunk Engine",
+      "concept": "Intricate brass and copper wheels turning endlessly with soft steam clouds and golden light rays.",
+      "style": "Steampunk Masterpiece"
+    },
+    {
+      "id": 5,
+      "title": "Alien Technology - Celestial Assembly",
+      "concept": "Cosmic scale view of Alien Technology assembling itself in zero gravity surrounded by distant nebulae.",
+      "style": "Cosmic Realism"
+    }
+  ],
+  "selected_idea_number": 2,
+  "selected_idea": {
+    "id": 2,
+    "title": "Alien Technology - Secondary Prototype",
+    "concept": "Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns.",
+    "style": "Cinematic Macro"
+  },
+  "target_duration": 8,
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "model": "Veo 3.1 Lower Priority",
+  "openmontage_prompt": {
+    "subject": "The impossible machine construct 'Alien Technology - Secondary Prototype': Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns.",
+    "environment": "A dimly lit high-tech futuristic laboratory with soft blue ambient volumetric light and floating particles.",
+    "camera": "Slow dramatic 360-degree orbital push-in shot with seamless depth of field blur.",
+    "lighting": "Low-key cinematic lighting with high contrast neon glows, brass reflections, and subtle light flares.",
+    "style": "Open Montage Cinematic, 8K Ultra Photorealistic, Octane Render, 60fps smooth fluid dynamics"
+  },
+  "full_combined_prompt": "0.0-2.5s: Extreme close-up of Alien Technology - Secondary Prototype starting its intricate mechanism, glowing cyan plasma rings rotating in mid-air. 2.5-5.5s: Camera smoothly pans wide revealing the full impossible mechanical architecture of Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns. defying gravity. 5.5-8.0s: Slow motion macro shot of energy pulsing through polished brass cogs and glass conduits, hyper-detailed cinematic lighting, 8k resolution."
+}

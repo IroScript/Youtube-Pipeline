@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alzig Flow Pro</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header glass-strong">
+            <div class="header-top">
+                <div class="header-left">
+                    <img src="icons/icon48.png" alt="Alzig Flow Pro" class="logo-icon">
+                    <div class="header-title">
+                        <h1 class="logo-text">Alzig Flow Pro</h1>
+                        <span class="logo-subtitle">AI Video Generation</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <!-- User Profile with Status Dot -->
+                    <div class="user-profile-wrapper">
+                        <div id="userProfile" class="user-profile" title="Click to manage license">
+                            <span id="userInitial" class="user-initial">?</span>
+                        </div>
+                        <span id="licenseBadge" class="license-dot license-free" title="Free Plan"></span>
+                    </div>
+
+                    <!-- Reset & Refresh Button -->
+                    <button id="resetRefreshBtn" class="icon-btn" title="Reset Settings & Refresh">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                            <path
+                                d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                        </svg>
+                    </button>
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="icon-btn" title="Toggle theme">
+                        <svg id="sunIcon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                            </path>
+                        </svg>
+                        <svg id="moonIcon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Connection Status Bar -->
+            <div class="connection-bar" id="connectionBar">
+                <div class="connection-info">
+                    <span class="connection-icon-small" id="connectionIcon">✓</span>
+                    <div class="connection-text">
+                        <span id="connectionLabel">Connected to Flow</span>
+                        <span id="connectionSubtext">Ready to process</span>
+                    </div>
+                </div>
+                <div class="connection-right">
+                    <div class="quota-display" id="quotaDisplay" title="Remaining videos today">
+                        <span id="quotaCount">2</span>/<span id="quotaLimit">2</span>
+                    </div>
+                    <div class="status-badge connected" id="statusBadge">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span class="status-text" id="statusText">Connected</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Modal -->
+        <div id="profileModal" class="profile-modal hidden">
+            <div class="profile-modal-content">
+                <button id="closeProfileModal" class="profile-close">&times;</button>
+
+                <!-- User Info -->
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <span id="profileInitial">?</span>
+                    </div>
+                    <h3 id="profileName">User</h3>
+                    <div class="profile-email" id="profileEmail">email@example.com</div>
+                </div>
+
+                <!-- Account Details -->
+                <div class="profile-section">
+                    <div class="profile-row">
+                        <span class="profile-label">Login Method</span>
+                        <span class="profile-value" id="profileLoginMethod">Email</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-label">Subscription</span>
+                        <div id="profileSubscription" class="license-badge license-free">
+                            <span class="license-icon">◎</span>
+                            <span class="license-text">Free</span>
+                        </div>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-label">Usage</span>
+                        <span class="profile-value" id="profileUsage">0/2</span>
+                    </div>
+                </div>
+
+                <!-- Upgrade Benefits -->
+                <div class="profile-section upgrade-section">
+                    <h4 class="upgrade-title">⚡ Upgrade to Pro for:</h4>
+                    <ul class="upgrade-list">
+                        <li>
+                            <span class="upgrade-icon">🚀</span>
+                            <div>
+                                <strong>Unlimited Processing</strong>
+                                <span>No quota limitations</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="upgrade-icon">⭐</span>
+                            <div>
+                                <strong>Priority Support</strong>
+                                <span>Faster help when needed</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="upgrade-icon">🤖</span>
+                            <div>
+                                <strong>Unlimited AI Prompt Generation</strong>
+                                <span>Create endless prompts with Gemini</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="upgrade-icon">🔄</span>
+                            <div>
+                                <strong>Regular Updates</strong>
+                                <span>Latest features and improvements</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Member Info -->
+                <div class="profile-section member-info">
+                    <div class="profile-row">
+                        <span class="profile-label">Member Since</span>
+                        <span class="profile-value" id="profileMemberSince">-</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-label">Last Login</span>
+                        <span class="profile-value" id="profileLastLogin">-</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-label">License Expires</span>
+                        <span class="profile-value" id="profileExpires">-</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="profile-actions">
+                    <a id="manageSubscriptionBtn" href="#" target="_blank" class="btn btn-primary btn-full">
+                        Manage Subscription
+                    </a>
+                    <button id="signOutBtn" class="btn btn-danger btn-full">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- License Error Modal (for expired, banned, suspended, quota exceeded) -->
+        <div id="licenseErrorModal" class="license-error-modal hidden">
+            <div class="license-error-content">
+                <!-- Error Icon -->
+                <div class="license-error-icon" id="licenseErrorIcon">
+                    ⚠️
+                </div>
+
+                <!-- Error Title -->
+                <h2 class="license-error-title" id="licenseErrorTitle">License Issue</h2>
+
+                <!-- Error Message -->
+                <p class="license-error-message" id="licenseErrorMessage">
+                    There's an issue with your license.
+                </p>
+
+                <!-- Error Details -->
+                <div class="license-error-details" id="licenseErrorDetails">
+                    <div class="error-detail-row">
+                        <span class="error-label">Status</span>
+                        <span class="error-value error-status" id="licenseErrorStatus">-</span>
+                    </div>
+                    <div class="error-detail-row" id="licenseErrorExpiryRow">
+                        <span class="error-label">Expired On</span>
+                        <span class="error-value" id="licenseErrorExpiry">-</span>
+                    </div>
+                </div>
+
+                <!-- Upgrade Benefits (for expired/quota) -->
+                <div class="license-error-benefits hidden" id="licenseErrorBenefits">
+                    <h4>🚀 Upgrade to continue:</h4>
+                    <ul>
+                        <li>✅ More videos per day</li>
+                        <li>✅ Priority processing</li>
+                        <li>✅ Premium support</li>
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="license-error-actions">
+                    <a id="licenseErrorRenewBtn" href="#" target="_blank" class="btn btn-primary btn-full hidden">
+                        🔄 Renew License
+                    </a>
+                    <a id="licenseErrorUpgradeBtn" href="#" target="_blank" class="btn btn-primary btn-full hidden">
+                        ⬆️ Upgrade Plan
+                    </a>
+                    <a id="licenseErrorContactBtn" href="mailto:support@alzig.com"
+                        class="btn btn-secondary btn-full hidden">
+                        📧 Contact Support
+                    </a>
+                    <button id="licenseErrorRetryBtn" class="btn btn-secondary btn-full hidden">
+                        🔄 Try Again
+                    </button>
+                    <button id="licenseErrorCloseBtn" class="btn btn-outline btn-full">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quota Warning Banner (shows when daily limit reached) -->
+        <div id="quotaWarningBanner" class="quota-warning-banner hidden">
+            <div class="quota-banner-content">
+                <div class="quota-banner-icon">📊</div>
+                <div class="quota-banner-text">
+                    <strong>Daily limit reached</strong>
+                    <span id="quotaBannerInfo">Used 2/2 videos today</span>
+                </div>
+                <a id="quotaBannerUpgrade" href="#" target="_blank" class="btn btn-sm btn-primary">
+                    Upgrade
+                </a>
+            </div>
+            <p class="quota-reset-info">
+                🕐 Resets at midnight • <span id="quotaResetCountdown">Tomorrow</span>
+            </p>
+        </div>
+
+        <!-- Connection Status Overlay (shows when NOT on Flow page) -->
+        <div id="connectionOverlay" class="connection-overlay hidden">
+            <div class="connection-card glass">
+                <!-- Animated Icon -->
+                <div class="connection-icon-wrap">
+                    <div class="connection-pulse"></div>
+                    <svg class="connection-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 8v4M12 16h.01"></path>
+                    </svg>
+                </div>
+
+                <!-- Status Text -->
+                <h2 class="connection-title">Not Connected</h2>
+                <p class="connection-desc">Open Google Flow to start automating video generation</p>
+
+                <!-- Connection Status Badge -->
+                <div class="connection-status-badge">
+                    <span class="status-indicator disconnected"></span>
+                    <span>Disconnected</span>
+                </div>
+
+                <!-- Action Button -->
+                <a href="https://labs.google/fx/tools/flow" target="_blank"
+                    class="btn btn-primary btn-lg connection-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"></path>
+                    </svg>
+                    Open Google Flow
+                </a>
+
+                <!-- Tip -->
+                <p class="connection-tip">
+                    💡 After opening Flow, click <strong>Refresh</strong> below
+                </p>
+                <button id="refreshConnectionBtn" class="btn btn-outline">
+                    🔄 Refresh Connection
+                </button>
+            </div>
+        </div>
+
+        <!-- Inline Warning Bar (shows at top when on wrong page but overlay dismissed) -->
+        <div id="warningBanner" class="warning-banner hidden">
+            <div class="warning-content">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-text">
+                    <strong>Not on Flow Page</strong>
+                    <p>Navigate to <a href="https://labs.google/fx/tools/flow" target="_blank">Google Flow</a></p>
+                </div>
+                <button id="refreshPageBtn" class="btn btn-secondary btn-sm">Refresh</button>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="control">
+                <span class="tab-icon">⚙️</span>
+                <span class="tab-label">Control</span>
+            </button>
+            <button class="tab-btn" data-tab="settings">
+                <span class="tab-icon">🎛️</span>
+                <span class="tab-label">Settings</span>
+            </button>
+            <button class="tab-btn" data-tab="history">
+                <span class="tab-icon">📜</span>
+                <span class="tab-label">History</span>
+            </button>
+            <button class="tab-btn" data-tab="help">
+                <span class="tab-icon">❓</span>
+                <span class="tab-label">Help</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Control Tab -->
+            <div id="controlTab" class="tab-content active">
+                <!-- Processing Mode Section -->
+                <section class="card glass">
+                    <h3 class="card-title">🎬 Select Mode</h3>
+                    <div class="mode-grid">
+                        <label class="mode-option">
+                            <input type="radio" name="processingMode" value="text_to_video" checked>
+                            <div class="mode-card">
+                                <span class="mode-icon">🎬</span>
+                                <div class="mode-info">
+                                    <strong>Text to Video</strong>
+                                    <small>Generate video from text prompts</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="processingMode" value="image_to_video">
+                            <div class="mode-card">
+                                <span class="mode-icon">🖼️</span>
+                                <div class="mode-info">
+                                    <strong>Image to Video</strong>
+                                    <small>Animate images into videos</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="processingMode" value="text_to_image">
+                            <div class="mode-card">
+                                <span class="mode-icon">🎨</span>
+                                <div class="mode-info">
+                                    <strong>Text to Image</strong>
+                                    <small>Generate images from prompts</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="mode-option disabled" title="Coming Soon">
+                            <input type="radio" name="processingMode" value="image_to_text" disabled>
+                            <div class="mode-card">
+                                <span class="mode-icon">📝</span>
+                                <div class="mode-info">
+                                    <strong>Image to Text</strong>
+                                    <small>Coming soon...</small>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Extend Mode Toggle -->
+                    <div class="extend-mode-section">
+                        <div class="extend-toggle-row">
+                            <div class="extend-info">
+                                <span class="extend-icon">🔄</span>
+                                <div>
+                                    <strong>Extend Mode (Scenebuilder)</strong>
+                                    <small>1st prompt = CREATE, rest = EXTEND for continuous video</small>
+                                </div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="extendMode">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Image Settings Section (for text_to_image and image_to_image) -->
+                <section id="imageSettingsSection" class="card glass" style="display: none;">
+                    <h3 class="card-title">🎨 Image Generation Settings</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Image Model</label>
+                            <select id="imageModel" class="select-glass">
+                                <option value="Nano Banana Pro" selected>⭐ Nano Banana Pro</option>
+                                <option value="Nano Banana">⭐ Nano Banana</option>
+                                <option value="Imagen 4">Imagen 4</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Download Quality</label>
+                            <select id="imageDownloadQuality" class="select-glass">
+                                <option value="no-download">No Download</option>
+                                <option value="1k" selected>1k</option>
+                                <option value="2k">2k</option>
+                                <option value="4k">4k</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Image Upload Section (for image_to_video and image_to_image) -->
+                <section id="imageUploadSection" class="card glass" style="display: none;">
+                    <h3 class="card-title">📷 Upload Images</h3>
+                    <div id="imageDropZone" class="image-drop-zone">
+                        <span class="drop-icon">📷</span>
+                        <span class="drop-text">Click to upload or drag & drop</span>
+                        <span class="drop-hint">PNG, JPG, GIF up to 10MB each</span>
+                        <input type="file" id="imageFileInput" multiple accept="image/*" class="hidden">
+                    </div>
+
+                    <!-- Uploaded Images Preview -->
+                    <div id="uploadedImagesContainer" class="uploaded-images-grid"></div>
+
+                    <!-- Image Stats -->
+                    <div id="imageStats" class="image-stats hidden"></div>
+
+                    <!-- Max Images per Prompt -->
+                    <div class="form-row" style="margin-top: 12px;">
+                        <div class="form-group">
+                            <label>Max Images per Prompt</label>
+                            <select id="maxImagesPerPrompt" class="select-glass">
+                                <option value="1">1 image</option>
+                                <option value="2">2 images</option>
+                                <option value="3" selected>3 images</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prompt Input Section -->
+                <section class="card glass">
+                    <h3 class="card-title">📝 Prompt Input</h3>
+                    <div class="prompt-mode-selector">
+                        <label class="radio-option">
+                            <input type="radio" name="promptMode" value="write" checked>
+                            <span>✍️ Write/Paste</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="promptMode" value="file">
+                            <span>📄 Import File</span>
+                        </label>
+                    </div>
+
+                    <!-- Write Mode -->
+                    <div id="writeSection">
+                        <!-- AI Prompt Generator Button -->
+                        <button id="openPromptGeneratorBtn" class="btn btn-ai btn-full">
+                            <span>✨</span> Create Flow Prompts with Gemini
+                        </button>
+
+                        <textarea id="promptTextarea" class="textarea-glass"
+                            placeholder="Enter your prompts here...&#10;&#10;Separate multiple prompts with blank lines."></textarea>
+
+                        <!-- Prompt Status List (shown during processing) -->
+                        <div id="promptStatusList" class="prompt-status-list hidden">
+                            <div class="prompt-status-header">
+                                <span>📋 Prompt Status</span>
+                                <span id="promptStatusCount">0/0</span>
+                            </div>
+                            <div id="promptStatusItems" class="prompt-status-items"></div>
+                        </div>
+                    </div>
+
+                    <!-- File Upload Mode -->
+                    <div id="fileSection" class="hidden">
+                        <div class="upload-cards">
+                            <!-- Multi Files Card -->
+                            <div class="upload-card">
+                                <input type="file" id="multipleFilesInput" multiple accept=".txt,.json,.docx"
+                                    class="hidden">
+                                <label for="multipleFilesInput" class="upload-card-label">
+                                    <span class="upload-card-icon">📄</span>
+                                    <span class="upload-card-title">Multi Files</span>
+                                    <span class="upload-card-desc">(1 file = 1 prompt)</span>
+                                </label>
+                            </div>
+
+                            <!-- From Folder Card -->
+                            <div class="upload-card">
+                                <div id="selectPromptFolderBtn" class="upload-card-label" style="cursor: pointer;">
+                                    <span class="upload-card-icon">📂</span>
+                                    <span class="upload-card-title">From Folder</span>
+                                    <span class="upload-card-desc">(Load all files)</span>
+                                </div>
+                            </div>
+
+                            <!-- Single File Card -->
+                            <div class="upload-card full-width">
+                                <input type="file" id="singleFileInput" accept=".txt,.json,.docx" class="hidden">
+                                <label for="singleFileInput" class="upload-card-label">
+                                    <span class="upload-card-icon">📝</span>
+                                    <span class="upload-card-title">Single File</span>
+                                    <span class="upload-card-desc">(1 line = 1 prompt)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Folder Files Preview -->
+                        <div id="folderFilesPreview" class="folder-preview hidden">
+                            <div class="folder-preview-header">
+                                <span class="folder-preview-icon">✅</span>
+                                <div class="folder-preview-info">
+                                    <div id="folderNameDisplay" class="folder-name"></div>
+                                    <div id="folderStatsDisplay" class="folder-stats"></div>
+                                </div>
+                            </div>
+                            <div id="folderFilesList" class="folder-files-list"></div>
+                            <button id="loadFromFolderBtn" class="btn btn-primary btn-full">
+                                <span>🚀</span> Load All Prompts
+                            </button>
+                        </div>
+
+                        <!-- File Preview -->
+                        <div id="filePreview" class="file-preview hidden">
+                            <div class="file-preview-header">
+                                <span id="fileCount">0 files loaded</span>
+                                <button id="clearFilesBtn" class="btn-text">🗑️ Clear</button>
+                            </div>
+                            <div id="fileList" class="file-list"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Queue Management -->
+                <section class="card glass queue-section">
+                    <div class="queue-header">
+                        <h3 class="card-title">📋 Queue</h3>
+                        <span class="queue-badge" id="queueCount" title="Items in queue">0</span>
+                    </div>
+
+                    <!-- Primary Queue Actions -->
+                    <div class="queue-actions-row">
+                        <button id="addToQueueBtn" class="btn btn-secondary btn-flex" title="Add prompts to queue">
+                            <span>➕</span> <span class="btn-label">Add</span>
+                        </button>
+                        <button id="manageQueueBtn" class="btn btn-outline btn-flex" title="View and manage queue">
+                            <span>📋</span> <span class="btn-label">Manage</span>
+                        </button>
+                        <button id="clearQueueBtn" class="btn btn-danger-outline btn-icon"
+                            title="Clear all queue items">
+                            <span>🗑️</span>
+                        </button>
+                    </div>
+
+                    <!-- Templates & Import Row -->
+                    <div class="queue-actions-row queue-templates">
+                        <button id="importPromptsBtn" class="btn btn-outline btn-sm btn-flex"
+                            title="Import prompts from TXT/CSV file">
+                            <span>📥</span> <span class="btn-label">Import</span>
+                        </button>
+                        <button id="saveTemplateBtn" class="btn btn-outline btn-sm btn-flex"
+                            title="Save current prompts as template">
+                            <span>💾</span> <span class="btn-label">Save</span>
+                        </button>
+                        <select id="loadTemplateSelect" class="select-glass select-sm" title="Load saved template">
+                            <option value="">📂 Template</option>
+                        </select>
+                    </div>
+
+                    <p class="hint-text shortcuts-hint">⌨️ Ctrl+Enter (Start) • Ctrl+P (Pause) • Esc (Stop)</p>
+                </section>
+
+                <!-- Control Buttons -->
+                <section class="card glass">
+                    <div class="control-buttons">
+                        <button id="startBtn" class="btn btn-primary btn-lg">
+                            <span>▶️</span> Start Queue
+                        </button>
+                        <button id="pauseBtn" class="btn btn-warning hidden">
+                            <span>⏸️</span> Pause
+                        </button>
+                        <button id="resumeBtn" class="btn btn-success hidden">
+                            <span>▶️</span> Resume
+                        </button>
+                        <button id="stopBtn" class="btn btn-danger hidden">
+                            <span>⏹️</span> Stop
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Progress Section -->
+                <section id="progressSection" class="card glass hidden">
+                    <h3 class="card-title">📊 Progress</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">0%</span>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="completedCount">0</span>
+                            <span class="stat-label">Completed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="remainingCount">0</span>
+                            <span class="stat-label">Remaining</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="failedCount">0</span>
+                            <span class="stat-label">Failed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="videosCompleted">0</span>
+                            <span class="stat-label">Videos</span>
+                        </div>
+                    </div>
+                    <div id="currentPrompt" class="current-prompt hidden">
+                        <strong>Current:</strong>
+                        <span id="currentPromptText"></span>
+                    </div>
+                </section>
+
+                <!-- ✨ Video Generation Progress Panel (FacelessClip style) -->
+                <section id="videoGenerationProgress" class="card glass hidden">
+                    <h3 class="card-title">✨ Video Generation Progress</h3>
+                    <div id="sceneProgressList" class="scene-progress-list">
+                        <!-- Scene items will be dynamically added here -->
+                        <!-- Example structure:
+                        <div class="scene-progress-item" data-scene="1">
+                            <div class="scene-header">
+                                <span class="scene-icon pending">⏳</span>
+                                <span class="scene-label">Scene 01: {"scene_number": 5, "scene_i...</span>
+                                <span class="scene-percent">12%</span>
+                            </div>
+                            <div class="scene-bar">
+                                <div class="scene-bar-fill" style="width: 12%"></div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </section>
+
+                <!-- Download Actions -->
+                <section class="card glass">
+                    <h3 class="card-title">📥 Downloads</h3>
+                    <div class="download-buttons">
+                        <button id="downloadAllVideosBtn" class="btn btn-secondary">
+                            <span>🎬</span> All Videos
+                        </button>
+                        <button id="downloadAllImagesBtn" class="btn btn-secondary">
+                            <span>🖼️</span> All Images
+                        </button>
+                        <button id="exportReportBtn" class="btn btn-outline">
+                            <span>📊</span> Report
+                        </button>
+                    </div>
+                    <!-- Merge Script Button -->
+                    <button id="generateMergeScriptBtn" class="btn btn-primary btn-full" style="margin-top: 10px;">
+                        <span>📥</span> Download Merge Script
+                    </button>
+                    <p class="merge-hint">Downloads a .bat script to merge all videos</p>
+                </section>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settingsTab" class="tab-content hidden">
+                <!-- Model Settings -->
+                <section class="card glass">
+                    <h3 class="card-title">🤖 Model Settings</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Model Version</label>
+                            <select id="modelVersion" class="select-glass">
+                                <option value="veo_3_1_fast">Veo 3.1 - Fast</option>
+                                <option value="veo_3_1_quality">Veo 3.1 - Quality</option>
+                                <option value="veo_3_1_fast_low_priority" selected>Veo 3.1 - Fast [Lower Priority]
+                                </option>
+                                <option value="veo_2_fast">Veo 2 - Fast</option>
+                                <option value="veo_2_quality">Veo 2 - Quality</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Aspect Ratio</label>
+                            <select id="aspectRatio" class="select-glass">
+                                <option value="landscape">Landscape (16:9)</option>
+                                <option value="portrait">Portrait (9:16)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Outputs Per Prompt</label>
+                            <select id="outputsPerPrompt" class="select-glass">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Batch Size</label>
+                            <select id="batchSize" class="select-glass">
+                                <option value="1">1 prompt</option>
+                                <option value="2">2 prompts</option>
+                                <option value="3">3 prompts</option>
+                                <option value="4">4 prompts</option>
+                                <option value="5" selected>5 prompts</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start From #</label>
+                            <input type="number" id="startFrom" class="input-glass" value="1" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>⏱️ Delay Before Submit</label>
+                            <select id="delayBeforeSubmit" class="select-glass">
+                                <option value="0">No delay (0 sec)</option>
+                                <option value="1_to_5">1 sec to 5 sec</option>
+                                <option value="5_to_10" selected>5 sec to 10 sec</option>
+                                <option value="10_to_15">10 sec to 15 sec</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Retry & Auto-Reload Settings -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>🔄 Failed Retry Attempts</label>
+                            <select id="failedRetryAttempts" class="select-glass">
+                                <option value="0">No Retry (0)</option>
+                                <option value="1">1 Retry</option>
+                                <option value="2" selected>2 Retries</option>
+                                <option value="3">3 Retries</option>
+                                <option value="4">4 Retries</option>
+                                <option value="5">5 Retries</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>🔃 Auto-Reload Page</label>
+                            <select id="autoReloadAfterPrompts" class="select-glass">
+                                <option value="0" selected>Disabled</option>
+                                <option value="10">Every 10 prompts</option>
+                                <option value="20">Every 20 prompts</option>
+                                <option value="30">Every 30 prompts</option>
+                                <option value="40">Every 40 prompts</option>
+                                <option value="50">Every 50 prompts</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistics Dashboard -->
+                <section class="card glass stats-dashboard">
+                    <h3 class="card-title">📊 Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-icon">🎬</span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="totalVideosGenerated">0</span>
+                                <span class="stat-label">Total Videos</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon">✅</span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="successRate">0%</span>
+                                <span class="stat-label">Success Rate</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon">⏱️</span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="totalProcessingTime">0m</span>
+                                <span class="stat-label">Total Time</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon">📋</span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="totalPromptsUsed">0</span>
+                                <span class="stat-label">Prompts Used</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="resetStatsBtn" class="btn btn-text btn-sm" style="margin-top: 8px;">🔄 Reset
+                        Statistics</button>
+                </section>
+
+                <!-- Download Settings -->
+                <section class="card glass">
+                    <h3 class="card-title">📁 Download Settings</h3>
+
+                    <!-- Folder Picker -->
+                    <div class="form-group">
+                        <label>Download Folder</label>
+                        <div class="folder-picker">
+                            <button id="selectFolderBtn" class="btn btn-secondary" style="flex: 1;">
+                                <span>📂</span> Select Folder
+                            </button>
+                            <button id="clearFolderBtn" class="btn btn-outline btn-icon" title="Clear folder selection"
+                                style="display: none;">
+                                ✕
+                            </button>
+                        </div>
+                        <div id="selectedFolderPath" class="folder-path" style="display: none;">
+                            <span class="folder-icon">📁</span>
+                            <span id="folderPathText">No folder selected</span>
+                        </div>
+                        <p class="hint-text">Select a folder for automatic video downloads</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Job Folder Name (subfolder)</label>
+                        <input type="text" id="jobFolderName" class="input-glass" placeholder="Flow-Videos-01">
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="autoDownload" checked>
+                            <span>Auto-download videos</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="createUniqueFolder" checked>
+                            <span>Create unique folders</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="soundEnabled" checked>
+                            <span>🔊 Play sound on completion</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="developerMode">
+                            <span>🧪 Developer Mode (no submit)</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Video Merge Info -->
+                <section class="card glass">
+                    <h3 class="card-title">🎬 Video Merge</h3>
+                    <p class="hint-text" style="margin-bottom: 12px;">Merge all generated videos into a single video
+                        using FFmpeg.</p>
+                    <div id="mergeStatus" class="terminal-status connected">
+                        <span class="status-icon">✅</span>
+                        <span class="status-text">Ready! Requires FFmpeg installed.</span>
+                    </div>
+                    <p class="hint-text" style="margin-top: 10px;">
+                        <strong>How it works:</strong><br>
+                        1. Click "Download Merge Script" in Downloads section<br>
+                        2. Move the .bat file to your videos folder<br>
+                        3. Install FFmpeg: <code>winget install ffmpeg</code><br>
+                        4. Double-click the .bat file to merge!
+                    </p>
+                </section>
+
+                <!-- YouTube Integration -->
+                <section class="card glass">
+                    <h3 class="card-title">📺 YouTube Integration</h3>
+                    <p class="hint-text" style="margin-bottom: 12px;">Auto-upload videos to YouTube with AI-generated
+                        metadata</p>
+
+                    <!-- Connected Channels List -->
+                    <div id="youtubeChannels" class="youtube-channels">
+                        <div class="no-channels-msg">No channels connected</div>
+                    </div>
+
+                    <!-- Add Channel Button -->
+                    <button id="addYoutubeChannelBtn" class="btn btn-secondary btn-full" style="margin-top: 10px;">
+                        <span>➕</span> Add YouTube Channel
+                    </button>
+
+                    <!-- YouTube Settings (shown when at least one channel connected) -->
+                    <div id="youtubeSettings" class="youtube-settings hidden" style="margin-top: 12px;">
+                        <div class="form-group">
+                            <label>Default Upload Channel</label>
+                            <select id="defaultYoutubeChannel" class="select-glass">
+                                <option value="">Select channel...</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Privacy</label>
+                                <select id="youtubePrivacy" class="select-glass">
+                                    <option value="unlisted">Unlisted</option>
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="youtubeCategory" class="select-glass">
+                                    <option value="1">Film & Animation</option>
+                                    <option value="22">People & Blogs</option>
+                                    <option value="24">Entertainment</option>
+                                    <option value="28">Science & Tech</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="autoUploadYoutube">
+                                <span>🚀 Auto-upload after generation</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="aiMetadataEnabled" checked>
+                                <span>🤖 AI-generate title, description, tags</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Save Button -->
+                <button id="saveSettingsBtn" class="btn btn-primary btn-lg btn-full">
+                    💾 Save Settings
+                </button>
+            </div>
+
+            <!-- History Tab -->
+            <div id="historyTab" class="tab-content hidden">
+                <!-- Processing Log -->
+                <section class="card glass">
+                    <div class="card-header">
+                        <h3 class="card-title">📜 Processing Log</h3>
+                        <button id="clearLogsBtn" class="btn-text">🗑️ Clear</button>
+                    </div>
+                    <div id="logContent" class="log-container">
+                        <div class="log-empty">No logs yet</div>
+                    </div>
+                </section>
+
+                <!-- Failed Tasks -->
+                <section class="card glass">
+                    <div class="card-header">
+                        <h3 class="card-title">❌ Failed Tasks <span id="failedTasksCount">(0)</span></h3>
+                        <button id="copyFailedBtn" class="btn-text">📋 Copy</button>
+                    </div>
+                    <div id="failedTasksList" class="failed-list">
+                        <div class="log-empty">No failed tasks</div>
+                    </div>
+                    <button id="retryFailedBtn" class="btn btn-outline btn-full hidden">
+                        🔄 Retry Failed Prompts
+                    </button>
+                </section>
+            </div>
+
+            <!-- Help Tab -->
+            <div id="helpTab" class="tab-content hidden">
+                <section class="card glass">
+                    <h3 class="card-title">📖 How to Use</h3>
+                    <ol class="help-list">
+                        <li>Navigate to <a href="https://labs.google/fx/tools/flow" target="_blank">Google Flow</a></li>
+                        <li>Enter prompts or import a file</li>
+                        <li>Add prompts to queue</li>
+                        <li>Configure settings (model, ratio, batch size)</li>
+                        <li>Click Start Queue to begin automation</li>
+                    </ol>
+                </section>
+
+                <section class="card glass">
+                    <h3 class="card-title">📁 Supported File Formats</h3>
+                    <ul class="help-list">
+                        <li><strong>.txt</strong> - Plain text, blank lines separate prompts</li>
+                        <li><strong>.json</strong> - Array of prompt strings</li>
+                        <li><strong>.docx</strong> - Word document with paragraphs</li>
+                    </ul>
+                </section>
+
+                <section class="card glass">
+                    <h3 class="card-title">🔗 Links</h3>
+                    <div class="help-links">
+                        <a href="tutorial.html" target="_blank" class="btn btn-primary btn-full"
+                            style="margin-bottom: 10px;">
+                            📖 Full Tutorial & Guide
+                        </a>
+                        <a href="https://alzig.com" target="_blank" class="btn btn-outline btn-full">
+                            🌐 Visit Alzig.com
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer glass-strong">
+            <span class="version">v2.3</span>
+            <a href="https://alzig.com" target="_blank" class="footer-link">Alzig.com</a>
+        </footer>
+
+        <!-- Queue Modal -->
+        <div id="queueModal" class="modal hidden">
+            <div class="modal-content glass">
+                <div class="modal-header">
+                    <h2>📋 Manage Queue</h2>
+                    <button class="modal-close" id="closeQueueModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="queue-modal-actions">
+                        <input type="text" id="queueSearchInput" class="input-glass" placeholder="🔍 Search prompts...">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="selectAllQueue">
+                            <span>Select All</span>
+                        </label>
+                        <button id="removeSelectedBtn" class="btn btn-danger-outline hidden">Remove Selected</button>
+                    </div>
+                    <div id="queueListContainer" class="queue-list"></div>
+                    <div id="queueEmptyState" class="log-empty hidden">Queue is empty</div>
+                </div>
+                <div class="modal-footer">
+                    <span id="queueSelectedCount">0 selected</span>
+                    <button id="closeQueueBtn" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Prompt Generator Modal - Redesigned -->
+        <div id="promptGeneratorModal" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content modal-generator">
+                <!-- Modal Header -->
+                <div class="modal-header generator-header">
+                    <div class="modal-title-wrap">
+                        <div class="generator-logo">
+                            <span class="logo-icon">✨</span>
+                            <div class="logo-text">
+                                <h2 class="modal-title">Flow Prompt Creator</h2>
+                                <p class="modal-subtitle">7-Part Formula • Flow-Safe • Character Bible</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="closePromptGeneratorModal" class="modal-close">×</button>
+                </div>
+
+                <!-- Modal Body - Two Panel Layout -->
+                <div class="modal-body generator-body">
+                    <!-- Left Panel: Configuration -->
+                    <div class="generator-config-panel">
+                        <!-- Flow-Safe Info Box -->
+                        <div class="flow-safe-info-box">
+                            <div class="info-title">✅ Flow-Safe Prompts Enabled</div>
+                            <div class="info-content">
+                                <strong>7-Part Formula:</strong> Scene + Camera + Character + Action + Environment +
+                                Style + Audio<br>
+                                <strong>Character Bible:</strong> Same description copied verbatim in every scene<br>
+                                <strong>Built-in Safety:</strong> Adults only (21+), no dialogue, no temporal linking
+                            </div>
+                        </div>
+
+                        <!-- API Key Card (Collapsible) -->
+                        <div class="generator-card api-key-card" id="apiKeyCard">
+                            <div class="card-header clickable" id="toggleApiKeySection">
+                                <div class="card-title-row">
+                                    <span class="card-icon">🔑</span>
+                                    <h3>Gemini API Key (V1)</h3>
+                                    <span id="apiKeyStatusBadge" class="status-badge hidden">✓ Connected</span>
+                                </div>
+                                <span class="collapse-arrow">▼</span>
+                            </div>
+                            <div class="card-body api-key-content">
+                                <a href="https://aistudio.google.com/app/apikey" target="_blank"
+                                    class="btn btn-ai-studio btn-full">
+                                    <span>🌐</span> Get Free API Key from Google AI Studio
+                                </a>
+                                <div class="api-key-input-group">
+                                    <div class="input-with-icon">
+                                        <input type="password" id="geminiApiKey" class="input-glass"
+                                            placeholder="Paste your API key here...">
+                                        <button id="toggleApiKeyVisibility" class="input-icon-btn"
+                                            title="Show/Hide">👁️</button>
+                                    </div>
+                                    <button id="saveApiKeyBtn" class="btn btn-primary">Save</button>
+                                </div>
+                                <p id="apiKeyStatus" class="status-text"></p>
+
+                                <!-- Model Selector -->
+                                <div class="model-selector">
+                                    <label for="geminiModelSelect">🤖 Model:</label>
+                                    <select id="geminiModelSelect" class="select-glass">
+                                        <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</option>
+                                        <option value="gemini-2.5-pro">Gemini 2.5 Pro (Best Quality)</option>
+                                        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite (Fastest)</option>
+                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (Stable)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Prompt Configuration Card -->
+                        <div class="generator-card">
+                            <div class="card-header">
+                                <span class="card-icon">⚙️</span>
+                                <h3>Prompt Settings</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Prompt Count -->
+                                <div class="form-group">
+                                    <div class="label-row">
+                                        <label>Number of Prompts</label>
+                                        <span id="promptCountValue" class="value-badge">10</span>
+                                    </div>
+                                    <input type="range" id="promptCount" class="slider-modern" min="1" max="100"
+                                        value="10">
+                                    <div class="slider-scale">
+                                        <span>1</span>
+                                        <span>25</span>
+                                        <span>50</span>
+                                        <span>75</span>
+                                        <span>100</span>
+                                    </div>
+                                </div>
+
+                                <!-- Theme -->
+                                <div class="form-group">
+                                    <label>Theme / Subject <span class="optional-tag">(Optional)</span></label>
+                                    <textarea id="promptTheme" class="textarea-glass" rows="2"
+                                        placeholder="e.g., cyberpunk cityscapes, ocean wildlife, product showcase..."></textarea>
+                                </div>
+
+                                <!-- Story Style Selector -->
+                                <div class="form-group">
+                                    <label>📖 Story Style</label>
+                                    <div class="story-style-toggle">
+                                        <label class="toggle-option">
+                                            <input type="radio" name="storyStyle" value="voice_over">
+                                            <span class="toggle-label">Voice Over</span>
+                                        </label>
+                                        <label class="toggle-option">
+                                            <input type="radio" name="storyStyle" value="intelligent_mixed" checked>
+                                            <span class="toggle-label">Intelligent Mixed</span>
+                                        </label>
+                                        <label class="toggle-option">
+                                            <input type="radio" name="storyStyle" value="cinematic_no_voice">
+                                            <span class="toggle-label">Cinematic No Voice</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Content Niche Dropdown -->
+                                <div class="form-group">
+                                    <label>🎯 Content Niche <span class="optional-tag">(Optional)</span></label>
+                                    <select id="contentNicheSelect" class="select-glass">
+                                        <option value="default" selected>Default (Any Niche)</option>
+                                        <option value="educational">📚 Educational</option>
+                                        <option value="entertainment">🎭 Entertainment</option>
+                                        <option value="documentary">🎬 Documentary</option>
+                                        <option value="product_showcase">🛍️ Product Showcase</option>
+                                        <option value="storytelling">📖 Storytelling</option>
+                                        <option value="travel">🌍 Travel & Adventure</option>
+                                        <option value="tech">💻 Tech & Innovation</option>
+                                        <option value="lifestyle">🧘 Lifestyle & Wellness</option>
+                                        <option value="horror">👻 Horror & Thriller</option>
+                                        <option value="romance">❤️ Romance</option>
+                                        <option value="comedy">😂 Comedy</option>
+                                        <option value="kids">👶 Kids & Animation</option>
+                                        <option value="fantasy">⚔️ Fantasy & Medieval</option>
+                                        <option value="scifi">🚀 Sci-Fi & Space</option>
+                                        <option value="fitness">💪 Sports & Fitness</option>
+                                    </select>
+                                </div>
+
+                                <!-- Video Style and Language Row -->
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>🎬 Video Style</label>
+                                        <select id="videoStyleSelect" class="select-glass">
+                                            <option value="cinematic_blockbuster" selected>Cinematic (Blockbuster Film)
+                                            </option>
+                                            <option value="documentary_raw">Documentary (Raw & Real)</option>
+                                            <option value="commercial_premium">Commercial (Premium Ad)</option>
+                                            <option value="social_viral">Social Media (Viral Short)</option>
+                                            <option value="youtube_creator">YouTube (Creator Style)</option>
+                                            <option value="artistic_experimental">Artistic (Experimental)</option>
+                                            <option value="educational_explainer">Educational (Explainer)</option>
+                                            <option value="animation_stylized">3D Animation (Stylized)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>🌐 Language</label>
+                                        <select id="languageSelect" class="select-glass">
+                                            <option value="auto" selected>Auto Detect</option>
+                                            <option value="en">English</option>
+                                            <option value="es">Spanish</option>
+                                            <option value="fr">French</option>
+                                            <option value="de">German</option>
+                                            <option value="it">Italian</option>
+                                            <option value="pt">Portuguese</option>
+                                            <option value="zh">Chinese</option>
+                                            <option value="ja">Japanese</option>
+                                            <option value="ko">Korean</option>
+                                            <option value="ar">Arabic</option>
+                                            <option value="hi">Hindi</option>
+                                            <option value="bn">Bengali</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>🎙️ Voice Gender</label>
+                                        <select id="voiceGenderSelect" class="select-glass">
+                                            <option value="male" selected>Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="neutral">Neutral</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Voice/Dialogue and Background Music Toggles -->
+                                <div class="form-group mt-8">
+                                    <div class="checkbox-pills">
+                                        <label class="checkbox-pill">
+                                            <input type="checkbox" id="includeVoiceDialogue" checked>
+                                            <span>🎙️ Include Voice/Dialogue (Beta)</span>
+                                        </label>
+                                        <label class="checkbox-pill">
+                                            <input type="checkbox" id="includeBackgroundMusic">
+                                            <span>🎵 Add Background Music (Beta)</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Ultra Rendering Style Presets -->
+                                <div class="form-group">
+                                    <label>🎨 Rendering Style Preset</label>
+                                    <select id="stylePresetSelect" class="select-glass">
+                                        <option value="CINEMATIC_BLOCKBUSTER" selected>🎬 Cinematic Blockbuster</option>
+                                        <option value="DOCUMENTARY_RAW">📹 Documentary Raw</option>
+                                        <option value="PIXAR_3D">🎨 Pixar 3D Animation</option>
+                                        <option value="GHIBLI_2D">🖌️ Ghibli 2D Style</option>
+                                        <option value="COMMERCIAL_LUXURY">💎 Commercial Luxury</option>
+                                        <option value="HORROR_ATMOSPHERIC">🌙 Horror Atmospheric</option>
+                                        <option value="ROMANTIC_WARM">💕 Romantic Warm</option>
+                                    </select>
+                                    <p class="hint-text" id="stylePresetDescription">Epic Hollywood style with
+                                        professional cinematography</p>
+                                </div>
+
+                                <!-- Prompt Length -->
+                                <div class="form-group">
+                                    <label>Prompt Length</label>
+                                    <div class="length-toggle">
+                                        <label class="toggle-option">
+                                            <input type="radio" name="promptLength" value="short">
+                                            <span class="toggle-label">Short<br><small>20-35 words</small></span>
+                                        </label>
+                                        <label class="toggle-option">
+                                            <input type="radio" name="promptLength" value="medium" checked>
+                                            <span class="toggle-label">Optimal<br><small>30-55 words ✓</small></span>
+                                        </label>
+                                        <label class="toggle-option">
+                                            <input type="radio" name="promptLength" value="long">
+                                            <span class="toggle-label">Detailed<br><small>50-80 words</small></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- VEO 3 Ultra Output Toggle -->
+                                <div class="form-group mt-12">
+                                    <div class="extend-toggle-row">
+                                        <div class="extend-info">
+                                            <span class="extend-icon">🎬</span>
+                                            <div>
+                                                <strong>VEO 3 Ultra Output</strong>
+                                                <small>Camera directions + Rendering blocks</small>
+                                            </div>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" id="ultraOutputToggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Options Card (Collapsible) -->
+                        <div class="generator-card collapsible">
+                            <div class="card-header clickable" id="toggleAdvancedOptions">
+                                <div class="card-title-row">
+                                    <span class="card-icon">🎛️</span>
+                                    <h3>Advanced Options</h3>
+                                </div>
+                                <span class="collapse-arrow">▼</span>
+                            </div>
+                            <div id="advancedOptionsContent" class="card-body collapsed-content hidden">
+                                <!-- Creativity Level -->
+                                <div class="form-group">
+                                    <div class="label-row">
+                                        <label>Creativity Level</label>
+                                        <span id="creativityValue" class="value-badge">70%</span>
+                                    </div>
+                                    <input type="range" id="creativityLevel" class="slider-modern" min="0" max="100"
+                                        value="70">
+                                    <div class="slider-scale">
+                                        <span>Focused</span>
+                                        <span>Balanced</span>
+                                        <span>Creative</span>
+                                    </div>
+                                </div>
+
+                                <!-- Include Options -->
+                                <div class="form-group">
+                                    <label>Include in Prompts</label>
+                                    <div class="checkbox-pills">
+                                        <label class="checkbox-pill"><input type="checkbox" id="includeStyle"
+                                                checked><span>Style Details</span></label>
+                                        <label class="checkbox-pill"><input type="checkbox" id="includeComposition"
+                                                checked><span>Composition</span></label>
+                                        <label class="checkbox-pill"><input type="checkbox"
+                                                id="includeColors"><span>Colors</span></label>
+                                        <label class="checkbox-pill"><input type="checkbox"
+                                                id="includeLighting"><span>Lighting</span></label>
+                                        <label class="checkbox-pill"><input type="checkbox"
+                                                id="includeMood"><span>Mood</span></label>
+                                    </div>
+                                </div>
+
+                                <!-- Keywords -->
+                                <div class="keywords-row">
+                                    <div class="form-group">
+                                        <label>Must Include</label>
+                                        <input type="text" id="mustIncludeKeywords" class="input-glass"
+                                            placeholder="e.g., 4K, dramatic">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Exclude</label>
+                                        <input type="text" id="excludeKeywords" class="input-glass"
+                                            placeholder="e.g., text, people">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ✅ Prompting Mode Selector -->
+                        <div class="form-group prompting-mode-section">
+                            <label>🎬 Video Generation Style</label>
+                            <select id="promptingMode" class="input-glass" aria-label="Video Generation Style">
+                                <option value="multi-video">🎥 Story Scenes (For Merging) - N scenes → merge later
+                                </option>
+                                <option value="timestamp">📍 Timestamp Scenes - [Scene X] + 4 shots per video</option>
+                            </select>
+                            <div id="promptingModeInfo" class="prompting-mode-info">
+                                🎥 Creates N separate scenes. Use merge script to combine into final video.
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button id="generatePromptsBtn" class="btn btn-generate">
+                            <span class="btn-icon">✨</span>
+                            <span class="btn-text">Generate Prompts</span>
+                            <span class="btn-spinner hidden">
+                                <span class="spinner"></span>
+                            </span>
+                        </button>
+
+                        <!-- Generated Prompts Output (appears below after generation) -->
+                        <section id="generatedPromptsSection" class="output-section hidden">
+                            <div class="output-header">
+                                <h3>📝 Generated Prompts <span id="generatedCount" class="count-badge">0</span></h3>
+                                <div class="output-actions">
+                                    <button id="copyAllPromptsBtn" class="btn btn-sm btn-outline">📋 Copy All</button>
+                                    <button id="addAllToQueueBtn" class="btn btn-sm btn-primary">➕ Add to Queue</button>
+                                </div>
+                            </div>
+                            <div id="generatedPromptsList" class="prompts-scroll-area"></div>
+
+                            <!-- Export Options -->
+                            <div class="export-bar">
+                                <span class="export-label">Export:</span>
+                                <button id="exportAsTxtBtn" class="btn btn-xs btn-outline">📄 TXT</button>
+                                <button id="exportAsJsonBtn" class="btn btn-xs btn-outline">📋 JSON</button>
+                                <button id="exportEachFileBtn" class="btn btn-xs btn-outline">📁 Individual</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- License Activation Modal -->
+    <div id="licenseModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h3>🔑 Activate License</h3>
+            </div>
+            <div class="modal-body">
+                <p class="hint-text" style="margin-bottom: 16px;">Enter your license key to unlock all features</p>
+                <div class="form-group">
+                    <label>License Key</label>
+                    <input type="text" id="licenseKeyInput" class="input-glass" placeholder="ALZIG-XXXX-XXXX-XXXX"
+                        style="font-family: monospace; text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="licenseEmailInput" class="input-glass" placeholder="your@email.com">
+                </div>
+                <div id="licenseError" class="error-text hidden" style="color: #ff4757; margin-bottom: 12px;"></div>
+                <button id="activateLicenseBtn" class="btn btn-primary btn-full">
+                    ✅ Activate License
+                </button>
+                <div
+                    style="margin-top: 16px; text-align: center; border-top: 1px solid var(--color-border); padding-top: 16px;">
+                    <p class="hint-text" style="margin-bottom: 8px;">Don't have a license key?</p>
+                    <a id="registerLink" href="#" target="_blank" class="btn btn-secondary btn-full"
+                        style="margin-bottom: 8px;">
+                        🆓 Get Free License (2 videos/day)
+                    </a>
+                    <a id="pricingLink" href="#" target="_blank" style="color: var(--color-primary); font-size: 13px;">
+                        View Pricing Plans →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centralized Config (LOAD FIRST) -->
+    <script src="config.js"></script>
+
+    <script src="utils/promptParser.js"></script>
+    <script src="utils/flowSettings.js"></script>
+    <script src="utils/aiPromptGenerator.js"></script>
+    <script src="security.js"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="license-manager.js"></script>
+    <!-- YouTube Integration -->
+    <script src="metadata-generator.js"></script>
+    <script src="youtube-auth.js"></script>
+    <script src="youtube-upload.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>

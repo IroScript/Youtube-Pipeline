@@ -1,0 +1,598 @@
+{
+   "scenes": [
+      {
+         "scene_number": 1,
+         "start_time_seconds": 0.0,
+         "end_time_seconds": 4.08,
+         "audio_duration_seconds": 4.08,
+         "veo_target_duration": 6,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man [ref: uploaded_image.jpg] wondering about the greatest invention in human history",
+            "environment": "A dark and abandoned cityscape",
+            "camera": "Static shot with a slight zoom",
+            "lighting": "Low-key lighting with a focus on shadows",
+            "consistency_notes": "Keep the character's facial expression curious"
+         },
+         "full_combined_prompt": "0.0-1.5s: The young man [ref: uploaded_image.jpg] stands in a desolate city, looking up at the sky. 1.5-3.0s: The camera zooms in on his face, showing a mix of curiosity and wonder. 3.0-4.08s: His eyes widen as he contemplates the greatest invention in human history.",
+         "moderate_full_combined_prompt": "0.0-1.5s: A man stands in a quiet city, looking up at the sky. 1.5-3.0s: The camera zooms in on his face, showing a mix of curiosity and wonder. 3.0-4.08s: His eyes widen as he contemplates human history.",
+         "soft_full_combined_prompt": "0.0-1.5s: A cinematic wide shot of a peaceful city skyline. 1.5-3.0s: A gentle zoom into a modern architectural structure. 3.0-4.08s: Soft cinematic lighting over the quiet urban environment.",
+         "moderate_openmontage_prompt": {
+            "subject": "A person wondering about human history",
+            "environment": "A quiet city",
+            "camera": "Static shot with a slight zoom",
+            "lighting": "Cinematic lighting",
+            "consistency_notes": "Keep the expression curious"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Peaceful city scene",
+            "environment": "Urban landscape",
+            "camera": "Slow zoom",
+            "lighting": "Soft cinematic lighting",
+            "consistency_notes": "Peaceful atmosphere"
+         }
+      },
+      {
+         "scene_number": 2,
+         "start_time_seconds": 4.08,
+         "end_time_seconds": 7.12,
+         "audio_duration_seconds": 3.04,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] imagination runs wild with possibilities",
+            "environment": "A surreal, dreamlike landscape",
+            "camera": "Fast-paced cuts with a mix of close-ups and wide shots",
+            "lighting": "High-contrast lighting with vibrant colors",
+            "consistency_notes": "Emphasize the young man's [ref: uploaded_image.jpg] imagination and creativity"
+         },
+         "full_combined_prompt": "4.08-5.1s: The young man's [ref: uploaded_image.jpg] imagination takes over, and he envisions a world with endless possibilities. 5.1-6.16s: The camera cuts to a montage of fantastical scenes, showcasing his creativity. 6.16-7.12s: the young man's [ref: uploaded_image.jpg] imagination continues to run wild, with a focus on the concept of crossing possibilities.",
+         "moderate_full_combined_prompt": "4.08-5.1s: An investigator's imagination takes over, envisioning a world of endless possibilities. 5.1-6.16s: The camera cuts to a montage of surreal scenes, showcasing creativity. 6.16-7.12s: The imagination continues to run wild, focusing on new ideas.",
+         "soft_full_combined_prompt": "4.08-5.1s: Beautiful abstract visuals representing creativity. 5.1-6.16s: A colorful montage of flowing shapes. 6.16-7.12s: Soft, ethereal patterns crossing and blending together.",
+         "moderate_openmontage_prompt": {
+            "subject": "Imagination running wild with possibilities",
+            "environment": "A surreal landscape",
+            "camera": "Fast-paced cuts",
+            "lighting": "Vibrant colors",
+            "consistency_notes": "Emphasize creativity"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Abstract visual representation of creativity",
+            "environment": "Colorful abstract space",
+            "camera": "Smooth transitions",
+            "lighting": "Soft pastel lighting",
+            "consistency_notes": "Gentle flow"
+         }
+      },
+      {
+         "scene_number": 3,
+         "start_time_seconds": 7.92,
+         "end_time_seconds": 10.4,
+         "audio_duration_seconds": 2.48,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] thoughts turn to another universe",
+            "environment": "A futuristic, otherworldly setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] reactions",
+            "lighting": "Soft, ethereal lighting with a mix of pastel colors",
+            "consistency_notes": "Convey a sense of wonder and curiosity"
+         },
+         "full_combined_prompt": "7.92-9.16s: The young man's [ref: uploaded_image.jpg] thoughts shift to another universe, and he imagines a world beyond his own. 9.16-10.4s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotions as he contemplates the possibility of another universe.",
+         "moderate_full_combined_prompt": "7.92-9.16s: A young man's thoughts shift to outer space, imagining distant worlds. 9.16-10.4s: The camera lingers on his face, capturing his sense of wonder about the universe.",
+         "soft_full_combined_prompt": "7.92-9.16s: A cinematic shot of a starry night sky and beautiful galaxies. 9.16-10.4s: The camera slowly pans across the cosmic landscape with glowing nebulas.",
+         "moderate_openmontage_prompt": {
+            "subject": "Thoughts turning to the universe",
+            "environment": "A futuristic setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Ethereal lighting",
+            "consistency_notes": "Convey wonder"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Beautiful cosmic scenery",
+            "environment": "Outer space",
+            "camera": "Slow pan",
+            "lighting": "Glowing starlight",
+            "consistency_notes": "Peaceful space"
+         }
+      },
+      {
+         "scene_number": 4,
+         "start_time_seconds": 11.02,
+         "end_time_seconds": 14.64,
+         "audio_duration_seconds": 3.62,
+         "veo_target_duration": 6,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "Scientists work tirelessly, while others doubt their efforts",
+            "environment": "A laboratory or research facility",
+            "camera": "Fast-paced cuts between the scientists and the doubters",
+            "lighting": "High-contrast lighting with a focus on the scientists' determination",
+            "consistency_notes": "Emphasize the contrast between the scientists' hard work and the doubters' skepticism"
+         },
+         "full_combined_prompt": "11.02-12.2s: Scientists work diligently in a laboratory, driven by their passion for discovery. 12.2-13.9s: The camera cuts to a group of people doubting the scientists' efforts, highlighting the contrast between the two groups. 13.9-14.64s: The scientists continue their work, undeterred by the doubts of others.",
+         "moderate_full_combined_prompt": "11.02-12.2s: Researchers work carefully in a modern lab. 12.2-13.9s: The camera cuts to observers watching with skeptical expressions. 13.9-14.64s: The researchers continue their work focused on their tasks.",
+         "soft_full_combined_prompt": "11.02-12.2s: Close up of modern laboratory equipment and glowing screens. 12.2-13.9s: Soft focus on scientific instruments. 13.9-14.64s: A gentle tracking shot of a clean, futuristic workspace.",
+         "moderate_openmontage_prompt": {
+            "subject": "Researchers working in a lab",
+            "environment": "A modern research facility",
+            "camera": "Fast cuts",
+            "lighting": "Bright lab lighting",
+            "consistency_notes": "Show determination"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Modern lab equipment",
+            "environment": "Clean workspace",
+            "camera": "Gentle tracking shot",
+            "lighting": "Soft blue lighting",
+            "consistency_notes": "Calm scientific environment"
+         }
+      },
+      {
+         "scene_number": 5,
+         "start_time_seconds": 14.72,
+         "end_time_seconds": 17.68,
+         "audio_duration_seconds": 2.96,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The impossible becomes real, and The young man's [ref: uploaded_image.jpg] world changes",
+            "environment": "A surreal, dreamlike landscape",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] reactions",
+            "lighting": "Soft, ethereal lighting with a mix of pastel colors",
+            "consistency_notes": "Convey a sense of wonder and amazement"
+         },
+         "full_combined_prompt": "14.72-16.26s: The young man's [ref: uploaded_image.jpg] world is turned upside down as the impossible becomes real. 16.26-17.68s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotions as he struggles to comprehend the new reality.",
+         "moderate_full_combined_prompt": "14.72-16.26s: A man experiences a surreal moment as incredible things happen around him. 16.26-17.68s: The camera lingers on his face, capturing his amazement at the new reality.",
+         "soft_full_combined_prompt": "14.72-16.26s: A beautiful cinematic transition showing shifting landscapes. 16.26-17.68s: Gentle, glowing lights illuminating a mysterious but peaceful environment.",
+         "moderate_openmontage_prompt": {
+            "subject": "A person experiencing something incredible",
+            "environment": "A surreal landscape",
+            "camera": "Slow-motion shots",
+            "lighting": "Ethereal lighting",
+            "consistency_notes": "Convey amazement"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Shifting landscapes and lights",
+            "environment": "Abstract environment",
+            "camera": "Smooth transition",
+            "lighting": "Gentle glowing lights",
+            "consistency_notes": "Peaceful transition"
+         }
+      },
+      {
+         "scene_number": 6,
+         "start_time_seconds": 18.34,
+         "end_time_seconds": 21.3,
+         "audio_duration_seconds": 2.96,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "Dinosaurs walk beneath blood-red skies",
+            "environment": "A prehistoric landscape with a dark, ominous atmosphere",
+            "camera": "Static shot with a focus on the dinosaurs",
+            "lighting": "Low-key lighting with a focus on the blood-red skies",
+            "consistency_notes": "Emphasize the eerie, otherworldly atmosphere"
+         },
+         "full_combined_prompt": "18.34-19.42s: Dinosaurs roam a desolate, prehistoric landscape. 19.42-20.84s: The camera pans up to reveal the blood-red skies, adding to the sense of unease. 20.84-21.3s: The dinosaurs continue to walk, their footsteps echoing through the stillness.",
+         "moderate_full_combined_prompt": "18.34-19.42s: Dinosaurs roam a vast, prehistoric landscape. 19.42-20.84s: The camera pans up to reveal a stunning sunset sky, adding to the dramatic atmosphere. 20.84-21.3s: The dinosaurs continue to walk calmly.",
+         "soft_full_combined_prompt": "18.34-19.42s: A beautiful cinematic shot of a prehistoric forest. 19.42-20.84s: The camera pans up to reveal a peaceful sunset with warm orange skies. 20.84-21.3s: Gentle breeze blowing through the ancient trees.",
+         "moderate_openmontage_prompt": {
+            "subject": "Dinosaurs in a prehistoric landscape",
+            "environment": "Prehistoric landscape with dramatic sunset",
+            "camera": "Static shot",
+            "lighting": "Dramatic sunset lighting",
+            "consistency_notes": "Emphasize vastness"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Peaceful ancient forest",
+            "environment": "Prehistoric forest",
+            "camera": "Slow pan",
+            "lighting": "Warm sunset light",
+            "consistency_notes": "Calm and peaceful"
+         }
+      },
+      {
+         "scene_number": 7,
+         "start_time_seconds": 22.38,
+         "end_time_seconds": 25.1,
+         "audio_duration_seconds": 2.72,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man [ref: uploaded_image.jpg] finds another Earth, where humanity was born on Mars",
+            "environment": "A futuristic, interplanetary setting",
+            "camera": "Fast-paced cuts between the young man [ref: uploaded_image.jpg] and the new Earth",
+            "lighting": "High-contrast lighting with a focus on the young man's [ref: uploaded_image.jpg] wonder",
+            "consistency_notes": "Convey a sense of excitement and discovery"
+         },
+         "full_combined_prompt": "22.38-23.76s: The young man [ref: uploaded_image.jpg] discovers a new Earth, where humanity originated on Mars. 23.76-25.1s: The camera cuts to a montage of the young man [ref: uploaded_image.jpg] exploring this new world, highlighting his sense of wonder and curiosity.",
+         "moderate_full_combined_prompt": "22.38-23.76s: An explorer discovers a futuristic planet. 23.76-25.1s: The camera cuts to a montage of the explorer discovering advanced architecture, highlighting a sense of wonder.",
+         "soft_full_combined_prompt": "22.38-23.76s: A sweeping cinematic view of a futuristic, utopian city. 23.76-25.1s: The camera glides over beautiful modern architecture and green spaces.",
+         "moderate_openmontage_prompt": {
+            "subject": "An explorer discovering a futuristic planet",
+            "environment": "Futuristic interplanetary setting",
+            "camera": "Fast-paced cuts",
+            "lighting": "High-contrast lighting",
+            "consistency_notes": "Convey excitement"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Futuristic utopian city",
+            "environment": "Utopian city",
+            "camera": "Sweeping cinematic view",
+            "lighting": "Bright, uplifting lighting",
+            "consistency_notes": "Peaceful utopia"
+         }
+      },
+      {
+         "scene_number": 8,
+         "start_time_seconds": 26.38,
+         "end_time_seconds": 29.7,
+         "audio_duration_seconds": 3.32,
+         "veo_target_duration": 6,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] search for someone becomes an all-consuming passion",
+            "environment": "A dark, introspective setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Low-key lighting with a focus on the young man's [ref: uploaded_image.jpg] determination",
+            "consistency_notes": "Emphasize the young man's [ref: uploaded_image.jpg] emotional investment in his search"
+         },
+         "full_combined_prompt": "26.38-27.54s: The young man's [ref: uploaded_image.jpg] search for someone becomes an all-consuming passion. 27.54-28.92s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotions as he reflects on his journey. 28.92-29.7s: the young man's [ref: uploaded_image.jpg] determination drives him forward, despite the challenges he faces.",
+         "moderate_full_combined_prompt": "26.38-27.54s: A man's search for answers becomes his main focus. 27.54-28.92s: The camera lingers on his determined face. 28.92-29.7s: His determination drives him forward.",
+         "soft_full_combined_prompt": "26.38-27.54s: A person walking peacefully through a sunlit corridor. 27.54-28.92s: Soft focus on the surrounding architecture. 28.92-29.7s: The person continues walking forward into the light.",
+         "moderate_openmontage_prompt": {
+            "subject": "A man searching for answers",
+            "environment": "An introspective setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Focus on determination",
+            "consistency_notes": "Emphasize determination"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Walking through a sunlit corridor",
+            "environment": "Bright corridor",
+            "camera": "Gentle tracking shot",
+            "lighting": "Warm sunlight",
+            "consistency_notes": "Peaceful journey"
+         }
+      },
+      {
+         "scene_number": 9,
+         "start_time_seconds": 30,
+         "end_time_seconds": 32.36,
+         "audio_duration_seconds": 2.36,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] mother is battling illness, leaving him with a deep sense of loss",
+            "environment": "A hospital or medical setting",
+            "camera": "Static shot with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Low-key lighting with a focus on the young man's [ref: uploaded_image.jpg] grief",
+            "consistency_notes": "Convey a sense of sadness and loss"
+         },
+         "full_combined_prompt": "30-31.36s: The young man's [ref: uploaded_image.jpg] mother is battling illness, leaving him with a deep sense of sadness. 31.36-32.36s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotional struggle.",
+         "moderate_full_combined_prompt": "30-31.36s: A family goes through a difficult time in a hospital setting. 31.36-32.36s: The camera captures a man's face showing deep empathy and concern.",
+         "soft_full_combined_prompt": "30-31.36s: A cinematic shot of a peaceful hospital room interior with sunlight streaming in. 31.36-32.36s: Gentle focus on a vase of beautiful flowers on the table.",
+         "moderate_openmontage_prompt": {
+            "subject": "A family going through a difficult time",
+            "environment": "A medical setting",
+            "camera": "Static shot",
+            "lighting": "Soft lighting",
+            "consistency_notes": "Convey concern"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Peaceful room interior with flowers",
+            "environment": "Sunlit room",
+            "camera": "Slow zoom",
+            "lighting": "Warm natural light",
+            "consistency_notes": "Calm and peaceful"
+         }
+      },
+      {
+         "scene_number": 10,
+         "start_time_seconds": 33.42,
+         "end_time_seconds": 35.48,
+         "audio_duration_seconds": 2.06,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man [ref: uploaded_image.jpg] holds his mother's hand, hoping for a miracle",
+            "environment": "A hospital or medical setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Soft, ethereal lighting with a mix of pastel colors",
+            "consistency_notes": "Convey a sense of hope and desperation"
+         },
+         "full_combined_prompt": "33.42-34.64s: The young man [ref: uploaded_image.jpg] holds his mother's hand, hoping for recovery. 34.64-35.48s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotions as he waits with her.",
+         "moderate_full_combined_prompt": "33.42-34.64s: A young man holds a patient's hand comfortingly. 34.64-35.48s: The camera captures his supportive and caring expression.",
+         "soft_full_combined_prompt": "33.42-34.64s: Two hands gently holding each other in a gesture of care. 34.64-35.48s: Soft focus background with warm, comforting lighting.",
+         "moderate_openmontage_prompt": {
+            "subject": "A man holding a patient's hand",
+            "environment": "A medical setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Soft lighting",
+            "consistency_notes": "Convey support"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Hands holding gently",
+            "environment": "Abstract warm background",
+            "camera": "Static close-up",
+            "lighting": "Warm comforting lighting",
+            "consistency_notes": "Gentle care"
+         }
+      },
+      {
+         "scene_number": 11,
+         "start_time_seconds": 35.9,
+         "end_time_seconds": 39.4,
+         "audio_duration_seconds": 3.5,
+         "veo_target_duration": 6,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] mother passes away, leaving him with a deep sense of loss",
+            "environment": "A hospital or medical setting",
+            "camera": "Static shot with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Low-key lighting with a focus on the young man's [ref: uploaded_image.jpg] grief",
+            "consistency_notes": "Convey a sense of sadness and loss"
+         },
+         "full_combined_prompt": "35.9-37.66s: The young man [ref: uploaded_image.jpg] faces a tragic loss as his mother passes away. 37.66-39.06s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his deep grief. 39.06-39.4s: the young man's [ref: uploaded_image.jpg] sadness is palpable as he comes to terms with the farewell.",
+         "moderate_full_combined_prompt": "35.9-37.66s: A man experiences a moment of profound farewell. 37.66-39.06s: The camera lingers on his face, showing deep emotion. 39.06-39.4s: He gently accepts the difficult transition.",
+         "soft_full_combined_prompt": "35.9-37.66s: A cinematic shot of autumn leaves falling gently to the ground. 37.66-39.06s: Soft breeze blowing through the trees in a peaceful park. 39.06-39.4s: The sun sets warmly over the horizon.",
+         "moderate_openmontage_prompt": {
+            "subject": "A man experiencing a profound farewell",
+            "environment": "A quiet room",
+            "camera": "Static shot",
+            "lighting": "Subdued lighting",
+            "consistency_notes": "Convey emotion"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Autumn leaves falling",
+            "environment": "Peaceful park",
+            "camera": "Slow motion",
+            "lighting": "Golden hour lighting",
+            "consistency_notes": "Peaceful transition"
+         }
+      },
+      {
+         "scene_number": 12,
+         "start_time_seconds": 39.66,
+         "end_time_seconds": 42.3,
+         "audio_duration_seconds": 2.64,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man [ref: uploaded_image.jpg] calls out to his mother, hoping for a response",
+            "environment": "A dark, introspective setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Low-key lighting with a focus on the young man's [ref: uploaded_image.jpg] determination",
+            "consistency_notes": "Emphasize the young man's [ref: uploaded_image.jpg] emotional investment in his search"
+         },
+         "full_combined_prompt": "39.66-41.16s: The young man [ref: uploaded_image.jpg] calls out to his mother, hoping for a response. 41.16-42.3s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotions as he waits for an answer in the silence.",
+         "moderate_full_combined_prompt": "39.66-41.16s: A man looks out into the distance thoughtfully. 41.16-42.3s: The camera lingers on his face, capturing his quiet contemplation.",
+         "soft_full_combined_prompt": "39.66-41.16s: A beautiful landscape view with a calm lake reflecting the sky. 41.16-42.3s: Gentle ripples moving across the surface of the water.",
+         "moderate_openmontage_prompt": {
+            "subject": "A man looking into the distance thoughtfully",
+            "environment": "An introspective setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Soft lighting",
+            "consistency_notes": "Emphasize contemplation"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Calm lake reflecting the sky",
+            "environment": "Nature landscape",
+            "camera": "Static wide shot",
+            "lighting": "Soft natural light",
+            "consistency_notes": "Peaceful"
+         }
+      },
+      {
+         "scene_number": 13,
+         "start_time_seconds": 43.38,
+         "end_time_seconds": 46.32,
+         "audio_duration_seconds": 2.94,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] hope is a double-edged sword, bringing both comfort and pain",
+            "environment": "A surreal, dreamlike landscape",
+            "camera": "Fast-paced cuts with a mix of close-ups and wide shots",
+            "lighting": "High-contrast lighting with vibrant colors",
+            "consistency_notes": "Convey a sense of complexity and nuance"
+         },
+         "full_combined_prompt": "43.38-44.78s: The young man's [ref: uploaded_image.jpg] hope is a delicate balance, bringing both comfort and pain. 44.78-46.32s: The camera cuts to a montage of the young man's [ref: uploaded_image.jpg] emotions, highlighting the complexity of his feelings.",
+         "moderate_full_combined_prompt": "43.38-44.78s: A man navigates complex emotions, balancing hope and acceptance. 44.78-46.32s: The camera cuts to a montage of his thoughtful expressions.",
+         "soft_full_combined_prompt": "43.38-44.78s: Abstract flowing colors representing shifting emotions. 44.78-46.32s: Soft transitions between warm and cool color palettes.",
+         "moderate_openmontage_prompt": {
+            "subject": "A man navigating complex emotions",
+            "environment": "A dreamlike landscape",
+            "camera": "Fast-paced cuts",
+            "lighting": "Contrasting colors",
+            "consistency_notes": "Convey complexity"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Abstract flowing colors",
+            "environment": "Abstract space",
+            "camera": "Smooth transitions",
+            "lighting": "Pastel colors",
+            "consistency_notes": "Calm flow"
+         }
+      },
+      {
+         "scene_number": 14,
+         "start_time_seconds": 47.16,
+         "end_time_seconds": 50.2,
+         "audio_duration_seconds": 3.04,
+         "veo_target_duration": 6,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] journey takes him to a new universe, where his mother is alive",
+            "environment": "A futuristic, interplanetary setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Soft, ethereal lighting with a mix of pastel colors",
+            "consistency_notes": "Convey a sense of wonder and amazement"
+         },
+         "full_combined_prompt": "47.16-48.7s: The young man's [ref: uploaded_image.jpg] journey takes him to a new universe, where his mother is alive and well. 48.7-50.2s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his pure astonishment as he reunites with her.",
+         "moderate_full_combined_prompt": "47.16-48.7s: A traveler arrives in an alternate reality where a loved one is present. 48.7-50.2s: The camera focuses on his astonished expression during the reunion.",
+         "soft_full_combined_prompt": "47.16-48.7s: A glowing portal opening to a beautiful, bright new world. 48.7-50.2s: Light streaming in, illuminating a peaceful environment.",
+         "moderate_openmontage_prompt": {
+            "subject": "A traveler arriving in an alternate reality",
+            "environment": "A futuristic setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Ethereal lighting",
+            "consistency_notes": "Convey amazement"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Glowing portal to a bright world",
+            "environment": "Magical space",
+            "camera": "Slow forward movement",
+            "lighting": "Bright, uplifting light",
+            "consistency_notes": "Wonder and peace"
+         }
+      },
+      {
+         "scene_number": 15,
+         "start_time_seconds": 50.7,
+         "end_time_seconds": 53.3,
+         "audio_duration_seconds": 2.6,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] mother is alive in this new universe, but doesn't recognize him",
+            "environment": "A domestic, everyday setting",
+            "camera": "Static shot with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Soft, natural lighting with a focus on the young man's [ref: uploaded_image.jpg] feelings",
+            "consistency_notes": "Convey a sense of sadness and longing"
+         },
+         "full_combined_prompt": "50.7-52.02s: The young man's [ref: uploaded_image.jpg] mother is alive in this new universe, but doesn't recognize him. 52.02-53.3s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his bittersweet emotions as he struggles to comprehend.",
+         "moderate_full_combined_prompt": "50.7-52.02s: A woman in this alternate reality doesn't recognize the traveler. 52.02-53.3s: The camera lingers on the traveler's face, capturing a bittersweet realization.",
+         "soft_full_combined_prompt": "50.7-52.02s: Two abstract silhouettes standing apart in a softly lit room. 52.02-53.3s: A gentle, cinematic light slowly separating the two shapes.",
+         "moderate_openmontage_prompt": {
+            "subject": "A woman not recognizing a traveler",
+            "environment": "A domestic setting",
+            "camera": "Static shot",
+            "lighting": "Soft natural lighting",
+            "consistency_notes": "Convey realization"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Two silhouettes standing apart",
+            "environment": "Abstract space",
+            "camera": "Slow zoom out",
+            "lighting": "Gentle cinematic light",
+            "consistency_notes": "Peaceful distance"
+         }
+      },
+      {
+         "scene_number": 16,
+         "start_time_seconds": 53.44,
+         "end_time_seconds": 58.14,
+         "audio_duration_seconds": 4.7,
+         "veo_target_duration": 6,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man's [ref: uploaded_image.jpg] mother is happy and carefree in this new universe",
+            "environment": "A domestic, everyday setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] mother",
+            "lighting": "Soft, natural lighting with a focus on the young man's [ref: uploaded_image.jpg] mother's happiness",
+            "consistency_notes": "Convey a sense of joy and contentment"
+         },
+         "full_combined_prompt": "53.44-55.12s: The young man's [ref: uploaded_image.jpg] mother is happy and carefree in this new universe. 55.12-56.74s: The camera cuts to a montage of her going about her daily routine joyfully. 56.74-58.14s: the young man [ref: uploaded_image.jpg] watches her, a mix of awe and acceptance on his face.",
+         "moderate_full_combined_prompt": "53.44-55.12s: A woman lives happily and carefree in this reality. 55.12-56.74s: A montage shows her going about her daily routine with joy. 56.74-58.14s: The traveler watches her warmly from a distance.",
+         "soft_full_combined_prompt": "53.44-55.12s: A person gardening in a beautiful, sunlit backyard. 55.12-56.74s: Close up of vibrant blooming flowers. 56.74-58.14s: A gentle breeze rustles the green leaves under a clear sky.",
+         "moderate_openmontage_prompt": {
+            "subject": "A woman living happily",
+            "environment": "A domestic setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Soft, natural lighting",
+            "consistency_notes": "Convey joy"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Person gardening",
+            "environment": "Sunlit backyard",
+            "camera": "Smooth tracking",
+            "lighting": "Warm sunlight",
+            "consistency_notes": "Joyful and peaceful"
+         }
+      },
+      {
+         "scene_number": 17,
+         "start_time_seconds": 58.14,
+         "end_time_seconds": 60,
+         "audio_duration_seconds": 1.86,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man [ref: uploaded_image.jpg] listens to his mother, taking in every moment",
+            "environment": "A domestic, everyday setting",
+            "camera": "Static shot with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Soft, natural lighting with a focus on the young man's [ref: uploaded_image.jpg] feelings",
+            "consistency_notes": "Convey a sense of intimacy and connection"
+         },
+         "full_combined_prompt": "58.14-59.22s: The young man [ref: uploaded_image.jpg] listens to his mother, taking in every moment. 59.22-60s: The camera lingers on the young man's [ref: uploaded_image.jpg] face, capturing his emotions as he cherishes her presence.",
+         "moderate_full_combined_prompt": "58.14-59.22s: The traveler listens to the woman, appreciating every moment. 59.22-60s: The camera lingers on his face, showing deep appreciation.",
+         "soft_full_combined_prompt": "58.14-59.22s: Two cups of coffee steaming gently on a table in the morning light. 59.22-60s: A peaceful, cinematic shot of a warm home environment.",
+         "moderate_openmontage_prompt": {
+            "subject": "A traveler listening and appreciating",
+            "environment": "A domestic setting",
+            "camera": "Static shot",
+            "lighting": "Soft natural lighting",
+            "consistency_notes": "Convey appreciation"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Steaming coffee cups",
+            "environment": "Cozy home interior",
+            "camera": "Slow pan",
+            "lighting": "Morning light",
+            "consistency_notes": "Warm and cozy"
+         }
+      },
+      {
+         "scene_number": 18,
+         "start_time_seconds": 60,
+         "end_time_seconds": 61.76,
+         "audio_duration_seconds": 1.76,
+         "veo_target_duration": 4,
+         "aspect_ratio": "9:16",
+         "priority": "lower",
+         "openmontage_prompt": {
+            "subject": "The young man [ref: uploaded_image.jpg] asks to be taken to the universe where his mother is alive",
+            "environment": "A futuristic, interplanetary setting",
+            "camera": "Slow-motion shots with a focus on the young man's [ref: uploaded_image.jpg] emotions",
+            "lighting": "Soft, ethereal lighting with a mix of pastel colors",
+            "consistency_notes": "Convey a sense of longing and desire"
+         },
+         "full_combined_prompt": "60.0-60.88s: The young man [ref: uploaded_image.jpg] asks to be taken to the universe where his mother is alive. 60.88-61.76s: The camera focuses on the young man's [ref: uploaded_image.jpg] hopeful yet desperate expression, bathed in soft ethereal light.",
+         "moderate_full_combined_prompt": "60.0-60.88s: The traveler requests to stay in the alternate universe. 60.88-61.76s: The camera focuses on his hopeful expression, bathed in soft light.",
+         "soft_full_combined_prompt": "60.0-60.88s: A cinematic shot of a beautiful horizon as the sun rises. 60.88-61.76s: Warm, hopeful light spreading across a peaceful landscape.",
+         "moderate_openmontage_prompt": {
+            "subject": "A traveler requesting to stay",
+            "environment": "A futuristic setting",
+            "camera": "Slow-motion shots",
+            "lighting": "Ethereal lighting",
+            "consistency_notes": "Convey hope"
+         },
+         "soft_openmontage_prompt": {
+            "subject": "Beautiful sunrise horizon",
+            "environment": "Natural landscape",
+            "camera": "Slow upward pan",
+            "lighting": "Warm sunrise",
+            "consistency_notes": "Hopeful and peaceful"
+         }
+      }
+   ]
+}
