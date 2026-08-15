@@ -45,10 +45,18 @@ class SingleVideoPipelineRunner:
         logging.info(f"🎬 PIPELINE STARTING FOR CATEGORY: '{category}'")
         logging.info(f"==================================================")
 
-        # Step 1 & 2: Generate 5 Ideas, Pick #1, Build Open Montage Prompt
-        prompt_info = self.idea_generator.build_single_video_prompt(category)
+        # Step 1 & 2: Generate/Fetch Prompt from SQLite Escalation or Ideas Generator
+        prompt_source = self.config.get("prompt_source", "sqlite_escalation")
+        if prompt_source == "sqlite_escalation":
+            sqlite_lvl = self.config.get("sqlite_escalation_level", 10)
+            db_p = self.config.get("sqlite_db_path")
+            prompt_info = self.idea_generator.fetch_sqlite_escalation_prompt(level=sqlite_lvl, db_path=db_p)
+            category = prompt_info.get("category", "Paddy Titan Machine")
+            logging.info(f"🏛️ [SQLite Escalation Active] Selected Level {sqlite_lvl} Prompt from youtube_pipeline.db")
+        else:
+            prompt_info = self.idea_generator.build_single_video_prompt(category)
+            logging.info(f"💡 5 Ideas Generated. Selected #1: '{prompt_info['selected_idea']['title']}'")
         
-        logging.info(f"💡 5 Ideas Generated. Selected #1: '{prompt_info['selected_idea']['title']}'")
         logging.info(f"📜 Generated Prompt: {prompt_info['full_combined_prompt']}")
 
         # Step 3: Render via Extension with 10-time retry on failure

@@ -26,20 +26,18 @@ async function setupSidePanel() {
   }
 }
 
-// Extension Lifecycle Listeners
+// Extension Lifecycle Listeners - Auto-reload Flow tabs on install/update/reload
 chrome.runtime.onInstalled.addListener(async (details) => {
   await setupSidePanel();
 
-  if (details.reason === 'install') {
-    try {
-      const tabs = await chrome.tabs.query({ url: ['*://labs.google/*'] });
-      for (const tab of tabs) {
-        if (tab.id && tab.url?.includes('flow')) {
-          await chrome.tabs.reload(tab.id).catch(() => {});
-        }
+  try {
+    const tabs = await chrome.tabs.query({});
+    for (const tab of tabs) {
+      if (tab.id && tab.url && (tab.url.includes('labs.google/fx/tools/flow') || tab.url.includes('labs.google'))) {
+        await chrome.tabs.reload(tab.id).catch(() => {});
       }
-    } catch {}
-  }
+    }
+  } catch {}
 });
 
 // Action Click Listener (Fallback for sidepanel open)

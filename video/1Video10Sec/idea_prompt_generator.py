@@ -168,12 +168,81 @@ class IdeaPromptGenerator:
         }
         return prompt_data
 
+    def fetch_sqlite_escalation_prompt(self, level: int = 10, db_path: str = None) -> dict:
+        """
+        Fetches Level 10 (or specified level) escalation prompt directly from SQLite database.
+        """
+        if not db_path:
+            db_path = r"C:\Users\Irak\Desktop\Youtube Pipeline\AntiBotBrowser\flowboard\storage\youtube_pipeline.db"
+        
+        target_dur = self.config.get("target_duration_seconds", 8)
+        aspect = self.config.get("aspect_ratio", "9:16")
+        model = self.config.get("model", "Veo 3.1 Lower Priority")
+
+        import sqlite3
+        if not os.path.exists(db_path):
+            return self.build_single_video_prompt("Impossible Machines")
+
+        con = sqlite3.connect(db_path)
+        cur = con.cursor()
+        
+        # Query the video prompt for the given level with valid non-empty text
+        cur.execute(
+            "SELECT id, idea_id, level, level_name, title, prompt_text FROM prompts WHERE generation_type='video' AND level=? AND length(prompt_text) > 50 ORDER BY id DESC LIMIT 1",
+            (level,)
+        )
+        row = cur.fetchone()
+        
+        # If not found for exact level, get the highest available level with valid text
+        if not row:
+            cur.execute(
+                "SELECT id, idea_id, level, level_name, title, prompt_text FROM prompts WHERE generation_type='video' AND length(prompt_text) > 50 ORDER BY level DESC, id DESC LIMIT 1"
+            )
+            row = cur.fetchone()
+
+        con.close()
+
+        if not row:
+            return self.build_single_video_prompt("Impossible Machines")
+
+        prompt_id, idea_id, lvl, lvl_name, title, prompt_text = row
+        
+        # Clean prompt text: strip any leading image references and normalize all whitespace/newlines
+        clean_text = prompt_text
+        for i in range(1, 11):
+            clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image. ", "")
+            clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image. ", "")
+            clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image.", "")
+            clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image.", "")
+        
+        # Normalize multiple spaces and newlines into single spaces for robust web browser injection
+        clean_text = " ".join(clean_text.split())
+
+        selected_idea = {
+            "id": idea_id,
+            "title": title,
+            "concept": f"Level {lvl} ({lvl_name}) Impossible Colossal Machine with 5-Step HUD Popups",
+            "level": lvl,
+            "level_name": lvl_name,
+            "style": "Alien Level Maximum Escalation"
+        }
+
+        prompt_data = {
+            "category": f"Paddy Titan Machine - Level {lvl}",
+            "all_5_ideas": [selected_idea],
+            "selected_idea_number": 1,
+            "selected_idea": selected_idea,
+            "target_duration": target_dur,
+            "duration": f"{target_dur}s",
+            "aspect_ratio": aspect,
+            "model": model,
+            "full_combined_prompt": clean_text.strip()
+        }
+        return prompt_data
+
 if __name__ == "__main__":
     generator = IdeaPromptGenerator()
-    res = generator.build_single_video_prompt("Impossible Machines")
-    print("=== Step 1: 5 Generated Ideas ===")
-    for item in res["all_5_ideas"]:
-        print(f"Idea #{item['id']}: {item['title']} -> {item['concept']}")
-    print("\n=== Step 2: Selected Idea #1 & Open Montage Prompt ===")
-    print("Selected Idea:", res["selected_idea"]["title"])
-    print("Combined Prompt:\n", res["full_combined_prompt"])
+    res = generator.fetch_sqlite_escalation_prompt(level=10)
+    print("=== Level 10 SQLite Escalation Prompt ===")
+    print("Title:", res["selected_idea"]["title"])
+    print("Prompt:\n", res["full_combined_prompt"])

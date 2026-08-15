@@ -16,6 +16,9 @@
     "Microscopic Bots",
     "Cosmic Engines"
   ],
+  "prompt_source": "sqlite_escalation",
+  "sqlite_escalation_level": 10,
+  "sqlite_db_path": "C:\\Users\\Irak\\Desktop\\Youtube Pipeline\\AntiBotBrowser\\flowboard\\storage\\youtube_pipeline.db",
   "prompt_style": "open_montage_cinematic",
   "target_duration_seconds": 8,
   "aspect_ratio": "9:16",

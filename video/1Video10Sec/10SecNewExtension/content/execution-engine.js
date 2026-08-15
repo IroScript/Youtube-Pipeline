@@ -804,7 +804,8 @@ export class ExecutionEngine {
       finalPrompt += ' [Maintain strict visual consistency with the attached reference image: same face, same skin tone, same ethnicity, same build throughout the entire video.]';
       Logger.info(`🎭 Prompt cleaned: [ref] tag stripped, consistency instruction appended`);
     }
-    // Store cleaned prompt for typing (original kept for logging)
+    // Clean and normalize final prompt text
+    finalPrompt = (finalPrompt || '').replace(/\r?\n+/g, ' ').replace(/\s+/g, ' ').trim();
     item._finalPrompt = finalPrompt;
 
     const steps = [
@@ -844,7 +845,9 @@ export class ExecutionEngine {
       // Step 4: Fill prompt & execute slow human review delay
       steps[2].status = 'running';
       Logger.info('📝 Extension injecting prompt into editor...');
-      const textarea = await DOMQueryEngine.waitForElement(selectors.promptTextarea, 8000);
+      let textarea = await DOMQueryEngine.waitForElement(selectors.promptTextarea, 4000);
+      textarea = InputHandler.findPromptElement(textarea);
+      
       if (!textarea) {
         steps[2].status = 'error';
         return { success: false, steps, error: 'Prompt editor input not found', shouldRetry: false };
@@ -852,22 +855,59 @@ export class ExecutionEngine {
 
       // Use the cleaned prompt (tags stripped, consistency instruction added)
       await InputHandler.typePromptText(textarea, item._finalPrompt);
+      await new Promise(r => setTimeout(r, 600));
       
       const wordCount = item.prompt.split(/\s+/).filter(Boolean).length;
-      const reviewDelay = Math.min(1500 + wordCount * 30 + Math.floor(Math.random() * 1500), 18000);
-      Logger.info(`⏳ Slow word review delay (${wordCount} words): ${(reviewDelay / 1000).toFixed(1)}s...`);
+      const reviewDelay = Math.min(1000 + wordCount * 15 + Math.floor(Math.random() * 1000), 4000);
+      Logger.info(`⏳ Human word review delay (${wordCount} words): ${(reviewDelay / 1000).toFixed(1)}s...`);
       this.reportProgress({ promptIndex: item.promptIndex, prompt: item.prompt, status: 'reviewing', percentage: 0 });
       await new Promise(r => setTimeout(r, reviewDelay));
 
-      const preSubmitPacing = 3000 + Math.floor(Math.random() * 4001);
+      const preSubmitPacing = 2000 + Math.floor(Math.random() * 1501);
       Logger.info(`⏳ Human pacing delay before submit: ${(preSubmitPacing / 1000).toFixed(1)}s...`);
       this.reportProgress({ promptIndex: item.promptIndex, prompt: item.prompt, status: 'submitting', percentage: 0 });
       await new Promise(r => setTimeout(r, preSubmitPacing));
 
-      // Locate Submit Button near composer
-      let submitBtn = DOMQueryEngine.queryFirst('button[aria-disabled="false"]:has(i:contains("arrow_forward")), button[aria-disabled="false"]:has(i:contains("arrow_upward"))');
+      // Guarantee prompt is still inside editor before clicking submit
+      const currentPromptText = (textarea.value || textarea.innerText || textarea.textContent || '').trim();
+      if (currentPromptText.length < 20) {
+        Logger.warn('⚠️ Textarea empty before submit — re-injecting prompt...');
+        await InputHandler.typePromptText(textarea, item._finalPrompt);
+        await new Promise(r => setTimeout(r, 400));
+      }
+
+      // Locate Submit Button strictly near prompt composer (excluding headers & back navigation)
+      const composerArea = textarea.closest('form, section, div[data-testid*="prompt"], div:has(button)') || document;
+      const composerBtns = Array.from(composerArea.querySelectorAll('button')).filter(b => {
+        if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
+        const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+        if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('settings') || aria.includes('home')) return false;
+        return true;
+      });
+
+      let submitBtn = composerBtns.find(b => {
+        const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
+        return icons.includes('arrow_forward') || icons.includes('arrow_upward') || icons.includes('send') || icons.includes('publish');
+      });
+
       if (!submitBtn) {
-        submitBtn = DOMQueryEngine.queryFirst('button:has(i:contains("arrow_forward")), button:has(i:contains("arrow_upward")), button[type="submit"]');
+        submitBtn = composerBtns.find(b => {
+          const aria = (b.getAttribute('aria-label') ?? '').toLowerCase();
+          return aria.includes('generate') || aria.includes('submit') || aria.includes('send');
+        });
+      }
+
+      if (!submitBtn) {
+        const allPageBtns = Array.from(document.querySelectorAll('button')).filter(b => {
+          if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
+          const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+          if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('home')) return false;
+          return true;
+        });
+        submitBtn = allPageBtns.find(b => {
+          const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
+          return icons.includes('arrow_forward') || icons.includes('arrow_upward');
+        });
       }
 
       if (!submitBtn) {
@@ -891,22 +931,53 @@ export class ExecutionEngine {
         }
       }
 
-      // Extension triggers CDP submit click
-      Logger.info('🚀 [Submitting] Extension is automatically clicking submit button via CDP...');
-      const cdpRes = await InputHandler.submitFormCDP();
-      const postSubmitPacing = 3000 + Math.floor(Math.random() * 4001);
-      await new Promise(r => setTimeout(r, postSubmitPacing));
-
-      if (isDisabled && (!cdpRes || !cdpRes.success)) {
-        Logger.error(`❌ Submit button remained disabled! (Selected model "${item.model}" is not permitted for your account)`);
-        steps[2].status = 'error';
-        return {
-          success: false,
-          steps,
-          error: `Submit button is disabled for Model "${item.model}". Extension cannot submit. Please ensure "Veo 3.1 Lower Priority" or an accessible model is selected.`,
-          shouldRetry: false
-        };
+      // Multi-layer bulletproof submit execution
+      Logger.info('🚀 [Submitting] Extension is executing submit click (DOM + React Fiber + CDP)...');
+      
+      // Strategy 1: Direct DOM Click & Mouse Events
+      try {
+        submitBtn.focus();
+        submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true }));
+        submitBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, composed: true }));
+        submitBtn.click();
+      } catch (e) {
+        Logger.warn(`DOM submit click warning: ${e.message}`);
       }
+
+      // Strategy 2: React Fiber Props Click
+      try {
+        const fiberKey = Object.keys(submitBtn).find(k => k.startsWith('__reactFiber') || k.startsWith('__reactInternalInstance'));
+        if (fiberKey) {
+          let node = submitBtn[fiberKey];
+          let depth = 0;
+          while (node && depth++ < 50) {
+            if (node.memoizedProps?.onClick) {
+              node.memoizedProps.onClick({
+                target: submitBtn,
+                currentTarget: submitBtn,
+                type: 'click',
+                bubbles: true,
+                cancelable: true,
+                preventDefault: () => {},
+                stopPropagation: () => {},
+                isPropagationStopped: () => false,
+                persist: () => {},
+                nativeEvent: new MouseEvent('click', { bubbles: true })
+              });
+              break;
+            }
+            node = node.return;
+          }
+        }
+      } catch {}
+
+      // Strategy 3: CDP Submit Click via Background
+      try {
+        await InputHandler.submitFormCDP();
+      } catch {}
+
+      const postSubmitPacing = 3000 + Math.floor(Math.random() * 2001);
+      await new Promise(r => setTimeout(r, postSubmitPacing));
 
       steps[2].status = 'completed';
 

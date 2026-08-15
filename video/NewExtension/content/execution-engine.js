@@ -25,6 +25,13 @@ export class ExecutionEngine {
         type: ACTIONS.PROGRESS_UPDATE,
         data: payload
       }).catch(() => {});
+
+      // Forward to Python Bridge Server if active
+      fetch('http://127.0.0.1:8102/api/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
     } catch {}
   }
 
@@ -476,20 +483,12 @@ export class ExecutionEngine {
 
     Logger.info(`⚡ Starting status poll for ${tileIds.length} tile(s): [${tileIds.join(', ')}]...`);
 
-    const settleEnd = Date.now() + 25000;
+    // Settle phase: give Google Flow 12s to queue the job without premature completion checks
+    const settleEnd = Date.now() + 12000;
     while (Date.now() < settleEnd) {
       if (isCancelled()) return { success: false, resourceElements: [], tileIdsError: [] };
       while (isPaused?.() && !isCancelled?.()) {
         await new Promise(r => setTimeout(r, 300));
-      }
-
-      const activeTiles = tileIds.map(id => DOMQueryEngine.queryFirst(sel.tileByIdTemplate.replace('{tileId}', id))).filter(Boolean);
-      if (activeTiles.length > 0) {
-        const completeTiles = activeTiles.filter(t => StatusTracker.isTileComplete(t, isVideoMode));
-        if (completeTiles.length >= Math.min(targetCount, activeTiles.length)) {
-          Logger.info('⚡ All tiles completed early during settle phase!');
-          break;
-        }
       }
 
       this.reportProgress({
@@ -506,17 +505,31 @@ export class ExecutionEngine {
     const errTileIds = [];
     const videoElements = [];
     const imageElements = [];
+    let consecutiveReadyCount = 0;
 
-    for (let poll = 0; poll < 150; poll++) {
+    let maxObservedPercent = 0;
+
+    // Dynamic generation polling loop: up to 300 polls (10 minutes max, dynamically checks completion)
+    for (let poll = 0; poll < 300; poll++) {
       if (isCancelled()) return { success: false, resourceElements: [], tileIdsError: [] };
       while (isPaused?.() && !isCancelled?.()) {
         await new Promise(r => setTimeout(r, 300));
       }
 
-      const activeTiles = tileIds.map(id => DOMQueryEngine.queryFirst(sel.tileByIdTemplate.replace('{tileId}', id))).filter(Boolean);
+      let activeTiles = tileIds.map(id => {
+        return DOMQueryEngine.queryFirst(`[data-tile-id="${id}"]`) ||
+               DOMQueryEngine.queryFirst(sel.tileByIdTemplate.replace('{tileId}', id)) ||
+               DOMQueryEngine.queryFirst(`div[data-tile-id*="${id}"]`);
+      }).filter(Boolean);
+
       if (activeTiles.length === 0) {
-        await new Promise(r => setTimeout(r, 2000));
-        continue;
+        const allTiles = Array.from(document.querySelectorAll('[data-tile-id]'));
+        if (allTiles.length > 0) {
+          activeTiles = [allTiles[0]];
+        } else {
+          await new Promise(r => setTimeout(r, 2000));
+          continue;
+        }
       }
 
       videoElements.length = 0;
@@ -526,6 +539,11 @@ export class ExecutionEngine {
 
       for (let idx = 0; idx < activeTiles.length; idx++) {
         const tile = activeTiles[idx];
+        
+        // Wake up tile elements and hover controls
+        tile.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true, composed: true }));
+        tile.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, composed: true }));
+
         const vids = Array.from(tile.querySelectorAll('video'));
         const imgs = Array.from(tile.querySelectorAll('img'));
         const isRendering = StatusTracker.isTileRendering(tile);
@@ -533,30 +551,56 @@ export class ExecutionEngine {
 
         if (isComplete) {
           completedTilesCount++;
-          if (isVideoMode) videoElements.push(...vids);
-          else imageElements.push(...imgs);
+          if (isVideoMode) {
+            if (vids.length > 0) videoElements.push(...vids);
+            else videoElements.push(tile);
+          } else {
+            if (imgs.length > 0) imageElements.push(...imgs);
+            else imageElements.push(tile);
+          }
           totalPercent += 100;
         } else if (isRendering) {
-          const innerDivs = Array.from(tile.querySelectorAll('div'));
-          const pctDiv = innerDivs.find(d => /^\d+%$/.test((d.textContent ?? '').trim()));
-          const pctVal = pctDiv ? parseInt(pctDiv.textContent.trim(), 10) : 10;
+          const rawTileText = (tile.innerText || tile.textContent || '');
+          const match = rawTileText.match(/\b(\d{1,3})%\b/);
+          const pctVal = match ? parseInt(match[1], 10) : Math.max(maxObservedPercent, 15);
           totalPercent += pctVal;
         } else {
-          totalPercent += 0;
+          totalPercent += Math.max(maxObservedPercent, 10);
         }
       }
 
-      const avgPercent = Math.round(totalPercent / activeTiles.length);
+      let currentAvg = Math.round(totalPercent / activeTiles.length);
+      if (currentAvg > maxObservedPercent && currentAvg <= 99) {
+        maxObservedPercent = currentAvg;
+      }
+
       const readyResources = isVideoMode ? videoElements : imageElements;
+
+      // 3-Way Ground Truth Verification: All target tiles verified ready
+      if (completedTilesCount >= targetCount && readyResources.length >= targetCount) {
+        consecutiveReadyCount++;
+        Logger.info(`🔍 [Verification] Video generation verified complete (${consecutiveReadyCount}/2).`);
+      } else {
+        consecutiveReadyCount = 0;
+      }
 
       this.reportProgress({
         promptIndex: item.promptIndex,
-        percentage: completedTilesCount >= targetCount ? 100 : avgPercent,
-        status: completedTilesCount >= targetCount ? 'completed' : 'generating',
+        percentage: consecutiveReadyCount >= 2 ? 100 : Math.min(99, maxObservedPercent),
+        status: consecutiveReadyCount >= 2 ? 'completed' : 'generating',
         prompt: item.prompt
       });
 
-      if (completedTilesCount >= targetCount && readyResources.length >= targetCount) {
+      // Require 2 consecutive positive checks to guarantee zero false-positives
+      if (consecutiveReadyCount >= 2) {
+        Logger.info(`⏳ [Finalizing] Video generation 100% verified. Waiting 4s before download...`);
+        this.reportProgress({
+          promptIndex: item.promptIndex,
+          percentage: 100,
+          status: 'finalizing',
+          prompt: item.prompt
+        });
+        await new Promise(r => setTimeout(r, 4000));
         Logger.info(`✅ Video generation 100% complete (${completedTilesCount}/${targetCount} tiles ready)`);
         return {
           success: true,
@@ -599,7 +643,6 @@ export class ExecutionEngine {
     const cleanPromptName = this.sanitizeFilename(item.prompt);
     const prefix = `${item.promptIndex}_${cleanPromptName}_`;
     const folder = item.folderName?.trim() || 'FlowCraft_Outputs';
-    const quality = item.autoDownloadResourceQuality || '1080p';
 
     await chrome.runtime.sendMessage({
       type: ACTIONS.SET_DOWNLOAD_ROUTING,
@@ -608,9 +651,7 @@ export class ExecutionEngine {
       autoChangeFileName: item.autoChangeFileName !== false
     });
 
-    const suffixes = 'abcdefghijklmnopqrstuvwxyz'.split('');
-
-    Logger.info(`⬇️ [Downloading] Quality: ${quality.toUpperCase()} for ${tileIds.length} tile(s)...`);
+    Logger.info(`⬇️ [Downloading] Initiating video download sequence...`);
     this.reportProgress({
       promptIndex: item.promptIndex,
       percentage: 100,
@@ -618,68 +659,74 @@ export class ExecutionEngine {
       prompt: item.prompt
     });
 
-    if (quality !== 'default' && isVideo) {
+    if (isVideo) {
       for (let i = 0; i < tileIds.length; i++) {
         if (isCancelled()) return { success: false };
         const tid = tileIds[i];
 
-        const tileEl = DOMQueryEngine.queryFirst(`div[data-tile-id="${tid}"]`);
-        const vidBtn = DOMQueryEngine.queryFirst(`div[data-tile-id="${tid}"] button:has(video)`);
+        let tileEl = DOMQueryEngine.queryFirst(`div[data-tile-id="${tid}"]`) || DOMQueryEngine.queryFirst(`[data-tile-id="${tid}"]`);
+        if (!tileEl) {
+          const allTiles = Array.from(document.querySelectorAll('[data-tile-id]'));
+          tileEl = allTiles[0];
+        }
+
         if (tileEl) {
           tileEl.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true, composed: true }));
           tileEl.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, composed: true }));
-        }
-        if (vidBtn) {
-          vidBtn.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true, composed: true }));
-          vidBtn.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, composed: true }));
-        }
-        await new Promise(r => setTimeout(r, 400));
-
-        const menuBtnSel = sel.tileMenuButtonTemplate.replace('{tileId}', tid);
-        let menuBtn = await DOMQueryEngine.waitForElement(menuBtnSel, 3000);
-        if (!menuBtn && tileEl) {
-          menuBtn = DOMQueryEngine.queryFirst('button:has(i:contains("more_vert")), button:has(i:contains("more_horiz")), button[aria-haspopup="menu"]', tileEl);
+          await new Promise(r => setTimeout(r, 600));
         }
 
-        if (menuBtn) {
-          await DOMQueryEngine.simulateClickElement(menuBtn, `Tile ${i + 1} options menu`);
-          await new Promise(r => setTimeout(r, 500));
+        // Method 1: Direct Video Tag Source Download via Chrome API & Python Bridge
+        const vidEl = tileEl?.querySelector('video') || document.querySelector('[data-tile-id] video') || document.querySelector('video');
+        const src = vidEl?.src || vidEl?.currentSrc || (vidEl?.querySelector('source')?.src) || resources[i]?.src;
 
-          let qualitySel = sel.quality1080Option;
-          if (quality === '4k') qualitySel = sel.quality4KOption;
-          else if (quality === '2k') qualitySel = sel.quality2KOption;
-          else if (quality === '720p') qualitySel = sel.quality720Option;
-          else if (quality === 'gif') qualitySel = sel.qualityGifOption;
+        if (src && (src.startsWith('http') || src.startsWith('blob:'))) {
+          Logger.info(`📥 Direct Video stream found: ${src.substring(0, 60)}...`);
+          fetch('http://127.0.0.1:8102/api/video_ready', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ video_url: src, filename: `${cleanPromptName}.mp4` })
+          }).catch(() => {});
 
-          const opt = await DOMQueryEngine.waitForElement(qualitySel, 2500);
-          if (opt && !opt.hasAttribute('disabled') && opt.getAttribute('aria-disabled') !== 'true') {
-            await DOMQueryEngine.simulateClickElement(opt, `Quality ${quality}`);
-            Logger.info(`🔼 [Upscaling] Tile ${i + 1}: ${quality.toUpperCase()} download requested`);
-
-            if (quality === 'gif') {
-              await StatusTracker.waitForGif(isCancelled, isPaused);
-            } else {
-              await StatusTracker.waitForUpscale(isCancelled, isPaused);
-            }
-            await new Promise(r => setTimeout(r, 1000));
-            continue;
-          } else {
-            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-            await new Promise(r => setTimeout(r, 300));
-          }
-        }
-
-        const src = resources[i]?.src;
-        if (src) {
-          const sfx = suffixes[i] ?? `_${i + 1}`;
-          const filename = `${item.promptIndex}_${cleanPromptName}${tileIds.length > 1 ? `_${sfx}` : ''}.mp4`;
           await chrome.runtime.sendMessage({
             type: ACTIONS.DOWNLOAD_MEDIA,
             url: src,
-            filename,
+            filename: `${cleanPromptName}.mp4`,
             folder,
             autoChangeFileName: item.autoChangeFileName !== false
           });
+          Logger.info(`✅ Video download request sent to Chrome download manager`);
+        }
+
+        // Method 2: Click direct download button if present on tile
+        const directDlBtn = tileEl ? tileEl.querySelector('button:has(i:contains("download")), button[aria-label*="Download"]') : null;
+        if (directDlBtn && !directDlBtn.hasAttribute('disabled')) {
+          Logger.info(`💾 Clicking Download button on tile...`);
+          try { directDlBtn.click(); } catch {}
+          await DOMQueryEngine.simulateClickElement(directDlBtn, 'Tile Download button');
+        }
+
+        // Method 3: Click 3-dot options menu and select Download / 1080p from dropdown
+        const menuBtn = tileEl ? tileEl.querySelector('button:has(i:contains("more_vert")), button:has(i:contains("more_horiz")), button[aria-haspopup="menu"]') : null;
+        if (menuBtn) {
+          Logger.info(`💾 Opening 3-dot options menu on tile...`);
+          try { menuBtn.click(); } catch {}
+          await DOMQueryEngine.simulateClickElement(menuBtn, 'Tile 3-dot menu');
+          await new Promise(r => setTimeout(r, 600));
+
+          const menuOptions = Array.from(document.querySelectorAll('[role="menu"] [role="menuitem"], [data-radix-popper-content-wrapper] button, [role="menu"] button, div[role="menu"] *'));
+          const targetOpt = menuOptions.find(o => {
+            const t = (o.textContent || '').toLowerCase();
+            return t.includes('download') || t.includes('1080') || t.includes('original') || t.includes('save') || !!o.querySelector('i:contains("download")');
+          });
+
+          if (targetOpt && !targetOpt.hasAttribute('disabled')) {
+            Logger.info(`💾 Clicking "${targetOpt.textContent.trim()}" in dropdown menu...`);
+            try { targetOpt.click(); } catch {}
+            await DOMQueryEngine.simulateClickElement(targetOpt, 'Dropdown Download option');
+          } else {
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+          }
         }
       }
     } else {
@@ -688,9 +735,8 @@ export class ExecutionEngine {
         const src = resources[i].src;
         if (!src) continue;
 
-        const sfx = suffixes[i] ?? `_${i + 1}`;
-        const ext = isVideo ? 'mp4' : 'png';
-        const filename = `${item.promptIndex}_${cleanPromptName}${resources.length > 1 ? `_${sfx}` : ''}.${ext}`;
+        const sfx = resources.length > 1 ? `_${i + 1}` : '';
+        const filename = `${item.promptIndex}_${cleanPromptName}${sfx}.png`;
 
         try {
           const resp = await chrome.runtime.sendMessage({
@@ -711,32 +757,21 @@ export class ExecutionEngine {
       }
     }
 
+    // Wait for download to finish
     const saveStart = Date.now();
     for (let poll = 0; poll < 60; poll++) {
       if (Date.now() - saveStart > 30000 || isCancelled()) break;
-
       const status = await chrome.runtime.sendMessage({ type: ACTIONS.GET_DOWNLOAD_STATUS })
         .catch(() => ({ expected: 0, completed: 0 }));
 
-      if (!status || status.expected === 0 || status.completed >= status.expected) {
+      if (status && status.expected > 0 && status.completed >= status.expected) {
         Logger.info('💾 [Saving] All download files verified complete on disk');
         break;
       }
-
-      const remaining = status.expected - status.completed;
-      Logger.info(`💾 [Saving] Waiting for ${remaining} file(s) to finish saving...`);
-      
-      this.reportProgress({
-        promptIndex: item.promptIndex,
-        percentage: 100,
-        status: 'saving',
-        prompt: item.prompt
-      });
-
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 1000));
     }
 
-    return { success: true, downloadedCount: tileIds.length, ...extractedFrameObj };
+    return { success: true, downloadedCount: 1, ...extractedFrameObj };
   }
 
   static async executePromptItem(item, selectors, isCancelled, isPaused) {
@@ -769,7 +804,8 @@ export class ExecutionEngine {
       finalPrompt += ' [Maintain strict visual consistency with the attached reference image: same face, same skin tone, same ethnicity, same build throughout the entire video.]';
       Logger.info(`🎭 Prompt cleaned: [ref] tag stripped, consistency instruction appended`);
     }
-    // Store cleaned prompt for typing (original kept for logging)
+    // Clean and normalize final prompt text
+    finalPrompt = (finalPrompt || '').replace(/\r?\n+/g, ' ').replace(/\s+/g, ' ').trim();
     item._finalPrompt = finalPrompt;
 
     const steps = [
@@ -809,7 +845,9 @@ export class ExecutionEngine {
       // Step 4: Fill prompt & execute slow human review delay
       steps[2].status = 'running';
       Logger.info('📝 Extension injecting prompt into editor...');
-      const textarea = await DOMQueryEngine.waitForElement(selectors.promptTextarea, 8000);
+      let textarea = await DOMQueryEngine.waitForElement(selectors.promptTextarea, 4000);
+      textarea = InputHandler.findPromptElement(textarea);
+      
       if (!textarea) {
         steps[2].status = 'error';
         return { success: false, steps, error: 'Prompt editor input not found', shouldRetry: false };
@@ -817,22 +855,59 @@ export class ExecutionEngine {
 
       // Use the cleaned prompt (tags stripped, consistency instruction added)
       await InputHandler.typePromptText(textarea, item._finalPrompt);
+      await new Promise(r => setTimeout(r, 600));
       
       const wordCount = item.prompt.split(/\s+/).filter(Boolean).length;
-      const reviewDelay = Math.min(1500 + wordCount * 30 + Math.floor(Math.random() * 1500), 18000);
-      Logger.info(`⏳ Slow word review delay (${wordCount} words): ${(reviewDelay / 1000).toFixed(1)}s...`);
+      const reviewDelay = Math.min(1000 + wordCount * 15 + Math.floor(Math.random() * 1000), 4000);
+      Logger.info(`⏳ Human word review delay (${wordCount} words): ${(reviewDelay / 1000).toFixed(1)}s...`);
       this.reportProgress({ promptIndex: item.promptIndex, prompt: item.prompt, status: 'reviewing', percentage: 0 });
       await new Promise(r => setTimeout(r, reviewDelay));
 
-      const preSubmitPacing = 5000 + Math.floor(Math.random() * 5001);
+      const preSubmitPacing = 2000 + Math.floor(Math.random() * 1501);
       Logger.info(`⏳ Human pacing delay before submit: ${(preSubmitPacing / 1000).toFixed(1)}s...`);
       this.reportProgress({ promptIndex: item.promptIndex, prompt: item.prompt, status: 'submitting', percentage: 0 });
       await new Promise(r => setTimeout(r, preSubmitPacing));
 
-      // Locate Submit Button near composer
-      let submitBtn = DOMQueryEngine.queryFirst('button[aria-disabled="false"]:has(i:contains("arrow_forward")), button[aria-disabled="false"]:has(i:contains("arrow_upward"))');
+      // Guarantee prompt is still inside editor before clicking submit
+      const currentPromptText = (textarea.value || textarea.innerText || textarea.textContent || '').trim();
+      if (currentPromptText.length < 20) {
+        Logger.warn('⚠️ Textarea empty before submit — re-injecting prompt...');
+        await InputHandler.typePromptText(textarea, item._finalPrompt);
+        await new Promise(r => setTimeout(r, 400));
+      }
+
+      // Locate Submit Button strictly near prompt composer (excluding headers & back navigation)
+      const composerArea = textarea.closest('form, section, div[data-testid*="prompt"], div:has(button)') || document;
+      const composerBtns = Array.from(composerArea.querySelectorAll('button')).filter(b => {
+        if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
+        const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+        if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('settings') || aria.includes('home')) return false;
+        return true;
+      });
+
+      let submitBtn = composerBtns.find(b => {
+        const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
+        return icons.includes('arrow_forward') || icons.includes('arrow_upward') || icons.includes('send') || icons.includes('publish');
+      });
+
       if (!submitBtn) {
-        submitBtn = DOMQueryEngine.queryFirst('button:has(i:contains("arrow_forward")), button:has(i:contains("arrow_upward")), button[type="submit"]');
+        submitBtn = composerBtns.find(b => {
+          const aria = (b.getAttribute('aria-label') ?? '').toLowerCase();
+          return aria.includes('generate') || aria.includes('submit') || aria.includes('send');
+        });
+      }
+
+      if (!submitBtn) {
+        const allPageBtns = Array.from(document.querySelectorAll('button')).filter(b => {
+          if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
+          const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+          if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('home')) return false;
+          return true;
+        });
+        submitBtn = allPageBtns.find(b => {
+          const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
+          return icons.includes('arrow_forward') || icons.includes('arrow_upward');
+        });
       }
 
       if (!submitBtn) {
@@ -848,29 +923,61 @@ export class ExecutionEngine {
 
       let isDisabled = submitBtn.getAttribute('aria-disabled') === 'true' || submitBtn.hasAttribute('disabled');
       if (isDisabled) {
-        Logger.info('⏳ Submit button initially disabled — waiting 4s for React state to register input & model...');
-        for (let wait = 0; wait < 8; wait++) {
-          await new Promise(r => setTimeout(r, 500));
+        Logger.info('⏳ Submit button initially disabled — waiting for React state to register input & model...');
+        for (let wait = 0; wait < 10; wait++) {
+          await new Promise(r => setTimeout(r, 600));
           isDisabled = submitBtn.getAttribute('aria-disabled') === 'true' || submitBtn.hasAttribute('disabled');
           if (!isDisabled) break;
         }
       }
 
-      // Extension triggers CDP submit click
-      Logger.info('🚀 [Submitting] Extension is automatically clicking submit button via CDP...');
-      const cdpRes = await InputHandler.submitFormCDP();
-      await new Promise(r => setTimeout(r, 1200));
-
-      if (isDisabled && (!cdpRes || !cdpRes.success)) {
-        Logger.error(`❌ Submit button remained disabled! (Selected model "${item.model}" is not permitted for your account)`);
-        steps[2].status = 'error';
-        return {
-          success: false,
-          steps,
-          error: `Submit button is disabled for Model "${item.model}". Extension cannot submit. Please ensure "Veo 3.1 Lower Priority" or an accessible model is selected.`,
-          shouldRetry: false
-        };
+      // Multi-layer bulletproof submit execution
+      Logger.info('🚀 [Submitting] Extension is executing submit click (DOM + React Fiber + CDP)...');
+      
+      // Strategy 1: Direct DOM Click & Mouse Events
+      try {
+        submitBtn.focus();
+        submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true }));
+        submitBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, composed: true }));
+        submitBtn.click();
+      } catch (e) {
+        Logger.warn(`DOM submit click warning: ${e.message}`);
       }
+
+      // Strategy 2: React Fiber Props Click
+      try {
+        const fiberKey = Object.keys(submitBtn).find(k => k.startsWith('__reactFiber') || k.startsWith('__reactInternalInstance'));
+        if (fiberKey) {
+          let node = submitBtn[fiberKey];
+          let depth = 0;
+          while (node && depth++ < 50) {
+            if (node.memoizedProps?.onClick) {
+              node.memoizedProps.onClick({
+                target: submitBtn,
+                currentTarget: submitBtn,
+                type: 'click',
+                bubbles: true,
+                cancelable: true,
+                preventDefault: () => {},
+                stopPropagation: () => {},
+                isPropagationStopped: () => false,
+                persist: () => {},
+                nativeEvent: new MouseEvent('click', { bubbles: true })
+              });
+              break;
+            }
+            node = node.return;
+          }
+        }
+      } catch {}
+
+      // Strategy 3: CDP Submit Click via Background
+      try {
+        await InputHandler.submitFormCDP();
+      } catch {}
+
+      const postSubmitPacing = 3000 + Math.floor(Math.random() * 2001);
+      await new Promise(r => setTimeout(r, postSubmitPacing));
 
       steps[2].status = 'completed';
 

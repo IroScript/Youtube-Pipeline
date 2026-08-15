@@ -1,54 +1,27 @@
 {
-  "category": "Alien Technology",
+  "category": "Paddy Titan Machine - Level 10",
   "all_5_ideas": [
     {
       "id": 1,
-      "title": "Alien Technology - Primary Impossible Construct",
-      "concept": "An incredible 10-second visual display of Alien Technology with glowing energy conduits and self-assembling mechanical parts.",
-      "style": "Open Montage Cinematic"
-    },
-    {
-      "id": 2,
-      "title": "Alien Technology - Secondary Prototype",
-      "concept": "Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns.",
-      "style": "Cinematic Macro"
-    },
-    {
-      "id": 3,
-      "title": "Alien Technology - Quantum Matrix",
-      "concept": "Futuristic visualization of Alien Technology harnessing anti-gravity forces in a high-tech laboratory.",
-      "style": "Sci-Fi Surreal"
-    },
-    {
-      "id": 4,
-      "title": "Alien Technology - Steampunk Engine",
-      "concept": "Intricate brass and copper wheels turning endlessly with soft steam clouds and golden light rays.",
-      "style": "Steampunk Masterpiece"
-    },
-    {
-      "id": 5,
-      "title": "Alien Technology - Celestial Assembly",
-      "concept": "Cosmic scale view of Alien Technology assembling itself in zero gravity surrounded by distant nebulae.",
-      "style": "Cosmic Realism"
+      "title": "Rice Titan Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+      "concept": "Level 10 (Level 10 - ALIEN LEVEL / MAXIMUM) Impossible Colossal Machine with 5-Step HUD Popups",
+      "level": 10,
+      "level_name": "Level 10 - ALIEN LEVEL / MAXIMUM",
+      "style": "Alien Level Maximum Escalation"
     }
   ],
-  "selected_idea_number": 2,
+  "selected_idea_number": 1,
   "selected_idea": {
-    "id": 2,
-    "title": "Alien Technology - Secondary Prototype",
-    "concept": "Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns.",
-    "style": "Cinematic Macro"
+    "id": 1,
+    "title": "Rice Titan Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+    "concept": "Level 10 (Level 10 - ALIEN LEVEL / MAXIMUM) Impossible Colossal Machine with 5-Step HUD Popups",
+    "level": 10,
+    "level_name": "Level 10 - ALIEN LEVEL / MAXIMUM",
+    "style": "Alien Level Maximum Escalation"
   },
   "target_duration": 8,
   "duration": "8s",
   "aspect_ratio": "9:16",
   "model": "Veo 3.1 Lower Priority",
-  "openmontage_prompt": {
-    "subject": "The impossible machine construct 'Alien Technology - Secondary Prototype': Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns.",
-    "environment": "A dimly lit high-tech futuristic laboratory with soft blue ambient volumetric light and floating particles.",
-    "camera": "Slow dramatic 360-degree orbital push-in shot with seamless depth of field blur.",
-    "lighting": "Low-key cinematic lighting with high contrast neon glows, brass reflections, and subtle light flares.",
-    "style": "Open Montage Cinematic, 8K Ultra Photorealistic, Octane Render, 60fps smooth fluid dynamics"
-  },
-  "full_combined_prompt": "0.0-2.5s: Extreme close-up of Alien Technology - Secondary Prototype starting its intricate mechanism, glowing cyan plasma rings rotating in mid-air. 2.5-5.5s: Camera smoothly pans wide revealing the full impossible mechanical architecture of Cinematic close-up of Alien Technology operating with smooth gear shifts and luminescent light patterns. defying gravity. 5.5-8.0s: Slow motion macro shot of energy pulsing through polished brass cogs and glass conduits, hyper-detailed cinematic lighting, 8k resolution."
+  "full_combined_prompt": "Exactly 8 seconds, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] \u2014 HUD Popup Text: \"STEP 1: AWAKEN THE TITAN\" \u2014 The alien agricultural intelligence activates, illuminating countless sensor halos and planetary-scale harvesting systems. Second 2 [0:01-0:02] \u2014 HUD Popup Text: \"STEP 2: HARVEST REALITY\" \u2014 Innumerable colossal arms reach through folded space and gather rice from multiple worlds simultaneously. Second 3 [0:02-0:03] \u2014 HUD Popup Text: \"STEP 3: TRANSDIMENSIONAL THRESH\" \u2014 Entire crop streams enter wormholes and emerge inside the titan's impossible belly factory. Second 4 [0:03-0:04] \u2014 HUD Popup Text: \"STEP 4: QUANTUM PURIFICATION\" \u2014 Individual grains float through miniature artificial suns, gravitational separators, magnetic fields, and alien drying reactors. Second 5 [0:04-0:05] \u2014 HUD Popup Text: \"STEP 5: STORE THE HARVEST UNIVERSE\" \u2014 Finished grains cascade into an infinite-dimensional storage chamber containing vast glowing reserves of rice. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single rice grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds."
 }

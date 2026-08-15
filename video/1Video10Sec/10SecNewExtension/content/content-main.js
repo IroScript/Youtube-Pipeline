@@ -100,7 +100,13 @@ class BatchRunner {
       this.sendStatusUpdate();
     }
 
-    this.status = this.isCancelling ? 'cancelled' : 'completed';
+    if (this.isCancelling) {
+      this.status = 'cancelled';
+    } else if (this.completedIndexes.size > 0) {
+      this.status = 'completed';
+    } else {
+      this.status = 'failed';
+    }
     this.sendStatusUpdate();
     activeBatchTask = null;
   }
