@@ -62,6 +62,3 @@ kaggle video/test_push/
 # Ignore API Keys
 *API*Key*.txt
 *API*KEY*.txt
-
-# Ignore Independent Repositories
-PromptDatabase/
