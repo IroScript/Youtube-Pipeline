@@ -389,14 +389,24 @@ class ExtensionVideoBridge:
 
     def _find_recently_downloaded_mp4(self, start_time: float) -> str:
         """
-        Scans download directories for real MP4 files created/downloaded recently.
+        Scans download directories (Downloads, FlowCraft_Outputs, etc.) for real MP4 files created/downloaded recently.
+        Returns the newest downloaded MP4 matching criteria.
         """
+        candidates = []
         for d in self.downloads_dirs:
             if os.path.exists(d):
                 mp4_files = glob.glob(os.path.join(d, "*.mp4"))
                 for mp4 in mp4_files:
-                    if os.path.getsize(mp4) > 100000 and os.path.getmtime(mp4) >= start_time:
-                        return mp4
+                    try:
+                        sz = os.path.getsize(mp4)
+                        mtime = os.path.getmtime(mp4)
+                        if sz > 100000 and mtime >= (start_time - 60):
+                            candidates.append((mtime, mp4))
+                    except Exception:
+                        pass
+        if candidates:
+            candidates.sort(key=lambda x: x[0], reverse=True)
+            return candidates[0][1]
         return None
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
+import sys
+import os
 import json
 import random
-import os
+import logging
 
 class IdeaPromptGenerator:
     """
@@ -170,79 +172,131 @@ class IdeaPromptGenerator:
 
     def fetch_sqlite_escalation_prompt(self, level: int = 10, db_path: str = None) -> dict:
         """
-        Fetches Level 10 (or specified level) escalation prompt directly from SQLite database.
+        Fetches next sequential uncompleted Level 10 escalation prompt directly from SQLite database
+        using strict sequential hierarchy (Element 1 -> Idea 1 -> Idea 2 -> ... -> Element 100).
         """
-        if not db_path:
-            db_path = r"C:\Users\Irak\Desktop\Youtube Pipeline\AntiBotBrowser\flowboard\storage\youtube_pipeline.db"
-        
         target_dur = self.config.get("target_duration_seconds", 8)
         aspect = self.config.get("aspect_ratio", "9:16")
         model = self.config.get("model", "Veo 3.1 Lower Priority")
 
-        import sqlite3
-        if not os.path.exists(db_path):
-            return self.build_single_video_prompt("Impossible Machines")
+        try:
+            from pathlib import Path
+            prompt_db_dir = Path(__file__).resolve().parent.parent.parent / "PromptDatabase"
+            venv_site_packages = prompt_db_dir / ".venv" / "Lib" / "site-packages"
+            if venv_site_packages.exists() and str(venv_site_packages) not in sys.path:
+                sys.path.insert(0, str(venv_site_packages))
+            if str(prompt_db_dir) not in sys.path:
+                sys.path.insert(0, str(prompt_db_dir))
 
-        con = sqlite3.connect(db_path)
-        cur = con.cursor()
-        
-        # Query the video prompt for the given level with valid non-empty text
-        cur.execute(
-            "SELECT id, idea_id, level, level_name, title, prompt_text FROM prompts WHERE generation_type='video' AND level=? AND length(prompt_text) > 50 ORDER BY id DESC LIMIT 1",
-            (level,)
-        )
-        row = cur.fetchone()
-        
-        # If not found for exact level, get the highest available level with valid text
-        if not row:
+            from prompt_chain_engine import get_or_create_next_production_ready_prompt
+            ready_item = get_or_create_next_production_ready_prompt(skip_browser=True)
+
+            lvl10_vid = ready_item.get("level_10_video_prompt")
+            idea_id = ready_item.get("idea_id")
+            title = ready_item.get("idea_title")
+            lvl_name = lvl10_vid.level_name if lvl10_vid else "ALIEN LEVEL / MAXIMUM"
+            prompt_text = lvl10_vid.prompt_text if lvl10_vid else ""
+
+            # Clean prompt text: strip any leading image references and normalize all whitespace/newlines
+            clean_text = prompt_text
+            for i in range(1, 11):
+                clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image. ", "")
+                clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image. ", "")
+                clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image.", "")
+                clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image.", "")
+
+            clean_text = " ".join(clean_text.split())
+
+            selected_idea = {
+                "id": idea_id,
+                "title": title,
+                "concept": f"Level 10 ({lvl_name}) Impossible Colossal Machine with 5-Step HUD Popups",
+                "level": 10,
+                "level_name": lvl_name,
+                "style": "Alien Level Maximum Escalation"
+            }
+
+            prompt_data = {
+                "category": f"Element {ready_item.get('idea_topic', 'Paddy Titan Machine')} - Level 10",
+                "all_5_ideas": [selected_idea],
+                "selected_idea_number": 1,
+                "selected_idea": selected_idea,
+                "target_duration": target_dur,
+                "duration": f"{target_dur}s",
+                "aspect_ratio": aspect,
+                "model": model,
+                "full_combined_prompt": clean_text.strip()
+            }
+            return prompt_data
+
+        except Exception as e:
+            logging.warning(f"⚠️ Notice using prompt_chain_engine: {e}. Falling back to sequential SQL query...")
+            if not db_path:
+                db_path = self.config.get(
+                    "sqlite_db_path",
+                    os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "PromptDatabase", "database", "youtube_pipeline.db")
+                )
+            import sqlite3
+            if not os.path.exists(db_path):
+                return self.build_single_video_prompt("Impossible Machines")
+
+            con = sqlite3.connect(db_path)
+            cur = con.cursor()
+            # Strictly ASCENDING order starting from Element 1 Idea 1 and excluding completed ideas
             cur.execute(
-                "SELECT id, idea_id, level, level_name, title, prompt_text FROM prompts WHERE generation_type='video' AND length(prompt_text) > 50 ORDER BY level DESC, id DESC LIMIT 1"
+                """
+                SELECT id, idea_id, level, level_name, title, prompt_text 
+                FROM prompts 
+                WHERE generation_type='video' 
+                  AND level=? 
+                  AND length(prompt_text) > 50 
+                  AND idea_id NOT IN (SELECT idea_id FROM generated_videos WHERE status='completed')
+                ORDER BY idea_id ASC, id ASC 
+                LIMIT 1
+                """,
+                (level,)
             )
             row = cur.fetchone()
+            con.close()
 
-        con.close()
+            if not row:
+                return self.build_single_video_prompt("Impossible Machines")
 
-        if not row:
-            return self.build_single_video_prompt("Impossible Machines")
+            prompt_id, idea_id, lvl, lvl_name, title, prompt_text = row
+            clean_text = prompt_text
+            for i in range(1, 11):
+                clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image. ", "")
+                clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image. ", "")
+                clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image.", "")
+                clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image.", "")
+            clean_text = " ".join(clean_text.split())
 
-        prompt_id, idea_id, lvl, lvl_name, title, prompt_text = row
-        
-        # Clean prompt text: strip any leading image references and normalize all whitespace/newlines
-        clean_text = prompt_text
-        for i in range(1, 11):
-            clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image. ", "")
-            clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image. ", "")
-            clean_text = clean_text.replace(f"Use IMAGE {i:02d} as the first frame and reference image.", "")
-            clean_text = clean_text.replace(f"Use IMAGE {i} as the first frame and reference image.", "")
-        
-        # Normalize multiple spaces and newlines into single spaces for robust web browser injection
-        clean_text = " ".join(clean_text.split())
+            selected_idea = {
+                "id": idea_id,
+                "title": title,
+                "concept": f"Level {lvl} ({lvl_name}) Impossible Colossal Machine with 5-Step HUD Popups",
+                "level": lvl,
+                "level_name": lvl_name,
+                "style": "Alien Level Maximum Escalation"
+            }
 
-        selected_idea = {
-            "id": idea_id,
-            "title": title,
-            "concept": f"Level {lvl} ({lvl_name}) Impossible Colossal Machine with 5-Step HUD Popups",
-            "level": lvl,
-            "level_name": lvl_name,
-            "style": "Alien Level Maximum Escalation"
-        }
+            return {
+                "category": f"Paddy Titan Machine - Level {lvl}",
+                "all_5_ideas": [selected_idea],
+                "selected_idea_number": 1,
+                "selected_idea": selected_idea,
+                "target_duration": target_dur,
+                "duration": f"{target_dur}s",
+                "aspect_ratio": aspect,
+                "model": model,
+                "full_combined_prompt": clean_text.strip()
+            }
 
-        prompt_data = {
-            "category": f"Paddy Titan Machine - Level {lvl}",
-            "all_5_ideas": [selected_idea],
-            "selected_idea_number": 1,
-            "selected_idea": selected_idea,
-            "target_duration": target_dur,
-            "duration": f"{target_dur}s",
-            "aspect_ratio": aspect,
-            "model": model,
-            "full_combined_prompt": clean_text.strip()
-        }
-        return prompt_data
 
 if __name__ == "__main__":
     generator = IdeaPromptGenerator()
     res = generator.fetch_sqlite_escalation_prompt(level=10)
-    print("=== Level 10 SQLite Escalation Prompt ===")
+    print("=== Next Sequential Level 10 SQLite Escalation Prompt ===")
+    print("Idea ID:", res["selected_idea"]["id"])
     print("Title:", res["selected_idea"]["title"])
     print("Prompt:\n", res["full_combined_prompt"])

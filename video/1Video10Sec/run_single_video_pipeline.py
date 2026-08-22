@@ -72,6 +72,79 @@ class SingleVideoPipelineRunner:
                 "status": "WAITING_FOR_GOOGLE_FLOW_RENDER"
             }
 
+        # Step 3.5: Direct SQLite & Output_Packaged Integration (Hierarchical Naming by ID)
+        idea_id = prompt_info.get("selected_idea", {}).get("id")
+        if idea_id and video_path and os.path.exists(video_path):
+            try:
+                import shutil
+                from pathlib import Path
+                prompt_db_dir = Path(self.base_dir).parent.parent / "PromptDatabase"
+                if str(prompt_db_dir) not in sys.path:
+                    sys.path.insert(0, str(prompt_db_dir))
+
+                from database.session import get_session
+                from database.models import Idea, IdeaElement, Prompt, GeneratedVideo, Task
+                from pipeline_packager import get_idea_package_folder_name, export_package_files_from_sqlite, sync_and_get_youtube_metadata_from_sqlite, OUTPUT_PACKAGED_DIR
+                from sqlmodel import select
+
+                with get_session() as session:
+                    idea = session.get(Idea, idea_id)
+                    if idea:
+                        folder_name = get_idea_package_folder_name(idea.id, session)
+                        package_folder = OUTPUT_PACKAGED_DIR / folder_name
+                        package_folder.mkdir(parents=True, exist_ok=True)
+                        target_video_path = package_folder / f"{folder_name}.mp4"
+
+                        shutil.copy2(video_path, target_video_path)
+
+                        elem_link = session.exec(select(IdeaElement).where(IdeaElement.idea_id == idea.id)).first()
+                        elem_id = elem_link.element_id if elem_link else 1
+                        linked_ideas = session.exec(select(Idea).join(IdeaElement).where(IdeaElement.element_id == elem_id).order_by(Idea.id)).all()
+                        idea_idx = 1
+                        for idx, i in enumerate(linked_ideas, 1):
+                            if i.id == idea.id:
+                                idea_idx = idx
+                                break
+
+                        vid_p = session.exec(select(Prompt).where(Prompt.idea_id == idea.id, Prompt.level == 10, Prompt.generation_type == "video")).first()
+                        img_p = session.exec(select(Prompt).where(Prompt.idea_id == idea.id, Prompt.level == 10, Prompt.generation_type == "image")).first()
+
+                        sync_and_get_youtube_metadata_from_sqlite(idea, elem_id, vid_p, img_p, session, skip_browser=True)
+                        export_package_files_from_sqlite(idea, elem_id, idea_idx, vid_p, img_p, package_folder, session)
+
+                        gen_v = session.exec(select(GeneratedVideo).where(GeneratedVideo.idea_id == idea.id)).first()
+                        if not gen_v:
+                            import uuid
+                            gen_v = GeneratedVideo(
+                                uuid=str(uuid.uuid4()),
+                                idea_id=idea.id,
+                                title=idea.title,
+                                file_path=str(target_video_path),
+                                file_name=f"{folder_name}.mp4",
+                                file_size_bytes=target_video_path.stat().st_size,
+                                duration_seconds=8.0,
+                                resolution="1080x1920",
+                                status="completed"
+                            )
+                            session.add(gen_v)
+                        else:
+                            gen_v.file_path = str(target_video_path)
+                            gen_v.file_size_bytes = target_video_path.stat().st_size
+                            gen_v.status = "completed"
+                            session.add(gen_v)
+
+                        task = session.exec(select(Task).where(Task.idea_id == idea.id)).first()
+                        if task:
+                            task.status = "success"
+                            task.output_folder_path = str(package_folder)
+                            task.video_path = str(target_video_path)
+                            session.add(task)
+
+                        session.commit()
+                        logging.info(f"📦 [Direct Auto-Packaging Complete] Video & Metadata saved to: {package_folder}")
+            except Exception as pkg_err:
+                logging.warning(f"⚠️ Direct packaging notice: {pkg_err}")
+
         # Step 4: Auto upload to YouTube Shorts and Social Media
         upload_info = self.uploader.upload_video(video_path, prompt_info)
 

@@ -2,8 +2,8 @@
   "scenes": [
     {
       "scene_number": 1,
-      "title": "Rice Titan Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
-      "full_combined_prompt": "Exactly 8 seconds, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] \u2014 HUD Popup Text: \"STEP 1: AWAKEN THE TITAN\" \u2014 The alien agricultural intelligence activates, illuminating countless sensor halos and planetary-scale harvesting systems. Second 2 [0:01-0:02] \u2014 HUD Popup Text: \"STEP 2: HARVEST REALITY\" \u2014 Innumerable colossal arms reach through folded space and gather rice from multiple worlds simultaneously. Second 3 [0:02-0:03] \u2014 HUD Popup Text: \"STEP 3: TRANSDIMENSIONAL THRESH\" \u2014 Entire crop streams enter wormholes and emerge inside the titan's impossible belly factory. Second 4 [0:03-0:04] \u2014 HUD Popup Text: \"STEP 4: QUANTUM PURIFICATION\" \u2014 Individual grains float through miniature artificial suns, gravitational separators, magnetic fields, and alien drying reactors. Second 5 [0:04-0:05] \u2014 HUD Popup Text: \"STEP 5: STORE THE HARVEST UNIVERSE\" \u2014 Finished grains cascade into an infinite-dimensional storage chamber containing vast glowing reserves of rice. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single rice grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",
+      "title": "Rice-Field Spider Colossus",
+      "full_combined_prompt": "STEP 1: Core Startup | STEP 2: Harvester Deployment | STEP 3: Intake Acceleration | STEP 4: Processing Wave | STEP 5: Full Output Stabilization. Camera smoothly pans across Rice-Field Spider Colossus for 8 seconds.",
       "moderate_full_combined_prompt": null,
       "soft_full_combined_prompt": null,
       "veo_target_duration": 8,
