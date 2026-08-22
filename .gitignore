@@ -62,3 +62,19 @@ kaggle video/test_push/
 # Ignore API Keys
 *API*Key*.txt
 *API*KEY*.txt
+
+# Ignore Node, Frontend Build & Automation Caches
+node_modules/
+.npm/
+.pnpm-store/
+dist/
+build/
+.vite/
+.playwright/
+.playwright-mcp/
+playwright-report/
+test-results/
+.pytest_cache/
+*.egg-info/
+.claude/
+.puku-cli/
