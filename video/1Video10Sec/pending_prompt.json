@@ -2,26 +2,26 @@
   "category": "Element Paddy Harvesting - Level 10",
   "all_5_ideas": [
     {
-      "id": 3,
-      "title": "Rice-Field Spider Colossus",
-      "concept": "Level 10 (Level 10 - ALIEN LEVEL / MAXIMUM) Impossible Colossal Machine with 5-Step HUD Popups",
+      "id": 5,
+      "title": "Paddy Ring Megaharvester",
+      "concept": "Level 10 (Level 10 - Alien Level / Maximum) Impossible Colossal Machine with 5-Step HUD Popups",
       "level": 10,
-      "level_name": "Level 10 - ALIEN LEVEL / MAXIMUM",
+      "level_name": "Level 10 - Alien Level / Maximum",
       "style": "Alien Level Maximum Escalation"
     }
   ],
   "selected_idea_number": 1,
   "selected_idea": {
-    "id": 3,
-    "title": "Rice-Field Spider Colossus",
-    "concept": "Level 10 (Level 10 - ALIEN LEVEL / MAXIMUM) Impossible Colossal Machine with 5-Step HUD Popups",
+    "id": 5,
+    "title": "Paddy Ring Megaharvester",
+    "concept": "Level 10 (Level 10 - Alien Level / Maximum) Impossible Colossal Machine with 5-Step HUD Popups",
     "level": 10,
-    "level_name": "Level 10 - ALIEN LEVEL / MAXIMUM",
+    "level_name": "Level 10 - Alien Level / Maximum",
     "style": "Alien Level Maximum Escalation"
   },
   "target_duration": 8,
   "duration": "8s",
   "aspect_ratio": "9:16",
   "model": "Veo 3.1 Lower Priority",
-  "full_combined_prompt": "STEP 1: Core Startup | STEP 2: Harvester Deployment | STEP 3: Intake Acceleration | STEP 4: Processing Wave | STEP 5: Full Output Stabilization. Camera smoothly pans across Rice-Field Spider Colossus for 8 seconds."
+  "full_combined_prompt": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] \u2014 HUD Popup Text: \"STEP 1: ALIEN HARVEST AWAKENING\" \u2014 Infinite concentric sensor crowns awaken across the cosmic titan, generating nested halos that simultaneously scan continents, individual rice plants, grains, molecules, and microscopic structures while plasma constellations ignite. Second 2 [0:01-0:02] \u2014 HUD Popup Text: \"STEP 2: OMNISCALE HARVEST\" \u2014 Impossible harvesting arms deploy across planetary distances while autonomous drones and microscopic precision claws gather mature rice in synchronized waves, causing entire agricultural landscapes to flow toward the ring. Second 3 [0:02-0:03] \u2014 HUD Popup Text: \"STEP 3: RECURSIVE THRESHING\" \u2014 Harvest streams enter alien belly factories containing planetary threshing cylinders and recursive processing chambers, where grain, husk, stalk, and matter streams are separated through endlessly nested mechanisms. Second 4 [0:03-0:04] \u2014 HUD Popup Text: \"STEP 4: QUANTUM REALITY REFINEMENT\" \u2014 Electromagnetic purification lattices, artificial gravity wells, quantum sorting fields, and stellar thermal loops simultaneously purify, separate, stabilize, and dry every particle with impossible precision. Second 5 [0:04-0:05] \u2014 HUD Popup Text: \"STEP 5: INFINITE STORAGE CASCADE\" \u2014 Finished grain pours through glowing gravity channels into vast alien reservoirs containing nested storage chambers, each filling with synchronized luminous streams. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single harvested particle/grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds."
 }
