@@ -135,10 +135,8 @@ class ExtensionVideoBridge:
         self.google_flow_url = "https://labs.google/fx/tools/flow"
         self.bridge_port = 8102
 
-        # Download paths to monitor for real MP4 files
+        # Download paths to monitor for real MP4 files (ONLY external browser download folders)
         self.downloads_dirs = [
-            os.path.join(self.base_dir, "FlowCraft_Outputs"),
-            self.base_dir,
             r"C:\Users\Irak\Downloads\FlowCraft_Outputs",
             r"C:\Users\Irak\Downloads"
         ]
@@ -320,13 +318,23 @@ class ExtensionVideoBridge:
             "quality": "1080p"
         }
 
-        # 3. Milestone 1: Chrome Process & Window 3-Way Verification
+        # 3. Snapshot existing files in external downloads folders
+        existing_download_files = set()
+        for d in self.downloads_dirs:
+            if os.path.exists(d):
+                for mp4 in glob.glob(os.path.join(d, "*.mp4")):
+                    try:
+                        existing_download_files.add(os.path.abspath(mp4))
+                    except Exception:
+                        pass
+
+        # 4. Milestone 1: Chrome Process & Window 3-Way Verification
         self.verify_and_prepare_chrome()
 
-        # 4. Milestone 2: Google Flow Tab & Handshake 3-Way Verification
+        # 5. Milestone 2: Google Flow Tab & Handshake 3-Way Verification
         self.verify_and_navigate_google_flow()
 
-        # 5. Milestone 3 & 4: Monitor Prompt Injection, Generation & Download
+        # 6. Milestone 3 & 4: Monitor Prompt Injection, Generation & Auto-Download
         logging.info("⏳ [Milestone 3 & 4 Verification] Monitoring Prompt Injection, Generation & Auto-Download...")
 
         start_time = time.time()
@@ -344,7 +352,8 @@ class ExtensionVideoBridge:
 
             # Check if job completed by Extension
             job_stat = BridgeHTTPHandler.job_history.get(job_id, {})
-            if job_stat.get("status") == "completed":
+            is_job_completed = job_stat.get("status") == "completed"
+            if is_job_completed:
                 logging.info(f"🎉 Extension reported job {job_id} completed successfully!")
 
             # 1. Direct Python auto-download from URL (for direct public/CDN links)
@@ -365,17 +374,25 @@ class ExtensionVideoBridge:
                     logging.info(f"ℹ️ Direct download notice: {dl_err}. Relying on Extension downloader...")
                     BridgeHTTPHandler.direct_video_url = None
 
-            # 2. Check for downloaded MP4 file from Chrome / Extension
-            downloaded_file = self._find_recently_downloaded_mp4(start_time=start_time - 10)
-            if downloaded_file and os.path.exists(downloaded_file) and os.path.getsize(downloaded_file) > 100000:
-                logging.info(f"✅ Real MP4 Video detected ({os.path.getsize(downloaded_file):,} bytes): {downloaded_file}")
-                if os.path.abspath(downloaded_file) != os.path.abspath(final_video_path):
-                    import shutil
-                    shutil.copy2(downloaded_file, final_video_path)
-                    real_video_path = final_video_path
-                else:
-                    real_video_path = downloaded_file
-                break
+            # 2. Check for downloaded MP4 file from Chrome / Extension (only after reasonable time or job completion)
+            if attempt >= 3 or is_job_completed:
+                downloaded_file = self._find_recently_downloaded_mp4(start_time=start_time - 2, existing_files=existing_download_files)
+                if downloaded_file and os.path.exists(downloaded_file) and os.path.getsize(downloaded_file) > 100000:
+                    logging.info(f"✅ Real MP4 Video detected ({os.path.getsize(downloaded_file):,} bytes): {downloaded_file}")
+                    if os.path.abspath(downloaded_file) != os.path.abspath(final_video_path):
+                        import shutil
+                        shutil.copy2(downloaded_file, final_video_path)
+                        try:
+                            # Clean up / remove from external downloads folder so no files are left scattered
+                            if "Downloads" in downloaded_file or "FlowCraft_Outputs" in downloaded_file:
+                                os.remove(downloaded_file)
+                                logging.info(f"🧹 Cleaned up temporary external download: {downloaded_file}")
+                        except Exception as rm_err:
+                            logging.warning(f"⚠️ Notice cleaning external download: {rm_err}")
+                        real_video_path = final_video_path
+                    else:
+                        real_video_path = downloaded_file
+                    break
 
             time.sleep(5)
             attempt += 1
@@ -387,9 +404,9 @@ class ExtensionVideoBridge:
         logging.error("❌ Video generation/download not detected within timeout.")
         return None
 
-    def _find_recently_downloaded_mp4(self, start_time: float) -> str:
+    def _find_recently_downloaded_mp4(self, start_time: float, existing_files: set = None) -> str:
         """
-        Scans download directories (Downloads, FlowCraft_Outputs, etc.) for real MP4 files created/downloaded recently.
+        Scans download directories (Downloads, FlowCraft_Outputs) for real MP4 files created/downloaded strictly after start_time.
         Returns the newest downloaded MP4 matching criteria.
         """
         candidates = []
@@ -398,9 +415,12 @@ class ExtensionVideoBridge:
                 mp4_files = glob.glob(os.path.join(d, "*.mp4"))
                 for mp4 in mp4_files:
                     try:
+                        abs_mp4 = os.path.abspath(mp4)
+                        if existing_files and abs_mp4 in existing_files:
+                            continue
                         sz = os.path.getsize(mp4)
                         mtime = os.path.getmtime(mp4)
-                        if sz > 100000 and mtime >= (start_time - 60):
+                        if sz > 100000 and mtime >= start_time:
                             candidates.append((mtime, mp4))
                     except Exception:
                         pass

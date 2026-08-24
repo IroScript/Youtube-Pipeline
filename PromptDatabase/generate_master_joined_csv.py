@@ -147,6 +147,9 @@ def generate_unified_master_csv():
                 )
             )
 
+            idea_desc = idea.description or idea.raw_idea or ""
+            idea_words = len(idea_desc.split())
+
             if not idea_prompts:
                 # Idea with 0 prompts
                 rows.append({
@@ -161,6 +164,8 @@ def generate_unified_master_csv():
                     "Idea_Topic": idea.topic or elem.name,
                     "Idea_Niche": idea.niche or "",
                     "Idea_Status": idea.status or "new",
+                    "Idea_Word_Count": idea_words,
+                    "Idea_Description": idea_desc,
                     "Total_Prompts_For_Idea": 0,
                     "Prompt_ID": "",
                     "Prompt_Level": "",
@@ -199,6 +204,8 @@ def generate_unified_master_csv():
                         "Idea_Topic": idea.topic or elem.name,
                         "Idea_Niche": idea.niche or "",
                         "Idea_Status": idea.status or "new",
+                        "Idea_Word_Count": idea_words,
+                        "Idea_Description": idea_desc,
                         "Total_Prompts_For_Idea": len(idea_prompts),
                         "Prompt_ID": prompt.id,
                         "Prompt_Level": prompt.level or "",

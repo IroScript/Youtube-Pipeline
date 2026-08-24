@@ -78,3 +78,17 @@ test-results/
 *.egg-info/
 .claude/
 .puku-cli/
+
+# ==========================================
+# Root archive/ folder is intentionally tracked & pushed.
+# Un-ignore its text/log/CSV/image contents that the rules above would otherwise skip.
+# (Secret-bearing logs are kept OUT of archive/ on purpose — do not add exceptions for keys.)
+# ==========================================
+!/archive/
+!/archive/**/
+!/archive/**/*.txt
+!/archive/**/*.log
+!/archive/**/*.csv
+!/archive/**/*.png
+!/archive/**/*.json
+!/archive/**/*.md

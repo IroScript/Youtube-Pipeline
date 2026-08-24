@@ -272,12 +272,21 @@ async function checkPythonBridge() {
 
       activeBatchTask = new BatchRunner(groupData);
       activeBatchTask.run(selectors).then(() => {
-        Logger.info(`🎉 [Python Bridge] Job ${data.job_id} finished execution.`);
-        fetch('http://127.0.0.1:8102/api/completed', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ job_id: data.job_id, status: 'completed' })
-        }).catch(() => {});
+        const isSuccess = activeBatchTask.status === 'completed';
+        Logger.info(`🎉 [Python Bridge] Job ${data.job_id} finished execution with status: ${activeBatchTask.status}`);
+        if (isSuccess) {
+          fetch('http://127.0.0.1:8102/api/completed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ job_id: data.job_id, status: 'completed' })
+          }).catch(() => {});
+        } else {
+          fetch('http://127.0.0.1:8102/api/status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ job_id: data.job_id, status: 'failed', error: 'Prompt execution did not complete cleanly' })
+          }).catch(() => {});
+        }
       }).catch(err => {
         Logger.error(`❌ [Python Bridge] Job ${data.job_id} failed:`, err);
         fetch('http://127.0.0.1:8102/api/status', {
@@ -287,8 +296,8 @@ async function checkPythonBridge() {
         }).catch(() => {});
       });
     }
-  } catch {
-    // Silently ignore if Python bridge server is not active
+  } catch (err) {
+    Logger.error('❌ [Python Bridge Poller Error]', err);
   }
 }
 

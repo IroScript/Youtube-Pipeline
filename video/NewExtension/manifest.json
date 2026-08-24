@@ -20,7 +20,9 @@
   "content_scripts": [
     {
       "matches": [
-        "*://labs.google/*"
+        "*://labs.google/*",
+        "https://labs.google/*",
+        "https://labs.google.com/*"
       ],
       "js": [
         "content/content-loader.js"
@@ -35,7 +37,12 @@
   "options_page": "options/options.html",
   "offline_enabled": true,
   "host_permissions": [
-    "*://labs.google/*"
+    "*://labs.google/*",
+    "https://labs.google/*",
+    "https://labs.google.com/*",
+    "https://labs.google.com/fx/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
   ],
   "permissions": [
     "storage",
@@ -50,12 +57,13 @@
   "web_accessible_resources": [
     {
       "matches": [
-        "*://labs.google/*"
+        "<all_urls>"
       ],
       "resources": [
         "shared/*",
         "content/*",
-        "utils/*"
+        "utils/*",
+        "icons/*"
       ]
     }
   ],

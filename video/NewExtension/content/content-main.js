@@ -216,3 +216,110 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 Logger.info('FlowCraft content script initialized on Google Labs');
+
+// ═══════════════════════════════════════════════════════════════════
+// PYTHON BRIDGE LIVE PROMPT INJECTOR & TAB HEARTBEAT
+// ═══════════════════════════════════════════════════════════════════
+let lastProcessedJobId = null;
+
+// Send heartbeat to Python Bridge so Python knows Google Flow tab is 100% active and connected
+function sendTabHeartbeat() {
+  fetch('http://127.0.0.1:8102/api/tab_ping', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      url: window.location.href,
+      title: document.title,
+      isWorkspace: window.location.href.includes('/project/') || !!document.querySelector('[role="textbox"]'),
+      status: activeBatchTask ? activeBatchTask.status : 'idle'
+    })
+  }).catch(() => {});
+}
+setInterval(sendTabHeartbeat, 2000);
+sendTabHeartbeat();
+
+async function checkPythonBridge() {
+  if (activeBatchTask && activeBatchTask.status === 'running') {
+    return;
+  }
+
+  try {
+    const res = await fetch('http://127.0.0.1:8102/api/pending_prompt', {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) return;
+
+    const data = await res.json();
+    if (data && data.status === 'pending' && data.job_id && data.job_id !== lastProcessedJobId) {
+      lastProcessedJobId = data.job_id;
+      Logger.info(`⚡ [Python Bridge] Received pending prompt job: ${data.job_id}`);
+
+      // Notify Python server that the job was picked up
+      fetch('http://127.0.0.1:8102/api/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ job_id: data.job_id, status: 'started' })
+      }).catch(() => {});
+
+      const config = await chrome.runtime.sendMessage({ type: ACTIONS.GET_CONFIG });
+      const selectors = config?.selectors ?? {};
+
+      const payload = {
+        promptIndex: 1,
+        prompt: data.prompt,
+        moderatePrompt: data.moderatePrompt,
+        softPrompt: data.softPrompt,
+        mode: data.mode || 'textToVideo',
+        aspectRatio: data.aspectRatio || '9:16',
+        outputCount: data.outputCount || 1,
+        model: data.model || 'Veo 3.1 Lower Priority',
+        duration: data.duration || '8s',
+        omniFlashDuration: data.omniFlashDuration || 8,
+        isConcat: false,
+        images: data.images || [],
+        folderName: data.folderName || 'FlowCraft_Outputs',
+        filePrefix: data.filePrefix || '',
+        autoDownloadResourceQuality: data.quality || '1080p',
+        autoChangeFileName: true
+      };
+
+      const groupData = {
+        id: data.job_id,
+        payloads: [payload]
+      };
+
+      activeBatchTask = new BatchRunner(groupData);
+      activeBatchTask.run(selectors).then(() => {
+        const isSuccess = activeBatchTask.status === 'completed';
+        Logger.info(`🎉 [Python Bridge] Job ${data.job_id} finished execution with status: ${activeBatchTask.status}`);
+        if (isSuccess) {
+          fetch('http://127.0.0.1:8102/api/completed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ job_id: data.job_id, status: 'completed' })
+          }).catch(() => {});
+        } else {
+          fetch('http://127.0.0.1:8102/api/status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ job_id: data.job_id, status: 'failed', error: 'Prompt execution did not complete cleanly' })
+          }).catch(() => {});
+        }
+      }).catch(err => {
+        Logger.error(`❌ [Python Bridge] Job ${data.job_id} failed:`, err);
+        fetch('http://127.0.0.1:8102/api/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ job_id: data.job_id, status: 'error', error: err.message })
+        }).catch(() => {});
+      });
+    }
+  } catch (err) {
+    Logger.error('❌ [Python Bridge Poller Error]', err);
+  }
+}
+
+// Start background poller for Python bridge
+setInterval(checkPythonBridge, 2000);
+

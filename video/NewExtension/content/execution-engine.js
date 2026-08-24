@@ -63,26 +63,86 @@ export class ExecutionEngine {
   }
 
   static async createProjectIfNeeded(selectors) {
-    if (window.location.href.includes('/project/') || DOMQueryEngine.queryFirst('[role="textbox"]')) {
+    const isProjectActive = () => {
+      return (window.location.pathname.includes('/project/') || window.location.href.includes('/project/')) &&
+             (!!document.querySelector('[role="textbox"]') || !!document.querySelector('textarea') || !!document.querySelector('[contenteditable="true"]'));
+    };
+
+    if (isProjectActive()) {
       Logger.info('✅ Project workspace active — proceeding to configuration');
       return true;
     }
 
-    const sel = selectors;
-    try {
-      const btn = await DOMQueryEngine.waitForElement(sel.createProjectButton, 5000);
-      if (!btn) {
-        Logger.warn('Create project button not found — assuming project workspace active');
-        return true;
+    Logger.info('🔍 Navigating from Flow Dashboard into Project Workspace...');
+
+    // Strategy 1: Open newest existing project card on dashboard
+    const projectLinks = Array.from(document.querySelectorAll('a[href*="/project/"], [href*="/project/"], [data-testid*="project-card"] a, [data-testid*="project-card"]'))
+      .filter(el => DOMQueryEngine.isVisible(el) || el.href);
+
+    if (projectLinks.length > 0) {
+      Logger.info(`📂 Opening existing project [1/${projectLinks.length}]...`);
+      const target = projectLinks[0];
+      try {
+        if (target.href) {
+          target.click();
+        } else {
+          await DOMQueryEngine.simulateClickElement(target, 'Existing project card');
+        }
+      } catch {
+        try { target.click(); } catch {}
+      }
+      
+      for (let w = 0; w < 10; w++) {
+        await new Promise(r => setTimeout(r, 500));
+        if (window.location.href.includes('/project/')) break;
+      }
+    }
+
+    // Strategy 2: If still on dashboard, click Create Project / "+" button
+    if (!window.location.href.includes('/project/')) {
+      const candidates = Array.from(document.querySelectorAll('button, a, div[role="button"]')).filter(el => DOMQueryEngine.isVisible(el));
+      
+      let createBtn = candidates.find(el => {
+        const aria = (el.getAttribute('aria-label') || '').toLowerCase();
+        const title = (el.getAttribute('title') || '').toLowerCase();
+        const text = (el.textContent || '').trim().toLowerCase();
+        return aria.includes('create project') || aria.includes('new project') || title.includes('create project') || title.includes('new project') || text.includes('new project') || text.includes('create project');
+      });
+
+      if (!createBtn) {
+        createBtn = candidates.find(el => {
+          const icon = el.querySelector('i, span, svg');
+          const iconText = (icon?.textContent || '').trim().toLowerCase();
+          const className = el.className || '';
+          return iconText === 'add' || iconText === 'add_2' || iconText === 'add_circle' || (el.textContent || '').trim() === '+' || className.includes('cgdjfr');
+        });
       }
 
-      await DOMQueryEngine.simulateClick(sel.createProjectButton, 'Create project button');
-      await new Promise(r => setTimeout(r, 4000));
-      return true;
-    } catch (err) {
-      Logger.error('Failed to create project:', err);
-      return true;
+      if (!createBtn && selectors?.createProjectButton) {
+        createBtn = DOMQueryEngine.queryFirst(selectors.createProjectButton);
+      }
+
+      if (createBtn) {
+        Logger.info('🚀 Clicking "Create Project" button...');
+        try { createBtn.click(); } catch {}
+        await DOMQueryEngine.simulateClickElement(createBtn, 'Create project button');
+        for (let w = 0; w < 10; w++) {
+          await new Promise(r => setTimeout(r, 500));
+          if (window.location.href.includes('/project/')) break;
+        }
+      }
     }
+
+    // Wait for project workspace to be active
+    for (let wait = 0; wait < 20; wait++) {
+      if (window.location.href.includes('/project/') || !!document.querySelector('[role="textbox"]') || !!document.querySelector('textarea') || !!document.querySelector('[contenteditable="true"]')) {
+        Logger.info('✅ Project workspace successfully active');
+        return true;
+      }
+      await new Promise(r => setTimeout(r, 500));
+    }
+
+    return true;
   }
 
   static async configureAspectRatios(selectors, aspectRatio) {
@@ -427,33 +487,42 @@ export class ExecutionEngine {
     }
   }
 
-  static getExistingTileIds(selectors) {
+  static getAllTileElements(selectors) {
     const sel = selectors;
-    let tiles = DOMQueryEngine.queryAll(sel.outputItems);
+    let tiles = DOMQueryEngine.queryAll(sel?.outputItems || '[data-tile-id]');
     if (tiles.length === 0) tiles = DOMQueryEngine.queryAll('[data-tile-id]:has(div)');
     if (tiles.length === 0) tiles = DOMQueryEngine.queryAll('[data-tile-id]');
+    if (tiles.length === 0) {
+      tiles = DOMQueryEngine.queryAll(
+        '[data-testid*="generation"], [data-testid*="output"], [data-testid*="card"], [data-testid*="tile"], [data-session-item], div[class*="generation"], div:has(video)'
+      );
+    }
+    if (tiles.length === 0) {
+      const vids = Array.from(document.querySelectorAll('video')).map(v => v.closest('div:has(button), div:has(video), section') || v);
+      tiles = [...new Set(vids)];
+    }
+    return tiles;
+  }
 
+  static getExistingTileIds(selectors) {
+    const tiles = this.getAllTileElements(selectors);
     const ids = new Set();
-    tiles.forEach(t => {
-      const id = t.getAttribute('data-tile-id');
+    tiles.forEach((t, i) => {
+      const id = t.getAttribute('data-tile-id') || t.getAttribute('data-testid') || t.getAttribute('data-id') || t.getAttribute('id') || t.querySelector('video')?.src || `tile_${i}`;
       if (id) ids.add(id);
     });
     return ids;
   }
 
   static async locateNewTileIds(existingTileIds, outputCount, mode, selectors, isCancelled) {
-    const sel = selectors;
     for (let attempt = 0; attempt < 120; attempt++) {
       if (isCancelled()) return { success: false, tileIds: [] };
 
-      let tiles = DOMQueryEngine.queryAll(sel.outputItems);
-      if (tiles.length === 0) tiles = DOMQueryEngine.queryAll('[data-tile-id]:has(div)');
-      if (tiles.length === 0) tiles = DOMQueryEngine.queryAll('[data-tile-id]');
-
+      const tiles = this.getAllTileElements(selectors);
       if (tiles.length > 0) {
         const allIds = [];
-        tiles.forEach(t => {
-          const tid = t.getAttribute('data-tile-id');
+        tiles.forEach((t, i) => {
+          const tid = t.getAttribute('data-tile-id') || t.getAttribute('data-testid') || t.getAttribute('data-id') || t.getAttribute('id') || t.querySelector('video')?.src || `tile_${i}`;
           if (tid) allIds.push(tid);
         });
 
@@ -465,6 +534,15 @@ export class ExecutionEngine {
           Logger.info(`🔍 Located ${newIds.length} new tile ID(s): [${newIds.join(', ')}]`);
           return { success: true, tileIds: targetIds };
         }
+      }
+
+      // Fallback: If video or rendering progress bar appeared anywhere on page
+      const anyRendering = Array.from(document.querySelectorAll('[role="progressbar"], svg animate, md-circular-progress, video'));
+      if (anyRendering.length > 0 && attempt > 4) {
+        const target = anyRendering[anyRendering.length - 1].closest('div:has(button), div:has(video), section') || anyRendering[anyRendering.length - 1];
+        const tid = target.getAttribute('data-tile-id') || target.getAttribute('data-id') || `active_render_${Date.now()}`;
+        Logger.info(`🔍 Located active rendering element: ${tid}`);
+        return { success: true, tileIds: [tid] };
       }
 
       if (attempt % 10 === 0) {
@@ -876,104 +954,86 @@ export class ExecutionEngine {
         await new Promise(r => setTimeout(r, 400));
       }
 
-      // Locate Submit Button strictly near prompt composer (excluding headers & back navigation)
-      const composerArea = textarea.closest('form, section, div[data-testid*="prompt"], div:has(button)') || document;
-      const composerBtns = Array.from(composerArea.querySelectorAll('button')).filter(b => {
-        if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
-        const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-        if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('settings') || aria.includes('home')) return false;
-        return true;
-      });
+      // Locate Submit Button strictly using robust multi-layer finder
+      let submitBtn = InputHandler.findSubmitButton(textarea);
 
-      let submitBtn = composerBtns.find(b => {
-        const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
-        return icons.includes('arrow_forward') || icons.includes('arrow_upward') || icons.includes('send') || icons.includes('publish');
-      });
-
-      if (!submitBtn) {
-        submitBtn = composerBtns.find(b => {
-          const aria = (b.getAttribute('aria-label') ?? '').toLowerCase();
-          return aria.includes('generate') || aria.includes('submit') || aria.includes('send');
-        });
+      if (!submitBtn && selectors?.submitButton) {
+        submitBtn = DOMQueryEngine.queryFirst(selectors.submitButton);
       }
 
-      if (!submitBtn) {
-        const allPageBtns = Array.from(document.querySelectorAll('button')).filter(b => {
-          if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
-          const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-          if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('home')) return false;
-          return true;
-        });
-        submitBtn = allPageBtns.find(b => {
-          const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
-          return icons.includes('arrow_forward') || icons.includes('arrow_upward');
-        });
-      }
-
-      if (!submitBtn) {
-        Logger.error(`❌ Submit button not found near prompt editor!`);
-        steps[2].status = 'error';
-        return {
-          success: false,
-          steps,
-          error: 'Submit button not found near prompt editor.',
-          shouldRetry: false
-        };
-      }
-
-      let isDisabled = submitBtn.getAttribute('aria-disabled') === 'true' || submitBtn.hasAttribute('disabled');
-      if (isDisabled) {
-        Logger.info('⏳ Submit button initially disabled — waiting for React state to register input & model...');
-        for (let wait = 0; wait < 10; wait++) {
-          await new Promise(r => setTimeout(r, 600));
-          isDisabled = submitBtn.getAttribute('aria-disabled') === 'true' || submitBtn.hasAttribute('disabled');
-          if (!isDisabled) break;
+      if (submitBtn) {
+        let isDisabled = submitBtn.getAttribute('aria-disabled') === 'true' || submitBtn.hasAttribute('disabled') || submitBtn.disabled;
+        if (isDisabled) {
+          Logger.info('⏳ Submit button initially disabled — forcing React input state sync...');
+          if (textarea) {
+            textarea.focus();
+            try {
+              const dt = new DataTransfer();
+              dt.setData('text/plain', ' ');
+              textarea.dispatchEvent(new InputEvent('input', { bubbles: true, cancelable: true, composed: true }));
+            } catch {}
+          }
+          for (let wait = 0; wait < 12; wait++) {
+            await new Promise(r => setTimeout(r, 500));
+            isDisabled = submitBtn.getAttribute('aria-disabled') === 'true' || submitBtn.hasAttribute('disabled') || submitBtn.disabled;
+            if (!isDisabled) {
+              Logger.info('✅ Submit button is now enabled and ready for click!');
+              break;
+            }
+          }
         }
       }
 
       // Multi-layer bulletproof submit execution
-      Logger.info('🚀 [Submitting] Extension is executing submit click (DOM + React Fiber + CDP)...');
+      Logger.info('🚀 [Submitting] Extension is executing submit (CDP Native Trusted Mouse + Enter Key + DOM Pointer Sequence)...');
       
-      // Strategy 1: Direct DOM Click & Mouse Events
+      // Tier 1: CDP Native Trusted Mouse Click at exact pixel coordinates
       try {
-        submitBtn.focus();
-        submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true }));
-        submitBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, composed: true }));
-        submitBtn.click();
+        const cdpRes = await InputHandler.submitFormCDP();
+        Logger.info(`🖱️ CDP Submit click dispatched: ${JSON.stringify(cdpRes)}`);
       } catch (e) {
-        Logger.warn(`DOM submit click warning: ${e.message}`);
+        Logger.warn(`CDP submit notice: ${e.message}`);
       }
 
-      // Strategy 2: React Fiber Props Click
+      // Tier 2: CDP Native Trusted Enter Key Dispatch
       try {
-        const fiberKey = Object.keys(submitBtn).find(k => k.startsWith('__reactFiber') || k.startsWith('__reactInternalInstance'));
-        if (fiberKey) {
-          let node = submitBtn[fiberKey];
-          let depth = 0;
-          while (node && depth++ < 50) {
-            if (node.memoizedProps?.onClick) {
-              node.memoizedProps.onClick({
-                target: submitBtn,
-                currentTarget: submitBtn,
-                type: 'click',
-                bubbles: true,
-                cancelable: true,
-                preventDefault: () => {},
-                stopPropagation: () => {},
-                isPropagationStopped: () => false,
-                persist: () => {},
-                nativeEvent: new MouseEvent('click', { bubbles: true })
-              });
-              break;
-            }
-            node = node.return;
-          }
+        await InputHandler.submitEnterCDP();
+      } catch {}
+
+      // Tier 3: Direct DOM Pointer & Mouse Events on Submit Button
+      if (submitBtn) {
+        try {
+          submitBtn.focus();
+          submitBtn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true }));
+          submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true, buttons: 1 }));
+          submitBtn.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true }));
+          submitBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, composed: true, buttons: 1 }));
+          submitBtn.click();
+        } catch (e) {
+          Logger.warn(`DOM submit click warning: ${e.message}`);
+        }
+      }
+
+      // Tier 4: Keyboard Enter & Ctrl+Enter Events on Prompt Editor
+      try {
+        if (textarea) {
+          textarea.focus();
+          const enterEvtDown = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true });
+          const enterEvtUp = new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true });
+          textarea.dispatchEvent(enterEvtDown);
+          textarea.dispatchEvent(enterEvtUp);
+          const ctrlEnterEvt = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, ctrlKey: true, bubbles: true, cancelable: true });
+          textarea.dispatchEvent(ctrlEnterEvt);
         }
       } catch {}
 
-      // Strategy 3: CDP Submit Click via Background
+      // Tier 5: Enclosing Form requestSubmit
       try {
-        await InputHandler.submitFormCDP();
+        const form = textarea?.closest('form');
+        if (form) {
+          if (submitBtn) form.requestSubmit(submitBtn);
+          else form.requestSubmit();
+        }
       } catch {}
 
       const postSubmitPacing = 3000 + Math.floor(Math.random() * 2001);

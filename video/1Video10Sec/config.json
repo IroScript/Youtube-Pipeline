@@ -4,6 +4,8 @@
   "extension_dir": "C:\\Users\\Irak\\Desktop\\Youtube Pipeline\\video\\1Video10Sec\\10SecNewExtension",
   "chrome_profile": "Profile 5",
   "max_retries": 10,
+  "continuous_mode": true,
+  "max_runs": 100,
   "default_categories": [
     "Impossible Machines",
     "Futuristic Machines",

@@ -15,57 +15,167 @@ export class CDPController {
         target: { tabId },
         world: 'MAIN',
         func: () => {
-          const findSubmit = () => {
-            const editorSelectors = [
-              '[data-slate-editor="true"]',
-              'div[role="textbox"]',
-              'div[contenteditable="true"]',
-              'textarea[placeholder*="Describe" i]',
-              'textarea[placeholder*="prompt" i]',
-              'textarea'
-            ];
-            let box = null;
+          const isVisible = (el) => {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0) return false;
+            const style = window.getComputedStyle(el);
+            return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+          };
+
+          const editorSelectors = [
+            '#PINHOLE_TEXT_AREA_ELEMENT_ID',
+            'textarea[placeholder*="Describe" i]',
+            'textarea[placeholder*="prompt" i]',
+            'textarea[placeholder*="Generate" i]',
+            'textarea',
+            '[data-slate-editor="true"]',
+            '[data-lexical-editor="true"]',
+            'div[contenteditable="true"]',
+            'div[contenteditable="plaintext-only"]',
+            'div[role="textbox"]',
+            'p[data-placeholder]',
+            '[contenteditable]'
+          ];
+
+          const findActiveBox = () => {
+            let candidates = [];
             for (const sel of editorSelectors) {
-              const el = document.querySelector(sel);
-              if (el && (el.offsetParent !== null || el.getClientRects().length > 0)) {
-                box = el;
-                break;
+              const found = Array.from(document.querySelectorAll(sel)).filter(isVisible);
+              if (found.length > 0) candidates.push(...found);
+            }
+            if (candidates.length > 0) {
+              const last = candidates[candidates.length - 1];
+              const inner = last.querySelector('textarea, [contenteditable="true"], [role="textbox"], [data-slate-editor="true"], [data-lexical-editor="true"]');
+              return inner || last;
+            }
+            return document.querySelector('textarea, [contenteditable="true"], [role="textbox"]');
+          };
+
+          const isIgnoredButton = (b) => {
+            const inTopHeader = b.closest('header, nav, [role="navigation"], [data-testid*="header"]');
+            if (inTopHeader) return true;
+
+            const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+            const title = (b.getAttribute('title') || '').toLowerCase();
+            const text = (b.textContent || '').trim().toLowerCase();
+            const testId = (b.getAttribute('data-testid') || '').toLowerCase();
+
+            const ignoreWords = [
+              'close', 'help', 'account', 'profile', 'user', 'settings', 'settings_2',
+              'tune', 'sliders', 'filter', 'crop', 'aspect', 'ratio',
+              'copy', 'content_copy', 'duplicate',
+              'clear', 'delete', 'trash', 'remove', 'cancel', '✕', 'eraser', 'ink_eraser',
+              'attach', 'upload', 'add_2', 'add image', 'add media', 'add frame', 'ingredients',
+              'image', 'photo', 'picture', 'frame', 'asset', 'gallery', 'library', 'insert',
+              'more_vert', 'more_horiz', 'overflow', 'expand_more', 'arrow_drop_down',
+              'zoom_in', 'zoom_out', 'undo', 'redo', 'fullscreen', 'theme',
+              'auto_awesome', 'spark', 'sparkle', 'inspire', 'enhance'
+            ];
+
+            if (ignoreWords.some(w => aria.includes(w) || title.includes(w) || testId.includes(w))) return true;
+            if (text === '+' || text === 'add' || text === 'add_2' || text === '✕' || text === 'x' || text === 'tune' || text === 'copy') {
+              return true;
+            }
+
+            const iconNames = Array.from(b.querySelectorAll('i, span, svg, mat-icon, path'))
+              .map(i => (i.textContent || '').trim().toLowerCase())
+              .filter(Boolean);
+
+            const ignoredIcons = ['add', 'add_2', 'image', 'photo', 'photo_library', 'collections', 'upload', 'attach_file', 'tune', 'settings', 'crop', 'aspect_ratio', 'sliders', 'filter', 'close', 'clear', 'cancel', 'delete', 'auto_awesome', 'spark', 'sparkle'];
+            if (iconNames.some(t => ignoredIcons.includes(t))) return true;
+
+            return false;
+          };
+
+          const submitIconNames = [
+            'arrow_forward', 'arrow_right', 'arrow_right_alt', 'arrow_upward',
+            'east', 'north', 'north_east', 'send', 'publish', 'play_arrow',
+            'subdirectory_arrow_right', 'chevron_right'
+          ];
+
+          const submitKeywords = ['generate', 'submit', 'run', 'create video', 'generate video', 'send prompt', 'start'];
+
+          const isSubmitCandidate = (b) => {
+            if (!isVisible(b) || isIgnoredButton(b)) return false;
+
+            const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+            const title = (b.getAttribute('title') || '').toLowerCase();
+            const testId = (b.getAttribute('data-testid') || '').toLowerCase();
+            const type = (b.getAttribute('type') || '').toLowerCase();
+            const text = (b.textContent || '').trim().toLowerCase();
+
+            if (type === 'submit') return true;
+            if (submitKeywords.some(kw => aria.includes(kw) || title.includes(kw) || testId.includes(kw) || text.includes(kw))) {
+              if (!aria.includes('image') && !aria.includes('project') && !aria.includes('media')) {
+                return true;
               }
             }
 
-            // 1. Search strictly inside or adjacent to the prompt composer container
-            const composerArea = box?.closest('form, section, div[data-testid*="prompt"], div:has(button)') || document;
-            const composerBtns = Array.from(composerArea.querySelectorAll('button')).filter(b => {
-              if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
-              const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-              if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('settings') || aria.includes('account') || aria.includes('home')) return false;
+            const iconTexts = Array.from(b.querySelectorAll('i, span, svg, mat-icon, path'))
+              .map(i => (i.textContent || '').trim().toLowerCase())
+              .filter(Boolean);
+
+            if (iconTexts.some(t => submitIconNames.includes(t))) {
               return true;
-            });
+            }
 
-            let targetBtn = composerBtns.find(b => {
-              const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
-              return icons.includes('arrow_forward') || icons.includes('arrow_upward') || icons.includes('send') || icons.includes('publish');
-            });
-            if (targetBtn) return targetBtn;
+            const svg = b.querySelector('svg');
+            if (svg) {
+              const pathD = svg.querySelector('path')?.getAttribute('d') || '';
+              if (pathD.includes('M') && (aria.includes('arrow') || aria.includes('submit') || aria.includes('generate') || aria.includes('run') || aria.includes('send'))) {
+                return true;
+              }
+            }
 
-            targetBtn = composerBtns.find(b => {
-              const aria = (b.getAttribute('aria-label') ?? '').toLowerCase();
-              return aria.includes('generate') || aria.includes('submit') || aria.includes('send');
-            });
-            if (targetBtn) return targetBtn;
+            return false;
+          };
 
-            // 2. Global search strictly excluding headers, navigation, and back buttons
-            const allBtns = Array.from(document.querySelectorAll('button')).filter(b => {
-              if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
-              const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-              if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('create project') || aria.includes('home')) return false;
-              return true;
-            });
+          const findSubmit = () => {
+            const box = findActiveBox();
 
-            return allBtns.find(b => {
-              const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
-              return icons.includes('arrow_forward') || icons.includes('arrow_upward');
-            }) || null;
+            // 1. Search upwards in parent containers of active prompt box
+            if (box) {
+              let curr = box.parentElement;
+              for (let depth = 0; depth < 8 && curr && curr !== document.body; depth++) {
+                const btns = Array.from(curr.querySelectorAll('button, div[role="button"], span[role="button"]'))
+                  .filter(isVisible)
+                  .filter(b => !isIgnoredButton(b));
+
+                const matched = btns.find(isSubmitCandidate);
+                if (matched) return matched;
+
+                if (btns.length > 0 && (curr.getAttribute('data-testid')?.includes('prompt') || curr.getAttribute('data-testid')?.includes('composer') || curr.querySelector('textarea, [contenteditable="true"], [role="textbox"]'))) {
+                  const lastBtn = btns[btns.length - 1];
+                  if (!isIgnoredButton(lastBtn) && isSubmitCandidate(lastBtn)) {
+                    return lastBtn;
+                  }
+                }
+
+                curr = curr.parentElement;
+              }
+            }
+
+            // 2. Global search in page for all candidate buttons
+            const allBtns = Array.from(document.querySelectorAll('button, div[role="button"], span[role="button"]'))
+              .filter(isVisible)
+              .filter(b => !isIgnoredButton(b));
+
+            const matchedGlobal = allBtns.filter(isSubmitCandidate);
+            if (matchedGlobal.length > 0) {
+              return matchedGlobal[matchedGlobal.length - 1];
+            }
+
+            // 3. Fallback: Search all buttons containing arrow / send icons
+            for (let i = allBtns.length - 1; i >= 0; i--) {
+              const b = allBtns[i];
+              const raw = (b.innerHTML || '').toLowerCase();
+              if (submitIconNames.some(name => raw.includes(name))) {
+                return b;
+              }
+            }
+
+            return null;
           };
 
           const btn = findSubmit();
@@ -82,13 +192,21 @@ export class CDPController {
       });
 
       if (!result) {
-        return { success: false, error: 'Submit button not found or disabled' };
+        return { success: false, error: 'Submit button not found' };
       }
 
       const { cx, cy, mx, my } = result;
 
+      // CDP Mouse Event Dispatch
       try {
-        await chrome.debugger.attach({ tabId }, '1.3');
+        try {
+          await chrome.debugger.attach({ tabId }, '1.3');
+        } catch (attachErr) {
+          if (!String(attachErr).includes('already attached') && !String(attachErr).includes('Already attached')) {
+            throw attachErr;
+          }
+        }
+
         const sendCmd = (method, params) => chrome.debugger.sendCommand({ tabId }, method, params);
 
         await sendCmd('Input.dispatchMouseEvent', { type: 'mouseMoved', x: cx, y: cy, button: 'none', modifiers: 0 });
@@ -96,8 +214,8 @@ export class CDPController {
         await sendCmd('Input.dispatchMouseEvent', { type: 'mouseReleased', x: cx, y: cy, button: 'left', clickCount: 1, modifiers: 0 });
         await sendCmd('Input.dispatchMouseEvent', { type: 'mouseMoved', x: mx, y: my, button: 'none', modifiers: 0 });
 
-        await chrome.debugger.detach({ tabId });
-        return { success: true, strategy: 'cdp' };
+        try { await chrome.debugger.detach({ tabId }); } catch {}
+        return { success: true, strategy: 'cdp-mouse' };
       } catch (cdpErr) {
         try { await chrome.debugger.detach({ tabId }); } catch {}
 
@@ -106,87 +224,82 @@ export class CDPController {
           target: { tabId },
           world: 'MAIN',
           func: () => {
-            const findSubmit = () => {
-              const editorSelectors = [
-                '[data-slate-editor="true"]',
-                'div[role="textbox"]',
-                'div[contenteditable="true"]',
-                'textarea[placeholder*="Describe" i]',
-                'textarea[placeholder*="prompt" i]',
-                'textarea'
-              ];
-              let box = null;
-              for (const sel of editorSelectors) {
-                const el = document.querySelector(sel);
-                if (el && (el.offsetParent !== null || el.getClientRects().length > 0)) {
-                  box = el;
-                  break;
-                }
-              }
-
-              const composerArea = box?.closest('form, section, div[data-testid*="prompt"], div:has(button)') || document;
-              const composerBtns = Array.from(composerArea.querySelectorAll('button')).filter(b => {
-                if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
-                const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-                if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('home')) return false;
-                return true;
-              });
-
-              let targetBtn = composerBtns.find(b => {
-                const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
-                return icons.includes('arrow_forward') || icons.includes('arrow_upward') || icons.includes('send') || icons.includes('publish');
-              });
-              if (targetBtn) return targetBtn;
-
-              const allBtns = Array.from(document.querySelectorAll('button')).filter(b => {
-                if (b.closest('header, nav, [role="navigation"], [data-testid*="header"], [data-testid*="sidebar"]')) return false;
-                const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-                if (aria.includes('back') || aria.includes('close') || aria.includes('menu') || aria.includes('home')) return false;
-                return true;
-              });
-
-              return allBtns.find(b => {
-                const icons = Array.from(b.querySelectorAll('i, svg, span')).map(i => (i.textContent ?? '').trim().toLowerCase());
-                return icons.includes('arrow_forward') || icons.includes('arrow_upward');
-              }) || null;
+            const isVisible = (e) => {
+              if (!e) return false;
+              const rect = e.getBoundingClientRect();
+              return rect.width > 0 && rect.height > 0 && window.getComputedStyle(e).display !== 'none';
             };
 
-            const btn = findSubmit();
+            const submitKeywords = ['generate', 'submit', 'run', 'create', 'send', 'start', 'arrow', 'forward'];
+            const submitIconNames = ['arrow_forward', 'arrow_right', 'arrow_right_alt', 'arrow_upward', 'east', 'north', 'send', 'publish', 'play_arrow', 'auto_awesome'];
+
+            const btns = Array.from(document.querySelectorAll('button, div[role="button"]')).filter(isVisible);
+            let btn = btns.find(b => {
+              const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+              const text = (b.textContent || '').trim().toLowerCase();
+              if (b.getAttribute('type') === 'submit') return true;
+              if (submitKeywords.some(kw => aria.includes(kw) || text.includes(kw))) return true;
+              const icons = Array.from(b.querySelectorAll('i, span, svg, mat-icon')).map(i => (i.textContent || '').trim().toLowerCase());
+              return icons.some(i => submitIconNames.includes(i));
+            });
+
+            if (!btn && btns.length > 0) btn = btns[btns.length - 1];
             if (!btn) return;
 
-            const fiberKey = Object.keys(btn).find(k => k.startsWith('__reactFiber') || k.startsWith('__reactInternalInstance'));
-            if (fiberKey) {
-              let node = btn[fiberKey];
-              let depth = 0;
-              while (node && depth++ < 50) {
-                const props = node.memoizedProps;
-                if (props?.onClick) {
-                  try {
-                    props.onClick({
-                      target: btn,
-                      currentTarget: btn,
-                      type: 'click',
-                      bubbles: true,
-                      cancelable: true,
-                      preventDefault: () => {},
-                      stopPropagation: () => {},
-                      isPropagationStopped: () => false,
-                      persist: () => {},
-                      nativeEvent: new MouseEvent('click', { bubbles: true })
-                    });
-                    return;
-                  } catch {}
-                }
-                node = node.return;
-              }
-            }
-            btn.click();
+            // DOM Pointer & Mouse Events
+            try {
+              btn.focus();
+              btn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true }));
+              btn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true, buttons: 1 }));
+              btn.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true }));
+              btn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, composed: true, buttons: 1 }));
+              btn.click();
+            } catch {}
           }
         });
 
-        return { success: true, strategy: 'fiber-fallback', warning: String(cdpErr) };
+        return { success: true, strategy: 'dom-fallback', warning: String(cdpErr) };
       }
     } catch (err) {
+      return { success: false, error: err.message };
+    }
+  }
+
+  static async sendEnterKey(tabId) {
+    if (tabId === undefined) {
+      return { success: false, error: 'No active tab ID provided' };
+    }
+    try {
+      try {
+        await chrome.debugger.attach({ tabId }, '1.3');
+      } catch (attachErr) {
+        if (!String(attachErr).includes('already attached') && !String(attachErr).includes('Already attached')) {
+          throw attachErr;
+        }
+      }
+
+      const sendCmd = (method, params) => chrome.debugger.sendCommand({ tabId }, method, params);
+
+      // Dispatch Enter key events
+      await sendCmd('Input.dispatchKeyEvent', {
+        type: 'rawKeyDown',
+        key: 'Enter',
+        code: 'Enter',
+        windowsVirtualKeyCode: 13,
+        unmodifiedText: '\r',
+        text: '\r'
+      });
+      await sendCmd('Input.dispatchKeyEvent', {
+        type: 'keyUp',
+        key: 'Enter',
+        code: 'Enter',
+        windowsVirtualKeyCode: 13
+      });
+
+      try { await chrome.debugger.detach({ tabId }); } catch {}
+      return { success: true };
+    } catch (err) {
+      try { await chrome.debugger.detach({ tabId }); } catch {}
       return { success: false, error: err.message };
     }
   }
@@ -203,12 +316,20 @@ export class CDPController {
     const cleanStr = (text || '').replace(/\r?\n+/g, ' ').replace(/\s+/g, ' ').trim();
 
     try {
-      // 1. Locate editor element and focus it
+      // 1. Locate active editor element and focus it
       const [{ result: targetInfo }] = await chrome.scripting.executeScript({
         target: { tabId },
         world: 'MAIN',
         func: () => {
+          const isVisible = (e) => {
+            if (!e) return false;
+            const r = e.getBoundingClientRect();
+            const s = window.getComputedStyle(e);
+            return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0;
+          };
+
           const selectors = [
+            '#PINHOLE_TEXT_AREA_ELEMENT_ID',
             'textarea[placeholder*="Describe" i]',
             'textarea[placeholder*="prompt" i]',
             'textarea[placeholder*="Generate" i]',
@@ -222,21 +343,19 @@ export class CDPController {
             '[contenteditable]'
           ];
 
-          let box = null;
+          let candidates = [];
           for (const sel of selectors) {
-            const el = document.querySelector(sel);
-            if (el && (el.offsetParent !== null || el.getClientRects().length > 0)) {
-              const inner = el.querySelector('textarea, [contenteditable="true"], [role="textbox"], [data-slate-editor="true"], [data-lexical-editor="true"]');
-              box = inner || el;
-              break;
+            const found = Array.from(document.querySelectorAll(sel)).filter(isVisible);
+            if (found.length > 0) {
+              candidates.push(...found);
             }
           }
 
-          if (!box) {
-            box = document.querySelector('textarea, div[contenteditable="true"], [role="textbox"]');
-          }
-
+          let box = candidates.length > 0 ? candidates[candidates.length - 1] : document.querySelector('[data-slate-editor="true"], textarea, div[role="textbox"]');
           if (!box) return null;
+
+          const inner = box.querySelector('textarea, [contenteditable="true"], [role="textbox"], [data-slate-editor="true"], [data-lexical-editor="true"]');
+          box = inner || box;
 
           box.focus();
 
@@ -262,7 +381,14 @@ export class CDPController {
       // 2. CDP Native Trusted Key/Text Injection
       let cdpSuccess = false;
       try {
-        await chrome.debugger.attach({ tabId }, '1.3');
+        try {
+          await chrome.debugger.attach({ tabId }, '1.3');
+        } catch (attachErr) {
+          if (!String(attachErr).includes('already attached') && !String(attachErr).includes('Already attached')) {
+            throw attachErr;
+          }
+        }
+
         const sendCmd = (method, params) => chrome.debugger.sendCommand({ tabId }, method, params);
 
         if (targetInfo) {
@@ -282,18 +408,25 @@ export class CDPController {
         await sendCmd('Input.insertText', { text: cleanStr });
         await new Promise(r => setTimeout(r, 100));
 
-        await chrome.debugger.detach({ tabId });
+        try { await chrome.debugger.detach({ tabId }); } catch {}
         cdpSuccess = true;
       } catch (cdpErr) {
         try { await chrome.debugger.detach({ tabId }); } catch {}
       }
 
-      // 3. Fallback / Sync in MAIN world
+      // 3. Fallback / Sync in MAIN world with Paste & BeforeInput events
       await chrome.scripting.executeScript({
         target: { tabId },
         world: 'MAIN',
         func: (str) => {
+          const isVisible = (e) => {
+            if (!e) return false;
+            const r = e.getBoundingClientRect();
+            return r.width > 0 && r.height > 0 && window.getComputedStyle(e).display !== 'none';
+          };
+
           const selectors = [
+            '#PINHOLE_TEXT_AREA_ELEMENT_ID',
             'textarea[placeholder*="Describe" i]',
             'textarea[placeholder*="prompt" i]',
             'textarea[placeholder*="Generate" i]',
@@ -307,18 +440,58 @@ export class CDPController {
             '[contenteditable]'
           ];
 
-          let box = null;
+          let candidates = [];
           for (const sel of selectors) {
-            const el = document.querySelector(sel);
-            if (el && (el.offsetParent !== null || el.getClientRects().length > 0)) {
-              const inner = el.querySelector('textarea, [contenteditable="true"], [role="textbox"], [data-slate-editor="true"], [data-lexical-editor="true"]');
-              box = inner || el;
-              break;
-            }
+            const found = Array.from(document.querySelectorAll(sel)).filter(isVisible);
+            if (found.length > 0) candidates.push(...found);
           }
+
+          let box = candidates.length > 0 ? candidates[candidates.length - 1] : document.querySelector('textarea, [contenteditable="true"], [role="textbox"]');
           if (!box) return;
 
+          const inner = box.querySelector('textarea, [contenteditable="true"], [role="textbox"], [data-slate-editor="true"], [data-lexical-editor="true"]');
+          box = inner || box;
+
+          box.focus();
+
           const current = (box.value || box.innerText || box.textContent || '').trim();
+
+          // Dispatch Clipboard Paste Event (React & Lexical/Slate native paste handler)
+          try {
+            const dt = new DataTransfer();
+            dt.setData('text/plain', str);
+            box.dispatchEvent(new ClipboardEvent('paste', {
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              clipboardData: dt
+            }));
+          } catch {}
+
+          // Dispatch InputEvent beforeinput & input
+          try {
+            const dt = new DataTransfer();
+            dt.setData('text/plain', str);
+            box.dispatchEvent(new InputEvent('beforeinput', {
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              inputType: 'insertFromPaste',
+              dataTransfer: dt
+            }));
+            box.dispatchEvent(new InputEvent('beforeinput', {
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              inputType: 'insertText',
+              data: str
+            }));
+            box.dispatchEvent(new InputEvent('input', {
+              bubbles: true,
+              cancelable: true,
+              composed: true
+            }));
+          } catch {}
 
           // Slate Fiber direct editor insertion
           try {
@@ -368,3 +541,4 @@ export class CDPController {
     }
   }
 }
+

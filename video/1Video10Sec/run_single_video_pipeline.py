@@ -157,11 +157,16 @@ class SingleVideoPipelineRunner:
         }
         return summary
 
-    def run_autonomous_pipeline(self, max_runs: int = 1):
+    def run_autonomous_pipeline(self, max_runs: int = None, continuous: bool = None):
         """
-        Runs the pipeline across categories or listens to Telegram user commands.
+        Runs the pipeline in an autonomous sequential loop across prompts.
         """
-        logging.info("🤖 Single Video Automation Pipeline Initialized.")
+        if continuous is None:
+            continuous = self.config.get("continuous_mode", True)
+        if max_runs is None:
+            max_runs = self.config.get("max_runs", 100)
+
+        logging.info(f"🤖 Single Video Automation Pipeline Initialized (Continuous: {continuous}, Max Runs: {max_runs}).")
         
         # Check if Telegram command exists
         user_cmd = self.telegram.poll_user_command()
@@ -171,24 +176,39 @@ class SingleVideoPipelineRunner:
             self.run_single_cycle(cat)
             return
 
-        # Autonomous loop with randomized category selection
-        logging.info(f"⚡ No Telegram message detected. Starting Autonomous Mode across {len(self.categories)} Categories...")
-        
-        shuffled_categories = list(self.categories)
-        random.shuffle(shuffled_categories)
+        logging.info(f"⚡ No Telegram message detected. Starting Autonomous Pipeline across all SQLite Level 10 Prompts...")
         
         runs = 0
-        for cat in shuffled_categories:
-            if runs >= max_runs:
+        while continuous or runs < max_runs:
+            if not continuous and runs >= max_runs:
                 break
             try:
-                res = self.run_single_cycle(cat)
-                logging.info(f"✅ Finished Category '{cat}': Video saved at '{res['video_path']}'")
+                logging.info(f"\n" + "=" * 60)
+                logging.info(f"🚀 [AUTONOMOUS PIPELINE CYCLE #{runs + 1}] Processing Next Prompt...")
+                logging.info("=" * 60)
+                
+                res = self.run_single_cycle("Impossible Machines")
+                status = res.get("status")
+                
+                if status == "COMPLETED_SUCCESSFULLY":
+                    logging.info(f"✅ [Cycle #{runs + 1} Success] Video saved at '{res['video_path']}'")
+                elif status == "ALL_PROMPTS_COMPLETED":
+                    logging.info("🏆 All available prompts in SQLite database have been 100% completed!")
+                    break
+                else:
+                    logging.warning(f"⚠️ Cycle #{runs + 1} completed with status: {status}")
+            except KeyboardInterrupt:
+                logging.info("🛑 Pipeline stopped by user.")
+                break
             except Exception as e:
-                logging.error(f"❌ Error during pipeline cycle for '{cat}': {e}")
+                logging.error(f"❌ Error during pipeline cycle #{runs + 1}: {e}")
+            
             runs += 1
+            if continuous or runs < max_runs:
+                logging.info("⏳ Pacing delay: Waiting 8 seconds before advancing to next prompt...")
+                time.sleep(8)
 
 if __name__ == "__main__":
     runner = SingleVideoPipelineRunner()
-    # Execute a run cycle
-    runner.run_autonomous_pipeline(max_runs=1)
+    # Execute autonomous continuous pipeline across prompts
+    runner.run_autonomous_pipeline()

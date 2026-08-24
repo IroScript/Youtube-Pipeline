@@ -18,6 +18,7 @@ export const ACTIONS = {
   SET_DOWNLOAD_ROUTING: 'FLOWCRAFT_SET_DOWNLOAD_ROUTING',
   GET_DOWNLOAD_STATUS: 'FLOWCRAFT_GET_DOWNLOAD_STATUS',
   CLICK_SUBMIT_CDP: 'FLOWCRAFT_CLICK_SUBMIT_CDP',
+  SUBMIT_ENTER_CDP: 'FLOWCRAFT_SUBMIT_ENTER_CDP',
   TYPE_TEXT_MAIN: 'FLOWCRAFT_TYPE_TEXT_MAIN',
   
   // Progress & Status Reporting
@@ -49,8 +50,8 @@ export const DEFAULT_SELECTORS = {
     outputCountTemplate: 'button.flow_tab_slider_trigger:contains("{outputCount}")',
     modelSelectButton: 'div[data-state="open"] button:has(i:contains("arrow_drop_down"))',
     modelTemplate: 'div[role="menu"] button:has(span:contains("{model}"))',
-    promptTextarea: 'div[role="textbox"]',
-    submitButton: 'button:has(i:contains("arrow_forward"))',
+    promptTextarea: 'div[role="textbox"], [data-slate-editor="true"], [data-lexical-editor="true"], div[contenteditable="true"], textarea',
+    submitButton: 'button:has(i:contains("arrow_forward")), button:has(i:contains("arrow_upward")), button:has(i:contains("east")), button:has(i:contains("north")), button:has(i:contains("send")), button:has(span:contains("arrow_forward")), button:has(span:contains("arrow_upward")), button:has(span:contains("send")), button:has(span:contains("east")), button:has(span:contains("north")), button[type="submit"], button[aria-label*="Generate" i]:not([aria-label*="image" i]), button[aria-label*="Submit" i], button[aria-label*="Run" i], button[aria-label*="Create" i]:not([aria-label*="project" i]):not([aria-label*="image" i])',
     outputItems: 'div > div > div[data-tile-id]:has(div)',
     tileByIdTemplate: 'div[data-tile-id="{tileId}"]:has(div)',
     downloadDoneButton: 'button:has(i:contains("check")), button:has(span:contains("Done"))',

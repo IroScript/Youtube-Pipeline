@@ -1,0 +1,131 @@
+PowerShell 7.6.4
+PS C:\Users\Irak\Desktop\Youtube Pipeline> agy
+
+      ▄▄▀▀▄        Antigravity CLI 1.1.11
+     ▀▀▀▀▀▀▀       mainuddinh297@gmail.com (Google AI Ultra)
+
+   ▄▀ ▄▀▀▄        Antigravity CLI 1.1.11
+  ▄▀ ▀▀▀▀▀▀       mainuddinh297@gmail.com (Google AI Ultra)
+
+   ▄▀ ▄▀▀▄        Antigravity CLI 1.1.11
+
+      ▄▀▀▄        Antigravity CLI 1.1.11
+     ▀▀▀▀▀▀       mainuddinh297@gmail.com (Google AI Ultra)
+    ▀▀▀▀▀▀▀▀      Gemini 3.6 Flash (High)
+   ▄▀▀    ▀▀▄     ~/Desktop/Youtube Pipeline
+  ▄▀▀      ▀▀▄
+
+────────────────────────────────────────────────────────────
+> C:\Users\Irak\Desktop\Youtube Pipeline\CloudChrome\KaggleChrome eta ki kaggle notebook system naki python system
+
+● ListDir(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/README.md)
+    ▀▀▀▀▀▀▀▀      Gemini 3.6 Flash (High)
+   ▄▀▀    ▀▀▄     ~/Desktop/Youtube Pipeline
+  ▄▀▀      ▀▀▄
+
+────────────────────────────────────────────────────────────
+> C:\Users\Irak\Desktop\Youtube Pipeline\CloudChrome\KaggleChrome eta ki kaggle notebook system naki python system
+
+● ListDir(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/README.md)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/kaggle_chrome_setup.py)
+> C:\Users\Irak\Desktop\Youtube Pipeline\CloudChrome\KaggleChrome eta ki kaggle notebook system naki python system
+
+● ListDir(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/README.md)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/kaggle_chrome_setup.py)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/kaggle_script_template.py)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/export_local_cookies.py) (ctrl+o to expand)
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+
+● ListDir(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/README.md)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/kaggle_chrome_setup.py)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/kaggle_script_template.py)
+● Read(C:/Users/Irak/Desktop/Youtube Pipeline/CloudChrome/KaggleChrome/export_local_cookies.py) (ctrl+o to expand)
+
+▸ Thought for 6s, 1.7k tokens
+  Analyzing the KaggleChrome Folder
+  ইরাক ভাইয়া, C:\Users\Irak\Desktop\Youtube Pipeline\CloudChrome\KaggleChrome হলো মূলত একটি পাইথন অটোমেশন সিস্টেম (Python System),
+  যা ক্যাগল নোটবুক এনভায়রনমেন্টে (Kaggle Notebook System) চালনা করার জন্য বিশেষভাব তৈরি করা হয়েছে।
+  ──────
+  ### 💡 এটি কীভাবে কাজ করে?
+
+  ১. পাইথন সিস্টেম (Python System): এটি কতগুলো পাইথন স্ক্রিপ্টের (kaggle_chrome_setup.py, export_local_cookies.py,
+  kaggle_script_template.py) একটি সমাহার।
+  ২. ক্যাগল নোটবুকে চালনা (Kaggle Notebook Execution): ক্যাগলের ক্লাউড এনভায়রনমেন্টে (Linux/Jupyter Notebook) Headless Chrome ব্রাউজার অটোমেট
+  করা এবং আপনার লোকাল ব্রাউজারের সেশন কুকি (cookies.json) প্রাইভেট ডেটাসেট হিসেবে ইনজেক্ট করে লগইন স্টেট বজায় রেখে অটোমেশন চালানোর জন্য এটি ডিজাইন করা হয়েছে।
+  ──────
+  ### 📂 এই ফোল্ডারের ফাইলসমূহের কাজ:
+
+  1. **export_local_cookies.py**: আপনার লোকাল পিসির ব্রাউজার কুকিজ ফরম্যাট করে cookies.json ফাইল তৈরি করে।
+  2. **kaggle_chrome_setup.py**: ক্যাগল নোটবুকে Selenium এবং Headless Chrome সেটআপ করার মূল পাইথন মোডিউল।
+  3. **kaggle_script_template.py**: ক্যাগল নোটবুক সেলে সরাসরি ব্যবহার উপযোগী সিঙ্গেল-ফাইল পাইথন অটোমেশন টেমপ্লেট।
+  ──────
+  ### 📜 ক্যাগল নোটবুকের জন্য পাইথন স্ক্রিপ্টের টেক্সট ভার্সন (Indentation ঠিক রাখার জন্য):
+
+  ক্যাগল নোটবুকে কপি-পেস্ট করার সময় যাতে ইন্ডেন্টেশন জাতীয় কোনো সমস্যা না হয়, তাই নিচে স্ক্রিপ্টটির টেক্সট ফরম্যাট উপস্থাপন করা হলো:
+
+    import os
+    import sys
+    import json
+    import time
+
+    # ১. প্রয়োজনীয় প্যাকেজ ইনস্টল
+    os.system("pip install -q selenium webdriver-manager requests")
+
+    import requests
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+
+    # কনফিগারেশন
+    TARGET_URL = "https://example.com/dashboard"
+    COOKIE_FILE_PATH = "/kaggle/input/my-private-cookies/cookies.json"
+
+    def create_kaggle_chrome_driver():
+        chrome_options = Options()
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument(
+            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.
+  0.0.0 Safari/537.36"
+        )
+
+        try:
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+        except Exception as e:
+            chrome_options.binary_location = "/usr/bin/google-chrome"
+            driver = webdriver.Chrome(options=chrome_options)
+
+        return driver
+
+    if __name__ == "__main__":
+        print("=== Kaggle Chrome Automation Started ===")
+        driver = create_kaggle_chrome_driver()
+        try:
+            driver.get(TARGET_URL)
+            print("Page Title:", driver.title)
+        finally:
+            driver.quit()
+    ──────
+  এক কথায়: এটি একটি পাইথন অটোমেশন সিস্টেম, যা ক্যাগল নোটবুক সিস্টেম (Kaggle Notebook System)-এ ব্রাউজার ও কুকি অটোমেশন চালানোর উদ্দেশ্যে তৈরি করা হয়েছে।
+
+  (আপনার ফোল্ডারের ফাইলসমূহ চেক এবং ভেরিফাই করা সম্পন্ন হয়েছে। আপনার নির্দেশ ব্যতীত কোনো গিট পুশ (Git Push) করা হয়নি।)
+
+  Sources:
+    ▸ github.com · https://github.com/jumboqian/techsupportai
+
+  (ctrl+o to expand)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+>
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+? for shortcuts                                                                                  Gemini 3.6 Flash · high

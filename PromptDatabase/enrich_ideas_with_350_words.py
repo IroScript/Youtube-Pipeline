@@ -42,23 +42,52 @@ JSON Schema:
 def extract_ideas_from_response(raw_text: str) -> list[dict]:
     if not raw_text:
         return []
-    # Try direct JSON array match
-    match = re.search(r'\[\s*\{.*\}\s*\]', raw_text, re.DOTALL)
+    # 1. Clean markdown code blocks
+    cleaned = raw_text.strip()
+    if "```json" in cleaned:
+        cleaned = re.sub(r'```json\s*', '', cleaned)
+    if "```" in cleaned:
+        cleaned = re.sub(r'```', '', cleaned)
+
+    # 2. Try direct JSON array match
+    match = re.search(r'\[\s*\{[\s\S]*\}\s*\]', cleaned)
     if match:
         try:
             return json.loads(match.group(0))
         except Exception:
-            pass
-    # Fallback to individual JSON objects
+            try:
+                return json.loads(match.group(0), strict=False)
+            except Exception:
+                pass
+
+    # 3. Regex parser for individual JSON objects
     results = []
-    for obj_match in re.finditer(r'\{[^{}]*"id"\s*:\s*(\d+)[^{}]*"description"\s*:\s*"([^"]+)"[^{}]*\}', raw_text, re.DOTALL):
+    pattern = r'\{\s*"id"\s*:\s*(\d+)[\s\S]*?"(?:description|concept|raw_idea)"\s*:\s*"([\s\S]*?)"\s*\}'
+    for m in re.finditer(pattern, raw_text):
         try:
-            results.append({
-                "id": int(obj_match.group(1)),
-                "description": obj_match.group(2)
-            })
+            ida_id = int(m.group(1))
+            desc = m.group(2).replace('\\"', '"').replace('\\n', '\n')
+            results.append({"id": ida_id, "description": desc})
         except Exception:
             pass
+
+    if results:
+        return results
+
+    # 4. Fallback block search
+    id_blocks = re.split(r'\{\s*"id"\s*:\s*(\d+)', raw_text)
+    if len(id_blocks) > 1:
+        for i in range(1, len(id_blocks), 2):
+            try:
+                ida_id = int(id_blocks[i])
+                block = id_blocks[i+1]
+                desc_match = re.search(r'"description"\s*:\s*"([\s\S]*?)(?:"\s*\}|",\s*"\w+")', block)
+                if desc_match:
+                    desc = desc_match.group(1).replace('\\"', '"').replace('\\n', '\n')
+                    results.append({"id": ida_id, "description": desc})
+            except Exception:
+                pass
+
     return results
 
 def enrich_ideas_for_element(element_id: int, max_ideas_per_batch: int = 5, skip_browser: bool = False):
@@ -77,52 +106,65 @@ def enrich_ideas_for_element(element_id: int, max_ideas_per_batch: int = 5, skip
     print(f"🚀 ENRICHING IDEAS FOR ELEMENT #{elem.id}: '{elem.name}' ({len(ideas)} Ideas)")
     print(f"================================================================================")
 
-    # Filter only ideas that still need 300+ word enrichment (< 200 words)
-    unfilled_ideas = [ida for ida in ideas if len((ida.description or ida.raw_idea or "").split()) < 200]
-    if not unfilled_ideas:
-        print(f"  [All Enriched] All {len(ideas)} ideas for Element #{elem.id} already have 300+ words!")
-        return
-
-    print(f"  -> {len(unfilled_ideas)}/{len(ideas)} ideas need 300+ word expansion.")
-
-    # Process in batches of 5 to allow ChatGPT to comfortably write 300-400 words per idea
-    for i in range(0, len(unfilled_ideas), max_ideas_per_batch):
-        batch = unfilled_ideas[i:i + max_ideas_per_batch]
-        print(f"\n[Batch {i//max_ideas_per_batch + 1}] Processing {len(batch)} Ideas: {[b.title for b in batch]}")
-
-        prompt_text = build_enrichment_prompt(elem.name, elem.group_type, batch)
-
-        if not skip_browser:
-            from prompt_chain_engine import call_chatgpt_playwright
-            response = call_chatgpt_playwright(prompt_text, wait_seconds=300)
-        else:
-            response = ""
-
-        enriched_list = extract_ideas_from_response(response)
-        print(f"[Parser] Extracted {len(enriched_list)} enriched idea descriptions.")
-
-        # Update database
+    while True:
+        # Re-fetch latest idea states from database
         with get_session() as session:
-            for item in enriched_list:
-                ida_id = item.get("id")
-                desc = item.get("description", "")
-                if ida_id and desc and len(desc.split()) >= 100:
-                    db_idea = session.get(Idea, ida_id)
-                    if db_idea:
-                        db_idea.description = desc.strip()
-                        db_idea.raw_idea = desc.strip()
-                        session.add(db_idea)
-                        word_count = len(desc.split())
-                        print(f"  ✅ Updated Idea #{db_idea.id} '{db_idea.title}' -> {word_count} words in database!")
-            session.commit()
+            ideas = session.exec(select(Idea).where(Idea.id.in_(idea_ids))).all()
 
-        # Refresh CSVs
-        try:
-            from generate_master_joined_csv import generate_master_joined_csv, export_all_tables_to_csv
-            generate_master_joined_csv()
-            export_all_tables_to_csv()
-        except Exception as e:
-            print(f"[Notice] CSV export notice: {e}")
+        unfilled_ideas = [ida for ida in ideas if len((ida.description or ida.raw_idea or "").split()) < 200]
+        if not unfilled_ideas:
+            print(f"  [All Enriched] All {len(ideas)} ideas for Element #{elem.id} now have 300+ words!")
+            break
+
+        print(f"  -> {len(unfilled_ideas)}/{len(ideas)} ideas need 300+ word expansion.")
+
+        # Process in batches of 5 to allow ChatGPT to comfortably write 300-400 words per idea
+        for i in range(0, len(unfilled_ideas), max_ideas_per_batch):
+            batch = unfilled_ideas[i:i + max_ideas_per_batch]
+            print(f"\n[Batch {i//max_ideas_per_batch + 1}] Processing {len(batch)} Ideas: {[b.title for b in batch]}")
+
+            enriched_list = []
+            for attempt in range(3):
+                prompt_text = build_enrichment_prompt(elem.name, elem.group_type, batch)
+
+                try:
+                    if not skip_browser:
+                        from prompt_chain_engine import call_chatgpt_playwright
+                        response = call_chatgpt_playwright(prompt_text, wait_seconds=300)
+                    else:
+                        response = ""
+                    enriched_list = extract_ideas_from_response(response)
+                except Exception as e:
+                    print(f"[Error on attempt {attempt+1}] {e}", flush=True)
+                    enriched_list = []
+
+                if enriched_list:
+                    print(f"[Parser] Extracted {len(enriched_list)} enriched idea descriptions.")
+                    break
+                print(f"[Retry] Batch attempt {attempt + 1}/3 returned 0 ideas. Retrying immediately in 3s...")
+                time.sleep(3)
+
+            # Update database
+            with get_session() as session:
+                for item in enriched_list:
+                    ida_id = item.get("id")
+                    desc = item.get("description", "")
+                    if ida_id and desc and len(desc.split()) >= 100:
+                        db_idea = session.get(Idea, ida_id)
+                        if db_idea:
+                            db_idea.description = desc.strip()
+                            db_idea.raw_idea = desc.strip()
+                            session.add(db_idea)
+                            word_count = len(desc.split())
+                            print(f"  ✅ Updated Idea #{db_idea.id} '{db_idea.title}' -> {word_count} words in database!")
+                session.commit()
+
+            # Refresh CSVs
+            try:
+                from generate_master_joined_csv import generate_unified_master_csv
+                generate_unified_master_csv()
+            except Exception as e:
+                print(f"[Notice] CSV export notice: {e}")
 
 if __name__ == "__main__":
     import argparse

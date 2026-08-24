@@ -242,7 +242,14 @@ class IdeaPromptGenerator:
 
             con = sqlite3.connect(db_path)
             cur = con.cursor()
-            # Strictly ASCENDING order starting from Element 1 Idea 1 and excluding completed ideas
+            
+            output_dir = Path(db_path).parent.parent / "output_packaged"
+            packaged_titles = set()
+            if output_dir.exists():
+                for f in output_dir.iterdir():
+                    if f.is_dir() and any(f.glob("*.mp4")):
+                        packaged_titles.add(f.name.lower())
+
             cur.execute(
                 """
                 SELECT id, idea_id, level, level_name, title, prompt_text 
@@ -251,13 +258,24 @@ class IdeaPromptGenerator:
                   AND level=? 
                   AND length(prompt_text) > 50 
                   AND idea_id NOT IN (SELECT idea_id FROM generated_videos WHERE status='completed')
-                ORDER BY idea_id ASC, id ASC 
-                LIMIT 1
+                ORDER BY idea_id ASC, id ASC
                 """,
                 (level,)
             )
-            row = cur.fetchone()
+            rows = cur.fetchall()
             con.close()
+
+            row = None
+            for r in rows:
+                p_id, i_id, lvl_val, l_name, t_str, p_txt = r
+                clean_t = re.sub(r'_+', '_', re.sub(r'[^a-zA-Z0-9_\-]', '_', t_str)).strip('_').lower()
+                is_packaged = any(clean_t in pf for pf in packaged_titles)
+                if not is_packaged:
+                    row = r
+                    break
+
+            if not row and rows:
+                row = rows[0]
 
             if not row:
                 return self.build_single_video_prompt("Impossible Machines")

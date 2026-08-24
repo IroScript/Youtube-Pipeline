@@ -103,6 +103,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       break;
     }
 
+    case 'WRITE_SLATE_PROMPT':
+    case 'TYPE_PROMPT_SLATE':
+    case ACTIONS.TYPE_TEXT_MAIN:
+    case 'TYPE_TEXT': {
+      const tabId = sender.tab?.id;
+      if (!tabId) {
+        sendResponse({ success: false, error: 'No sender tab ID' });
+        break;
+      }
+      const textToInsert = message.text || message.payload?.text || '';
+      CDPController.typeTextMainWorld(tabId, textToInsert).then(res => sendResponse(res));
+      return true;
+    }
+
+    case 'CLICK_FLOW_CREATE':
     case ACTIONS.CLICK_SUBMIT_CDP:
     case 'CLICK_SUBMIT_BUTTON': {
       const tabId = sender.tab?.id;
@@ -110,10 +125,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return true;
     }
 
-    case ACTIONS.TYPE_TEXT_MAIN:
-    case 'TYPE_TEXT': {
+    case ACTIONS.SUBMIT_ENTER_CDP:
+    case 'SUBMIT_ENTER': {
       const tabId = sender.tab?.id;
-      CDPController.typeTextMainWorld(tabId, message.text).then(res => sendResponse(res));
+      CDPController.sendEnterKey(tabId).then(res => sendResponse(res));
       return true;
     }
 
@@ -125,9 +140,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════
-// BACKGROUND NATIVE TAB NAVIGATION (Zero Command-Line URL Footprint)
+// BACKGROUND NATIVE TAB NAVIGATION & BRIDGE HEARTBEAT
 // ═══════════════════════════════════════════════════════════════════
 let lastNavigatedJobId = null;
+
+function sendServiceWorkerHeartbeat() {
+  fetch('http://127.0.0.1:8102/api/tab_ping', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      url: 'service_worker',
+      title: 'FlowCraft Service Worker',
+      isWorkspace: true,
+      status: 'active'
+    })
+  }).catch(() => {});
+}
+setInterval(sendServiceWorkerHeartbeat, 2000);
+sendServiceWorkerHeartbeat();
 
 async function checkBackgroundBridgeNavigation() {
   try {
@@ -161,3 +191,4 @@ async function checkBackgroundBridgeNavigation() {
 }
 
 setInterval(checkBackgroundBridgeNavigation, 2000);
+

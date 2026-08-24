@@ -100,13 +100,22 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
 
         # Locate the VISIBLE input element (skipping hidden fallback textareas)
         input_box = None
-        for attempt in range(15):
+        for attempt in range(30):
+            if attempt % 5 == 0:
+                for dismiss_sel in ["button:has-text('Stay logged out')", "button:has-text('Dismiss')", "button[aria-label='Close']"]:
+                    try:
+                        if page.locator(dismiss_sel).count() > 0 and page.locator(dismiss_sel).first.is_visible():
+                            page.locator(dismiss_sel).first.click()
+                            time.sleep(0.5)
+                    except Exception:
+                        pass
+
             candidates = page.locator(
+                'textarea.wm-composer-textarea:visible, '
                 'textarea:visible:not(.wcDTda_fallbackTextarea), '
                 '#prompt-textarea:visible, '
                 'div[contenteditable="true"]:visible, '
                 'textarea#mobile-composer-prompt:visible, '
-                'textarea.wm-composer-textarea:visible, '
                 '[role="textbox"]:visible'
             )
             if candidates.count() > 0:
@@ -117,16 +126,28 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
         if not input_box:
             raise RuntimeError("No visible input element found on ChatGPT.")
 
-        # Focus & fill
+        # Focus & fill prompt text
         input_box.click()
         time.sleep(0.3)
         input_box.fill(prompt_text)
-        time.sleep(1.0)
+        time.sleep(0.5)
 
-        # Click the active send button
-        send_btn = page.locator('button.composer-submit-btn:visible, button[aria-label*="Send" i]:visible, button[data-testid="send-button"]:visible, button[aria-label*="Submit" i]:visible').first
-        send_btn.click()
-        print("[CloakBrowser] Clicked Send button successfully!", flush=True)
+        # Click active Send button
+        send_selector = (
+            'button.wm-composer-submitButton:visible, '
+            'button[aria-label*="Send" i]:visible, '
+            'button[data-testid="send-button"]:visible'
+        )
+        send_btn = page.locator(send_selector).first
+        for _ in range(6):
+            if send_btn.count() > 0 and not send_btn.is_disabled():
+                send_btn.click()
+                print("[CloakBrowser] Clicked Send button successfully!", flush=True)
+                break
+            time.sleep(0.5)
+        else:
+            input_box.press("Control+Enter")
+            print("[CloakBrowser] Sent prompt via Control+Enter keypress.", flush=True)
 
         print(f"[CloakBrowser] Waiting for ChatGPT response to stream completely (max {wait_seconds}s)...", flush=True)
         
@@ -135,24 +156,28 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
         for sec in range(30):
             time.sleep(1.5)
             res = page.evaluate('''() => {
-                const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i]');
+                const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i], button.wm-composer-stopButton, button[aria-label*="stop generation" i]');
                 const isStop = stopBtn !== null && stopBtn.offsetParent !== null;
                 const turns = document.querySelectorAll('div[data-message-author-role="assistant"]');
                 const lastTurn = turns.length > 0 ? turns[turns.length - 1] : null;
                 const text = lastTurn ? (lastTurn.innerText || '') : '';
-                return { length: text.length, isStop: isStop };
+                return { length: text.length, isStop: isStop, turnsCount: turns.length };
             }''')
-            if res['length'] > 0 or res['isStop']:
+            if res['length'] > 0 or (res['turnsCount'] > 0 and res['isStop']):
                 print(f"[CloakBrowser] Stream started at {sec*1.5}s! (chars={res['length']}, isStop={res['isStop']})", flush=True)
                 started = True
                 break
 
-            # If not started after 5s, retry clicking send button only if stop button is not present
-            if sec == 3 and not res['isStop']:
+            # Fallback Send click / Control+Enter at 15s if stream hasn't started
+            if sec == 10:
                 try:
-                    s_btn = page.locator('button[aria-label*="Send" i]:visible, button[data-testid="send-button"]:visible').first
+                    s_btn = page.locator(send_selector).first
                     if s_btn.count() > 0 and not s_btn.is_disabled():
                         s_btn.click()
+                        print("[CloakBrowser] Fallback Send click at 15s...", flush=True)
+                    else:
+                        input_box.press("Control+Enter")
+                        print("[CloakBrowser] Fallback Control+Enter at 15s...", flush=True)
                 except Exception:
                     pass
 
@@ -169,7 +194,7 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
             elapsed += 2
 
             snap = page.evaluate('''() => {
-                const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i]');
+                const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i], button.wm-composer-stopButton, button[aria-label*="stop generation" i]');
                 const isStop = stopBtn !== null && stopBtn.offsetParent !== null;
                 const turns = document.querySelectorAll('div[data-message-author-role="assistant"]');
                 const lastTurn = turns.length > 0 ? turns[turns.length - 1] : null;
@@ -188,13 +213,11 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
                 stable_count += 1
 
             has_level_10 = ('"level": 10' in curr_text or '"level":10' in curr_text or 'Level 10' in curr_text or 'LEVEL 10' in curr_text)
-            if (has_level_10 and not is_stop) or (curr_len > 25000 and not is_stop) or (curr_len > 5000 and not is_stop and stable_count >= 3):
+            has_closing_bracket = (']' in curr_text and curr_len > 1000)
+            if (has_level_10 and not is_stop) or (has_closing_bracket and not is_stop and stable_count >= 2) or (curr_len > 8000 and not is_stop and stable_count >= 3) or (curr_len > 25000):
                 output_text = curr_text
                 print(f"[CloakBrowser] Response generation completed successfully! ({curr_len} chars)", flush=True)
                 break
-
-        if not output_text and curr_len > 0:
-            output_text = curr_text
 
         if not output_text and curr_len > 0:
             output_text = curr_text
@@ -292,15 +315,33 @@ def generate_ideas_for_element(element: Element, skip_browser: bool = False, tar
             print(f"[Error] ChatGPT did not return valid ideas for Element #{element.id}. Keeping element unfilled for retry.")
             return []
     else:
-        # Offline test generation only when --skip-browser is explicitly passed
-        ideas_data = [
-            {
-                "id": existing_count + i,
-                "title": f"The {element.name} Titan Megastructure #{existing_count + i}",
-                "description": f"A colossal titan-scale machine operating on {element.name} using automated extraction arms and quantum planetary energy conduits."
-            }
-            for i in range(1, needed_count + 1)
+        # High-concept creative generator for offline / fallback generation without generic numbers
+        creative_prefixes = [
+            "The Colossal", "The Quantum", "The Celestial", "The Planetary", "The Solar",
+            "The Infinite", "The Titan", "The Subterranean", "The Atmospheric", "The Chrono-",
+            "The Kinetic", "The Deep-Core", "The Hyper-", "The Bioluminescent", "The Ancient",
+            "The Emerald", "The Obsidian", "The Horizon", "The Weather", "The Molten"
         ]
+        creative_archetypes = [
+            "Harvester", "Siphon", "Furnace", "Loom", "Foundry",
+            "Elevator", "Combine", "Excavator", "Synthesizer", "Colossus",
+            "Leviathan", "Walker", "Spider", "Fortress", "Drill",
+            "Caretaker", "Skywheel", "Resonance Engine", "Reactor", "Ark",
+            "Cathedral", "Conveyor City", "Terraformer", "Shepherd", "Sifter"
+        ]
+        
+        ideas_data = []
+        for i in range(1, needed_count + 1):
+            idx = existing_count + i
+            pfx = creative_prefixes[(idx - 1) % len(creative_prefixes)]
+            arch = creative_archetypes[(idx - 1) % len(creative_archetypes)]
+            title = f"{pfx} {element.name} {arch}"
+            desc = f"A planetary-scale impossible machine engineering marvel designed to process and synthesize {element.name} with colossal mechanical arms and quantum planetary energy conduits."
+            ideas_data.append({
+                "id": idx,
+                "title": title,
+                "description": desc
+            })
 
     saved_ideas = []
     with get_session() as session:
@@ -773,24 +814,39 @@ def is_idea_packaged_and_completed(idea_id: int) -> bool:
         if prompt_count < 20:
             return False
 
-        # Check for folder matching the idea
-        clean_title = re.sub(r'[^a-zA-Z0-9_\-]', '_', idea.title).strip('_')
+        # 1. Check for folder matching the sanitized idea title (collapsing multiple underscores)
+        clean_raw = re.sub(r'[^a-zA-Z0-9_\-]', '_', idea.title)
+        clean_title = re.sub(r'_+', '_', clean_raw).strip('_')
+
+        folder_candidates = set()
         for folder in OUTPUT_DIR.glob(f"*{clean_title}*"):
             if folder.is_dir():
-                real_mp4s = [f for f in folder.glob("*.mp4") if f.stat().st_size > 10240]
-                has_meta = (folder / "youtube_metadata.json").exists() and (folder / "youtube_metadata.json").stat().st_size > 0
-                has_prompt_info = (folder / "prompt_info.json").exists() and (folder / "prompt_info.json").stat().st_size > 0
-                if real_mp4s and has_meta and has_prompt_info:
-                    return True
+                folder_candidates.add(folder)
+        for folder in OUTPUT_DIR.glob(f"*{clean_raw.strip('_')}*"):
+            if folder.is_dir():
+                folder_candidates.add(folder)
 
+        for folder in folder_candidates:
+            real_mp4s = [f for f in folder.glob("*.mp4") if f.stat().st_size > 10240]
+            has_meta = ((folder / "youtube_metadata.json").exists() and (folder / "youtube_metadata.json").stat().st_size > 0) or any(folder.glob("*YouTube_Metadata.json"))
+            has_prompt_info = ((folder / "prompt_info.json").exists() and (folder / "prompt_info.json").stat().st_size > 0) or any(folder.glob("*Prompt.json"))
+            if real_mp4s and (has_meta or has_prompt_info):
+                return True
+
+        # 2. Check generated_videos table
+        gen_vid = session.exec(select(GeneratedVideo).where(GeneratedVideo.idea_id == idea_id, GeneratedVideo.status == "completed")).first()
+        if gen_vid and gen_vid.file_path:
+            vp = Path(gen_vid.file_path)
+            if vp.exists() and vp.stat().st_size > 10240:
+                return True
+
+        # 3. Check tasks table
         task = session.exec(select(Task).where(Task.idea_id == idea_id, Task.status == "success")).first()
         if task and task.output_folder_path:
             p = Path(task.output_folder_path)
             if p.exists():
                 real_mp4s = [f for f in p.glob("*.mp4") if f.stat().st_size > 10240]
-                has_meta = (p / "youtube_metadata.json").exists() and (p / "youtube_metadata.json").stat().st_size > 0
-                has_prompt_info = (p / "prompt_info.json").exists() and (p / "prompt_info.json").stat().st_size > 0
-                if real_mp4s and has_meta and has_prompt_info:
+                if real_mp4s:
                     return True
     return False
 
