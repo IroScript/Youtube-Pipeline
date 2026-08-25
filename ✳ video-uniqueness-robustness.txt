@@ -1,0 +1,224 @@
+
+The project is large. Let me find the actual browser-LLM mechanism the user says "already generates prompts" and the existing metadata/SEO code. Let me delegate the deep exploration to parallel agents while I read the core engine.
+
+  Searched for 2 patterns
+
+Key find — PromptDatabase\playwright_engine\ with an existing generate_youtube_metadata.py. Let me examine the live code (ignoring archive/).
+
+  Ran 1 shell command
+
+Now let me read the core existing code that my SEO layer must integrate with.
+
+  Searched for 1 pattern, read 3 files
+
+prompt_chain_engine.py:64 is the canonical CloakBrowser adapter. Let me read it in full detail.
+
+  Read 1 file
+
+Now let me look at the packager (how metadata is synced/consumed) and check the actual DB state.
+
+  Read 1 file
+
+Let me verify my findings against the live database before designing anything.
+
+  Ran 1 shell command
+
+Heredocs don't work in PowerShell. Let me use the Bash tool instead.
+
+  Ran 1 shell command
+
+Critical finding. Let me confirm it.
+
+  Ran 1 shell command
+
+Now I have the full picture. Let me verify the runtime environment and existing packages.
+
+  Ran 1 shell command
+
+sqlmodel/cloakbrowser missing here — there must be a venv. Let me find the real interpreter.
+
+  Ran 2 shell commands
+
+Let me check the remaining tables that are ideal for SEO/novelty storage, plus browser profile config.
+
+  Read 1 file, ran 1 shell command
+
+I now have the complete picture. Let me read a few integration points before building, so the new layer plugs in cleanly.
+
+  Read 3 files
+
+I have the full picture, and found something important. Let me verify the keyless data sources before building on them.
+
+  Ran 2 shell commands
+
+Both keyless data sources work — real keyword expansion and real competitor SERP with view counts, no API key. Let me set up tracking and build.
+
+Let me install the one missing keyless dependency into the project venv (yt-dlp — pure Python, no API key), then start writing.
+
+  Ran 1 shell command
+
+All three now coexist in the venv. Starting with the scaffold.
+
+● Write(PromptDatabase\seo_engine\__init__.py)
+Wrote 31 lines to PromptDatabase\seo_engine\__init__.py
+"""
+SEO Engine — Keyless YouTube SEO / Metadata Intelligence Layer
+=============================================================
+A NON-DESTRUCTIVE, additive layer that sits in front of the existing
+PromptDatabase pipeline. It replaces the *hardcoded fallback* youtube_metadata
+(every one of the 35 existing rows is the boilerplate "🚨 INSANE ..." template)
+with real, data-grounded, upload-ready SEO packages.
+
+Architecture (per SEO_Discussion.txt philosophy):
+    API/scrapers = eyes      -> harvest.py   (keyless: YouTube Suggest + yt-dlp SERP)
+… +21 lines
+
+● Write(PromptDatabase\seo_engine\config.py)
+Wrote 98 lines to PromptDatabase\seo_engine\config.py
+"""
+SEO Engine — Central Configuration
+==================================
+Single source of truth for paths, feature flags, YouTube upload constraints,
+browser behaviour, and provider selection. No secrets live here; the whole point
+of this engine is that it needs NO LLM API key (browser-driven) and NO YouTube API
+key (keyless scrapers).
+"""
+
+from __future__ import annotations
+… +88 lines
+
+● Write(PromptDatabase\seo_engine\validators.py)
+Wrote 256 lines to PromptDatabase\seo_engine\validators.py
+"""
+SEO Engine — Upload-Ready Validators / Normalizers
+==================================================
+The user requirement is "SEO data that is UPLOAD READY". An LLM will happily
+return a 130-character title or 40 tags; YouTube will then reject or silently
+truncate the upload. This module is the deterministic gate that guarantees every
+package we store in `youtube_metadata` can be uploaded verbatim.
+
+Every function is pure (no DB, no network) so it is trivially testable.
+Nothing raises on bad input — it repairs and reports, so a single sloppy LLM
+… +246 lines
+
+Now the BrowserLLM Gateway — reusing the proven CloakBrowser streaming pattern.
+
+● Write(PromptDatabase\seo_engine\browser_llm.py)
+Wrote 420 lines to PromptDatabase\seo_engine\browser_llm.py
+"""
+SEO Engine — BrowserLLM Gateway (Keyless "Brain")
+=================================================
+A universal LLM adapter that drives a real browser tab (chatgpt.com / gemini)
+via CloakBrowser stealth automation — NO API key required. This is the exact
+mechanism the project already uses to generate prompts
+(prompt_chain_engine.call_chatgpt_playwright); this module generalises it into a
+reusable `BrowserLLM.generate(prompt)` gateway with:
+
+  * persistent Chrome profile (login survives between runs),
+… +414 lines
+
+Now the keyless data harvesters.
+
+● Write(PromptDatabase\seo_engine\harvest.py)
+Wrote 224 lines to PromptDatabase\seo_engine\harvest.py
+"""
+SEO Engine — Keyless Data Harvesters ("Eyes")
+=============================================
+Per SEO_Discussion.txt: *"Data সংগ্রহ = API / scraper. LLM নিজে magically YouTube-এর
+live competition জানে না।"* So we do NOT ask the LLM for competition data — we
+collect real signals first, then feed them to the brain.
+
+Every source here is KEYLESS (no YouTube Data API key, no paid SEO SaaS):
+
+  1. YouTube autocomplete  — the public suggest endpoint (stdlib urllib only).
+… +214 lines
+
+● Write(PromptDatabase\seo_engine\scoring.py)
+Wrote 231 lines to PromptDatabase\seo_engine\scoring.py
+"""
+SEO Engine — Deterministic Scoring ("Calculator")
+=================================================
+Per SEO_Discussion.txt: *"Python/rules = calculator, LLM = brain."* Scores must be
+reproducible and auditable, so NOTHING in this module calls an LLM. Same input
+always yields the same score, which means the numbers can be trusted in the DB
+and compared across runs.
+
+Produces, for one idea:
+  * keyword metrics  — relevance + long-tail value per candidate keyword
+… +221 lines
+
+Let me smoke-test the keyless half before building on it.
+
+  Ran 1 shell command
+
+Works well, but keyword expansion is pulling in non-English noise ("paddy অর্থ কি", "paddy dey dey na") from localized autocomplete. Since the channel is English, let me add a Latin-script filter so the SEO keywords stay clean and upload-worthy.
+
+● Update(PromptDatabase\seo_engine\harvest.py)
+Added 25 lines, removed 5 lines
+    return []
+
+
+def expand_keywords(seed: str, depth: int = 2) -> list[str]:
+_NON_LATIN = re.compile(r"[^\x00-\x7F]")
+
+
+def _is_clean_english(phrase: str) -> bool:
+    """
+    Keep keywords usable for an English channel: reject phrases with non-Latin
+    script (Bengali/CJK autocomplete leakage) or that are mostly punctuation.
+    """
+    if not phrase:
+        return False
+    if _NON_LATIN.search(phrase):
+        return False
+    letters = sum(ch.isalpha() for ch in phrase)
+    return letters >= max(3, len(phrase) // 3)
+
+
+def expand_keywords(seed: str, depth: int = 2, latin_only: bool = True) -> list[str]:
+    """
+    Expand a seed phrase into a deduped keyword universe using autocomplete,
+    including a→z prefixing to surface long-tail queries (a classic keyword-mining
+    trick that needs no paid tool).
+    trick that needs no paid tool). By default filters to clean English phrases so
+    localized autocomplete leakage does not pollute the SEO tag set.
+    """
+    universe: list[str] = []
+    seen: set[str] = set()
+
+    def _add(items):
+        for it in items:
+            k = it.strip().lower()
+            if k and k not in seen:
+                seen.add(k)
+                universe.append(it.strip())
+            if not k or k in seen:
+                continue
+            if latin_only and not _is_clean_english(it):
+                continue
+            seen.add(k)
+            universe.append(it.strip())
+
+    _add(youtube_suggest(seed))
+    if depth >= 2:
+
+Now the additive SEO tables (new tables only — existing models.py untouched).
+
+● Write(PromptDatabase\seo_engine\seo_models.py)
+Wrote 106 lines to PromptDatabase\seo_engine\seo_models.py
+"""
+SEO Engine — Additive Database Models ("Memory")
+================================================
+IMPORTANT — non-destructive by design:
+  * This file does NOT import from, modify, or re-declare anything in
+    database/models.py. Existing tables keep their exact schema.
+  * `SQLModel.metadata.create_all()` only CREATES MISSING tables, so calling
+    init_seo_tables() can never alter or drop an existing table.
+  * Final upload-ready metadata is still written into the EXISTING
+    `youtube_metadata` table, which pipeline_packager.py already reads from.
+… +96 lines
+                                                                                                                                  100% context used
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── video-uniqueness-robustness ──
+❯
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏵⏵ bypa

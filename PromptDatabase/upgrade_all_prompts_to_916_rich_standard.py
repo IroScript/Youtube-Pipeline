@@ -4,6 +4,25 @@ Upgrade All Prompts to 9:16 Rich 10-Level Escalation Standard
 Iterates through all ideas in `ideas` table and ensures every single prompt
 in `prompts` table is 100% compliant with the new 9:16 vertical ratio and
 deep 5-layer image + second-by-second 8s 5-step HUD video prompt architecture.
+
+!!! DESTRUCTIVE — READ BEFORE RUNNING !!!
+-----------------------------------------
+For every idea it deems non-compliant this script DELETES all existing prompts and
+regenerates them from `build_rich_escalation_system()`, which is the HARDCODED offline
+skeleton. Consequences measured on the current database:
+
+  * 31 of 35 ideas currently hold richer prompts produced by the live LLM. Running this
+    would overwrite them with the fixed template, making every video share the identical
+    opening sentence and the identical "descend into a single grain" ending.
+  * That is precisely the "all videos look the same / prompts have no uniqueness" problem
+    the uniqueness engine exists to fix.
+
+If your goal is prompt VARIETY, do NOT run this. Use instead:
+    run_uniqueness.bat --audit
+    run_uniqueness.bat --install-templates-v2 --apply
+
+This script now requires explicit confirmation so it cannot flatten the library by
+accident. Its original behaviour is unchanged once confirmed.
 """
 
 import sys
@@ -19,6 +38,33 @@ from database.models import Idea, Prompt
 from prompt_chain_engine import build_rich_escalation_system
 from database.seed_prompting_styles import seed_prompting_styles
 from generate_progress_csv import run as run_csv_export
+
+
+def _confirm_destructive() -> bool:
+    """
+    Require an explicit opt-in before mass-deleting prompts.
+
+    Pass --yes-flatten-all-prompts to proceed non-interactively; otherwise the user is
+    asked to type the confirmation phrase.
+    """
+    if "--yes-flatten-all-prompts" in sys.argv:
+        return True
+
+    print("=" * 74)
+    print("WARNING: this will DELETE and regenerate prompts from the hardcoded skeleton.")
+    print("Ideas whose prompts came from the live LLM will lose their unique text and")
+    print("all videos will share the same opening and the same closing beat.")
+    print("For variety instead, run:  run_uniqueness.bat --install-templates-v2 --apply")
+    print("=" * 74)
+    try:
+        answer = input("Type 'FLATTEN' to proceed, anything else to abort: ").strip()
+    except EOFError:
+        print("Aborted (no interactive console).")
+        return False
+    if answer != "FLATTEN":
+        print("Aborted — no prompts were changed.")
+        return False
+    return True
 
 
 def upgrade_all_prompts():
@@ -109,4 +155,5 @@ def upgrade_all_prompts():
 
 
 if __name__ == "__main__":
-    upgrade_all_prompts()
+    if _confirm_destructive():
+        upgrade_all_prompts()

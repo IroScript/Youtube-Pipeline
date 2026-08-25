@@ -102,8 +102,14 @@ class DownloadManager {
   }
 
   handleDownloadChanged(delta) {
-    if (delta.state?.current === 'complete' || delta.state?.current === 'interrupted') {
+    // Only a genuinely completed download counts. 'interrupted' used to be counted here
+    // too, which meant a failed/zero-byte download still satisfied the downstream
+    // "verified complete on disk" check and the pipeline proceeded with no file.
+    if (delta.state?.current === 'complete') {
       this.completedCount++;
+    } else if (delta.state?.current === 'interrupted') {
+      this.interruptedCount = (this.interruptedCount || 0) + 1;
+      console.warn('[DownloadManager] Download interrupted — NOT counted as complete.', delta);
     }
   }
 

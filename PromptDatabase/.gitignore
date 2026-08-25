@@ -81,4 +81,14 @@ output/
 output_packaged/**/*.mp4
 archive/**/output/
 archive/**/media/
-archive/**/rendered_videos/
+archive/**/rendered_videos/
+
+# SEO engine runtime artifacts (code is tracked, runtime state is not)
+seo_engine/_cache/
+seo_engine/_logs/
+seo_engine/_chrome_profile_seo/
+output_packaged/_backup_seo/
+
+# Uniqueness engine runtime artifacts
+uniqueness/_cache/
+output_packaged/_backup_uniqueness/

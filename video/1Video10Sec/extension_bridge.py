@@ -23,6 +23,11 @@ class BridgeHTTPHandler(http.server.BaseHTTPRequestHandler):
     job_history = {}
     last_progress = {}
     direct_video_url = None
+    # Exact filename the extension saved for THIS job. The extension has always sent
+    # this (execution-engine.js -> /api/video_ready {video_url, filename}) but it used
+    # to be discarded, which forced the "newest mp4 in Downloads" guess and caused one
+    # render to be linked to several ideas (9 of 34 packaged videos were duplicates).
+    direct_video_filename = None
     last_tab_ping = 0
     tab_info = {}
 
@@ -86,9 +91,13 @@ class BridgeHTTPHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
         elif self.path == "/api/video_ready":
             video_url = data.get("video_url")
+            video_filename = data.get("filename")
             if video_url:
                 BridgeHTTPHandler.direct_video_url = video_url
                 logging.info(f"📥 [Python Auto-Downloader] Direct Video URL received from Extension: {video_url[:80]}...")
+            if video_filename:
+                BridgeHTTPHandler.direct_video_filename = video_filename
+                logging.info(f"🏷️ [Bridge] Extension reported exact filename: {video_filename}")
             self._set_headers(200)
             self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
         elif self.path == "/api/completed":
@@ -261,6 +270,8 @@ class ExtensionVideoBridge:
         category = prompt_info.get("category", "Impossible Machines")
         prompt = prompt_info.get("full_combined_prompt", "")
         idea_title = prompt_info.get("selected_idea", {}).get("title", "Video_10Sec")
+        # Needed by the duplicate-render guard so we never link another idea's mp4 here.
+        current_idea_id = prompt_info.get("selected_idea", {}).get("id")
         
         safe_title = "".join(c if c.isalnum() else "_" for c in idea_title)[:30]
         target_file_name = f"Generated_{safe_title}_10Sec.mp4"
@@ -301,6 +312,9 @@ class ExtensionVideoBridge:
         # 2. Register job into Python Bridge Server
         job_id = f"job_{int(time.time() * 1000)}"
         BridgeHTTPHandler.direct_video_url = None
+        # Clear the previous job's reported filename, otherwise a stale name could match
+        # the wrong file for this idea.
+        BridgeHTTPHandler.direct_video_filename = None
         BridgeHTTPHandler.active_job = {
             "job_id": job_id,
             "status": "pending",
@@ -359,11 +373,32 @@ class ExtensionVideoBridge:
             # 1. Direct Python auto-download from URL (for direct public/CDN links)
             if BridgeHTTPHandler.direct_video_url:
                 try:
-                    urllib.request.urlretrieve(BridgeHTTPHandler.direct_video_url, final_video_path)
-                    if os.path.exists(final_video_path) and os.path.getsize(final_video_path) > 100000:
-                        logging.info(f"✅ Real MP4 Video successfully downloaded directly by Python ({os.path.getsize(final_video_path):,} bytes)!")
-                        real_video_path = final_video_path
-                        break
+                    # Download to a temp path first, then rename. Writing straight to
+                    # final_video_path meant an interrupted transfer could leave a partial
+                    # file that still passed the >100KB check and got packaged as good.
+                    tmp_path = final_video_path + ".part"
+                    urllib.request.urlretrieve(BridgeHTTPHandler.direct_video_url, tmp_path)
+                    if os.path.exists(tmp_path) and os.path.getsize(tmp_path) > 100000:
+                        is_dup, owner = self._hash_belongs_to_other_idea(tmp_path, current_idea_id)
+                        if is_dup:
+                            logging.error(
+                                f"🛑 [Dup Guard] Downloaded file is byte-identical to idea #{owner}'s "
+                                f"video — refusing to reuse a stale render for idea #{current_idea_id}."
+                            )
+                            try:
+                                os.remove(tmp_path)
+                            except Exception:
+                                pass
+                            BridgeHTTPHandler.direct_video_url = None
+                        else:
+                            os.replace(tmp_path, final_video_path)
+                            logging.info(f"✅ Real MP4 Video successfully downloaded directly by Python ({os.path.getsize(final_video_path):,} bytes)!")
+                            real_video_path = final_video_path
+                            break
+                    else:
+                        # too small to be a real render — discard and keep waiting
+                        if os.path.exists(tmp_path):
+                            os.remove(tmp_path)
                 except urllib.error.HTTPError as http_err:
                     if http_err.code == 401:
                         logging.info(f"🔒 Video stream is Google-session authenticated. Chrome Extension is downloading file to disk...")
@@ -376,23 +411,37 @@ class ExtensionVideoBridge:
 
             # 2. Check for downloaded MP4 file from Chrome / Extension (only after reasonable time or job completion)
             if attempt >= 3 or is_job_completed:
-                downloaded_file = self._find_recently_downloaded_mp4(start_time=start_time - 2, existing_files=existing_download_files)
+                downloaded_file = self._find_recently_downloaded_mp4(
+                    start_time=start_time - 2,
+                    existing_files=existing_download_files,
+                    expected_filename=BridgeHTTPHandler.direct_video_filename,
+                )
                 if downloaded_file and os.path.exists(downloaded_file) and os.path.getsize(downloaded_file) > 100000:
-                    logging.info(f"✅ Real MP4 Video detected ({os.path.getsize(downloaded_file):,} bytes): {downloaded_file}")
-                    if os.path.abspath(downloaded_file) != os.path.abspath(final_video_path):
-                        import shutil
-                        shutil.copy2(downloaded_file, final_video_path)
-                        try:
-                            # Clean up / remove from external downloads folder so no files are left scattered
-                            if "Downloads" in downloaded_file or "FlowCraft_Outputs" in downloaded_file:
-                                os.remove(downloaded_file)
-                                logging.info(f"🧹 Cleaned up temporary external download: {downloaded_file}")
-                        except Exception as rm_err:
-                            logging.warning(f"⚠️ Notice cleaning external download: {rm_err}")
-                        real_video_path = final_video_path
+                    is_dup, owner = self._hash_belongs_to_other_idea(downloaded_file, current_idea_id)
+                    if is_dup:
+                        # Do NOT delete the other idea's file; just refuse it and keep waiting
+                        # for this idea's own render to land.
+                        logging.error(
+                            f"🛑 [Dup Guard] Candidate '{os.path.basename(downloaded_file)}' is byte-identical "
+                            f"to idea #{owner}'s video — refusing it for idea #{current_idea_id}. "
+                            f"Continuing to wait for this idea's own render."
+                        )
                     else:
-                        real_video_path = downloaded_file
-                    break
+                        logging.info(f"✅ Real MP4 Video detected ({os.path.getsize(downloaded_file):,} bytes): {downloaded_file}")
+                        if os.path.abspath(downloaded_file) != os.path.abspath(final_video_path):
+                            import shutil
+                            shutil.copy2(downloaded_file, final_video_path)
+                            try:
+                                # Clean up / remove from external downloads folder so no files are left scattered
+                                if "Downloads" in downloaded_file or "FlowCraft_Outputs" in downloaded_file:
+                                    os.remove(downloaded_file)
+                                    logging.info(f"🧹 Cleaned up temporary external download: {downloaded_file}")
+                            except Exception as rm_err:
+                                logging.warning(f"⚠️ Notice cleaning external download: {rm_err}")
+                            real_video_path = final_video_path
+                        else:
+                            real_video_path = downloaded_file
+                        break
 
             time.sleep(5)
             attempt += 1
@@ -402,13 +451,143 @@ class ExtensionVideoBridge:
             return real_video_path
 
         logging.error("❌ Video generation/download not detected within timeout.")
+        self._record_render_failure(
+            current_idea_id,
+            f"1Video10Sec render timeout after {total_attempts} polls "
+            f"(~{total_attempts * 5 // 60} min): no valid mp4 detected for this idea."
+        )
         return None
 
-    def _find_recently_downloaded_mp4(self, start_time: float, existing_files: set = None) -> str:
+    def _record_render_failure(self, idea_id, reason: str) -> None:
         """
-        Scans download directories (Downloads, FlowCraft_Outputs) for real MP4 files created/downloaded strictly after start_time.
-        Returns the newest downloaded MP4 matching criteria.
+        Persist a render timeout/failure so it is visible instead of vanishing.
+
+        Previously a timeout just returned None: the caller moved on, nothing was written,
+        and a permanently-stuck idea was indistinguishable from one never attempted. Now
+        the tasks row carries the reason, so the DB is the source of truth for "why is this
+        idea not done". Best-effort — never raises into the render path.
         """
+        if not idea_id:
+            return
+        try:
+            import sqlite3
+            from datetime import datetime, timezone
+            db_path = self.config.get("sqlite_db_path")
+            if not db_path or not os.path.exists(db_path):
+                return
+            now = datetime.now(timezone.utc).isoformat()
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+            row = cur.execute(
+                "SELECT id, attempt_count FROM tasks WHERE idea_id=? AND task_type='veo_level10_package'",
+                (idea_id,)
+            ).fetchone()
+            if row:
+                cur.execute(
+                    "UPDATE tasks SET status='waiting_for_video', last_error=?, "
+                    "attempt_count=?, updated_at=? WHERE id=?",
+                    (reason, (row[1] or 0) + 1, now, row[0])
+                )
+            else:
+                import uuid as _uuid
+                cur.execute(
+                    "INSERT INTO tasks (uuid, idea_id, video_title, task_type, status, "
+                    "attempt_count, max_attempts, last_error, created_at, updated_at) "
+                    "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                    (str(_uuid.uuid4()), idea_id, f"Idea {idea_id}", "veo_level10_package",
+                     "waiting_for_video", 1, 3, reason, now, now)
+                )
+            conn.commit()
+            conn.close()
+            logging.info(f"📝 [DB] Recorded render failure for idea #{idea_id} (tasks.status=waiting_for_video).")
+        except Exception as e:
+            logging.warning(f"⚠️ Could not record render failure to DB: {e}")
+
+    def _md5_of(self, path: str) -> str:
+        """Content fingerprint used to detect a render being reused across ideas."""
+        import hashlib
+        h = hashlib.md5()
+        with open(path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    def _hash_belongs_to_other_idea(self, candidate_path: str, current_idea_id) -> tuple:
+        """
+        Duplicate-render guard.
+
+        Root cause of the 9/34 duplicate packaged videos: the download picker below
+        selected "newest mp4 in Downloads", so when this idea's own render was slow or
+        failed, a PREVIOUS idea's file won and was recorded as this idea's video.
+
+        Here we compare the candidate's content hash against every mp4 already recorded
+        in generated_videos for a DIFFERENT idea. If it matches, this is a stale/reused
+        render and must be rejected rather than silently packaged.
+
+        Returns (is_duplicate, owning_idea_id). Fails OPEN (never blocks a render) if the
+        DB is unreachable — robustness must not depend on the guard being able to run.
+        """
+        try:
+            incoming = self._md5_of(candidate_path)
+        except Exception as e:
+            logging.warning(f"⚠️ [Dup Guard] Could not hash candidate ({e}); skipping guard.")
+            return (False, None)
+
+        try:
+            import sqlite3
+            db_path = self.config.get("sqlite_db_path")
+            if not db_path or not os.path.exists(db_path):
+                return (False, None)
+            conn = sqlite3.connect(db_path)
+            rows = conn.execute(
+                "SELECT idea_id, file_path FROM generated_videos "
+                "WHERE file_path IS NOT NULL AND status='completed'"
+            ).fetchall()
+            conn.close()
+        except Exception as e:
+            logging.warning(f"⚠️ [Dup Guard] DB check unavailable ({e}); skipping guard.")
+            return (False, None)
+
+        for other_idea_id, other_path in rows:
+            if current_idea_id is not None and other_idea_id == current_idea_id:
+                continue
+            if not other_path or not os.path.exists(other_path):
+                continue
+            try:
+                if self._md5_of(other_path) == incoming:
+                    return (True, other_idea_id)
+            except Exception:
+                continue
+        return (False, None)
+
+    def _find_recently_downloaded_mp4(self, start_time: float, existing_files: set = None,
+                                      expected_filename: str = None) -> str:
+        """
+        Locate this job's downloaded MP4.
+
+        Preference order (the first rule is the fix for cross-idea contamination):
+          1. EXACT filename the extension reported for this job via /api/video_ready.
+             This ties the file to this render instead of guessing.
+          2. Newest new-since-start mp4 (legacy heuristic, kept as a fallback because
+             the extension does not always report a filename).
+        """
+        # --- 1. exact filename match (authoritative) ---
+        if expected_filename:
+            wanted = os.path.basename(expected_filename).strip().lower()
+            for d in self.downloads_dirs:
+                if not os.path.exists(d):
+                    continue
+                for mp4 in glob.glob(os.path.join(d, "*.mp4")):
+                    try:
+                        if os.path.basename(mp4).strip().lower() != wanted:
+                            continue
+                        if os.path.getsize(mp4) > 100000:
+                            logging.info(f"🎯 [Match] Found this job's exact reported file: {os.path.basename(mp4)}")
+                            return mp4
+                    except Exception:
+                        pass
+
+        # --- 2. legacy newest-mtime fallback ---
         candidates = []
         for d in self.downloads_dirs:
             if os.path.exists(d):

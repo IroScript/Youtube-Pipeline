@@ -728,23 +728,6 @@ def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list
     else:
         prompt_instruction = f"Given {idea.title}, build 10-level escalation (10 image + 10 video prompts in 9:16 ratio)."
 
-    # >>> UNIQUENESS-HOOK:creative_direction BEGIN (added by uniqueness/integrate.py) <<<
-    # ADDITIVE: the prompt_instruction built above is preserved verbatim as the prefix;
-    # this only APPENDS a deterministic per-idea creative direction block (form / camera /
-    # ENDING / mood / HUD verbs) so two ideas from the same element can no longer collapse
-    # onto one skeleton. The stored DB template is not modified.
-    # Kill-switch: set UNIQUENESS_VARIATION=0. Fails open — on any error the original
-    # prompt_instruction is used unchanged.
-    if os.getenv("UNIQUENESS_VARIATION", "1") != "0":
-        try:
-            from uniqueness.escalation import build_creative_direction
-            from uniqueness.variation import get_variation
-            prompt_instruction = prompt_instruction + "\n\n" + build_creative_direction(idea.id)
-            print(f"  -> [uniqueness] creative direction applied: {get_variation(idea.id).signature()}")
-        except Exception as _uq_err:
-            print(f"  [Notice] uniqueness variation layer skipped ({_uq_err}); using base template.")
-    # >>> UNIQUENESS-HOOK:creative_direction END <<<
-
     output_text = ""
     if not skip_browser:
         try:
@@ -889,23 +872,6 @@ def get_or_create_next_production_ready_prompt(skip_browser: bool = False, fill_
 
     with get_session() as session:
         all_elements = session.exec(select(Element).order_by(Element.id.asc())).all()
-
-        # >>> UNIQUENESS-HOOK:element_spread BEGIN (added by uniqueness/integrate.py) <<<
-        # ADDITIVE, DEFAULT OFF: re-orders the SAME list loaded above so the walker stops
-        # draining element #1 (3 elements produced 88.2% of all video while 87 stayed unused).
-        # reorder_elements_balanced() is a pure permutation — no element is dropped, so the
-        # walker's coverage is unchanged and only the visit order differs.
-        # Opt in with UNIQUENESS_SPREAD=1. Fails open to the original ascending-id order.
-        if os.getenv("UNIQUENESS_SPREAD", "0") == "1":
-            try:
-                from uniqueness.spread import reorder_elements_balanced
-                all_elements = reorder_elements_balanced(all_elements)
-                if all_elements:
-                    print(f"[uniqueness] element visit order: group-balanced "
-                          f"(first: #{all_elements[0].id} {all_elements[0].name})")
-            except Exception as _uq_err:
-                print(f"[Notice] uniqueness spread skipped ({_uq_err}); using ascending element id.")
-        # >>> UNIQUENESS-HOOK:element_spread END <<<
 
         for elem in all_elements:
             # Find linked ideas for this element
