@@ -45,29 +45,6 @@ from database.models import Category, Element, Idea, IdeaElement, Prompt, Task, 
 CHATGPT_URL = "https://chatgpt.com"
 OUTPUT_DIR = BASE_DIR / "output_packaged"
 
-# ----------------------------------------------------------------------------
-# PERSISTENT BROWSER PROFILE (fix 2026-08-27)
-# ----------------------------------------------------------------------------
-# call_chatgpt_playwright() used to launch a NON-persistent context, i.e. a brand
-# new empty Chrome profile on every single call. No cookie ever survived, so
-# chatgpt.com was always logged out, always answered with an empty response, and
-# generate_escalation_for_idea() always returned [] -- which is why 97 of 132
-# ideas were frozen at the escalation stage. Logging in by hand did not help,
-# because the profile was thrown away when the window closed.
-#
-# The correct pattern already existed in this repo at
-# seo_engine/browser_llm.py:170 (launch_persistent_context + user_data_dir);
-# this mirrors it. Point PROMPT_BROWSER_PROFILE_DIR at
-# seo_engine/_chrome_profile_seo if you would rather share one login with the
-# SEO engine (only safe when the two never run at the same time -- a Chrome
-# profile cannot be opened by two processes at once).
-#
-# Escape hatch: PROMPT_BROWSER_PERSISTENT=0 restores the exact old behaviour.
-PROMPT_BROWSER_PROFILE_DIR = Path(
-    os.getenv("PROMPT_BROWSER_PROFILE_DIR", str(BASE_DIR / "_chrome_profile_prompts"))
-)
-PROMPT_BROWSER_PERSISTENT = os.getenv("PROMPT_BROWSER_PERSISTENT", "1") == "1"
-
 
 def get_prompt_style(stage_name: str) -> PromptingStyleMaster:
     """Fetches official prompt style and template from `prompting_style_master` table."""
@@ -84,58 +61,27 @@ def get_prompt_style(stage_name: str) -> PromptingStyleMaster:
 # 1. PLAYWRIGHT / CLOAKBROWSER INTERACTION HELPERS
 # ============================================================================
 
-def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless: bool = False,
-                            persistent: bool = None) -> str:
-    """Executes prompt on ChatGPT via CloakBrowser / Playwright anti-detect stealth automation.
-
-    persistent=None (default) follows PROMPT_BROWSER_PERSISTENT (on unless set to 0), which
-    reuses PROMPT_BROWSER_PROFILE_DIR so a one-time chatgpt.com login survives between runs.
-    Pass persistent=False for the original throwaway-profile behaviour.
-    """
+def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless: bool = False) -> str:
+    """Executes prompt on ChatGPT via CloakBrowser / Playwright anti-detect stealth automation."""
     print(f"\n[CloakBrowser] Launching stealth anti-detect Chrome browser window (Full Screen)...", flush=True)
     output_text = ""
     context = None
-    playwright = None   # tracked so the persistent profile lock is released on teardown
-    browser = None
-    use_persistent = PROMPT_BROWSER_PERSISTENT if persistent is None else persistent
     try:
         import cloakbrowser
-        if use_persistent:
-            PROMPT_BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-            print(f"[CloakBrowser] Persistent profile: {PROMPT_BROWSER_PROFILE_DIR}", flush=True)
-            context = cloakbrowser.launch_persistent_context(
-                user_data_dir=str(PROMPT_BROWSER_PROFILE_DIR),
-                headless=headless,
-                no_viewport=True,
-                args=["--start-maximized"],
-            )
-        else:
-            # ORIGINAL non-persistent path, kept intact (PROMPT_BROWSER_PERSISTENT=0).
-            context = cloakbrowser.launch_context(
-                headless=headless,
-                no_viewport=True,
-                args=["--start-maximized"]
-            )
+        context = cloakbrowser.launch_context(
+            headless=headless,
+            no_viewport=True,
+            args=["--start-maximized"]
+        )
     except Exception as e:
         print(f"[Notice] Falling back to standard Playwright context: {e}", flush=True)
         from playwright.sync_api import sync_playwright
         p = sync_playwright().start()
-        playwright = p
-        if use_persistent:
-            PROMPT_BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-            context = p.chromium.launch_persistent_context(
-                user_data_dir=str(PROMPT_BROWSER_PROFILE_DIR),
-                headless=headless,
-                no_viewport=True,
-                args=["--disable-blink-features=AutomationControlled", "--start-maximized"],
-            )
-        else:
-            # ORIGINAL non-persistent fallback, kept intact.
-            browser = p.chromium.launch(
-                headless=headless,
-                args=["--disable-blink-features=AutomationControlled", "--start-maximized"]
-            )
-            context = browser.new_context(no_viewport=True)
+        browser = p.chromium.launch(
+            headless=headless,
+            args=["--disable-blink-features=AutomationControlled", "--start-maximized"]
+        )
+        context = browser.new_context(no_viewport=True)
 
     try:
         page = context.new_page()
@@ -241,7 +187,6 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
 
         # 2. Instant non-blocking DOM monitoring loop
         last_len = 0
-        curr_len = 0
         stable_count = 0
         elapsed = 0
         while elapsed < wait_seconds:
@@ -283,117 +228,8 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
                 print("[CloakBrowser] Browser window closed cleanly.", flush=True)
             except Exception:
                 pass
-        # Release the driver/browser handles too. Required for the persistent profile:
-        # a leaked playwright process keeps the profile locked and the NEXT run cannot
-        # reopen it. Both are None on the original cloakbrowser path, so that teardown
-        # is unchanged.
-        for _handle, _stop in ((browser, "close"), (playwright, "stop")):
-            if _handle is None:
-                continue
-            try:
-                getattr(_handle, _stop)()
-            except Exception:
-                pass
 
     return output_text
-
-
-def login_to_chatgpt(headless: bool = False, wait_minutes: int = 10) -> bool:
-    """One-time interactive sign-in for the persistent prompt-chain profile.
-
-    Opens PROMPT_BROWSER_PROFILE_DIR at chatgpt.com and waits for a human to log in,
-    polling for the session cookie. Once it appears the window is closed cleanly so
-    the cookie is flushed to disk, and every later call_chatgpt_playwright() run
-    reuses it. Additive helper -- no existing code path calls it.
-    """
-    print("\n" + "=" * 70)
-    print("ONE-TIME CHATGPT LOGIN (persistent prompt-chain profile)")
-    print("=" * 70)
-    print(f"Profile: {PROMPT_BROWSER_PROFILE_DIR}")
-    print("Sign in to chatgpt.com in the window that opens. Detection is automatic.")
-    print(f"Waiting up to {wait_minutes} minutes...\n", flush=True)
-
-    PROMPT_BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-    context = None
-    playwright = None
-    logged_in = False
-    try:
-        try:
-            import cloakbrowser
-            context = cloakbrowser.launch_persistent_context(
-                user_data_dir=str(PROMPT_BROWSER_PROFILE_DIR),
-                headless=headless,
-                no_viewport=True,
-                args=["--start-maximized"],
-            )
-        except Exception as e:
-            print(f"[Notice] CloakBrowser unavailable ({e}); using stock Playwright.", flush=True)
-            from playwright.sync_api import sync_playwright
-            playwright = sync_playwright().start()
-            context = playwright.chromium.launch_persistent_context(
-                user_data_dir=str(PROMPT_BROWSER_PROFILE_DIR),
-                headless=headless,
-                no_viewport=True,
-                args=["--disable-blink-features=AutomationControlled", "--start-maximized"],
-            )
-
-        page = context.new_page()
-        page.goto(CHATGPT_URL, wait_until="domcontentloaded", timeout=60000)
-
-        deadline = time.time() + wait_minutes * 60
-        while time.time() < deadline:
-            time.sleep(5)
-            try:
-                names = [c.get("name", "") for c in context.cookies()]
-            except Exception:
-                names = []
-            if any("session-token" in n for n in names):
-                logged_in = True
-                print("\n[OK] Session cookie detected -- login captured.", flush=True)
-                break
-            remaining = int(deadline - time.time())
-            print(f"  ...waiting for sign-in ({remaining}s left, {len(names)} cookies so far)", flush=True)
-    finally:
-        if context:
-            try:
-                context.close()
-            except Exception:
-                pass
-        if playwright:
-            try:
-                playwright.stop()
-            except Exception:
-                pass
-
-    print("=" * 70)
-    if logged_in:
-        print("LOGIN SAVED. Escalation prompt generation can now run for real.")
-    else:
-        print("NOT LOGGED IN. No session cookie was found -- run --login again.")
-    print("=" * 70 + "\n", flush=True)
-    return logged_in
-
-
-def check_prompt_browser_login() -> bool:
-    """Read-only: report whether the persistent prompt-chain profile holds a login."""
-    import sqlite3
-    cookie_db = PROMPT_BROWSER_PROFILE_DIR / "Default" / "Network" / "Cookies"
-    if not cookie_db.exists():
-        print(f"[Login] No profile yet at {PROMPT_BROWSER_PROFILE_DIR} -- run --login first.")
-        return False
-    try:
-        con = sqlite3.connect(f"file:{cookie_db}?mode=ro&immutable=1", uri=True)
-        names = [r[0] for r in con.execute("SELECT name FROM cookies")]
-        con.close()
-    except Exception as e:
-        print(f"[Login] Could not read cookie store: {e}")
-        return False
-    ok = any("session-token" in n for n in names)
-    print(f"[Login] Profile: {PROMPT_BROWSER_PROFILE_DIR}")
-    print(f"[Login] Cookies: {len(names)} | session-token present: {ok}")
-    if not ok:
-        print("[Login] Anonymous cookies only -- escalation generation will return empty.")
-    return ok
 
 
 # ============================================================================
@@ -479,37 +315,33 @@ def generate_ideas_for_element(element: Element, skip_browser: bool = False, tar
             print(f"[Error] ChatGPT did not return valid ideas for Element #{element.id}. Keeping element unfilled for retry.")
             return []
     else:
-        # =========================================================================
-        # PRESERVED OFFLINE CODE (COMMENTED OUT AS PER STRICT USER DIRECTIVE)
-        # Only CloakBrowser-based live ChatGPT generations are allowed.
-        # =========================================================================
-        # creative_prefixes = [
-        #     "The Colossal", "The Quantum", "The Celestial", "The Planetary", "The Solar",
-        #     "The Infinite", "The Titan", "The Subterranean", "The Atmospheric", "The Chrono-",
-        #     "The Kinetic", "The Deep-Core", "The Hyper-", "The Bioluminescent", "The Ancient",
-        #     "The Emerald", "The Obsidian", "The Horizon", "The Weather", "The Molten"
-        # ]
-        # creative_archetypes = [
-        #     "Harvester", "Siphon", "Furnace", "Loom", "Foundry",
-        #     "Elevator", "Combine", "Excavator", "Synthesizer", "Colossus",
-        #     "Leviathan", "Walker", "Spider", "Fortress", "Drill",
-        #     "Caretaker", "Skywheel", "Resonance Engine", "Reactor", "Ark",
-        #     "Cathedral", "Conveyor City", "Terraformer", "Shepherd", "Sifter"
-        # ]
-        # ideas_data = []
-        # for i in range(1, needed_count + 1):
-        #     idx = existing_count + i
-        #     pfx = creative_prefixes[(idx - 1) % len(creative_prefixes)]
-        #     arch = creative_archetypes[(idx - 1) % len(creative_archetypes)]
-        #     title = f"{pfx} {element.name} {arch}"
-        #     desc = f"A planetary-scale impossible machine engineering marvel designed to process and synthesize {element.name} with colossal mechanical arms and quantum planetary energy conduits."
-        #     ideas_data.append({
-        #         "id": idx,
-        #         "title": title,
-        #         "description": desc
-        #     })
-        print(f"[Blocked] Live CloakBrowser mode required for Element #{element.id}. Offline placeholder generation is disabled.")
-        return []
+        # High-concept creative generator for offline / fallback generation without generic numbers
+        creative_prefixes = [
+            "The Colossal", "The Quantum", "The Celestial", "The Planetary", "The Solar",
+            "The Infinite", "The Titan", "The Subterranean", "The Atmospheric", "The Chrono-",
+            "The Kinetic", "The Deep-Core", "The Hyper-", "The Bioluminescent", "The Ancient",
+            "The Emerald", "The Obsidian", "The Horizon", "The Weather", "The Molten"
+        ]
+        creative_archetypes = [
+            "Harvester", "Siphon", "Furnace", "Loom", "Foundry",
+            "Elevator", "Combine", "Excavator", "Synthesizer", "Colossus",
+            "Leviathan", "Walker", "Spider", "Fortress", "Drill",
+            "Caretaker", "Skywheel", "Resonance Engine", "Reactor", "Ark",
+            "Cathedral", "Conveyor City", "Terraformer", "Shepherd", "Sifter"
+        ]
+        
+        ideas_data = []
+        for i in range(1, needed_count + 1):
+            idx = existing_count + i
+            pfx = creative_prefixes[(idx - 1) % len(creative_prefixes)]
+            arch = creative_archetypes[(idx - 1) % len(creative_archetypes)]
+            title = f"{pfx} {element.name} {arch}"
+            desc = f"A planetary-scale impossible machine engineering marvel designed to process and synthesize {element.name} with colossal mechanical arms and quantum planetary energy conduits."
+            ideas_data.append({
+                "id": idx,
+                "title": title,
+                "description": desc
+            })
 
     saved_ideas = []
     with get_session() as session:
@@ -941,20 +773,30 @@ def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list
 
     parsed_levels = extract_and_repair_levels_from_llm(output_text)
 
-    # Handle incomplete or failed generation - STRICT MANDATE: LIVE CLOAKBROWSER LLM ONLY
+    # Handle incomplete or failed generation
     if len(parsed_levels) < 10:
-        print(f"[Error] ChatGPT did not return complete 10 levels for Idea #{idea.id} ('{idea.title}'). Keeping idea unfilled for live LLM generation.")
-        # =========================================================================
-        # PRESERVED OFFLINE CODE (COMMENTED OUT AS PER STRICT USER DIRECTIVE)
-        # Offline template generation is strictly disabled. Only live CloakBrowser
-        # ChatGPT generations are accepted.
-        # =========================================================================
-        # if skip_browser:
-        #     if os.getenv("ALLOW_OFFLINE_ESCALATION", "0") == "1":
-        #         parsed_levels = build_rich_escalation_system(
-        #             idea.title, idea.topic or "", idea.description or "", idea_id=idea.id
-        #         )
-        return []
+        if not skip_browser:
+            print(f"[Error] ChatGPT did not return complete 10 levels for Idea #{idea.id} ('{idea.title}'). Keeping idea unfilled for live LLM generation.")
+            return []
+        else:
+            # Offline test mode only when --skip-browser is explicitly passed.
+            #
+            # GUARDED: this branch used to be reachable in PRODUCTION, because
+            # idea_prompt_generator.fetch_sqlite_escalation_prompt() called the resolver
+            # with skip_browser=True. Every idea missing prompts was therefore filled with
+            # this hardcoded template instead of being generated — the real reason level-10
+            # prompts were near-identical across ideas. The env gate makes the offline path
+            # explicit: the --skip-browser CLI flag sets it, so interactive testing is
+            # unchanged, but a programmatic caller can no longer silently substitute
+            # placeholder text for a real CloakBrowser generation.
+            if os.getenv("ALLOW_OFFLINE_ESCALATION", "0") != "1":
+                print(f"[Blocked] Idea #{idea.id} ('{idea.title}') has no escalation and offline placeholder fill is disabled.")
+                print(f"  -> Set ALLOW_OFFLINE_ESCALATION=1 for offline testing, or run with the browser to generate real prompts.")
+                return []
+            print(f"  [Offline] Building placeholder escalation for Idea #{idea.id} (ALLOW_OFFLINE_ESCALATION=1).")
+            parsed_levels = build_rich_escalation_system(
+                idea.title, idea.topic or "", idea.description or "", idea_id=idea.id
+            )
 
     saved_prompts = []
     with get_session() as session:
@@ -1271,15 +1113,7 @@ def get_or_create_next_production_ready_prompt(skip_browser: bool = False, fill_
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Backward Dependency Prompt Chain Engine")
     parser.add_argument("--skip-browser", action="store_true", help="Skip live browser launch and test resolution logic")
-    parser.add_argument("--login", action="store_true", help="One-time chatgpt.com sign-in into the persistent prompt-chain profile, then exit")
-    parser.add_argument("--check-login", action="store_true", help="Report whether the persistent prompt-chain profile holds a chatgpt.com login, then exit")
     args = parser.parse_args()
-
-    if args.check_login:
-        sys.exit(0 if check_prompt_browser_login() else 1)
-
-    if args.login:
-        sys.exit(0 if login_to_chatgpt() else 1)
 
     # Running this module directly with --skip-browser is an explicit request for offline
     # behaviour, so the offline placeholder builder is unlocked here. Programmatic callers

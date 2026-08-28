@@ -235,3 +235,12 @@ def run_audit(as_json: bool = False) -> dict:
     print("  3. re-render the duplicate videos listed in section 1 (your decision)")
     print("=" * W)
     return report
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Uniqueness and Pipeline Audit")
+    parser.add_argument("--json", action="store_true", help="Output raw JSON")
+    args = parser.parse_args()
+    run_audit(as_json=args.json)
+

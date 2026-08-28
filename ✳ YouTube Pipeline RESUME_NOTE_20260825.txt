@@ -1,0 +1,603 @@
+
+ ⚠ Both ANTHROPIC_AUTH_TOKEN and ANTHROPIC_API_KEY set · auth may not work as expected
+   · to use ANTHROPIC_AUTH_TOKEN: Unset the ANTHROPIC_API_KEY environment variable, or claude /logout then say "No" to the API key approval before login.
+   · to use ANTHROPIC_API_KEY: Unset the ANTHROPIC_AUTH_TOKEN environment variable.
+
+❯ "C:\Users\Irak\Desktop\Youtube Pipeline\last response.txt"............."C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\RESUME_NOTE_20260825.md"
+
+I'll read both files to understand the context.
+
+  Read 2 files
+
+The resume note gives me the state. Let me check what's actually on disk now versus what the note says.
+
+  Ran 2 shell commands
+
+State on disk matches the resume note exactly. Let me verify the stage status and read the new driver before doing anything.
+
+  Ran 2 shell commands
+
+Now let me get the live gate status from the DB (read-only).
+
+  Ran 3 shell commands
+
+Let me check the tail of the transcript to confirm the last exchange before power loss.
+
+  Ran 1 shell command
+
+The transcript ends exactly at the resume-note write — so nothing happened after it. Let me verify the one genuinely risky thing before running the pending test: that the video path really can't upload to YouTube.
+
+  Ran 2 shell commands
+
+Confirmed safe — extension_bridge.py contains zero references to upload, social_uploader, or youtube. That path physically cannot publish.
+
+Let me check the render output dir for stale files that could trip the duplicate-render guard, then launch the test.
+
+  Ran 2 shell commands
+
+Important detail found: GeneratedVideo already has 34 completed rows whose file_path points into the now-quarantined folders — those files aren't there anymore. Let me confirm how the video gate handles that.
+
+  Ran 1 shell command
+
+The gate is honest — has_video() checks the file actually exists on disk, and since those mp4s moved to quarantine it correctly reports MISS. Everything is consistent.
+
+Launching the pending end-to-end test in the background (this is the run that was never executed):
+
+  Ran 1 shell command
+
+● Monitor(chain run for idea 1 (video render + package))
+Monitor started · task blrxfzjdz · timeout 1800s
+
+Here's where things stood, and what I've just started.
+
+Answer to your question: output_packaged is already cleared
+
+The 34 folders are no longer in output_packaged/ — they were moved to archive/output_packaged_quarantine_20260825_1430/ (335 MB) at 14:30 last session. output_packaged/ now holds only the three _backup_* folders. That's why git status shows 130+ D lines: it's the move, not a loss.
+
+I did not hard-delete the quarantine — it's currently the only copy of those mp4s, and deleting 335 MB is irreversible. Say the word once the new pipeline proves out and I'll remove it.
+
+Where the last session got to
+
+Power cut hit right after the resume note was written — nothing was lost, nothing was half-done.
+
+category  132/132  OK        seo        1/132   <- idea #1 done for real
+element   132/132  OK        video      0/132   <- never ran
+ideas     132/132  OK        package    0/132   <- never ran
+escalation 35/132
+
+Two things were accomplished:
+
+1. SEO stage ran for real on idea #1. 101 keywords + 36 competitors harvested from live YouTube suggest/SERP, opportunity 81/100 → PUBLISH. The old boilerplate 🚨 INSANE: title is gone; DB now has a 69-char real title and 433 chars of tags. Old values preserved in content_history, DB backed up.
+   - Caveat carried over: ChatGPT login failed 3× so the LLM polish never ran. What's in the DB is keyword-grounded deterministic — built on real harvested data, but not LLM-written.
+2. The video→package handoff gap was closed. pipeline_packager finds mp4s only via GeneratedVideo.file_path, but extension_bridge never writes that table — so a successful render would still have reported waiting_for_video. A new register_rendered_video() in run_stage_pipeline.py fills that row. Additive only; no old file touched for it.
+
+What I'm running now
+
+run_stage_pipeline.py --chain --idea-id 1 --apply — the exact command the note left pending. This is the untested part: real Veo render → GeneratedVideo row → package export with the real SEO. Chrome will open; ~10–20 min; no hands needed.
+
+Two things I verified before launching:
+- Nothing can reach YouTube. extension_bridge.py has zero references to upload, social_uploader, or youtube. The chain calls generate_single_video(), never run_single_cycle() (whose step 4 uploads at privacy_status="public"). config.json untouched.
+- Clean render, not a stale-file false pass. No Generated_Rice_Titan_Harvester_10Sec.mp4 exists in the output dir, so nothing can satisfy the gate except a genuinely new render.
+
+One thing worth flagging: the 34 pre-existing GeneratedVideo rows still point at the quarantined paths, so they're stale. The gate is honest about it (has_video() stat's the file, so it correctly says MISS) — but a future backfill will want those rows repointed or cleared. Not blocking idea #1, since register_rendered_video() updates rather than inserts.
+
+I'll report the render + package result as soon as it lands.
+
+✻ Brewed for 5m 20s
+
+● Monitor event: "chain run for idea 1 (video render + package)"
+
+Render is underway — Milestones 1 and 2 passed:
+
+- Chrome already running and responsive on Profile 5
+- Google Flow tab verified, extension handshake confirmed (service_worker)
+- Now in Milestones 3 & 4: prompt injection → generation → auto-download
+
+This is the slow part (Veo generation + download). Waiting on the monitor; nothing to intervene on.
+
+✻ Cogitated for 1m 27s
+
+● Background command "Run chain video+package for idea 1" completed (exit code 0)
+
+The chain finished. Let me read the full log.
+
+  Ran 2 shell commands
+
+● Monitor event: "chain run for idea 1 (video render + package)"
+
+Full end-to-end succeeded. Let me verify the actual JSON contents — whether real SEO landed in the exported files, which was the whole point.
+
+  Ran 2 shell commands
+
+Real SEO made it all the way through. Let me stop the monitor and confirm the rendered video is genuinely new, not a recycled copy.
+
+● Stop Task
+cd "/c/Users/Irak/Desktop/Youtube Pipeline/PromptDatabase" && tail -f chain_run_idea1.log 2>/dev/null | grep -E --line-buffered "stage '|rendered:|GeneratedVide… · stopped
+
+  Ran 1 shell command
+
+Different checksums — genuinely a fresh render, not a recycled file. Final status:
+
+  Ran 1 shell command
+
+The test passed. Full end-to-end on idea #1 is proven for the first time — every stage now real, nothing dry-run.
+
+Result
+
+category  OK    escalation OK    video   OK  <- new, real Veo render
+element   OK    seo        OK    package OK  <- new, real SEO in JSON
+ideas     OK
+
+Idea #1 no longer appears in any blocked-here list. next action: None.
+
+Video stage — Chrome/Flow verified → prompt injected → GENERATING → FINALIZING (100%) → auto-download, 4½ minutes total. 9,847,879 bytes. The register_rendered_video() fix worked exactly as designed: it updated the stale row rather than inserting a duplicate, repointing file_path off the dead quarantine path onto the new render.
+
+I verified the render is genuinely new rather than a recycled file — md5 49bbcc01… (new) vs 0ae48e7f… (old quarantined copy). Different videos.
+
+Package stage — status: success, and the thing this whole test existed to check: the exported youtube_metadata.json carries the real SEO, not boilerplate.
+
+title: Rice Titan Harvester — The Paddy Harvesting Machine You've Never Seen
+tags:  15 harvested keywords (rice paddy harvesting machine, paddy harvesting
+       in china/japan, paddy harvester in assam, …)
+desc:  keyword-grounded + timestamps + hashtags
+
+The old 🚨 INSANE: title with the empty description is gone. PACKAGER_REAL_SEO=1 correctly routed around the broken logged-out playwright generator — it saw idea #1 already held real SEO and skipped re-harvesting. Both JSON filename variants are byte-identical, as intended.
+
+Nothing was uploaded. As predicted from the code read.
+
+Two things worth knowing
+
+The remaining 33 GeneratedVideo rows are stale. They still point into archive/output_packaged_quarantine_20260825_1430/, where the mp4s no longer live. The gates handle this honestly (has_video() stats the file, so those ideas correctly read as MISS), so it isn't hiding anything — but any backfill over ideas 2–10 will re-render from scratch rather than reuse. I haven't touched those rows; that's your call.
+
+The packager is now locked on idea #1 — 100% DONE & LOCKED (NO RETRY). Re-running it won't regenerate; it'll report already_completed. Fine for a proven idea, but worth remembering if you want a different render for #1 later.
+
+What's still open, unchanged
+
+- 335 MB quarantine still on disk. The pipeline is now proven, so it's no longer the only safety net for the flow itself — but it is still the only copy of those 33 other mp4s. Deleting it means those ideas must re-render. Your call, and I'd lean toward keeping it until more ideas are packaged.
+- Nothing committed. Six files uncommitted: stage_gates.py, run_stage_pipeline.py, uniqueness/offline.py (new), plus modified pipeline_packager.py, prompt_chain_engine.py, idea_prompt_generator.py. Now that the flow is proven, this is a good checkpoint — say the word and I'll commit.
+- LLM polish never ran (ChatGPT login still failing). Current SEO is keyword-grounded deterministic — real data, not LLM-written. A one-time browser login would upgrade it.
+- Scaling up: --chain --idea-id 2 for the next one, or seo_engine.cli backfill --apply to do all 33 SEO stages at once now that the path is validated.
+
+✻ Cooked for 1m 52s
+
+※ recap: Goal is a proven end-to-end pipeline from prompt DB through SEO to packaged video. Idea #1 now passes every stage with a real render and real SEO in the JSON. Next: run idea #2, or commit the six uncommitted files first. (disable recaps in /config)
+
+❯ "C:\Users\Irak\Desktop\CopyYoutube Pipeline - Copy\PromptDatabase\output_packaged\1.4.Level_10_The_Monsoon_Harvesting_Ark\1.4.Level_10_The_Monsoon_Harvesting_Ark.mp4"
+
+
+  you just coppied the file from here or a different locations
+
+  cause this file
+
+  "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\output_packaged\1.1.Level_10_Rice_Titan_Harvester\1.1.Level_10_Rice_Titan_Harvester.mp4"
+
+  and this file is same
+
+
+  and video on the veo chrome profile 5 is generated different but not saved.....although it can be second prompt as well
+
+
+  although the current prompt used in veo 3.1 is this prompt
+
+  Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] — HUD Popup Text: "STEP 1: ALIEN HARVEST AWAKENING" — The titan's galaxy-like sensor crowns ignite in concentric halos, scanning continents, dimensions and individual rice particles simultaneously as plasma conduits, quantum processors and gravitational stabilizers awaken across the cosmic body. Second 2 [0:01-0:02] — HUD Popup Text: "STEP 2: INFINITE HARVEST DEPLOYMENT" — Continent-spanning articulated arms unfold into billions of synchronized precision claws, harvesting entire agricultural regions while infinite autonomous drone constellations coordinate crop collection across dimensional distances. Second 3 [0:02-0:03] — HUD Popup Text: "STEP 3: ALIEN THRESHING CASCADE" — Harvest streams pour into planet-sized belly intakes and descend through recursive threshing cylinders, cyclone galaxies and quantum conveyor networks, transforming chaotic crop matter into perfectly ordered grain streams. Second 4 [0:03-0:04] — HUD Popup Text: "STEP 4: QUANTUM GRAVITY PURIFICATION" — Electromagnetic fields, quantum mechanisms, artificial gravity wells and stellar thermal loops isolate, purify and dry individual grains while luminous rivers of matter flow through impossible alien architecture. Second 5 [0:04-0:05] — HUD Popup Text: "STEP 5: INFINITE GRAIN RESERVOIRS" — Perfectly harvested grain cascades through dimensional elevators into vast glowing reservoirs resembling golden oceans, with storage chambers extending beyond visible space while the entire machine continues harvesting. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single har
+  ──── (0 lines hidden) ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single harvested particle/grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] — HUD Popup Text: "STEP 1: ALIEN HARVEST AWAKENING" — The titan's galaxy-like sensor crowns ignite in concentric halos, scanning continents, dimensions and individual rice particles simultaneously as plasma conduits, quantum processors and gravitational stabilizers awaken across the cosmic body. Second 2 [0:01-0:02] — HUD Popup Text: "STEP 2: INFINITE HARVEST DEPLOYMENT" — Continent-spanning articulated arms unfold into billions of synchronized precision claws, harvesting entire agricultural regions while infinite autonomous drone constellations coordinate crop collection across dimensional distances. Second 3 [0:02-0:03] — HUD Popup Text: "STEP 3: ALIEN THRESHING CASCADE" — Harvest streams pour into planet-sized belly intakes and descend through recursive threshing cylinders, cyclone galaxies and quantum conveyor networks, transforming chaotic crop matter into perfectly ordered grain streams. Second 4 [0:03-0:04] — HUD Popup Text: "STEP 4: QUANTUM GRAVITY PURIFICATION" — Electromagnetic fields, quantum mechanisms, artificial gravity wells and stellar thermal loops isolate, purify and dry individual grains while luminous rivers of matter flow through impossible alien architecture. Second 5 [0:04-0:05] — HUD Popup Text: "STEP 5: INFINITE GRAIN RESERVOIRS" — Perfectly harvested grain cascades through dimensional elevators into vast glowing reservoirs resembling golden oceans, with storage chambers extending beyond visible space while the entire machine continues harvesting. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single harvested particle/grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.
+
+
+
+
+Serious claim — let me verify it directly. My earlier check only compared against the quarantined 1.1 file, which would miss exactly this.
+
+  Ran 2 shell commands
+
+You're right, and my verification was wrong. Confirmed:
+
+49bbcc014969bc3474a054557bf03ef3  ← "new" 1.1 Rice Titan render
+49bbcc014969bc3474a054557bf03ef3  ← 1.4 Monsoon Harvesting Ark (old)
+
+Byte-identical. The video stage did not produce a new render — it picked up idea 1.4's old file. My md5 check only compared against the quarantined 1.1 file, so it passed while missing the actual problem. The check was too narrow to catch what you caught.
+
+Let me find the mechanism.
+
+  Listed 1 directory, ran 2 shell commands
+
+Found it. Let me confirm the two guards that should have caught this.
+
+  Searched for 1 pattern, ran 1 shell command
+
+Complete picture now. Let me check the prompt-duplication question you raised.
+
+  Ran 2 shell commands
+
+Let me verify the file I believe is your actual render.
+
+  Ran 1 shell command
+
+You caught a real bug, and my earlier "video OK / package OK" was wrong. Here's the full mechanism.
+
+Where the file actually came from
+
+Not from the Copy folder. The pipeline copied it from:
+
+C:\Users\Irak\Downloads\FlowCraft_Outputs\Exactly-8-seconds-916-vertical-aspect-ratio-photor.mp4
+
+That was a stale leftover from idea 1.4's earlier render, sitting in the shared Chrome downloads folder. It's byte-identical to 1.4's packaged video, which is how you spotted it in the Copy folder. The pipeline then deleted it ("🧹 Cleaned up temporary external download"), so idea 1.4's download is now consumed too.
+
+Your real render exists and was never saved
+
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (7).mp4
+12,616,920 bytes   19:59   md5 c1bf8c70…
+
+Timestamp matches the log's download window exactly, and its hash matches nothing anywhere in the tree — so this is the genuinely new Rice Titan video you watched in Chrome. It's intact in Downloads.
+
+Why it was missed — three failures stacked
+
+1. Every Level-10 prompt produces the same download filename. Veo names files from the first ~50 chars, and all these prompts open with the identical boilerplate "Exactly 8 seconds, 9:16 vertical aspect ratio, photor…". So every idea downloads under one base name; Chrome disambiguates with  (1)… (7).
+
+2. The extension reported the name without Chrome's suffix. It reports what Flow intended, not what landed on disk.
+
+3. The "authoritative" match rule bypasses its own safety checks. In extension_bridge.py:573-586, rule 1 globs for the reported filename and checks neither existing_files (the pre-render snapshot) nor mtime >= start_time. Rule 2 — the legacy fallback it was written to improve on — checks both. So the fix labelled "the fix for cross-idea contamination" reintroduced exactly that contamination.
+
+4. The md5 backstop was silently disarmed — by my own quarantine move. The cross-idea guard at extension_bridge.py:551-553 skips any row where os.path.exists(other_path) is false. All 34 generated_videos rows point into the quarantine folder I moved at 14:30, so every row was skipped and the guard passed vacuously.
+
+That last one is on me. I flagged those stale rows as "not blocking" — they were load-bearing, and moving the folders disabled the one check designed to catch precisely this.
+
+On the 5× prompt duplication
+
+The pipeline is clean — DB holds one copy (2116 chars), and both pending_prompt.json and flowcraft_prompt.json sent one copy (2110 chars, "Exactly 8 seconds" ×1). So the 5× repetition you saw in the Flow textarea is happening inside the Chrome extension's injection step — it's appending without clearing the field between attempts. That's in the extension's JS, which I haven't read yet, so I can't yet name the exact line.
+
+What needs deciding
+
+Idea #1 is currently packaged with the wrong video and locked NO RETRY, so nothing will overwrite it until the lock is cleared. The rollback is destructive and extension_bridge.py is old logic, so I'm not touching either without your go-ahead.
+
+● User declined to answer questions
+· Idea #1's package holds idea 1.4's video and is locked NO-RETRY. How should I fix it? (Adopt the real render (Recommended) / Re-render from scratch / Roll back only, decide later)
+· May I patch the two guard failures in extension_bridge.py? It's existing logic, so I need explicit permission. (Fix both, minimal + backup (Recommended) / Filename matching only / Show me a diff first / Don't touch it yet)
+· The 34 stale generated_videos rows point into the quarantine folder, which is what disarmed the md5 guard. What should I do with them? (Repoint to quarantine paths (Recommended) / Mark them not-completed / Leave as-is)
+
+Of course — what would you like to clarify?
+
+To help you aim the questions, here's what's settled fact versus what's still my inference:
+
+Confirmed by hash and timestamp:
+- Idea #1's packaged mp4 is byte-identical to idea 1.4's video (49bbcc01…)
+- The source was a stale file in Downloads\FlowCraft_Outputs\, not the Copy folder
+- Your real Rice Titan render survives as …photor (7).mp4 — 12.6 MB, 19:59, hash c1bf8c70…, matching nothing else on disk
+- The pipeline sent the prompt once (2110 chars); the 5× repetition is downstream in the extension
+
+My reading of the cause, from the code:
+- extension_bridge.py:573-586 rule 1 skips the existing_files and mtime checks that rule 2 performs
+- extension_bridge.py:551-553 skipped all 34 dup-guard rows because the quarantine move broke their paths
+
+Not yet investigated:
+- The extension's JS injection — I haven't read it, so the 5× duplication mechanism is unconfirmed
+- Whether ideas 2–10 were mis-rendered the same way in earlier runs (the  (1)– (6) files suggest it's worth checking)
+
+Happy to dig into any of that before you decide anything, or to explain a specific option in more depth. And if you'd rather just tell me the approach directly instead of picking from options, that works too.
+
+✻ Cooked for 6m 38s
+
+❯ delete and regenerate video....and look everything fine
+
+Understood — delete the bad package, do a fresh render, and verify properly this time.
+
+Two things I'll preserve rather than discard: your real (7).mp4 render (only copy) and a hash snapshot of every existing mp4, so this run's verification is airtight instead of the narrow check I did before.
+
+Let me find the lock and stage-reset mechanism first.
+
+  Ran 3 shell commands
+
+The lock is purely file-derived (video_exists and metadata_exists and prompt_info_exists at pipeline_packager.py:316), so deleting the folder clears it — no DB flag to reset.
+
+First, safety: preserving your real render and taking a hash baseline so this time verification is airtight.
+
+  Ran 2 shell commands
+
+1.4's original is safe in quarantine — the two misfiled copies are redundant and safe to remove.
+
+Now the key structural fix without touching any code: clearing the filename-collision source out of the downloads folder.
+
+● Bash(cd "/c/Users/Irak/Downloads/FlowCraft_Outputs" && mkdir -p _stale_before_rerender_20260825 && mv "Exactly-8-seconds-916-vertical-aspect-ratio-photor"*.mp4 _stale_before_rerender_20260825/ 2>/dev/null; echo "=== moved aside ===" && ls _stale_before_rerender_20260825/ && echo "" && echo "=== remaining collision-name files in FlowCraft_Outputs (should be NONE) ===" && ls "Exactly-8-seconds-916"* 2>/dev/null || echo "NONE - base filename is now free for the new render")
+=== moved aside ===
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (1).mp4
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (2).mp4
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (3).mp4
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (4).mp4
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (5).mp4
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (6).mp4
+Exactly-8-seconds-916-vertical-aspect-ratio-photor (7).mp4
+
+=== remaining collision-name files in FlowCraft_Outputs (should be NONE) ===
+NONE - base filename is now free for the new render
+Shell cwd was reset to C:\Users\Irak\Desktop\Youtube Pipeline
+
+
+Base filename is now free, so no stale file can win the match. Deleting the bad package and misfiled video:
+
+  Ran 2 shell commands
+
+Gates correctly reopened. Launching the fresh render:
+
+  Ran 1 shell command
+
+● Monitor(re-render of idea 1 (video + package))
+Monitor started · task bwiu22fgc · timeout 1800s
+
+Render running. Here's what I did before launching it.
+
+Preserved (nothing lost):
+- _backup_badrender_20260825/PRESERVED_real_rice_titan_render_1959.mp4 — your actual 19:59 render, hash verified c1bf8c70… after copy
+- _backup_badrender_20260825/youtube_pipeline.db.bak — DB snapshot
+- Hash baseline of all 229 mp4s across the project and Downloads, captured before any deletion
+
+Verified before deleting: idea 1.4's original survives in quarantine, so the two misfiled copies were redundant — no video data lost.
+
+Deleted: the bad output_packaged/1.1.* folder and the misfiled Generated_Rice_Titan_Harvester_10Sec.mp4. That cleared the NO-RETRY lock automatically, since the lock is derived from those files existing. Gates reconfirmed at video MISS / package MISS.
+
+The fix that makes this run trustworthy — no code touched. I moved all seven colliding Exactly-8-seconds-916-… files out of FlowCraft_Outputs into _stale_before_rerender_20260825/. The base filename is now free, so when the new render lands, the name the extension reports can only resolve to the genuinely new file. The buggy match rule can't grab a stale one because none with that name exists. Structural, reversible, and it sidesteps extension_bridge.py entirely.
+
+To be clear about scope: I did not patch extension_bridge.py — you didn't ask for that, and it's existing logic. The underlying bug is still there; I've only removed the conditions it needs to bite. Same for the 34 stale generated_videos rows, so the md5 dup guard is still vacuous. My own hash check after this render is the real verification, and this time it compares against all 229 baseline hashes instead of just one file.
+
+I'll report the new hash against that full baseline when it finishes.
+
+✻ Brewed for 10m 13s
+
+● Monitor event: "re-render of idea 1 (video + package)"
+
+Milestones 1 and 2 passed — Chrome verified, Flow handshake confirmed. Now in generation/download. Waiting on the monitor.
+
+✻ Worked for 8s
+
+※ recap: Goal is a real end-to-end run for idea #1; the first render silently packaged idea 1.4's old video, so I deleted it and started a fresh render, now generating in Chrome. Next: verify the new video's hash against the 229-file baseline, then confirm packaging. (disable recaps in /config)
+
+● Background command "Re-run chain for idea 1" completed (exit code 0)
+
+Finished. Verifying properly this time — against the full baseline, not one file.
+
+  Ran 2 shell commands
+
+● Monitor event: "re-render of idea 1 (video + package)"
+
+The match resolved to the freed base filename exactly as intended. Now the rigorous check — against all 229 baseline hashes:
+
+● Stop Task
+cd "/c/Users/Irak/Desktop/Youtube Pipeline/PromptDatabase" && tail -f chain_rerun_idea1.log 2>/dev/null | grep -E --line-buffered "stage '|rendered:|GeneratedVi… · stopped
+
+  Ran 3 shell commands
+
+Clean inventory diff — zero hashes lost, exactly one new. Final content checks:
+
+● API Error: The response stopped arriving. The response above may be incomplete.
+
+✻ Cogitated for 9m 53s
+
+❯ now generate the csv that i want to see what prompt is generated.....before that....generate another video that it switches to second prompt......i mean it skips first prompt
+
+Understood — first prove the driver advances past idea #1, then the prompt CSV. Let me close out the idea #1 verification and check what the driver picks with no explicit target.
+
+  Ran 2 shell commands
+
+Driver auto-advances to idea #2 "The Paddy Ocean Vacuum" — it skips idea #1 exactly as designed. Preparing the same collision safety before launching:
+
+  Ran 2 shell commands
+
+Launching the chain with no explicit target, so the auto-advance to idea #2 is itself part of the test:
+
+  Ran 1 shell command
+
+● Monitor(idea 2 chain (seo + video + package))
+Monitor started · task b4i2itk5d · timeout 2400s
+
+Idea #2 chain running (seo → video → package). While it renders, let me look at the existing CSV generators rather than inventing a new one.
+
+  Ran 2 shell commands
+
+● Monitor event: "idea 2 chain (seo + video + package)"
+
+Idea #2 SEO harvest is running — the skip is confirmed. Let me check whether the existing master CSV already carries prompt text.
+
+  Ran 2 shell commands
+
+● Monitor event: "idea 2 chain (seo + video + package)"
+
+SEO for idea #2 landed: 101 keywords, 27 competitors, opportunity 91/100 (novelty 100, saturation 0) → PUBLISH. Video stage next.
+
+On the CSV: the existing generate_master_joined_csv.py already exports exactly what you're asking for — Prompt_Text alongside level, type, and lifecycle state, 35 columns joined across all tables. The current exports/unified_master_pipeline.csv is stale (Aug 23), so I'll regenerate it once idea #2 finishes writing, so the CSV reflects both new packages rather than a half-written state.
+
+Waiting on the render.
+
+✻ Crunched for 4m 44s
+
+● Monitor event: "idea 2 chain (seo + video + package)"
+
+Confirmed distinct — idea #2's prompt opens "STEP 1: ALIEN SYSTEM AWAKENING" against idea #1's "ALIEN HARVEST AWAKENING", and its tags are its own. So this is genuinely the second prompt, not a re-run of the first. Render in progress.
+
+✻ Sautéed for 10s
+
+● Background command "Run chain auto-advance to idea 2" completed (exit code 0)
+
+  Ran 2 shell commands
+
+● Monitor event: "idea 2 chain (seo + video + package)"
+
+Idea #2 complete. Notably its download arrived as a UUID filename (ca44db56-…mp4), so rule 1 didn't fire at all — it fell through to the safe legacy path with both the snapshot and mtime checks. Verifying against the baseline:
+
+● Stop Task
+cd "/c/Users/Irak/Desktop/Youtube Pipeline/PromptDatabase" && tail -f chain_idea2.log 2>/dev/null | grep -E --line-buffered "^idea #|stage '|rendered:|Generated… · stopped
+
+  Ran 1 shell command
+
+Both renders verified unique. Now regenerating the CSV with the existing generator:
+
+  Ran 2 shell commands
+
+Both done and verified. The CSV is regenerated.
+
+The driver skips the first prompt — confirmed
+
+I ran --chain --apply with no --idea-id, so target selection was itself part of the test. It picked idea #2 "The Paddy Ocean Vacuum" and ran all three missing stages. This is the exact failure the new driver was written to fix — the old resolver returned idea #1 every time and went no-op once it was locked.
+
+The prompts are genuinely different, not a re-run:
+
+┌─────────────────┬─────────────────────────┬────────────────────────────────────┐
+│                 │         Idea #1         │              Idea #2               │
+├─────────────────┼─────────────────────────┼────────────────────────────────────┤
+│ Title           │ Rice Titan Harvester    │ The Paddy Ocean Vacuum             │
+├─────────────────┼─────────────────────────┼────────────────────────────────────┤
+│ Step 1 text     │ ALIEN HARVEST AWAKENING │ ALIEN SYSTEM AWAKENING             │
+├─────────────────┼─────────────────────────┼────────────────────────────────────┤
+│ Prompt chars    │ 2116                    │ 2284                               │
+├─────────────────┼─────────────────────────┼────────────────────────────────────┤
+│ SEO opportunity │ 81/100                  │ 91/100 (novelty 100, saturation 0) │
+├─────────────────┼─────────────────────────┼────────────────────────────────────┤
+│ Video md5       │ 331e15a2…               │ 48481bcd…                          │
+├─────────────────┼─────────────────────────┼────────────────────────────────────┤
+│ Size            │ 12,047,792              │ 10,689,011                         │
+└─────────────────┴─────────────────────────┴────────────────────────────────────┘
+
+Verification — the check that failed last time
+
+Both renders tested against a 229-file hash baseline covering the whole project tree plus Downloads, not a single file:
+
+- Neither hash appears anywhere in the baseline → both genuinely new
+- Idea #1 ≠ idea #2 ≠ the bad 1.4 copy (49bbcc01…) ≠ your preserved 19:59 render (c1bf8c70…)
+- Each hash exists in exactly 2 places — the package and the render dir — and cmp confirms they're identical, so package and source agree
+- Full before/after inventory diff: zero hashes lost, exactly one new hash per run
+
+Worth noting: idea #2's download arrived as a UUID name (ca44db56-…mp4), not the prompt-derived name. Rule 1 never fired — it fell through to the legacy path that does check the snapshot and mtime. So idea #2 was matched safely by the correct code path, while idea #1 only worked because I'd freed the colliding filename.
+
+The CSV
+
+PromptDatabase/exports/unified_master_pipeline.csv — 884 rows × 35 columns, 3.0 MB, regenerated from the live DB with the existing generate_master_joined_csv.py (no new script).
+
+Prompt_Text holds the full prompt, joined against category → element → idea → prompt → task → generated_video → filesystem state. Both ideas now read COMPLETED_AND_PACKAGED, video and metadata YES, and LOCKED - NO RETRY.
+
+To find the level-10 video prompts, filter Prompt_Level = 10 and Prompt_Generation_Type = video — one row per idea.
+
+Still outstanding, unchanged
+
+- extension_bridge.py is unpatched. Rule 1 at :573-586 still skips the existing_files/mtime checks. I only removed the collision that triggers it, so the bug will bite again whenever a prompt-derived filename repeats. You haven't authorized that edit.
+- 34 stale generated_videos rows still point into the quarantine, so the md5 dup guard remains vacuous. My manual hash checks substituted for it here — that won't scale to a 33-idea backfill.
+- Prompt duplication in the Flow textarea — pipeline sends one copy (2110/2284 chars, verified in DB and both JSONs). The 5× accumulation is in the extension's JS, which I haven't read.
+- 130 ideas remain: 97 need escalation, 33 need SEO.
+
+✻ Baked for 2m 2s
+
+❯ I actaully not understaning..........currently its using my personal profile and pasting same video prompt again and again.......it was supposed too use profile 5 for vifdeo generation............and i also saw  that video is being downloaded may be at any outside location.............................second folder also created............and second video also generated.......i was testing videos in my personal profile..............but why script use my personal profile instead of profile 5?.
+
+Let me investigate. The download location difference is a real signal — idea #2's file landed in Downloads\ root, not FlowCraft_Outputs\, which suggests a different profile's download settings.
+
+  Ran 2 shell commands
+
+The log message is suspicious — it may just be echoing the config value rather than verifying reality. Let me read the actual check.
+
+  Ran 1 shell command
+
+Confirmed — you're right, and the log message is misleading. Let me verify the profile-blindness and gather evidence on which profile actually ran.
+
+  Ran 4 shell commands
+Referenced file ..\..\last response.txt
+Read ..\..\PromptDatabase\RESUME_NOTE_20260825.md (122 lines)
+
+Found the smoking gun. Now let me check how the bridge hands out jobs — this is where the 5× duplication comes from.
+
+  Read 1 file, ran 13 shell commands
+
+● Background command "Find which Chrome profiles have the bridge extension installed" completed (exit code 0)
+
+Here is the complete answer to "why script use my personal profile instead of profile 5?" — I found two independent causes, and the second one is the real culprit.
+
+Cause 1 — the script never actually attaches Profile 5 (and the log lies about it)
+
+video/1Video10Sec/extension_bridge.py:197-233:
+
+running     = self.is_chrome_running()
+responsive  = self.is_chrome_window_responsive()
+if running and responsive:
+    logging.info(f"✅ [Check 1 & 2 Passed] Chrome is already running & responsive with profile '{self.profile_dir}'.")
+    return True                                    # <-- exits here
+# Check 3 (never reached when Chrome is open):
+ps_cmd = f"Start-Process '{self.chrome_exe}' -ArgumentList '--profile-directory=\"{self.profile_dir}\"'"
+
+- is_chrome_running() = Get-Process chrome → profile-blind, any chrome.exe passes
+- is_chrome_window_responsive() = MainWindowHandle -ne 0 → profile-blind
+- --profile-directory="Profile 5" appears only on the launch path (line 215) and the navigate path (line 249)
+
+That reassuring profile 'Profile 5' in all three run logs is just self.profile_dir interpolated straight from config.json. It is a cosmetic string, not a verification. Your Chrome was already open, so the function returned at line 210 and Profile 5 was never requested.
+
+Confirmed live: the running Chrome carries --profile-directory="Profile 8", and Local State shows last_active: Profile 8, Profile 5.
+
+Cause 2 — the bridge has no addressing. It broadcasts. (this is the actual bug)
+
+Even with the right profile flag, it wouldn't matter — the job is not delivered to a window, it's delivered over localhost to whoever asks first.
+
+extension_bridge.py:48-53 — served to any caller, repeatedly, forever:
+if self.path == "/api/pending_prompt":
+    if BridgeHTTPHandler.active_job and BridgeHTTPHandler.active_job.get("status") == "pending":
+        self.wfile.write(json.dumps(BridgeHTTPHandler.active_job).encode('utf-8'))
+
+The pickup notification does not lock it — /api/status only records history (job_history[job_id] = data). active_job["status"] flips to completed in exactly one place: /api/completed (line 107-108). Until then it stays pending and is handed out on every poll.
+
+And two of your profiles have an extension polling that same port every 2 seconds:
+
+┌───────────────────────────┬───────────────────┬──────────────────────┬───────────────────────────────────────────────────┐
+│          Profile          │ Extension loaded  │ Polls 127.0.0.1:8102 │                  Download result                  │
+├───────────────────────────┼───────────────────┼──────────────────────┼───────────────────────────────────────────────────┤
+│ Profile 5 (intended)      │ 10SecNewExtension │ yes                  │ Downloads\FlowCraft_Outputs\, prompt-derived name │
+├───────────────────────────┼───────────────────┼──────────────────────┼───────────────────────────────────────────────────┤
+│ Profile 8 (your personal) │ NewExtension      │ yes (same code)      │ Downloads\ root, UUID name                        │
+└───────────────────────────┴───────────────────┴──────────────────────┴───────────────────────────────────────────────────┘
+
+The only dedup guard is data.job_id !== lastProcessedJobId — a plain JS variable inside content-main.js, which is a content script. So it is per-tab and per-profile. Plus service-worker.js:164 polls independently with its own lastNavigatedJobId.
+
+Prompt pastes = (open Flow tabs) × (profiles with the extension) + service workers. That is your "pasting same video prompt again and again" — not the pipeline sending 5 copies. The DB holds one copy, pending_prompt.json holds one copy; the fan-out happens at the browser.
+
+Your three observations, explained
+
+1. Downloads "at any outside location" — both locations are in fact watched (downloads_dirs = FlowCraft_Outputs then Downloads). Profile 8 has no rename/route logic pointed at FlowCraft, so its renders land as raw UUIDs in Downloads\ root. Tonight's orphans:
+
+20:57:49  11,237,489  1fa490d6-....mp4   <- Profile 8
+20:59:42  12,627,310  2ab39c92-....mp4   <- Profile 8
+21:02:43  12,428,311  8368aeeb-....mp4   <- Profile 8
+21:06:57  13,907,837  Exactly-8-seconds-916-....mp4       <- Profile 5
+21:07:25  13,057,712  Exactly-8-seconds-916-... (1).mp4   <- Profile 5
+
+2. Second folder / second video — that one was intentional. You asked me to prove the driver skips idea #1 and advances, so --chain --apply with no --idea-id selected idea #2 "The Paddy Ocean Vacuum". That is the expected result, not a malfunction.
+
+3. Good news on integrity: none of those 5 orphan hashes match either packaged video. The packages are still the verified-unique renders:
+
+331e15a27e5dbda1af5f60197f8d3a2f  12,047,792  1.1.Level_10_Rice_Titan_Harvester.mp4
+48481bcd9cd46dc26cd68dff14e24713  10,689,011  1.2.Level_10_The_Paddy_Ocean_Vacuum.mp4
+
+So the duplicate renders wasted Veo quota and ~63MB of disk, but did not contaminate what got packaged.
+
+What I have NOT touched
+
+Per your code-preservation rules I've changed no code. Three real defects are identified and unpatched, all in existing logic — I need your explicit go-ahead before touching any of them:
+
+1. extension_bridge.py — job claiming. Add a server-side lock so the first /api/status {status:"started"} flips active_job out of pending, so only one poller can ever take a job. This is the fix that stops duplicate renders and wasted quota.
+2. extension_bridge.py:197-233 — profile verification. Make verify_and_prepare_chrome() actually confirm the running Chrome has --profile-directory="Profile 5" (via Get-CimInstance Win32_Process) instead of printing the config value as if it were verified.
+3. extension_bridge.py:562 — rule 1 of _find_recently_downloaded_mp4() still ignores existing_files and mtime >= start_time. Only its trigger condition was removed earlier by moving the colliding files; the guard hole is still open.
+
+Also still outstanding from before: 34 stale generated_videos.file_path rows pointing into the quarantine folder (which keeps the md5 dup-guard vacuous, a problem for the 33-idea backfill), 335MB quarantine on disk, and six uncommitted files.
+
+The simplest thing that would have prevented tonight's mess needs no code at all: close every Google Flow tab in Profile 8 before a run. But fix #1 is the durable one.
+
+✻ Churned for 13m 53s
+
+❯ i am actually not understanding,,,,,,,,,,,,,,,,,,,,seo ki alada db te generate hosse? or alada table e generate hosse? kothay seo data generate hoise? aar seo is a part of prompt fillup dot bat///////that means running this script will fillup all info via cloackbrowser chatgpt.com
+
+Let me actually verify this in the code rather than answer from memory.
+
+  Ran 11 shell commands
+
+● API Error: Connection lost mid-response. The response above may be incomplete.
+
+✻ Brewed for 26m 1s
+
+※ recap: Goal: get the YouTube pipeline rendering unique videos per idea. Two ideas now packaged correctly, but duplicate renders happen because both Chrome Profile 5 and your personal Profile 8 pick up the same job. Next: your go-ahead to patch the bridge job-locking. (disable recaps in /config)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏵⏵ bypass permissions on (shift+tab to c

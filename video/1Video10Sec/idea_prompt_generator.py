@@ -190,11 +190,36 @@ class IdeaPromptGenerator:
                 sys.path.insert(0, str(prompt_db_dir))
 
             from prompt_chain_engine import get_or_create_next_production_ready_prompt
-            ready_item = get_or_create_next_production_ready_prompt(skip_browser=True)
+
+            # STAGE-GATE RULE: "level 10 escalation exists? yes -> skip. no -> regenerate
+            # from CloakBrowser chatgpt.com."
+            #
+            # This call previously passed skip_browser=True. That did NOT make it faster for
+            # finished ideas -- the resolver already returns an idea with 20 filled prompts
+            # without launching anything. What it did was make every idea with MISSING prompts
+            # fall into prompt_chain_engine's hardcoded offline placeholder instead of being
+            # generated, which is why level-10 prompts repeated across ideas. Passing False
+            # reconnects the render path to real generation; the browser opens only when an
+            # escalation is genuinely absent.
+            #
+            # RENDER_SKIP_BROWSER=1 restores the old offline behaviour for testing.
+            _render_skip_browser = os.getenv("RENDER_SKIP_BROWSER", "0") == "1"
+            ready_item = get_or_create_next_production_ready_prompt(skip_browser=_render_skip_browser)
 
             lvl10_vid = ready_item.get("level_10_video_prompt")
             idea_id = ready_item.get("idea_id")
             title = ready_item.get("idea_title")
+
+            # The resolver reports READY_FOR_VIDEO even when generation failed and left no
+            # level-10 row, which would send an EMPTY prompt to Veo. Raising here hands control
+            # to this method's existing `except` fallback (direct sequential SQL query), which
+            # returns a real stored prompt instead. Guard only -- no resolver logic changed.
+            if not lvl10_vid or not (lvl10_vid.prompt_text or "").strip():
+                raise ValueError(
+                    f"Idea #{idea_id} ('{title}') resolved with no usable Level 10 video prompt "
+                    f"(escalation stage incomplete)"
+                )
+
             lvl_name = lvl10_vid.level_name if lvl10_vid else "ALIEN LEVEL / MAXIMUM"
             prompt_text = lvl10_vid.prompt_text if lvl10_vid else ""
 

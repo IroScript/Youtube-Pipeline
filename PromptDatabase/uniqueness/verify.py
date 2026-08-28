@@ -252,3 +252,8 @@ def run_verify() -> int:
         print(f"RESULT: all {total} checks passed")
     print("=" * 74)
     return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(run_verify())
+

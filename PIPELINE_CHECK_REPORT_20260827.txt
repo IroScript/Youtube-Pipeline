@@ -1,0 +1,435 @@
+================================================================================
+পাইপলাইন চেক রিপোর্ট — ২৭ আগস্ট ২০২৬
+================================================================================
+২ দিন গ্যাপের পর পুরো পাইপলাইন যাচাই করা হয়েছে।
+কোনো নতুন রেন্ডার বা জেনারেশন চালানো হয়নি — শুধু পড়া, হিসাব আর যাচাই (read-only)।
+DB-তে কিছু লেখা হয়নি। কোনো পুরোনো ফাইল বদলানো হয়নি।
+
+
+--------------------------------------------------------------------------------
+এক লাইনে সারমর্ম
+--------------------------------------------------------------------------------
+Video জেনারেশন (VEO 3.1 এক্সটেনশন) আর "ফোল্ডারে ভিডিও থাকলে পরের প্রম্পটে যাওয়া"
+— এই দুইটা আসলেই কাজ করে, প্রমাণ সহ যাচাই করেছি।
+
+কিন্তু CloakBrowser-এর দুইটা পথ কাজ করছে না — Prompt জেনারেশন আর SEO-র LLM অংশ।
+দুইটার আসল কারণ খুঁজে পেয়েছি, আর কারণ দুইটা আলাদা:
+  • Prompt-এর সমস্যা = সত্যিকারের কোড বাগ (ঠিক করতে হবে)
+  • SEO-র সমস্যা = কোড ঠিক আছে, শুধু একবারও লগইন করা হয়নি
+
+
+--------------------------------------------------------------------------------
+১. তুমি যে ৪টা জিনিস চেক করতে বলেছিলে — ফলাফল
+--------------------------------------------------------------------------------
+
+  #  কী চেক করলাম                              ফলাফল
+  -  ----------------------------------------  --------------------------------
+  ১  Prompt generation (CloakBrowser)          [X]  ভাঙা — কোড বাগ পাওয়া গেছে
+  ২  SEO data generation (CloakBrowser)        [~]  অর্ধেক — ডেটা আসল, LLM চলে না
+  ৩  Video generation (VEO 3.1 এক্সটেনশন)      [OK] কাজ করে — ২টা আসল রেন্ডার
+  ৪  ফোল্ডারে ভিডিও থাকলে পরের প্রম্পটে switch [OK] কাজ করে — লাইভ যাচাই করা
+
+
+--------------------------------------------------------------------------------
+২. এখন পাইপলাইন ঠিক কোথায় (লাইভ গেট স্ট্যাটাস)
+--------------------------------------------------------------------------------
+মোট আইডিয়া: ১৩২
+
+  স্টেজ         সম্পন্ন      এই স্টেজে আটকে আছে
+  -----------  ----------   -------------------
+  category     132/132       0
+  element      132/132       0
+  ideas        132/132       0
+  escalation    35/132      97   <-- সবচেয়ে বড় ব্লক
+  seo            2/132      33
+  video          2/132       0
+  package        2/132       0
+
+সম্পূর্ণ শেষ হয়েছে মাত্র ২টা আইডিয়া:
+  • #1  Rice Titan Harvester       — ৭টা গেটই OK
+  • #2  The Paddy Ocean Vacuum     — ৭টা গেটই OK
+
+পরের কাজ যেখান থেকে শুরু হবে: আইডিয়া #3 "Rice-Field Spider Colossus", স্টেজ = seo
+
+
+--------------------------------------------------------------------------------
+৩. বিস্তারিত — ১নং: Prompt Generation (CloakBrowser)   [X] ভাঙা
+--------------------------------------------------------------------------------
+৯৭টা আইডিয়া escalation স্টেজে আটকে আছে। এদের ২০টা প্রম্পট (১০ image + ১০ video)
+CloakBrowser দিয়ে chatgpt.com থেকে বানাতে হয়। সেটা হচ্ছে না।
+
+*** আসল কারণ পেয়েছি — এটা সত্যিকারের কোড বাগ ***
+
+  ফাইল : PromptDatabase/prompt_chain_engine.py
+  লাইন : 71   (ফাংশন: call_chatgpt_playwright)
+
+  এখন যা আছে:
+      context = cloakbrowser.launch_context(...)          <-- NON-persistent
+
+  সমস্যা কী: launch_context() প্রতিবার একদম নতুন, খালি ব্রাউজার প্রোফাইল খোলে।
+  কোনো কুকি বা লগইন সেভ হয় না। আমি পুরো ফাইলে grep করে দেখেছি — কোথাও
+  user_data_dir নেই, আর ব্রাউজার খোলার কল ওই লাইন ৭১-ই একমাত্র।
+
+  ফলাফল: তুমি হাতে করে ChatGPT-তে লগইন করলেও সেই লগইন টিকবে না। পরের রানে আবার
+  লগআউট অবস্থায় খুলবে। তাই ChatGPT খালি উত্তর দেয় -> ১০টা লেভেল পার্স হয় না ->
+  generate_escalation_for_idea() খালি লিস্ট রিটার্ন করে -> আইডিয়া আটকে থাকে।
+  লগে যা দেখা যায়: "[BrowserLLM] All 3 attempts failed: empty response"
+
+  তুলনা করো — SEO ইঞ্জিনে ঠিক কাজটা করা আছে:
+      ফাইল: PromptDatabase/seo_engine/browser_llm.py
+      লাইন 170: cloakbrowser.launch_persistent_context(
+      লাইন 171:     user_data_dir=str(config.BROWSER_PROFILE_DIR),   <-- ঠিক আছে
+
+  অর্থাৎ সঠিক প্যাটার্নটা এই প্রজেক্টেই আছে, শুধু prompt_chain_engine.py-তে
+  ব্যবহার করা হয়নি।
+
+!! আমি এই বাগ ঠিক করিনি। কারণ এটা পুরোনো লজিক, আর তোমার নিয়ম অনুযায়ী পুরোনো
+   লজিকে হাত দেওয়ার আগে তোমার অনুমতি লাগে। তুমি বললে ঠিক করে দেব — পরিবর্তনটা
+   ছোট (persistent প্রোফাইল যোগ করা, পুরোনো লজিক wrap করে, .bak ব্যাকআপ নিয়ে)।
+
+
+--------------------------------------------------------------------------------
+৪. বিস্তারিত — ২নং: SEO Data Generation (CloakBrowser)   [~] অর্ধেক
+--------------------------------------------------------------------------------
+এটা দুই ভাগে ভাগ। একটা ভাগ আসলেই কাজ করে, আরেকটা করে না।
+
+  [OK] যে ভাগটা কাজ করে — কীওয়ার্ড হারভেস্ট (API key ছাড়াই, আসল ডেটা)
+
+     DB-তে প্রমাণ আছে:
+
+       seo_keyword_metrics : ১২০ রো — আইডিয়া #1-এ ৬০, #2-এ ৬০
+                             source = 'youtube_suggest'
+                             (আসল YouTube autocomplete থেকে আনা)
+
+       seo_competitors     : ৬৩ রো — আইডিয়া #1-এ ৩৬, #2-এ ২৭
+                             আসল ভিডিও, আসল চ্যানেল, আসল ভিউ কাউন্ট। নমুনা:
+                               "4G120 rice harvester 0001" / Wendy Zhang / 551 ভিউ
+                                 -> similarity 0.4, level CLOSE
+                               "THE LIZARD COLOSSUS PACK - Farming Simulator 25"
+                                 / Farmer Cop / 26,477 ভিউ -> level IRRELEVANT
+
+       seo_runs            : ২ রো, দুইটাই mode='apply'
+                             #1 -> demand 70.32 | novelty 84.00 | saturation 11.47
+                                   opportunity 80.57/100 -> verdict PUBLISH
+                                   keywords 101 | competitors 36
+                                   exact 0 | close 4 | upload_ready 1
+                             #2 -> demand 73.00 | novelty 100.00 | saturation 0.00
+                                   opportunity 90.55/100 -> verdict PUBLISH
+                                   keywords 101 | competitors 27
+                                   exact 0 | close 0 | upload_ready 1
+
+     এটা বয়লারপ্লেট নয়। সত্যিকারের হারভেস্ট করা ডেটা।
+
+
+  [X] যে ভাগটা কাজ করে না — LLM পলিশ (chatgpt.com)
+
+     seo_runs টেবিলে দুইটা রো-তেই:   llm_used = 0
+     অর্থাৎ LLM একবারও চলেনি।
+
+     কারণটা এবার বাগ নয় — শুধু লগইন করা হয়নি:
+
+       প্রোফাইল ফোল্ডার : PromptDatabase/seo_engine/_chrome_profile_seo
+       কুকি ফাইল       : Default\Network\Cookies
+       কুকি সংখ্যা      : মাত্র ৮টা — আর সবগুলোই anonymous:
+
+            .chatgpt.com  __cf_bm                  (Cloudflare bot-management)
+            .chatgpt.com  _cfuvid                  (Cloudflare)
+            .chatgpt.com  oai-did                  (anonymous device id)
+            .chatgpt.com  oai-mweb-origin
+            .chatgpt.com  oai-mweb-route-desktop
+            .chatgpt.com  oai-sc
+             chatgpt.com  __cflb
+             chatgpt.com  g_state                  (Google sign-in widget state)
+
+       *** যেটা নেই: __Secure-next-auth.session-token ***
+           এটাই ChatGPT-র আসল লগইন কুকি। এটা নেই মানে লগইন কখনো হয়নি।
+           যাচাই করেছি: has session-token = False
+
+     মানে: SEO-র মেকানিজম ঠিক আছে (persistent প্রোফাইল ঠিকভাবে ব্যবহার করছে,
+     browser_llm.py লাইন 170)। শুধু একবারও আসল লগইন করা হয়নি। একবার হাতে
+     লগইন করলেই এটা কাজ শুরু করবে, আর সেই লগইন টিকে থাকবে।
+
+
+  এখন যা হচ্ছে: LLM ফেল করলে deterministic keyword-grounded fallback চলে —
+  অর্থাৎ আসল হারভেস্ট করা কীওয়ার্ডের উপর ভিত্তি করে টাইটেল/ট্যাগ/ডেসক্রিপশন
+  বানানো হয়। খারাপ না, কিন্তু LLM-লেখা নয়।
+
+     আইডিয়া #1: title 69 অক্ষর | tags 15 | description 594 অক্ষর
+                "Rice Titan Harvester - The Paddy Harvesting Machine
+                 You've Never Seen"
+     আইডিয়া #2: title 52 অক্ষর | tags 14 | description 545 অক্ষর
+                "The Paddy Ocean Vacuum - Impossible Paddy Harvesting"
+
+  youtube_metadata টেবিলে মোট ৩৫ রো:
+     ২ রো  = আসল SEO (আইডিয়া 1, 2)
+     ৩৩ রো = এখনো পুরোনো বয়লারপ্লেট (টাইটেলে "INSANE" টেমপ্লেট)
+
+
+--------------------------------------------------------------------------------
+৫. বিস্তারিত — ৩নং: Video Generation (VEO 3.1 এক্সটেনশন)   [OK] কাজ করে
+--------------------------------------------------------------------------------
+এটা আসলেই কাজ করে। ২৫ আগস্টের লগে পুরো ফ্লো দেখা যাচ্ছে:
+
+  Chrome (Profile 5) চেক -> Google Flow ট্যাব -> এক্সটেনশন handshake ->
+  প্রম্পট ইনজেক্ট -> CONFIGURING -> REVIEWING -> SUBMITTING -> GENERATING ->
+  COMPLETED (100%) -> DOWNLOADING -> ফাইল ডিটেক্ট -> ফাইনাল পাথে সেভ
+
+  আইডিয়া #1: সময় ৪ মিনিট ৫৮ সেকেন্ড, ফাইল 12,047,792 বাইট
+  আইডিয়া #2: সময় প্রায় ৩৭ সেকেন্ড,   ফাইল 10,689,011 বাইট
+
+  দুইটা ফাইলই ডিস্কে আছে, যাচাই করেছি:
+    video/1Video10Sec/Generated_Rice_Titan_Harvester_10Sec.mp4
+    video/1Video10Sec/Generated_The_Paddy_Ocean_Vacuum_10Sec.mp4
+
+
+*** ডুপ্লিকেট ভিডিও বাগ — এটা ঠিক হয়ে গেছে, আমি যাচাই করেছি ***
+
+  আগের সমস্যা: ডাউনলোডার "Downloads ফোল্ডারের সবচেয়ে নতুন mp4" বেছে নিত।
+  তাই এক আইডিয়ার রেন্ডার আরেক আইডিয়ার নামে সেভ হয়ে যেত। ৩৪টা প্যাকেজের
+  ৯টা ডুপ্লিকেট ছিল।
+
+  এখন extension_bridge.py-তে ২টা ফিক্স আছে, আর দুইটাই সক্রিয় (যাচাই করেছি):
+
+    ১. এক্সটেনশন এই জবের আসল ফাইলনেম পাঠায় (/api/video_ready), সেটাই ব্যবহার
+       হয় — আর অনুমান করা হয় না।
+
+    ২. _hash_belongs_to_other_idea() — md5 মিলিয়ে দেখে ফাইলটা অন্য আইডিয়ার
+       ভিডিও কি না। মিলে গেলে reject করে।
+       ফাংশন ডিফাইন   : লাইন 515
+       আসলে কল হচ্ছে   : লাইন 382 আর লাইন 420
+       current_idea_id : লাইন 274-এ সেট হয়
+
+  md5 যাচাইয়ের ফলাফল (আজ পুরো প্রজেক্টে স্ক্যান করা):
+    মোট mp4: ২৪টা | আলাদা md5: ২১টা
+
+    output_packaged-এর ফাইল:
+      1.1.Level_10_Rice_Titan_Harvester.mp4    = 331e15a27e5dbda1af5f60197f8d3a2f
+      1.2.Level_10_The_Paddy_Ocean_Vacuum.mp4  = 48481bcd9cd46dc26cd68dff14e24713
+      -> দুইটা আলাদা, আর অন্য কোনো আইডিয়ার ফাইলের সাথেও মেলে না।  [OK]
+
+    যে ৩টা md5 একাধিক ফাইলে পাওয়া গেছে, তার ২টা আসলে সমস্যা নয় —
+    ওগুলো একই আইডিয়ার source আর packaged কপি (এটাই হওয়ার কথা):
+      331e15a2... = video/1Video10Sec/Generated_Rice_Titan_Harvester_10Sec.mp4
+                  = output_packaged/1.1.../1.1.Level_10_Rice_Titan_Harvester.mp4
+      48481bcd... = video/1Video10Sec/Generated_The_Paddy_Ocean_Vacuum_10Sec.mp4
+                  = output_packaged/1.2.../1.2.Level_10_The_Paddy_Ocean_Vacuum.mp4
+
+  !! শুধু একটা আসল ডুপ্লিকেট জোড়া এখনো পড়ে আছে (এটা নতুন পাইপলাইনের দোষ নয়,
+     ২৪ আগস্টের পুরোনো, ফিক্সের আগের):
+       video/1Video10Sec/Generated_Pollinator_Cathedral_10Sec.mp4
+       video/1Video10Sec/Generated_Sun_Harvesting_Palm_Engine_10Sec.mp4
+       দুইটার md5 একই = f8da774845af1890ed18834b49736e59
+
+  একটা preserved ব্যাকআপ রেন্ডারও আছে (আলাদা md5, ঠিক আছে):
+       output_packaged/_backup_badrender_20260825/
+         PRESERVED_real_rice_titan_render_1959.mp4
+       = c1bf8c7010fc69db889994a02bd06dcf, 12,616,920 বাইট
+
+
+  একটা জিনিস চোখে রাখো — আইডিয়া #2-এর রেন্ডার নিয়ে ছোট সন্দেহ:
+    লগে GENERATING মাত্র ~১৫ সেকেন্ড চলেছে, তারপর সোজা FINALIZING (100%)।
+    আর ফাইলটা FlowCraft_Outputs ফোল্ডার থেকে নয়, সোজা C:\Users\Irak\Downloads
+    থেকে তোলা হয়েছে (নাম: ca44db56-....mp4)।
+    md5 আলাদা তাই dup গার্ড পাস করেছে, কিন্তু সময়টা আসল Veo রেন্ডারের মতো
+    দেখাচ্ছে না। ভিডিওটা একবার চোখে দেখে নিশ্চিত হয়ে নাও।
+
+
+--------------------------------------------------------------------------------
+৬. বিস্তারিত — ৪নং: ফোল্ডারে ভিডিও থাকলে পরের প্রম্পটে switch   [OK] কাজ করে
+--------------------------------------------------------------------------------
+তুমি যেটা চেয়েছিলে সেটা কাজ করছে। আমি লাইভ চালিয়ে যাচাই করেছি।
+
+  যে ফাংশন এটা করে:
+    prompt_chain_engine.py, লাইন 857 : is_idea_packaged_and_completed(idea_id)
+    কল হয়                            : লাইন 984 -> if ...: continue
+
+  এটা ৩ ভাবে চেক করে (যেকোনো একটা মিললেই "শেষ" ধরে পরের আইডিয়ায় চলে যায়):
+    ১. ফোল্ডারে আসল mp4 (>10 KB) + metadata/prompt json আছে?   <-- তোমার চাওয়াটা
+    ২. generated_videos টেবিলে রো আছে আর ফাইলটা ডিস্কে টিকে আছে?
+    ৩. tasks টেবিলে status='success' আর output_folder_path আছে?
+
+  লাইভ টেস্টের ফলাফল (আজ চালানো):
+
+    আইডিয়া  packaged_and_completed   has_video   next_missing_stage
+    ------  ----------------------   ---------   ------------------
+      1     True   (skip করবে)       True        None
+      2     True   (skip করবে)       True        None
+      3     False  (এখানে কাজ হবে)   False       seo
+      4     False                    False       seo
+      5     False                    False       seo
+
+  নতুন ড্রাইভারেও এটা কাজ করে। --idea-id না দিয়ে চালালে:
+      python run_stage_pipeline.py --plan
+      -> নিজে থেকেই আইডিয়া #3 বেছে নিয়েছে (১ আর ২ বাদ দিয়ে)।   [OK]
+
+  অর্থাৎ দুই জায়গাতেই advance লজিক ঠিক আছে — পুরোনো পথ (prompt_chain_engine)
+  আর নতুন ড্রাইভার (run_stage_pipeline), দুইটাই।
+
+
+--------------------------------------------------------------------------------
+৭. একটা গুরুত্বপূর্ণ জিনিস — quarantine ফোল্ডার মুছে গেছে
+--------------------------------------------------------------------------------
+  archive/output_packaged_quarantine_20260825_1430/   -> আর নেই (GONE)
+  পুরো archive/ ফোল্ডারে mp4 সংখ্যা                   -> ০
+
+  ওই ৩৩টা পুরোনো mp4 (প্রায় ৩৩৫ MB) আর নেই। আমি মুছিনি — গত সেশনের পরে,
+  এই ২ দিনের গ্যাপে মুছে গেছে।
+
+  এর ফল: generated_videos টেবিলের ৩৪ রো-র মধ্যে ৩২টা এখন এমন ফাইল দেখাচ্ছে
+  যা ডিস্কে নেই।
+     ফাইল আছে : ২ রো   (আইডিয়া #1, #2)
+     ফাইল নেই : ৩২ রো  (আইডিয়া 3-10, 33-55, এবং 112)
+
+  [OK] ভালো দিক: গেটগুলো এটা নিয়ে মিথ্যা বলে না। has_video() ফাইলটা ডিস্কে
+       আছে কি না stat() করে দেখে, তাই ওই ৩২টা সঠিকভাবেই MISS দেখায়। কোনো
+       ভুয়া "শেষ" রিপোর্ট হচ্ছে না।
+
+  !!   খারাপ দিক: ওই ৩২ রো এখন অর্থহীন আবর্জনা। তুমি বললে পরিষ্কার করে দেব
+       (status বদলে বা রো মুছে)। আমি নিজে থেকে DB-তে হাত দিইনি।
+
+
+--------------------------------------------------------------------------------
+৮. DB-তে ছোট কিছু orphan রো (গুরুতর নয়, জানিয়ে রাখলাম)
+--------------------------------------------------------------------------------
+  প্রম্পট আছে কিন্তু SEO রো নেই     : আইডিয়া 23, 56
+  SEO রো আছে কিন্তু প্রম্পট নেই     : আইডিয়া 12, 112
+  ভিডিও রো আছে কিন্তু প্রম্পট নেই    : আইডিয়া 112
+
+  এগুলো এখন কোনো ক্ষতি করছে না। কিন্তু নতুন CSV-তে আইডিয়া 23 আর 56-এর
+  ৪০টা রো (২ x ২০) SEO_Status = MISSING দেখাবে — ওটা CSV-র ভুল নয়,
+  আসলেই DB-তে ওই দুইটার SEO রো নেই।
+
+
+--------------------------------------------------------------------------------
+৯. DB-র মোট হিসাব (আজ গোনা)
+--------------------------------------------------------------------------------
+  categories                  1        seo_runs                   2
+  elements                  100        seo_keyword_metrics      120
+  ideas                     132        seo_competitors           63
+  idea_elements             132        tasks                     13
+  prompts                   700        task_attempts             33
+  youtube_metadata           35        content_history            6
+  generated_videos           34        pipeline_stage_audits    160
+
+  prompts 700 = 35 আইডিয়া x 20 প্রম্পট
+  youtube_metadata 35 = 2 আসল + 33 বয়লারপ্লেট
+  generated_videos 34 = 2 জীবিত + 32 মৃত পাথ
+  seo_runs 2 = দুইটাতেই llm_used = 0
+
+
+--------------------------------------------------------------------------------
+১০. CSV ফাইল — যেটা তুমি চেয়েছিলে
+--------------------------------------------------------------------------------
+youtube_pipeline.db থেকে বের করা হয়েছে। দুইটা ফাইল:
+
+
+  *** ১. PromptDatabase/exports/master_prompts_from_db.csv     <-- এটাই মূল
+         (নতুন বানানো — তুমি যে "master prompt CSV" চেয়েছিলে)
+
+     ৭০০ রো x ২৩ কলাম, ১,৩৯১,১৩৪ বাইট (প্রায় ১.৩৯ MB)
+     প্রতি রো = একটা প্রম্পট। সাথে জোড়া আছে idea/element/category কনটেক্সট,
+     SEO অবস্থা, ভিডিও অবস্থা আর পরের বাকি স্টেজ। এক ফাইল দেখেই বোঝা যাবে
+     কোন প্রম্পট রেন্ডারের জন্য তৈরি আর কোনটা নয়।
+
+     ২৩টা কলাম:
+       Idea_ID, Idea_Title, Idea_Topic,
+       Element_ID, Element_Name, Category_Name,
+       Prompt_ID, Prompt_Level, Prompt_Level_Name, Prompt_Type,
+       Prompt_Generation_Type, Prompt_Aspect_Ratio, Prompt_Duration_Sec,
+       Prompt_Chars, Prompt_Text, Is_Level10_Video_Prompt,
+       SEO_Status, SEO_Title, SEO_Tag_Count,
+       Video_Exists, Video_Path, Package_Complete, Next_Missing_Stage
+
+     ভেতরের হিসাব (যাচাই করা):
+       Is_Level10_Video_Prompt = YES   :  35 রো   (NO: 665)
+       SEO_Status = REAL               :  40 রো   (আইডিয়া 1, 2)
+       SEO_Status = BOILERPLATE        : 620 রো   (31 আইডিয়া)
+       SEO_Status = MISSING            :  40 রো   (আইডিয়া 23, 56)
+       Video_Exists = YES              :  40 রো   (NO: 660)
+       Package_Complete = YES          :  40 রো   (NO: 660)
+       Next_Missing_Stage = COMPLETE   :  40 রো
+       Next_Missing_Stage = seo        : 660 রো
+
+     আবার বানাতে চাইলে:
+       cd PromptDatabase
+       .venv\Scripts\python.exe generate_master_prompt_csv.py
+
+
+      ২. PromptDatabase/exports/unified_master_pipeline.csv
+         (পুরোনো ফাইল, আজ রিফ্রেশ করা)
+
+     ৮৮৪ রো x ৩৫ কলাম, ৩,০১৭,২০৫ বাইট (প্রায় ৩.০ MB)
+     এটা task-কেন্দ্রিক — tasks/attempts/lifecycle সহ।
+
+     ব্যাকআপ রাখা হয়েছে (ওভাররাইট করার আগে):
+       exports/unified_master_pipeline.csv.bak_20260827
+
+     Pipeline_Lifecycle_State-এর হিসাব:
+       COMPLETED_AND_PACKAGED         :  40 রো   (আইডিয়া 1, 2)
+       READY_FOR_VIDEO_PACKAGING      : 660 রো
+       WAITING_FOR_PROMPT_ESCALATION  :  97 রো
+       WAITING_FOR_ELEMENT_IDEAS      :  87 রো
+     Output_Video_File_Exists : YES 40 / NO 844
+
+
+  দুইটা এক্সপোর্ট স্ক্রিপ্টই read-only — DB-তে কিছু লেখে না, ব্রাউজার খোলে না।
+
+
+--------------------------------------------------------------------------------
+১১. আমি আজ কী করেছি আর কী করিনি
+--------------------------------------------------------------------------------
+  করেছি:
+    • পুরো পাইপলাইন পড়া আর যাচাই (সব read-only)
+    • প্রজেক্টের সব mp4-র md5 বের করে ডুপ্লিকেট খোঁজা (২৪টা ফাইল)
+    • advance লজিক লাইভ টেস্ট (আইডিয়া 1-5) + run_stage_pipeline --plan
+    • CloakBrowser-এর দুইটা পথের প্রোফাইল আর কুকি যাচাই
+    • unified_master_pipeline.csv রিফ্রেশ (আগে ব্যাকআপ নিয়ে)
+    • নতুন generate_master_prompt_csv.py + master_prompts_from_db.csv বানানো
+    • _verify_report_numbers.py — এই রিপোর্টের প্রতিটা সংখ্যা যাচাই করার
+      read-only স্ক্রিপ্ট (রেখে দিয়েছি, তুমি নিজে চালিয়ে মিলিয়ে দেখতে পারবে)
+    • এই রিপোর্ট
+
+  করিনি (ইচ্ছে করেই — তোমার অনুমতি লাগবে):
+    • prompt_chain_engine.py-র persistent-profile বাগ ঠিক করা (পুরোনো লজিক)
+    • ৩২টা মৃত generated_videos রো পরিষ্কার করা (DB-তে লেখা লাগবে)
+    • কোনো নতুন রেন্ডার বা SEO জেনারেশন চালানো
+    • git commit (গত সেশনের ফাইলগুলো এখনো আন-কমিটেড)
+
+
+--------------------------------------------------------------------------------
+১২. পরের ধাপ — তুমি সিদ্ধান্ত দাও
+--------------------------------------------------------------------------------
+
+  অগ্রাধিকার ১ — ৯৭টা আইডিয়া খুলতে হলে prompt বাগ ঠিক করতে হবে
+      prompt_chain_engine.py লাইন 71-কে persistent প্রোফাইল দিতে হবে
+      (browser_llm.py-র মতো), তারপর একবার হাতে ChatGPT লগইন।
+      এটা ছাড়া escalation স্টেজ কোনোদিন এগোবে না।
+      -> "বাগটা ঠিক করো" বললেই করে দেব (.bak ব্যাকআপ নিয়ে, পুরোনো লজিক
+         wrap করে, env flag দিয়ে — পুরোনো behavior অক্ষত থাকবে)।
+
+  অগ্রাধিকার ২ — SEO-র LLM চালু করতে একবার লগইন
+      seo_engine/_chrome_profile_seo প্রোফাইলে একবার ChatGPT লগইন করলেই
+      llm_used=1 হবে, টাইটেল/ডেসক্রিপশন LLM-লেখা হবে।
+      (কোড ঠিক আছে — শুধু লগইনটাই বাকি)
+
+  অগ্রাধিকার ৩ — বাকি ৩৩টার SEO একবারে (লগইন ছাড়াও চলবে)
+      cd PromptDatabase
+      .venv\Scripts\python.exe -m seo_engine.cli backfill --apply
+      হারভেস্ট আসল ডেটা দিয়েই হবে, শুধু LLM পলিশ থাকবে না।
+
+  অগ্রাধিকার ৪ — আইডিয়া #3 এগিয়ে নেওয়া (পাথ প্রমাণিত)
+      cd PromptDatabase
+      .venv\Scripts\python.exe run_stage_pipeline.py --chain --idea-id 3 --apply
+      YouTube-এ কিছু আপলোড হবে না — এই ড্রাইভার generate_single_video() ডাকে,
+      run_single_cycle() নয় (ওটার step 4-এ upload আছে)।
+
+  অগ্রাধিকার ৫ — পরিষ্কার করা
+      • ৩২টা মৃত generated_videos রো
+      • ২টা পুরোনো ডুপ্লিকেট mp4 (Pollinator_Cathedral / Sun_Harvesting_Palm)
+      • orphan রো (আইডিয়া 12, 23, 56, 112)
+      • git commit
+
+
+================================================================================
+রিপোর্ট শেষ — ২৭ আগস্ট ২০২৬
+================================================================================

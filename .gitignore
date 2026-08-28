@@ -30,6 +30,8 @@ env/
 .ds_store
 Thumbs.db
 *.tmp
+_chrome_profile*/
+**/_chrome_profile*/
 
 # Ignore Large Model Cache Weights
 .cache/

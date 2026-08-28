@@ -75,79 +75,6 @@ def sync_and_get_youtube_metadata_from_sqlite(idea: Idea, elem_id: int, vid_p: P
     """
     Ensures YouTube SEO metadata is saved and tracked directly in SQLite `youtube_metadata` table.
     """
-    # >>> REAL-SEO WRAP BEGIN (additive, default OFF -- set PACKAGER_REAL_SEO=1) <<<
-    # WHY: the ORIGINAL body below has two defects that together produced 35/35
-    # boilerplate youtube_metadata rows:
-    #   1. `if yt_rec: return yt_rec` accepts ANY existing row, so once a boilerplate
-    #      row was written it was returned forever and real SEO could never replace it.
-    #   2. fetch_youtube_metadata_via_playwright() opens a SEPARATE logged-out browser,
-    #      so it always fell into its own `except` and the `.get(...)` defaults below
-    #      supplied the hardcoded "INSANE ..." title with an EMPTY description.
-    #
-    # This wrap routes through seo_engine (keyless: YouTube Suggest + yt-dlp + the
-    # logged-in CloakBrowser) and treats boilerplate as MISSING, matching
-    # stage_gates.has_seo(). seo_engine.pipeline._persist() takes its own DB backup,
-    # replaces only fallback rows unless forced, and logs prior values to
-    # content_history, so the overwrite stays auditable and reversible.
-    #
-    # The ORIGINAL body is left completely intact below and is still the fallback:
-    # any failure here falls through to it, and with the env var unset this whole
-    # block is skipped and behaviour is byte-for-byte unchanged.
-    if os.getenv("PACKAGER_REAL_SEO", "0") == "1":
-        try:
-            from seo_engine import validators as _seo_validators
-            from seo_engine import pipeline as _seo_pipeline
-
-            _existing = session.exec(
-                select(YouTubeMetadata).where(YouTubeMetadata.idea_id == idea.id)
-            ).first()
-
-            _is_fallback = True
-            if _existing:
-                try:
-                    _tags = json.loads(_existing.tags) if _existing.tags else []
-                except Exception:
-                    _tags = [t.strip() for t in (_existing.tags or "").split(",") if t.strip()]
-                _is_fallback = _seo_validators.is_legacy_fallback(
-                    _existing.title, _existing.seo_description, _tags
-                )
-                if not _is_fallback and (_existing.seo_description or "").strip():
-                    print(f"[Real SEO] Idea #{idea.id} already holds real SEO -> skip (stage gate satisfied).")
-                    return _existing
-                print(f"[Real SEO] Idea #{idea.id} row is hardcoded boilerplate -> regenerating via seo_engine...")
-            else:
-                print(f"[Real SEO] Idea #{idea.id} has no metadata row -> generating via seo_engine...")
-
-            _res = _seo_pipeline.run_for_idea(
-                idea.id, apply=True, force=False, use_browser=not skip_browser
-            )
-            _action = (_res.get("db") or {}).get("action", "?")
-            print(f"[Real SEO] seo_engine action = {_action}")
-
-            # run_for_idea() commits in its OWN session, so this session still holds the
-            # pre-change object. Expire it so the re-read returns the new values.
-            session.expire_all()
-            _fresh = session.exec(
-                select(YouTubeMetadata).where(YouTubeMetadata.idea_id == idea.id)
-            ).first()
-
-            if _fresh and (_fresh.seo_description or "").strip():
-                # seo_engine's INSERT path does not populate these two audit columns,
-                # which the original body always set. Preserve that data contract.
-                if not (_fresh.video_prompt_used or "").strip() and vid_p:
-                    _fresh.video_prompt_used = vid_p.prompt_text or ""
-                if not (_fresh.image_prompt_used or "").strip() and img_p:
-                    _fresh.image_prompt_used = img_p.prompt_text or ""
-                session.add(_fresh)
-                session.commit()
-                session.refresh(_fresh)
-                return _fresh
-
-            print(f"[Real SEO] seo_engine produced no usable row -> falling through to original path.")
-        except Exception as _seo_err:
-            print(f"[Real SEO] skipped ({type(_seo_err).__name__}: {_seo_err}) -> using original path.")
-    # >>> REAL-SEO WRAP END <<<
-
     yt_rec = session.exec(select(YouTubeMetadata).where(YouTubeMetadata.idea_id == idea.id)).first()
     if yt_rec:
         return yt_rec
@@ -216,14 +143,10 @@ def export_package_files_from_sqlite(idea: Idea, elem_id: int, idea_idx: int, vi
         except Exception:
             tags_list = [t.strip() for t in yt_rec.tags.split(",") if t.strip()]
 
-        from seo_engine.validators import extract_hashtags
-        hashtags_list = extract_hashtags(yt_rec.seo_description)
-
         yt_meta_data = {
             "title": yt_rec.title,
             "seo_description": yt_rec.seo_description,
             "tags": tags_list,
-            "hashtags": hashtags_list,
             "category": yt_rec.category,
             "default_language": yt_rec.default_language,
             "source": "sqlite_youtube_metadata_table",

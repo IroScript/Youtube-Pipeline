@@ -1,27 +1,27 @@
 {
-  "category": "Element Palm Tree - Level 10",
+  "category": "Element Paddy Harvesting - Level 10",
   "all_5_ideas": [
     {
-      "id": 56,
-      "title": "Chrono-Palm Growth Engine",
-      "concept": "Level 10 (Level 10 - ALIEN LEVEL / MAXIMUM) Impossible Colossal Machine with 5-Step HUD Popups",
+      "id": 2,
+      "title": "The Paddy Ocean Vacuum",
+      "concept": "Level 10 (Level 10 - Alien Level / Maximum) Impossible Colossal Machine with 5-Step HUD Popups",
       "level": 10,
-      "level_name": "Level 10 - ALIEN LEVEL / MAXIMUM",
+      "level_name": "Level 10 - Alien Level / Maximum",
       "style": "Alien Level Maximum Escalation"
     }
   ],
   "selected_idea_number": 1,
   "selected_idea": {
-    "id": 56,
-    "title": "Chrono-Palm Growth Engine",
-    "concept": "Level 10 (Level 10 - ALIEN LEVEL / MAXIMUM) Impossible Colossal Machine with 5-Step HUD Popups",
+    "id": 2,
+    "title": "The Paddy Ocean Vacuum",
+    "concept": "Level 10 (Level 10 - Alien Level / Maximum) Impossible Colossal Machine with 5-Step HUD Popups",
     "level": 10,
-    "level_name": "Level 10 - ALIEN LEVEL / MAXIMUM",
+    "level_name": "Level 10 - Alien Level / Maximum",
     "style": "Alien Level Maximum Escalation"
   },
   "target_duration": 8,
   "duration": "8s",
   "aspect_ratio": "9:16",
   "model": "Veo 3.1 Lower Priority",
-  "full_combined_prompt": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] \u2014 HUD Popup Text: \"STEP 1: AWAKEN THE TITAN\" \u2014 The alien agricultural intelligence activates, illuminating countless sensor halos and planetary-scale harvesting systems across Chrono-Palm Growth Engine. Second 2 [0:01-0:02] \u2014 HUD Popup Text: \"STEP 2: HARVEST REALITY\" \u2014 Innumerable colossal arms reach through folded space and gather Palm Tree from multiple worlds simultaneously. Second 3 [0:02-0:03] \u2014 HUD Popup Text: \"STEP 3: TRANSDIMENSIONAL THRESH\" \u2014 Entire crop streams enter wormholes and emerge inside the titan's impossible belly factory. Second 4 [0:03-0:04] \u2014 HUD Popup Text: \"STEP 4: QUANTUM PURIFICATION\" \u2014 Individual Palm Tree particles float through miniature artificial suns, gravitational separators, magnetic fields, and alien drying reactors. Second 5 [0:04-0:05] \u2014 HUD Popup Text: \"STEP 5: STORE THE HARVEST UNIVERSE\" \u2014 Finished yield cascades into an infinite-dimensional storage chamber containing vast glowing reserves of Palm Tree. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single Palm Tree grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds."
+  "full_combined_prompt": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Second 1 [0:00-0:01] \u2014 HUD Popup Text: \"STEP 1: ALIEN SYSTEM AWAKENING\" \u2014 Every sensor crown across the impossible titan activates simultaneously, generating concentric multidimensional-looking scan halos while plasma conduits ignite, autonomous drones emerge, and magnetic-gravity suspension locks the colossal machine into a silent hover above the planetary rice ocean. Second 2 [0:01-0:02] \u2014 HUD Popup Text: \"STEP 2: OCEAN HARVEST DEPLOYMENT\" \u2014 Innumerable harvesting arms unfold in synchronized fractal patterns, their adaptive vacuum claws gently lifting mature rice panicles from millions of plants while autonomous drones regulate airflow, position, maturity, and particle trajectories. Second 3 [0:02-0:03] \u2014 HUD Popup Text: \"STEP 3: INFINITE BELLY FACTORY\" \u2014 Harvested streams race through enormous transparent tubes into the titan's interior, entering colossal threshing cylinders, cyclone galaxies, recursive separators, and nested processing chambers whose synchronized motion creates an alien industrial rhythm. Second 4 [0:03-0:04] \u2014 HUD Popup Text: \"STEP 4: QUANTUM MATTER PURIFICATION\" \u2014 Individual grains and microscopic particles become visible within electromagnetic fields as gravity separation, cyclone vortices, quantum purification, and radiant drying reactors isolate pristine grain with impossible precision while plasma conduits pulse around the machinery. Second 5 [0:04-0:05] \u2014 HUD Popup Text: \"STEP 5: COSMIC GRAIN RESERVOIRS\" \u2014 Infinite-looking golden cascades descend into vast glowing storage vaults, branching through luminous reservoirs and autonomous distribution arteries toward mobile silos that stretch across the planetary agricultural landscape. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single harvested particle/grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds."
 }

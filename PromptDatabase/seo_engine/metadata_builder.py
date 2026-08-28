@@ -106,6 +106,7 @@ HARD CONSTRAINTS (a violation makes the upload fail):
     combined length under {config.YT_TAGS_TOTAL_CHARS_MAX} characters.
     Order them most-specific -> most-generic. Prefer the REAL keywords above.
   - "hook": one spoken/on-screen opening line, under 90 characters.
+  - "pinned_comment": short engaging pinned comment / discussion question for viewers (under 120 characters) to drive maximum comments & engagement.
   - "thumbnail_prompt": a concrete image-generation prompt for a scroll-stopping thumbnail.
   - "target_keyword": the single best keyword to rank for, chosen from the real list.
 
@@ -116,6 +117,7 @@ Return ONLY this raw JSON object, no markdown fence, no commentary:
   "tags": ["...", "..."],
   "hashtags": ["#...", "#...", "#...", "#...", "#..."],
   "hook": "...",
+  "pinned_comment": "...",
   "thumbnail_prompt": "...",
   "target_keyword": "...",
   "category": "{config.YT_DEFAULT_CATEGORY}",
@@ -174,6 +176,7 @@ def build_fallback_package(harvest: HarvestResult, report: OpportunityReport) ->
         "tags": tags,
         "hashtags": ["#Shorts", "#AI", "#ImpossibleEngineering", "#Megastructure", "#SciFi"],
         "hook": f"What if {title_base} was real?",
+        "pinned_comment": f"Would this {title_base} actually work in real life? Tell us in the comments! 👇",
         "thumbnail_prompt": (
             f"Ultra-detailed cinematic render of {title_base}, colossal scale, "
             "dramatic rim lighting, awe-struck human silhouette for scale, 9:16 vertical"
