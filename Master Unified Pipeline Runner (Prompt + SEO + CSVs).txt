@@ -1,0 +1,98 @@
+Starting Full Auto Pipeline Fillup...
+
+============================================================================
+      🚀 MASTER UNIFIED PIPELINE FILLUP ENGINE (PROMPT + SEO + CSVS)
+============================================================================
+  • Total Ideas in DB:    132
+  • Escalation Ready:     37/132
+  • Real SEO Ready:       12/132
+  • Mode:                 Full Prompt + SEO Auto-Fill
+  • Browser:              CloakBrowser (Live LLM)
+============================================================================
+
+[Auto-Fill Mode] Found 121 ideas pending Prompts or SEO.
+
+>>> [Item 1/121] Processing Idea #10...
+
+============================================================================
+🎯 PROCESSING IDEA #10: 'The Infinite Rice Factory'
+============================================================================
+[Step 1/2: Prompts] ✅ Escalation already complete (20/20 prompts ready).
+
+[Step 2/2: SEO] SEO metadata missing or boilerplate (hardcoded boilerplate — needs real SEO). Generating...
+========================================================================
+[SEO] Idea #10: The Infinite Rice Factory
+========================================================================
+[backup] DB backed up -> C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\output_packaged\_backup_seo\youtube_pipeline.db.bak_20260828_182000
+[harvest] Idea #10: seeds=['Paddy Harvesting', 'The Infinite Rice Factory', 'Paddy Harvesting machine']
+[harvest] Idea #10: 101 keywords, 28 competitors, trends=no
+[score] opportunity=90/100 (demand=70 novelty=100 saturation=0) exact=0 close=0 -> PUBLISH
+[BrowserLLM] Launching CloakBrowser stealth window (chatgpt)...
+Update available: cloakbrowser 0.5.8 → 0.5.9. Run: pip install --upgrade cloakbrowser
+[BrowserLLM] Backing off 4.1s before retry...
+[BrowserLLM] Rate-limit pause 12.2s...
+[BrowserLLM] Backing off 4.3s before retry...
+[BrowserLLM] Rate-limit pause 4.4s...
+[BrowserLLM] Backing off 10.8s before retry...
+[BrowserLLM] All 3 attempts failed: empty response
+[metadata] browser LLM returned no usable JSON; using data-grounded fallback.
+[package] source=deterministic_fallback_keyword_grounded title=55ch tags=15 (400ch) upload_ready=True
+[package] TITLE: The Infinite Rice Factory — Impossible Paddy Harvesting
+[package] TAGS : The Infinite Rice Factory, rice paddy harvesting machine, paddy harvesting in china, paddy harvesting in japan, rice harvesting and processing, harvesting rice at home, paddy harvesting by hand, rice harvesting by hand
+[DB] youtube_metadata action = replaced_fallback
+  ✅ SEO Title : The Infinite Rice Factory — Impossible Paddy Harvesting
+  ✅ SEO Tags  : 15 tags
+  ✅ Pinned Com: Would this The Infinite Rice Factory actually work in real life? Tell us in the ...
+  ✅ Source    : deterministic_fallback_keyword_grounded
+  ✅ DB Action : replaced_fallback
+
+>>> [Item 2/121] Processing Idea #13...
+
+============================================================================
+🎯 PROCESSING IDEA #13: 'The Wheat Ocean Harvester'
+============================================================================
+
+[Step 1/2: Prompts] Escalation missing (0/20 filled). Generating...
+
+[Hierarchy Step 3 -> 4] Generating 10-Level Escalation Prompts for Idea #13: 'The Wheat Ocean Harvester' (Topic: Wheat Field)...
+  -> [uniqueness] creative direction applied: tower/lowangle/silhouette/harsh_noon/5plus3
+
+[CloakBrowser] Launching stealth anti-detect Chrome browser window (Full Screen)...
+[CloakBrowser] Persistent profile: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\_chrome_profile_prompts
+[CloakBrowser] Navigating to https://chatgpt.com...
+[CloakBrowser] Clicked Send button successfully!
+[CloakBrowser] Waiting for ChatGPT response to stream completely (max 300s)...
+[CloakBrowser] Fallback Send click at 15s...
+[CloakBrowser Warning] Stream did not start within 30s. Exiting for immediate retry.
+[CloakBrowser] Browser window closed cleanly.
+[Error] ChatGPT did not return complete 10 levels for Idea #13 ('The Wheat Ocean Harvester'). Keeping idea unfilled for live LLM generation.
+  ✅ Saved 0 prompts into SQLite `prompts` table.
+[Step 2/2: SEO] ✅ Real SEO metadata already present in SQLite.
+
+>>> [Item 3/121] Processing Idea #14...
+
+============================================================================
+🎯 PROCESSING IDEA #14: 'Titan Sunwheel Irrigator'
+============================================================================
+
+[Step 1/2: Prompts] Escalation missing (0/20 filled). Generating...
+
+[Hierarchy Step 3 -> 4] Generating 10-Level Escalation Prompts for Idea #14: 'Titan Sunwheel Irrigator' (Topic: Wheat Field)...
+  -> [uniqueness] creative direction applied: tower/spiral/product_out/harsh_noon/4plus4
+
+[CloakBrowser] Launching stealth anti-detect Chrome browser window (Full Screen)...
+[CloakBrowser] Persistent profile: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\_chrome_profile_prompts
+[CloakBrowser] Navigating to https://chatgpt.com...
+[CloakBrowser] Clicked Send button successfully!
+[CloakBrowser] Waiting for ChatGPT response to stream completely (max 300s)...
+[CloakBrowser] Fallback Send click at 15s...
+[CloakBrowser Warning] Stream did not start within 30s. Exiting for immediate retry.
+[CloakBrowser] Browser window closed cleanly.
+[Error] ChatGPT did not return complete 10 levels for Idea #14 ('Titan Sunwheel Irrigator'). Keeping idea unfilled for live LLM generation.
+  ✅ Saved 0 prompts into SQLite `prompts` table.
+
+[Step 2/2: SEO] SEO metadata missing or boilerplate (no youtube_metadata row). Generating...
+========================================================================
+[SEO] Idea #14: Titan Sunwheel Irrigator
+========================================================================
+[harvest] Idea #14: seeds=['Titan Sunwheel Irrigator', 'Wheat Field', 'Wheat Field machine']

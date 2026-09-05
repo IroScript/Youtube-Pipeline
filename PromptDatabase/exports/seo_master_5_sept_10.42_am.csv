@@ -1,0 +1,614 @@
+﻿Idea_ID,Idea_Title,Idea_Topic,Idea_Status,SEO_Source,SEO_Title,SEO_Title_Length,SEO_Description,SEO_Description_Length,SEO_Tags,SEO_Tags_Length,SEO_Tag_Count,SEO_Pinned_Comment,SEO_Category,SEO_Metadata_Status,SEO_Run_ID,SEO_Provider,SEO_Mode,SEO_Demand_Score,SEO_Novelty_Score,SEO_Saturation_Score,SEO_Opportunity_Score,SEO_Verdict,SEO_Keyword_Count,SEO_Competitor_Count,SEO_Exact_Competitors,SEO_Close_Competitors,SEO_Strong_Competitors_Found,SEO_LLM_Used,SEO_Upload_Ready,SEO_Warnings,SEO_Run_At,SEO_Top_Keywords,SEO_Prompt_Sent,Video_Prompt_Used,Video_File_Path,Package_Folder_Path,SEO_Updated_At
+1,Rice Titan Harvester,Paddy Harvesting,ready_for_upload,REAL_HARVEST,Rice Paddy Harvesting Machine: This Is Seriously Fast 🌾,55,"What happens when a Rice Titan Harvester takes on a paddy field? Watch this cinematic 8-second harvest transformation unfold at incredible speed.
+
+00:00 Harvester enters the paddy field
+00:03 Rice Titan starts harvesting
+00:06 Rapid paddy harvesting action
+00:08 Final cinematic shot
+
+This AI-generated short showcases modern paddy harvesting machines in agriculture, inspired by real search interest around rice harvesting and processing. The Rice Titan Harvester is presented as a cinematic concept for viewers fascinated by agricultural machinery and rice farming.
+
+Explore the world of paddy harvesting in China, paddy harvesting in Japan, paddy harvesters in Assam and Andhra Pradesh, plus traditional paddy harvesting by hand. Which harvesting method would you choose? #PaddyHarvesting #RiceHarvesting #Harvester #Agriculture #Farming",840,"[""rice paddy harvesting machine"", ""paddy harvesting machines in agriculture"", ""paddy harvesting machine in japan"", ""paddy harvesting in japan"", ""paddy harvesting in china"", ""rice harvesting and processing"", ""paddy harvester in assam"", ""paddy harvester in andhra pradesh"", ""paddy harvesting by hand"", ""rice harvesting by hand"", ""paddy harvesting"", ""rice harvesting"", ""rice harvester"", ""paddy harvester"", ""agriculture""]",417,15,Would you choose a machine harvester or harvesting by hand? 🌾,Science & Technology,ready,31,chatgpt,apply,70.32,100.0,0.0,89.61,publish,101,26,0,0,16,1,1,[],2026-09-04 12:07:17.039283,rice paddy harvesting machine | paddy harvesting in china | paddy harvesting in japan | rice harvesting and processing | harvesting rice at home | paddy harvester in assam | paddy harvesting by hand | rice harvesting by hand | paddy harvesting machines in agriculture | paddy harvesting machine in japan | paddy harvester in andhra pradesh | paddy harvesting by brush cutter | paddy harvesting in west bengal | paddy harvesting machine in india | paddy harvesting machine in manipur,"Viral YouTube Growth & SEO Strategist
+Generate viral, curiosity-driven YouTube Title (<80 chars + 1 emoji), 3-paragraph SEO description with timestamps and 5 hashtags, and 10-15 search tags in JSON.
+1. High-CTR title with emoji. 2. 3-paragraph description with timestamps. 3. 5 viral hashtags. 4. Strict JSON format.
+
+=== REAL DATA (already collected — do NOT invent numbers, use these) ===
+VIDEO SUBJECT : Rice Titan Harvester
+TOPIC/ELEMENT : Paddy Harvesting
+FORMAT        : 8-second vertical (9:16) AI-generated cinematic short
+
+MEASURED SEO SIGNALS (computed from YouTube autocomplete + live search results):
+  demand score      : 70/100
+  novelty score     : 100/100
+  saturation score  : 0/100  (higher = more crowded)
+  opportunity score : 90/100 -> verdict: publish
+  competitor mix    : 0 exact, 0 close, 4 substitute
+
+REAL KEYWORDS people actually search (from YouTube autocomplete):
+  - rice paddy harvesting machine
+  - paddy harvesting in china
+  - paddy harvesting in japan
+  - rice harvesting and processing
+  - harvesting rice at home
+  - paddy harvester in assam
+  - paddy harvesting by hand
+  - rice harvesting by hand
+  - paddy harvesting machines in agriculture
+  - paddy harvesting machine in japan
+  - paddy harvester in andhra pradesh
+  - paddy harvesting by brush cutter
+
+REAL COMPETING VIDEOS currently ranking:
+  - [SUBSTITUTE] Bangladeshi Farmers Harvesting Paddy 🌾 |Modern Rice Farming with Harvester (205 views, Stay with Maruf)
+  - [SUBSTITUTE] DO-IT – Farmer harvesting organic Basmati rice in India (38,854 views, DO IT Organic)
+  - [SUBSTITUTE] How to Draw a Combine Harvester (7,937 views, Mark Easy Drawings )
+  - [SUBSTITUTE] How to draw HARVESTER / drawing Combine Harvester step by step (2,159 views, 17 Easy Drawing)
+
+=== YOUR TASK ===
+Produce an upload-ready YouTube SEO package that BEATS the competitors above by
+differentiating on angle, and that naturally uses the real keywords above.
+
+HARD CONSTRAINTS (a violation makes the upload fail):
+  - ""title"": <= 70 characters strongly preferred, 100 absolute max.
+    High-CTR, curiosity-driven, front-load the strongest real keyword. Max 1 emoji.
+  - ""seo_description"": 3 paragraphs. Paragraph 1 hooks in the first 120 characters
+    (that is all YouTube shows before ""more""). Include a timestamp block for an
+    8-second video and end with exactly 5 hashtags.
+  - ""tags"": 15 or fewer, each under 60 chars,
+    combined length under 460 characters.
+    Order them most-specific -> most-generic. Prefer the REAL keywords above.
+  - ""hook"": one spoken/on-screen opening line, under 90 characters.
+  - ""pinned_comment"": short engaging pinned comment / discussion question for viewers (under 120 characters) to drive maximum comments & engagement.
+  - ""thumbnail_prompt"": a concrete image-generation prompt for a scroll-stopping thumbnail.
+  - ""target_keyword"": the single best keyword to rank for, chosen from the real list.
+
+Return ONLY this raw JSON object, no markdown fence, no commentary:
+{
+  ""title"": ""..."",
+  ""seo_description"": ""..."",
+  ""tags"": [""..."", ""...""],
+  ""hashtags"": [""#..."", ""#..."", ""#..."", ""#..."", ""#...""],
+  ""hook"": ""..."",
+  ""pinned_comment"": ""..."",
+  ""thumbnail_prompt"": ""..."",
+  ""target_keyword"": ""..."",
+  ""category"": ""Science & Technology"",
+  ""default_language"": ""en""
+}","Use IMAGE 10 as the first frame and reference image. Exactly 8 seconds, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+
+Second 1 [0:00-0:01] — HUD Popup Text: ""STEP 1: AWAKEN THE TITAN"" — The alien agricultural intelligence activates, illuminating countless sensor halos and planetary-scale harvesting systems.
+
+Second 2 [0:01-0:02] — HUD Popup Text: ""STEP 2: HARVEST REALITY"" — Innumerable colossal arms reach through folded space and gather rice from multiple worlds simultaneously.
+
+Second 3 [0:02-0:03] — HUD Popup Text: ""STEP 3: TRANSDIMENSIONAL THRESH"" — Entire crop streams enter wormholes and emerge inside the titan's impossible belly factory.
+
+Second 4 [0:03-0:04] — HUD Popup Text: ""STEP 4: QUANTUM PURIFICATION"" — Individual grains float through miniature artificial suns, gravitational separators, magnetic fields, and alien drying reactors.
+
+Second 5 [0:04-0:05] — HUD Popup Text: ""STEP 5: STORE THE HARVEST UNIVERSE"" — Finished grains cascade into an infinite-dimensional storage chamber containing vast glowing reserves of rice.
+
+Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single rice grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\output_packaged\1.1.Level_10_Rice_Titan_Harvester\1.1.Level_10_Rice_Titan_Harvester.mp4,C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\output_packaged\1.1.Level_10_Rice_Titan_Harvester,2026-09-04 12:07:17.173692
+2,The Paddy Ocean Vacuum,Paddy Harvesting,ready_for_upload,REAL_HARVEST,The Paddy Ocean Vacuum: A Floating Paddy Harvesting Machine,59,"Imagine a paddy harvesting machine that floats above flooded rice fields instead of touching the soil. The Paddy Ocean Vacuum is a kilometer-long futuristic megamachine that selectively harvests ripe rice using soft vacuum intakes, precision sensors, and hovering technology.
+
+In this cinematic 8-second concept, hundreds of harvesting assemblies glide across the paddy fields, gently drawing mature panicles into transparent grain tubes before processing and storage inside the colossal floating platform. Designed as an extreme vision of future agricultural engineering, the machine combines massive scale with selective paddy harvesting.
+
+A photorealistic AI-generated vision for viewers fascinated by paddy harvesting machines, futuristic agriculture, colossal engineering, and impossible megastructures.
+
+#PaddyHarvesting #AgriculturalEngineering #FutureTechnology",869,"[""paddy harvesting machine"", ""paddy harvesting"", ""paddy crop harvesting"", ""harvesting paddy fields"", ""paddy harvesting videos"", ""paddy harvesting time"", ""future agriculture"", ""futuristic farming"", ""agricultural machine"", ""rice harvesting machine"", ""rice harvesting"", ""futuristic agricultural machinery"", ""colossal machine"", ""future farming"", ""AI generated video""]",363,15,,Science & Technology,ready,32,chatgpt,apply,73.0,100.0,0.0,90.55,publish,101,28,0,0,19,1,1,[],2026-09-05 04:41:00.165690,paddy harvesting in china | paddy harvesting in japan | paddy harvesting by hand | paddy harvesting drawing | paddy harvesting time | paddy harvesting videos | paddy harvesting tractor | after paddy harvesting | paddy crop harvesting | paddy harvesting drone | harvesting paddy fields | paddy harvesting machine | paddy harvesting machines in agriculture | paddy harvesting machine in japan | paddy harvesting by brush cutter,"You are the final YouTube SEO Packaging Engine.
+
+Your job is NOT simply to write a catchy title.
+
+Your job is to transform the supplied video concept + real YouTube search/competition evidence into the strongest possible YouTube metadata package.
+
+You must use the supplied evidence first, reason from it, and then generate the final metadata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CORE OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize the metadata for the combined objective:
+
+SEARCH DISCOVERABILITY
+* CLICK-THROUGH POTENTIAL
+* TOPIC RELEVANCE
+* VIEWER INTENT MATCH
+* COMPETITOR DIFFERENTIATION
+* LONG-TERM SEARCH VALUE
+− MISLEADING/CLICKBAIT RISK
+
+Do NOT optimize for CTR alone.
+
+A title that gets clicks but poorly matches the actual video is inferior to a title that creates both strong curiosity and accurate expectation.
+
+Never invent search-volume numbers, rankings, competitor facts, keywords, or SEO evidence.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. INPUT VIDEO CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IDEA_ID:
+2
+
+VIDEO_TITLE / CONCEPT:
+The Paddy Ocean Vacuum
+
+TOPIC:
+Paddy Harvesting
+
+FORMAT:
+8-second vertical (9:16) AI-generated cinematic short
+
+VIDEO_DESCRIPTION / STORY:
+The Paddy Ocean Vacuum is a kilometer-long floating megamachine designed for harvesting without conventional contact with the soil. Its central chassis resembles an enormous aerodynamic bridge suspended several meters above flooded rice fields. A sequence of buoyant armored modules forms the spine, joined by flexible superconducting articulation rings that allow the machine to bend across irregular terrain. Beneath the hull, hundreds of stabilization nodes generate magnetic suspension fields, while quantum-gravity manipulators continuously adjust the machine's effective weight. The result is a hovering agricultural platform that can glide over embankments, irrigation channels, and flooded paddies without producing destructive ground pressure.
+
+Along its underside hangs a forest of harvesting assemblies. Each unit contains optical scanners, lidar, moisture sensors, and a soft vacuum mouth surrounded by precision airflow vanes. The system first identifies mature panicles by color, spectral signature, and grain density. A controlled low-pressure field gently bends the rice heads toward the intake, while micro-vortexes detach ripe panicles without uprooting the plants. Unripe grain and living stalks remain below, allowing the machine to make repeated selective passes. Harvested material enters transparent reinforced tubes stretching along the machine's spine. Pulsed air and electromagnetic grain conveyors transport the paddy toward mobile silos trailing behind like a procession of enormous floating barges.
+
+Inside the hull, the belly factory is organized as a kilometer-long processing artery. Intake galleries lead to cyclone separation cylinders where dust and straw fragments are removed. Secondary decks contain husking drums, magnetic impurity traps, polishing chambers, and controlled-atmosphere drying galleries. Waste husk is compacted into fuel pellets, while grain is cooled before entering vacuum-sealed storage vaults. Maintenance drones circulate through independent service corridors, repairing vacuum membranes and replacing harvesting heads without interrupting operations.
+
+Fusion reactors supply energy to the plasma conduits running through the spine. Thermal exhaust is expelled through elevated radiators, creating shimmering columns that can distort distant horizons. The machine's transparent grain tubes glow amber at night, making the entire kilometer-long structure resemble a floating river of harvested sunlight.
+
+During monsoon season, the Paddy Ocean Vacuum becomes an atmospheric landmark. Its hull glides above a vast reflective landscape while rain streams around its suspension field. From the ground it appears longer than a city district, its trailing silos forming a moving industrial archipelago across the rice-growing sea.
+
+Level 10 Video Script/Action:
+Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+
+Second 1 [0:00-0:01] — HUD Popup Text: ""STEP 1: ALIEN SYSTEM AWAKENING"" — Every sensor crown across the impossible titan activates simultaneously, generating...
+
+ESCALATION / SCALE:
+Level 10 (Alien / Maximum Megastructure)
+
+TARGET_AUDIENCE:
+Viewers interested in agriculture, futuristic engineering, colossal machines, satisfying videos
+
+VIDEO_DURATION:
+8 seconds
+
+PRIMARY_LANGUAGE:
+en
+
+CATEGORY:
+Science & Technology
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. REAL SEO EVIDENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following information was harvested from YouTube/search data.
+
+You MUST treat this as evidence.
+
+### SEO SIGNALS
+
+Demand Score: 73/100
+Novelty Score: 100/100
+Saturation Score: 0/100  (higher = more crowded)
+Opportunity Score: 91/100 -> verdict: publish
+Competitor Breakdown: 0 exact, 0 close, 1 substitute
+Harvested Keywords Count: 101
+Discovered Competitors Count: 28
+
+Possible fields may include:
+* demand
+* novelty
+* opportunity_score
+* competition_score
+* relevance_score
+* keyword_count
+* competitor_count
+* other calculated SEO metrics
+
+Do not assume a metric means something different from what its name indicates.
+
+### HARVESTED YOUTUBE KEYWORDS
+
+- paddy harvesting in china
+- paddy harvesting in japan
+- paddy harvesting by hand
+- paddy harvesting drawing
+- paddy harvesting time
+- paddy harvesting videos
+- paddy harvesting tractor
+- after paddy harvesting
+- paddy crop harvesting
+- paddy harvesting drone
+- harvesting paddy fields
+- paddy harvesting machine
+
+These are real harvested search suggestions/keywords.
+
+Analyze them for:
+* direct relevance to the video
+* search intent
+* specificity
+* recurring terms
+* keyword clusters
+* long-tail opportunities
+* natural title opportunities
+* natural description opportunities
+* irrelevant/noisy terms
+
+Do NOT blindly stuff keywords.
+
+### COMPETITOR VIDEOS
+
+- [SUBSTITUTE] Watercolor Painting : A Composition on Farmers Harvesting Paddy (3,607 views, channel: Paint Academy)
+
+Analyze competitors for:
+* recurring title language
+* dominant keyword patterns
+* topic angles
+* obvious audience intent
+* successful framing patterns
+* oversaturated wording
+* opportunities for differentiation
+* gaps that our video can exploit
+
+Do NOT assume that high views automatically means high SEO quality.
+
+Do NOT copy competitor titles.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. SEO REASONING PROCESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before generating metadata, internally perform these steps:
+
+STEP 1 — Identify the actual search intent.
+Determine what a viewer is likely searching for when looking for this topic.
+
+STEP 2 — Build a keyword hierarchy.
+Classify available keywords into:
+PRIMARY KEYWORDS
+SECONDARY KEYWORDS
+LONG-TAIL KEYWORDS
+SUPPORTING/SEMANTIC TERMS
+IRRELEVANT/NOISY TERMS
+
+STEP 3 — Identify the strongest keyword opportunity.
+Select the keyword or keyword phrase that provides the best combination of:
+relevance
+* specificity
+* search intent
+* evidence strength
+* competitive opportunity.
+
+STEP 4 — Analyze competitors.
+Determine:
+WHAT THEY ARE ALREADY DOING WELL
+WHAT IS OVERSATURATED
+WHAT WORDING IS REPEATED TOO OFTEN
+WHAT ANGLE IS MISSING
+HOW OUR TITLE CAN BE DIFFERENT WITHOUT BECOMING IRRELEVANT
+
+STEP 5 — Determine the positioning.
+Create one clear positioning statement:
+“This video should be discovered by people interested in ________, and should stand out because ________.”
+
+STEP 6 — Generate multiple internal title candidates.
+Generate several candidate concepts internally.
+Evaluate them against:
+* keyword relevance
+* search intent
+* clarity
+* curiosity
+* specificity
+* differentiation
+* CTR potential
+* natural language
+* accuracy
+* character length
+Then select the strongest candidate.
+
+STEP 7 — Optimize the description around the chosen positioning.
+The description must support the same search intent as the title.
+Never write a generic SEO paragraph simply by inserting keywords.
+
+STEP 8 — Generate tags.
+Use only relevant terms.
+Prioritize:
+exact topic
+primary keyword
+secondary keyword
+long-tail variations
+semantic variants
+natural search phrases
+
+Do NOT generate fake “viral” tags merely because they sound popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TITLE RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate ONE final title.
+
+Maximum 80 characters.
+
+Prefer approximately 45–70 characters when possible.
+
+The title should:
+* accurately represent the actual video
+* naturally incorporate the strongest relevant keyword opportunity
+* create curiosity
+* communicate the video's unique visual/conceptual hook
+* differentiate from competitors
+* avoid generic AI-video wording when a stronger topic-specific phrase exists
+* avoid keyword stuffing
+* avoid fake claims
+* avoid misleading promises
+* avoid excessive punctuation
+* use at most ONE emoji, and only if it genuinely improves the title
+
+Do NOT force an emoji if it weakens the title.
+
+Do NOT use ALL CAPS unless a very small emphasis is genuinely useful.
+
+Do NOT copy competitor wording.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. DESCRIPTION RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write a natural, human-readable YouTube description.
+
+The FIRST 1–2 sentences are the most important.
+
+They should clearly communicate:
+WHAT THE VIDEO IS ABOUT
+* WHY IT IS INTERESTING
+* the strongest natural search phrase where appropriate.
+
+Then provide useful context/story information.
+
+Use relevant secondary and semantic keywords naturally.
+
+Do NOT repeat the same keyword unnaturally.
+
+Do NOT write keyword-stuffed SEO text.
+
+Do NOT claim facts that are not supported by the video.
+
+If timestamps are supplied, use them accurately.
+
+If timestamps are NOT supplied, do not invent fake timestamps.
+
+Include a small number of highly relevant hashtags only.
+
+Avoid generic hashtag spam.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. TAG RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate 10–15 highly relevant tags.
+
+Tags should be selected from the available evidence whenever possible.
+
+Include a useful mixture of:
+* primary keyword
+* secondary keywords
+* long-tail variants
+* topic variations
+* semantic phrases
+* closely related search phrases
+
+Do NOT use unrelated high-volume keywords.
+
+Do NOT use competitor channel names unless directly relevant and appropriate.
+
+Keep total tag length within approximately 460 characters.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. TARGET KEYWORD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Select ONE target keyword.
+
+The target keyword must be:
+* strongly relevant
+* supported by supplied evidence
+* natural for the actual video
+* useful as the primary search positioning
+
+Do NOT select a keyword merely because it appears popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. QUALITY CONTROL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before returning the answer, internally verify:
+
+[ ] Title accurately represents the video.
+[ ] Title contains the strongest practical keyword opportunity where natural.
+[ ] Title is under 80 characters.
+[ ] Title is differentiated from competitors.
+[ ] No misleading claim exists.
+[ ] Description matches the title/search intent.
+[ ] Primary keyword is used naturally.
+[ ] Secondary terms are not stuffed.
+[ ] No invented timestamps.
+[ ] Hashtags are relevant.
+[ ] Tags are relevant.
+[ ] No fabricated SEO statistics were introduced.
+[ ] No unsupported competitor claims were introduced.
+[ ] No irrelevant viral keywords were added.
+[ ] Metadata sounds human rather than machine-generated.
+[ ] Metadata is optimized for both search discovery and viewer click appeal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. OUTPUT FORMAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Return ONLY valid JSON.
+
+{
+""title"": ""final optimized YouTube title"",
+""seo_description"": ""final optimized YouTube description"",
+""tags"": [
+""tag 1"",
+""tag 2"",
+""tag 3""
+],
+""target_keyword"": ""primary target keyword"",
+""hashtags"": [
+""#hashtag1"",
+""#hashtag2"",
+""#hashtag3""
+],
+""category"": ""Science & Technology"",
+""default_language"": ""en""
+}
+
+No markdown.
+
+No explanation.
+
+No analysis.
+
+No additional keys.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL PRINCIPLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REAL SEARCH EVIDENCE > GENERIC SEO ADVICE.
+
+RELEVANCE > KEYWORD STUFFING.
+
+ACCURATE CURIOSITY > EMPTY CLICKBAIT.
+
+DIFFERENTIATION > COPYING COMPETITORS.
+
+SEARCH INTENT + CTR + TOPIC FIT > CTR ALONE.
+
+The supplied SEO data is the source of truth.
+
+Use the evidence intelligently; do not merely repeat it.",,,,2026-09-05 04:41:00.319350
+3,Rice-Field Spider Colossus,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+4,The Monsoon Harvesting Ark,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+5,Paddy Ring Megaharvester,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+6,Sky Reaper Rice Fortress,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+7,The Rice Comb Superstructure,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+8,Paddy-Gulping Harvest Worm,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+9,Rice Moon Harvester,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+10,The Infinite Rice Factory,Paddy Harvesting,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+11,Colossal Wheat Combine Titan,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+12,The Solar Wheat Sifter,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+13,The Wheat Ocean Harvester,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+14,Titan Sunwheel Irrigator,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+15,Wheat Field Weather Engine,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+16,The Infinite Furrow Walker,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+17,Golden Grain Conveyor City,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+18,Wheatfield Solar Crown,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+19,The Root Network Excavator,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+20,Wheat Sentinel Colossus,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+21,The Atmospheric Grain Elevator,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+22,Chrono-Harvest Megamachine,Wheat Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+23,Colossal Corn Thresher Titan,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+24,The Solar Corn Silo Walker,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+33,The Whispering Canopy Harvester,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+34,The Timberland Root Walker,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+35,Bioluminescent Spore Fortress,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+36,Atmospheric Timber Leviathan,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+37,The Ancient Grove Siphon,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+38,Ironwood Deep-Root Excavator,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+39,Planetary Mycelial Loom,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+40,The Evergreen Core Furnace,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+41,Chrono-Bark Synthesizer,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+42,The World-Forest Atmospheric Crown,Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+43,Canopy Orbit Engine,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+44,Rootway Titan,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+45,Sun Harvester Colossus,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+46,Cloud Rooter,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+47,Bark Foundry,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+48,Season Engine,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+49,Branch Bridge Machine,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+50,Pollinator Cathedral,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+51,Root Memory Engine,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+52,Worldtree Stabilizer,Giant Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+53,Palm Titan Water Crown,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+54,Sun Harvesting Palm Engine,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+55,Palm Root Earth Mover,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+56,Chrono-Palm Growth Engine,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+57,Palm Wind Orchestra,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+58,Celestial Coconut Launcher,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+59,Palm Cloud Factory,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+60,Frond Solar Sail Array,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+61,Palm Tree Climate Reactor,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+62,Infinite Palm Forest Seeder,Palm Tree,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+63,The Verdant Bamboo Sky-Loom,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+64,Jade Spire Harvesting Spider,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+65,The Bamboo Ocean Comb,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+66,Hollow-Stem Resonance Engine,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+67,The Emerald Stalk Harvester,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+68,Bamboo Canopy Cloud-Drill,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+69,The Titan Bamboo Splitter,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+70,Celestial Shoot Accelerator,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+71,The Bamboo Ring Leviathan,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+72,The Infinite Bamboo Grove City,Bamboo Forest,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+73,Titanic Tea Plucking Colossus,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+74,Skyloom Tea Pruning Ring,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+75,Monsoon Shield Megadome,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+76,Rootwater Planetary Drill,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+77,Tea Garden Climate Engine,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+78,Colossus Leaf Sorting Wheel,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+79,Mountain Compost Walker,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+80,Terrace-Shaping Earth Titan,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+81,Solar Tea Harvesting Cathedral,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+82,Orbital Tea Garden Caretaker,Tea Garden,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+83,The Golden Bunch Orbital Harvester,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+84,Tropical Frond Solar Siphon,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+85,The Banana Canopy Leviathan,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+86,Plantation Monorail Harvester,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+87,The Titan Fruit Loom,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+88,Monsoon Banana Ripening Dome,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+89,The Planetary Peel Excavator,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+90,Tropical Stem Pressure Engine,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+91,The Solar Banana Conveyor,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+92,The Infinite Plantation Caretaker,Banana Plantation,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+93,Orchard Moon Harvester,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+94,Titan Root Sculptor,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+95,Sky Orchard Shepherd,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+96,Apple Gravity Elevator,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+97,Colossus Pollination Wheel,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+98,Orchard Time Engine,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+99,Titanic Apple Sorter,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+100,Solar Orchard Furnace,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+101,Planetary Pruning Spider,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+102,Infinite Orchard Conveyor,Apple Orchard,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+103,Solar Titan Harvester,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+104,Sunflower Skywheel,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+105,Helios Field Cathedral,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+106,Titanic Sun Tracker,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+107,The Golden Root Engine,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+108,Sunflower Leviathan,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+109,Petal Storm Generator,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+110,The Million-Arm Pollinator,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+111,Colossus Seed Forge,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+112,Solar Bloom Clock,Sunflower Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+113,The Grassland Tide Engine,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+114,Skyroot Rain Harvester,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+115,Prairie Wind Shepherd,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+116,The Buried Sunwheel,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+117,Thunderhoof Generator,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+118,Prairie Memory Engine,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+119,Horizon Grass Loom,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+120,Cloudshadow Irrigator,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+121,The Seed Moon,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+122,Prairie Planet Engine,Grassland,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+123,The Dune-Swallowing Sand Leviathan,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+124,Solar Mirage Energy Tower,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+125,The Deep-Basin Moisture Siphon,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+126,Sandstorm Kinetic Foundry,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+127,The Obsidian Dune Walker,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+128,Crystalline Sand Sifter Titan,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+129,The Subterranean Aquifer Drill,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+130,Desert Sun-Forge Colossus,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+131,The Shifting Sand Ocean Ark,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+132,The Infinite Desert Terraformer,Desert,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+133,The Golden Husk Sifter,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+134,The Corn Maze Planetary Combine,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+135,Sun-Ripened Kernel Reactor,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+136,The Titan Stalk Shredder,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+137,Cornfield Solar Furnace,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+138,The Atmospheric Corn Elevator,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+139,Golden Silk Weaving Engine,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,
+140,The Infinite Cornfield Colossus,Corn Field,new,NO_METADATA_ROW,,0,,0,,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,

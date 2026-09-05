@@ -172,13 +172,14 @@ Please generate a professional YouTube metadata package in strict JSON format:
   "title": "A high-CTR, curiosity-driven YouTube video title (under 80 chars, with 1 emoji)",
   "seo_description": "A 3-paragraph SEO-rich video description with timecodes, storyline breakdown, and 5 hashtags (#AI #Megastructure #Veo #SciFi #ImpossibleEngineering)",
   "tags": ["10-15 viral search tags as array of strings"],
+  "pinned_comment": "An engaging question or comment (<120 chars) to pin at the top of comments to drive viewer discussion",
   "category": "Science & Technology",
   "default_language": "en"
 }}
 Return ONLY the raw JSON object.""",
         "output_format": "JSON_OBJECT",
         "model_target": "ChatGPT-4o / Playwright",
-        "rules_and_constraints": "1. High-CTR title with emoji. 2. 3-paragraph description with timestamps. 3. 5 viral hashtags. 4. Strict JSON format."
+        "rules_and_constraints": "1. High-CTR title with emoji. 2. 3-paragraph description with timestamps. 3. 5 viral hashtags. 4. Engaging pinned comment. 5. Strict JSON format."
     }
 ]
 

@@ -224,6 +224,7 @@ def export_package_files_from_sqlite(idea: Idea, elem_id: int, idea_idx: int, vi
             "seo_description": yt_rec.seo_description,
             "tags": tags_list,
             "hashtags": hashtags_list,
+            "pinned_comment": getattr(yt_rec, "pinned_comment", "") or "",
             "category": yt_rec.category,
             "default_language": yt_rec.default_language,
             "source": "sqlite_youtube_metadata_table",
@@ -446,7 +447,14 @@ def process_idea_level10_package(idea_id: int, skip_browser: bool = False) -> di
             yt_meta_rec.updated_at = datetime.now(timezone.utc)
             session.add(yt_meta_rec)
 
-            idea.status = "ready_for_upload"
+            # Strict Gate Check: ONLY when Prompts + Real SEO + Video exist does it become ready_for_upload
+            import stage_gates as _sg
+            _rep = _sg.stage_report(idea.id)
+            _st = _rep.get("stages", {})
+            if _st.get("escalation") and _st.get("seo") and _st.get("video"):
+                idea.status = "ready_for_upload"
+            else:
+                idea.status = "new"
             idea.generated_at = datetime.now(timezone.utc)
             session.add(idea)
             session.add(task)

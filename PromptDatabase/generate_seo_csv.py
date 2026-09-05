@@ -28,6 +28,9 @@ import csv
 import sqlite3
 from pathlib import Path
 
+from pathlib import Path
+from export_utils import get_timestamp_suffix, resolve_unique_path
+
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "database" / "youtube_pipeline.db"
 EXPORT_DIR = BASE_DIR / "exports"
@@ -36,6 +39,7 @@ EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 SEO_MASTER_CSV = EXPORT_DIR / "seo_master.csv"
 SEO_KEYWORDS_CSV = EXPORT_DIR / "seo_keywords.csv"
 SEO_COMPETITORS_CSV = EXPORT_DIR / "seo_competitors.csv"
+
 
 # Titles produced by the old fallback template, before the real SEO engine ran.
 BOILERPLATE_MARKERS = ("INSANE:", "\U0001f6a8")
@@ -64,7 +68,19 @@ def _table_exists(con, name):
     return row is not None
 
 
-def generate_seo_csvs():
+def generate_seo_csvs(timestamp_suffix=None):
+    if timestamp_suffix is None:
+        timestamp_suffix = get_timestamp_suffix()
+
+    if timestamp_suffix:
+        master_file = EXPORT_DIR / f"seo_master_{timestamp_suffix}.csv"
+        kw_file = EXPORT_DIR / f"seo_keywords_{timestamp_suffix}.csv"
+        comp_file = EXPORT_DIR / f"seo_competitors_{timestamp_suffix}.csv"
+    else:
+        master_file = SEO_MASTER_CSV
+        kw_file = SEO_KEYWORDS_CSV
+        comp_file = SEO_COMPETITORS_CSV
+
     con = _connect()
 
     for required in ("ideas", "youtube_metadata"):
@@ -83,7 +99,7 @@ def generate_seo_csvs():
 
     meta_by_idea = {}
     for r in con.execute(
-        "SELECT idea_id, title, seo_description, tags, category, status, "
+        "SELECT idea_id, title, seo_description, tags, pinned_comment, category, status, "
         "       video_prompt_used, video_file_path, package_folder_path, updated_at "
         "FROM youtube_metadata ORDER BY idea_id ASC, id ASC"
     ):
@@ -166,6 +182,7 @@ def generate_seo_csvs():
             "SEO_Tags": tags,
             "SEO_Tags_Length": len(tags),
             "SEO_Tag_Count": _tag_cnt,
+            "SEO_Pinned_Comment": (meta["pinned_comment"] if (meta and "pinned_comment" in meta.keys()) else "") or "",
             "SEO_Category": (meta["category"] if meta else "") or "",
             "SEO_Metadata_Status": (meta["status"] if meta else "") or "",
             "SEO_Run_ID": run["id"] if run else "",
@@ -176,27 +193,30 @@ def generate_seo_csvs():
             "SEO_Saturation_Score": run["saturation_score"] if run else "",
             "SEO_Opportunity_Score": run["opportunity_score"] if run else "",
             "SEO_Verdict": (run["verdict"] if run else "") or "",
-            "SEO_Keyword_Count": run["keyword_count"] if run else len(kws),
-            "SEO_Competitor_Count": run["competitor_count"] if run else len(comps),
+            "SEO_Keyword_Count": run["keyword_count"] if run else "",
+            "SEO_Competitor_Count": run["competitor_count"] if run else "",
             "SEO_Exact_Competitors": run["exact_competitors"] if run else "",
             "SEO_Close_Competitors": run["close_competitors"] if run else "",
-            "SEO_Strong_Competitors_Found": len(strong),
+            "SEO_Strong_Competitors_Found": len(strong) if run else "",
             "SEO_LLM_Used": run["llm_used"] if run else "",
             "SEO_Upload_Ready": run["upload_ready"] if run else "",
             "SEO_Warnings": (run["warnings"] if run else "") or "",
             "SEO_Run_At": (run["created_at"] if run else "") or "",
-            "SEO_Top_Keywords": " | ".join(top_kw),
+            "SEO_Top_Keywords": (" | ".join(top_kw)) if run else "",
+            "SEO_Prompt_Sent": (run["prompt_sent"] if (run and "prompt_sent" in run.keys()) else "") or "",
             "Video_Prompt_Used": (meta["video_prompt_used"] if meta else "") or "",
             "Video_File_Path": (meta["video_file_path"] if meta else "") or "",
             "Package_Folder_Path": (meta["package_folder_path"] if meta else "") or "",
             "SEO_Updated_At": (meta["updated_at"] if meta else "") or "",
         })
 
-    _write(SEO_MASTER_CSV, master_rows)
+    _write(master_file, master_rows)
 
     # ---------------- seo_keywords.csv : one row per keyword ----------------
     kw_rows = []
     for idea_id, kws in kw_by_idea.items():
+        if not run_by_idea.get(idea_id):
+            continue
         idea = ideas.get(idea_id)
         for rank, k in enumerate(kws, start=1):
             kw_rows.append({
@@ -212,11 +232,13 @@ def generate_seo_csvs():
                 "Source": k["source"],
                 "Harvested_At": k["created_at"],
             })
-    _write(SEO_KEYWORDS_CSV, kw_rows)
+    _write(kw_file, kw_rows)
 
     # ---------------- seo_competitors.csv : one row per competitor ----------------
     comp_rows = []
     for idea_id, comps in comp_by_idea.items():
+        if not run_by_idea.get(idea_id):
+            continue
         idea = ideas.get(idea_id)
         for c in comps:
             comp_rows.append({
@@ -235,23 +257,38 @@ def generate_seo_csvs():
                 "Is_Strong": c["is_strong"],
                 "Discovered_At": c["discovered_at"],
             })
-    _write(SEO_COMPETITORS_CSV, comp_rows)
+    _write(comp_file, comp_rows)
 
     return master_rows, kw_rows, comp_rows
 
 
 def _write(path, rows):
+    target_path = resolve_unique_path(path)
     if not rows:
         # Still create the file so a downstream reader gets an empty table,
         # not a missing-file crash.
-        path.write_text("", encoding="utf-8-sig")
-        print("  (no rows)  %s" % path.name)
+        try:
+            target_path.write_text("", encoding="utf-8-sig")
+            print("  (no rows)  %s" % target_path.name)
+        except PermissionError:
+            alt = resolve_unique_path(target_path.with_name(target_path.stem + "_alt" + target_path.suffix))
+            alt.write_text("", encoding="utf-8-sig")
+            print("  (no rows, locked by Excel)  ->  %s" % alt.name)
         return
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows(rows)
-    print("  %5d rows x %2d cols  ->  %s" % (len(rows), len(rows[0]), path.name))
+
+    try:
+        with open(target_path, "w", newline="", encoding="utf-8-sig") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+            w.writeheader()
+            w.writerows(rows)
+        print("  %5d rows x %2d cols  ->  %s" % (len(rows), len(rows[0]), target_path.name))
+    except PermissionError:
+        alt_path = resolve_unique_path(target_path.with_name(target_path.stem + "_alt" + target_path.suffix))
+        with open(alt_path, "w", newline="", encoding="utf-8-sig") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+            w.writeheader()
+            w.writerows(rows)
+        print("  [File locked in Excel] Written to %s instead!" % alt_path.name)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,862 @@
+﻿id,uuid,idea_id,provider,mode,demand_score,novelty_score,saturation_score,opportunity_score,verdict,keyword_count,competitor_count,exact_competitors,close_competitors,llm_used,upload_ready,warnings,notes,created_at,prompt_sent
+31,54f69466-4126-4d7e-a802-047f2147fdfe,1,chatgpt,apply,70.32,100.0,0.0,89.61,publish,101,26,0,0,1,1,[],[],2026-09-04 12:07:17.039283,"Viral YouTube Growth & SEO Strategist
+Generate viral, curiosity-driven YouTube Title (<80 chars + 1 emoji), 3-paragraph SEO description with timestamps and 5 hashtags, and 10-15 search tags in JSON.
+1. High-CTR title with emoji. 2. 3-paragraph description with timestamps. 3. 5 viral hashtags. 4. Strict JSON format.
+
+=== REAL DATA (already collected — do NOT invent numbers, use these) ===
+VIDEO SUBJECT : Rice Titan Harvester
+TOPIC/ELEMENT : Paddy Harvesting
+FORMAT        : 8-second vertical (9:16) AI-generated cinematic short
+
+MEASURED SEO SIGNALS (computed from YouTube autocomplete + live search results):
+  demand score      : 70/100
+  novelty score     : 100/100
+  saturation score  : 0/100  (higher = more crowded)
+  opportunity score : 90/100 -> verdict: publish
+  competitor mix    : 0 exact, 0 close, 4 substitute
+
+REAL KEYWORDS people actually search (from YouTube autocomplete):
+  - rice paddy harvesting machine
+  - paddy harvesting in china
+  - paddy harvesting in japan
+  - rice harvesting and processing
+  - harvesting rice at home
+  - paddy harvester in assam
+  - paddy harvesting by hand
+  - rice harvesting by hand
+  - paddy harvesting machines in agriculture
+  - paddy harvesting machine in japan
+  - paddy harvester in andhra pradesh
+  - paddy harvesting by brush cutter
+
+REAL COMPETING VIDEOS currently ranking:
+  - [SUBSTITUTE] Bangladeshi Farmers Harvesting Paddy 🌾 |Modern Rice Farming with Harvester (205 views, Stay with Maruf)
+  - [SUBSTITUTE] DO-IT – Farmer harvesting organic Basmati rice in India (38,854 views, DO IT Organic)
+  - [SUBSTITUTE] How to Draw a Combine Harvester (7,937 views, Mark Easy Drawings )
+  - [SUBSTITUTE] How to draw HARVESTER / drawing Combine Harvester step by step (2,159 views, 17 Easy Drawing)
+
+=== YOUR TASK ===
+Produce an upload-ready YouTube SEO package that BEATS the competitors above by
+differentiating on angle, and that naturally uses the real keywords above.
+
+HARD CONSTRAINTS (a violation makes the upload fail):
+  - ""title"": <= 70 characters strongly preferred, 100 absolute max.
+    High-CTR, curiosity-driven, front-load the strongest real keyword. Max 1 emoji.
+  - ""seo_description"": 3 paragraphs. Paragraph 1 hooks in the first 120 characters
+    (that is all YouTube shows before ""more""). Include a timestamp block for an
+    8-second video and end with exactly 5 hashtags.
+  - ""tags"": 15 or fewer, each under 60 chars,
+    combined length under 460 characters.
+    Order them most-specific -> most-generic. Prefer the REAL keywords above.
+  - ""hook"": one spoken/on-screen opening line, under 90 characters.
+  - ""pinned_comment"": short engaging pinned comment / discussion question for viewers (under 120 characters) to drive maximum comments & engagement.
+  - ""thumbnail_prompt"": a concrete image-generation prompt for a scroll-stopping thumbnail.
+  - ""target_keyword"": the single best keyword to rank for, chosen from the real list.
+
+Return ONLY this raw JSON object, no markdown fence, no commentary:
+{
+  ""title"": ""..."",
+  ""seo_description"": ""..."",
+  ""tags"": [""..."", ""...""],
+  ""hashtags"": [""#..."", ""#..."", ""#..."", ""#..."", ""#...""],
+  ""hook"": ""..."",
+  ""pinned_comment"": ""..."",
+  ""thumbnail_prompt"": ""..."",
+  ""target_keyword"": ""..."",
+  ""category"": ""Science & Technology"",
+  ""default_language"": ""en""
+}"
+32,62b139ca-3bd5-402b-8012-67a8460c983d,2,chatgpt,apply,73.0,100.0,0.0,90.55,publish,101,28,0,0,1,1,[],[],2026-09-05 04:41:00.165690,"You are the final YouTube SEO Packaging Engine.
+
+Your job is NOT simply to write a catchy title.
+
+Your job is to transform the supplied video concept + real YouTube search/competition evidence into the strongest possible YouTube metadata package.
+
+You must use the supplied evidence first, reason from it, and then generate the final metadata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CORE OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize the metadata for the combined objective:
+
+SEARCH DISCOVERABILITY
+* CLICK-THROUGH POTENTIAL
+* TOPIC RELEVANCE
+* VIEWER INTENT MATCH
+* COMPETITOR DIFFERENTIATION
+* LONG-TERM SEARCH VALUE
+− MISLEADING/CLICKBAIT RISK
+
+Do NOT optimize for CTR alone.
+
+A title that gets clicks but poorly matches the actual video is inferior to a title that creates both strong curiosity and accurate expectation.
+
+Never invent search-volume numbers, rankings, competitor facts, keywords, or SEO evidence.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. INPUT VIDEO CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IDEA_ID:
+2
+
+VIDEO_TITLE / CONCEPT:
+The Paddy Ocean Vacuum
+
+TOPIC:
+Paddy Harvesting
+
+FORMAT:
+8-second vertical (9:16) AI-generated cinematic short
+
+VIDEO_DESCRIPTION / STORY:
+The Paddy Ocean Vacuum is a kilometer-long floating megamachine designed for harvesting without conventional contact with the soil. Its central chassis resembles an enormous aerodynamic bridge suspended several meters above flooded rice fields. A sequence of buoyant armored modules forms the spine, joined by flexible superconducting articulation rings that allow the machine to bend across irregular terrain. Beneath the hull, hundreds of stabilization nodes generate magnetic suspension fields, while quantum-gravity manipulators continuously adjust the machine's effective weight. The result is a hovering agricultural platform that can glide over embankments, irrigation channels, and flooded paddies without producing destructive ground pressure.
+
+Along its underside hangs a forest of harvesting assemblies. Each unit contains optical scanners, lidar, moisture sensors, and a soft vacuum mouth surrounded by precision airflow vanes. The system first identifies mature panicles by color, spectral signature, and grain density. A controlled low-pressure field gently bends the rice heads toward the intake, while micro-vortexes detach ripe panicles without uprooting the plants. Unripe grain and living stalks remain below, allowing the machine to make repeated selective passes. Harvested material enters transparent reinforced tubes stretching along the machine's spine. Pulsed air and electromagnetic grain conveyors transport the paddy toward mobile silos trailing behind like a procession of enormous floating barges.
+
+Inside the hull, the belly factory is organized as a kilometer-long processing artery. Intake galleries lead to cyclone separation cylinders where dust and straw fragments are removed. Secondary decks contain husking drums, magnetic impurity traps, polishing chambers, and controlled-atmosphere drying galleries. Waste husk is compacted into fuel pellets, while grain is cooled before entering vacuum-sealed storage vaults. Maintenance drones circulate through independent service corridors, repairing vacuum membranes and replacing harvesting heads without interrupting operations.
+
+Fusion reactors supply energy to the plasma conduits running through the spine. Thermal exhaust is expelled through elevated radiators, creating shimmering columns that can distort distant horizons. The machine's transparent grain tubes glow amber at night, making the entire kilometer-long structure resemble a floating river of harvested sunlight.
+
+During monsoon season, the Paddy Ocean Vacuum becomes an atmospheric landmark. Its hull glides above a vast reflective landscape while rain streams around its suspension field. From the ground it appears longer than a city district, its trailing silos forming a moving industrial archipelago across the rice-growing sea.
+
+Level 10 Video Script/Action:
+Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+
+Second 1 [0:00-0:01] — HUD Popup Text: ""STEP 1: ALIEN SYSTEM AWAKENING"" — Every sensor crown across the impossible titan activates simultaneously, generating...
+
+ESCALATION / SCALE:
+Level 10 (Alien / Maximum Megastructure)
+
+TARGET_AUDIENCE:
+Viewers interested in agriculture, futuristic engineering, colossal machines, satisfying videos
+
+VIDEO_DURATION:
+8 seconds
+
+PRIMARY_LANGUAGE:
+en
+
+CATEGORY:
+Science & Technology
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. REAL SEO EVIDENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following information was harvested from YouTube/search data.
+
+You MUST treat this as evidence.
+
+### SEO SIGNALS
+
+Demand Score: 73/100
+Novelty Score: 100/100
+Saturation Score: 0/100  (higher = more crowded)
+Opportunity Score: 91/100 -> verdict: publish
+Competitor Breakdown: 0 exact, 0 close, 1 substitute
+Harvested Keywords Count: 101
+Discovered Competitors Count: 28
+
+Possible fields may include:
+* demand
+* novelty
+* opportunity_score
+* competition_score
+* relevance_score
+* keyword_count
+* competitor_count
+* other calculated SEO metrics
+
+Do not assume a metric means something different from what its name indicates.
+
+### HARVESTED YOUTUBE KEYWORDS
+
+- paddy harvesting in china
+- paddy harvesting in japan
+- paddy harvesting by hand
+- paddy harvesting drawing
+- paddy harvesting time
+- paddy harvesting videos
+- paddy harvesting tractor
+- after paddy harvesting
+- paddy crop harvesting
+- paddy harvesting drone
+- harvesting paddy fields
+- paddy harvesting machine
+
+These are real harvested search suggestions/keywords.
+
+Analyze them for:
+* direct relevance to the video
+* search intent
+* specificity
+* recurring terms
+* keyword clusters
+* long-tail opportunities
+* natural title opportunities
+* natural description opportunities
+* irrelevant/noisy terms
+
+Do NOT blindly stuff keywords.
+
+### COMPETITOR VIDEOS
+
+- [SUBSTITUTE] Watercolor Painting : A Composition on Farmers Harvesting Paddy (3,607 views, channel: Paint Academy)
+
+Analyze competitors for:
+* recurring title language
+* dominant keyword patterns
+* topic angles
+* obvious audience intent
+* successful framing patterns
+* oversaturated wording
+* opportunities for differentiation
+* gaps that our video can exploit
+
+Do NOT assume that high views automatically means high SEO quality.
+
+Do NOT copy competitor titles.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. SEO REASONING PROCESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before generating metadata, internally perform these steps:
+
+STEP 1 — Identify the actual search intent.
+Determine what a viewer is likely searching for when looking for this topic.
+
+STEP 2 — Build a keyword hierarchy.
+Classify available keywords into:
+PRIMARY KEYWORDS
+SECONDARY KEYWORDS
+LONG-TAIL KEYWORDS
+SUPPORTING/SEMANTIC TERMS
+IRRELEVANT/NOISY TERMS
+
+STEP 3 — Identify the strongest keyword opportunity.
+Select the keyword or keyword phrase that provides the best combination of:
+relevance
+* specificity
+* search intent
+* evidence strength
+* competitive opportunity.
+
+STEP 4 — Analyze competitors.
+Determine:
+WHAT THEY ARE ALREADY DOING WELL
+WHAT IS OVERSATURATED
+WHAT WORDING IS REPEATED TOO OFTEN
+WHAT ANGLE IS MISSING
+HOW OUR TITLE CAN BE DIFFERENT WITHOUT BECOMING IRRELEVANT
+
+STEP 5 — Determine the positioning.
+Create one clear positioning statement:
+“This video should be discovered by people interested in ________, and should stand out because ________.”
+
+STEP 6 — Generate multiple internal title candidates.
+Generate several candidate concepts internally.
+Evaluate them against:
+* keyword relevance
+* search intent
+* clarity
+* curiosity
+* specificity
+* differentiation
+* CTR potential
+* natural language
+* accuracy
+* character length
+Then select the strongest candidate.
+
+STEP 7 — Optimize the description around the chosen positioning.
+The description must support the same search intent as the title.
+Never write a generic SEO paragraph simply by inserting keywords.
+
+STEP 8 — Generate tags.
+Use only relevant terms.
+Prioritize:
+exact topic
+primary keyword
+secondary keyword
+long-tail variations
+semantic variants
+natural search phrases
+
+Do NOT generate fake “viral” tags merely because they sound popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TITLE RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate ONE final title.
+
+Maximum 80 characters.
+
+Prefer approximately 45–70 characters when possible.
+
+The title should:
+* accurately represent the actual video
+* naturally incorporate the strongest relevant keyword opportunity
+* create curiosity
+* communicate the video's unique visual/conceptual hook
+* differentiate from competitors
+* avoid generic AI-video wording when a stronger topic-specific phrase exists
+* avoid keyword stuffing
+* avoid fake claims
+* avoid misleading promises
+* avoid excessive punctuation
+* use at most ONE emoji, and only if it genuinely improves the title
+
+Do NOT force an emoji if it weakens the title.
+
+Do NOT use ALL CAPS unless a very small emphasis is genuinely useful.
+
+Do NOT copy competitor wording.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. DESCRIPTION RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write a natural, human-readable YouTube description.
+
+The FIRST 1–2 sentences are the most important.
+
+They should clearly communicate:
+WHAT THE VIDEO IS ABOUT
+* WHY IT IS INTERESTING
+* the strongest natural search phrase where appropriate.
+
+Then provide useful context/story information.
+
+Use relevant secondary and semantic keywords naturally.
+
+Do NOT repeat the same keyword unnaturally.
+
+Do NOT write keyword-stuffed SEO text.
+
+Do NOT claim facts that are not supported by the video.
+
+If timestamps are supplied, use them accurately.
+
+If timestamps are NOT supplied, do not invent fake timestamps.
+
+Include a small number of highly relevant hashtags only.
+
+Avoid generic hashtag spam.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. TAG RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate 10–15 highly relevant tags.
+
+Tags should be selected from the available evidence whenever possible.
+
+Include a useful mixture of:
+* primary keyword
+* secondary keywords
+* long-tail variants
+* topic variations
+* semantic phrases
+* closely related search phrases
+
+Do NOT use unrelated high-volume keywords.
+
+Do NOT use competitor channel names unless directly relevant and appropriate.
+
+Keep total tag length within approximately 460 characters.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. TARGET KEYWORD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Select ONE target keyword.
+
+The target keyword must be:
+* strongly relevant
+* supported by supplied evidence
+* natural for the actual video
+* useful as the primary search positioning
+
+Do NOT select a keyword merely because it appears popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. QUALITY CONTROL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before returning the answer, internally verify:
+
+[ ] Title accurately represents the video.
+[ ] Title contains the strongest practical keyword opportunity where natural.
+[ ] Title is under 80 characters.
+[ ] Title is differentiated from competitors.
+[ ] No misleading claim exists.
+[ ] Description matches the title/search intent.
+[ ] Primary keyword is used naturally.
+[ ] Secondary terms are not stuffed.
+[ ] No invented timestamps.
+[ ] Hashtags are relevant.
+[ ] Tags are relevant.
+[ ] No fabricated SEO statistics were introduced.
+[ ] No unsupported competitor claims were introduced.
+[ ] No irrelevant viral keywords were added.
+[ ] Metadata sounds human rather than machine-generated.
+[ ] Metadata is optimized for both search discovery and viewer click appeal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. OUTPUT FORMAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Return ONLY valid JSON.
+
+{
+""title"": ""final optimized YouTube title"",
+""seo_description"": ""final optimized YouTube description"",
+""tags"": [
+""tag 1"",
+""tag 2"",
+""tag 3""
+],
+""target_keyword"": ""primary target keyword"",
+""hashtags"": [
+""#hashtag1"",
+""#hashtag2"",
+""#hashtag3""
+],
+""category"": ""Science & Technology"",
+""default_language"": ""en""
+}
+
+No markdown.
+
+No explanation.
+
+No analysis.
+
+No additional keys.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL PRINCIPLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REAL SEARCH EVIDENCE > GENERIC SEO ADVICE.
+
+RELEVANCE > KEYWORD STUFFING.
+
+ACCURATE CURIOSITY > EMPTY CLICKBAIT.
+
+DIFFERENTIATION > COPYING COMPETITORS.
+
+SEARCH INTENT + CTR + TOPIC FIT > CTR ALONE.
+
+The supplied SEO data is the source of truth.
+
+Use the evidence intelligently; do not merely repeat it."
+33,c2b69276-7265-4dbf-bfbf-c5363a74cd71,2,chatgpt,apply,73.0,100.0,0.0,90.55,publish,101,27,0,0,1,1,[],[],2026-09-05 05:31:27.381976,"You are the final YouTube SEO Packaging Engine.
+
+Your job is NOT simply to write a catchy title.
+
+Your job is to transform the supplied video concept + real YouTube search/competition evidence into the strongest possible YouTube metadata package.
+
+You must use the supplied evidence first, reason from it, and then generate the final metadata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CORE OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize the metadata for the combined objective:
+
+SEARCH DISCOVERABILITY
+* CLICK-THROUGH POTENTIAL
+* TOPIC RELEVANCE
+* VIEWER INTENT MATCH
+* COMPETITOR DIFFERENTIATION
+* LONG-TERM SEARCH VALUE
+− MISLEADING/CLICKBAIT RISK
+
+Do NOT optimize for CTR alone.
+
+A title that gets clicks but poorly matches the actual video is inferior to a title that creates both strong curiosity and accurate expectation.
+
+Never invent search-volume numbers, rankings, competitor facts, keywords, or SEO evidence.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. INPUT VIDEO CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IDEA_ID:
+2
+
+VIDEO_TITLE / CONCEPT:
+The Paddy Ocean Vacuum
+
+TOPIC:
+Paddy Harvesting
+
+FORMAT:
+8-second vertical (9:16) AI-generated cinematic short
+
+VIDEO_DESCRIPTION / STORY:
+The Paddy Ocean Vacuum is a kilometer-long floating megamachine designed for harvesting without conventional contact with the soil. Its central chassis resembles an enormous aerodynamic bridge suspended several meters above flooded rice fields. A sequence of buoyant armored modules forms the spine, joined by flexible superconducting articulation rings that allow the machine to bend across irregular terrain. Beneath the hull, hundreds of stabilization nodes generate magnetic suspension fields, while quantum-gravity manipulators continuously adjust the machine's effective weight. The result is a hovering agricultural platform that can glide over embankments, irrigation channels, and flooded paddies without producing destructive ground pressure.
+
+Along its underside hangs a forest of harvesting assemblies. Each unit contains optical scanners, lidar, moisture sensors, and a soft vacuum mouth surrounded by precision airflow vanes. The system first identifies mature panicles by color, spectral signature, and grain density. A controlled low-pressure field gently bends the rice heads toward the intake, while micro-vortexes detach ripe panicles without uprooting the plants. Unripe grain and living stalks remain below, allowing the machine to make repeated selective passes. Harvested material enters transparent reinforced tubes stretching along the machine's spine. Pulsed air and electromagnetic grain conveyors transport the paddy toward mobile silos trailing behind like a procession of enormous floating barges.
+
+Inside the hull, the belly factory is organized as a kilometer-long processing artery. Intake galleries lead to cyclone separation cylinders where dust and straw fragments are removed. Secondary decks contain husking drums, magnetic impurity traps, polishing chambers, and controlled-atmosphere drying galleries. Waste husk is compacted into fuel pellets, while grain is cooled before entering vacuum-sealed storage vaults. Maintenance drones circulate through independent service corridors, repairing vacuum membranes and replacing harvesting heads without interrupting operations.
+
+Fusion reactors supply energy to the plasma conduits running through the spine. Thermal exhaust is expelled through elevated radiators, creating shimmering columns that can distort distant horizons. The machine's transparent grain tubes glow amber at night, making the entire kilometer-long structure resemble a floating river of harvested sunlight.
+
+During monsoon season, the Paddy Ocean Vacuum becomes an atmospheric landmark. Its hull glides above a vast reflective landscape while rain streams around its suspension field. From the ground it appears longer than a city district, its trailing silos forming a moving industrial archipelago across the rice-growing sea.
+
+Level 10 Video Script/Action:
+Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+
+Second 1 [0:00-0:01] — HUD Popup Text: ""STEP 1: ALIEN SYSTEM AWAKENING"" — Every sensor crown across the impossible titan activates simultaneously, generating...
+
+ESCALATION / SCALE:
+Level 10 (Alien / Maximum Megastructure)
+
+TARGET_AUDIENCE:
+Viewers interested in agriculture, futuristic engineering, colossal machines, satisfying videos
+
+VIDEO_DURATION:
+8 seconds
+
+PRIMARY_LANGUAGE:
+en
+
+CATEGORY:
+Science & Technology
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. REAL SEO EVIDENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following information was harvested from YouTube/search data.
+
+You MUST treat this as evidence.
+
+### SEO SIGNALS
+
+Demand Score: 73/100
+Novelty Score: 100/100
+Saturation Score: 0/100  (higher = more crowded)
+Opportunity Score: 91/100 -> verdict: publish
+Competitor Breakdown: 0 exact, 0 close, 1 substitute
+Harvested Keywords Count: 101
+Discovered Competitors Count: 27
+
+Possible fields may include:
+* demand
+* novelty
+* opportunity_score
+* competition_score
+* relevance_score
+* keyword_count
+* competitor_count
+* other calculated SEO metrics
+
+Do not assume a metric means something different from what its name indicates.
+
+### HARVESTED YOUTUBE KEYWORDS
+
+- paddy harvesting in china
+- paddy harvesting in japan
+- paddy harvesting by hand
+- paddy harvesting drawing
+- paddy harvesting time
+- paddy harvesting videos
+- paddy harvesting tractor
+- after paddy harvesting
+- paddy crop harvesting
+- paddy harvesting drone
+- harvesting paddy fields
+- paddy harvesting machine
+
+These are real harvested search suggestions/keywords.
+
+Analyze them for:
+* direct relevance to the video
+* search intent
+* specificity
+* recurring terms
+* keyword clusters
+* long-tail opportunities
+* natural title opportunities
+* natural description opportunities
+* irrelevant/noisy terms
+
+Do NOT blindly stuff keywords.
+
+### COMPETITOR VIDEOS
+
+- [SUBSTITUTE] Watercolor Painting : A Composition on Farmers Harvesting Paddy (3,607 views, channel: Paint Academy)
+
+Analyze competitors for:
+* recurring title language
+* dominant keyword patterns
+* topic angles
+* obvious audience intent
+* successful framing patterns
+* oversaturated wording
+* opportunities for differentiation
+* gaps that our video can exploit
+
+Do NOT assume that high views automatically means high SEO quality.
+
+Do NOT copy competitor titles.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. SEO REASONING PROCESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before generating metadata, internally perform these steps:
+
+STEP 1 — Identify the actual search intent.
+Determine what a viewer is likely searching for when looking for this topic.
+
+STEP 2 — Build a keyword hierarchy.
+Classify available keywords into:
+PRIMARY KEYWORDS
+SECONDARY KEYWORDS
+LONG-TAIL KEYWORDS
+SUPPORTING/SEMANTIC TERMS
+IRRELEVANT/NOISY TERMS
+
+STEP 3 — Identify the strongest keyword opportunity.
+Select the keyword or keyword phrase that provides the best combination of:
+relevance
+* specificity
+* search intent
+* evidence strength
+* competitive opportunity.
+
+STEP 4 — Analyze competitors.
+Determine:
+WHAT THEY ARE ALREADY DOING WELL
+WHAT IS OVERSATURATED
+WHAT WORDING IS REPEATED TOO OFTEN
+WHAT ANGLE IS MISSING
+HOW OUR TITLE CAN BE DIFFERENT WITHOUT BECOMING IRRELEVANT
+
+STEP 5 — Determine the positioning.
+Create one clear positioning statement:
+“This video should be discovered by people interested in ________, and should stand out because ________.”
+
+STEP 6 — Generate multiple internal title candidates.
+Generate several candidate concepts internally.
+Evaluate them against:
+* keyword relevance
+* search intent
+* clarity
+* curiosity
+* specificity
+* differentiation
+* CTR potential
+* natural language
+* accuracy
+* character length
+Then select the strongest candidate.
+
+STEP 7 — Optimize the description around the chosen positioning.
+The description must support the same search intent as the title.
+Never write a generic SEO paragraph simply by inserting keywords.
+
+STEP 8 — Generate tags.
+Use only relevant terms.
+Prioritize:
+exact topic
+primary keyword
+secondary keyword
+long-tail variations
+semantic variants
+natural search phrases
+
+Do NOT generate fake “viral” tags merely because they sound popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TITLE RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate ONE final title.
+
+Maximum 80 characters.
+
+Prefer approximately 45–70 characters when possible.
+
+The title should:
+* accurately represent the actual video
+* naturally incorporate the strongest relevant keyword opportunity
+* create curiosity
+* communicate the video's unique visual/conceptual hook
+* differentiate from competitors
+* avoid generic AI-video wording when a stronger topic-specific phrase exists
+* avoid keyword stuffing
+* avoid fake claims
+* avoid misleading promises
+* avoid excessive punctuation
+* use at most ONE emoji, and only if it genuinely improves the title
+
+Do NOT force an emoji if it weakens the title.
+
+Do NOT use ALL CAPS unless a very small emphasis is genuinely useful.
+
+Do NOT copy competitor wording.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. DESCRIPTION RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write a natural, human-readable YouTube description.
+
+The FIRST 1–2 sentences are the most important.
+
+They should clearly communicate:
+WHAT THE VIDEO IS ABOUT
+* WHY IT IS INTERESTING
+* the strongest natural search phrase where appropriate.
+
+Then provide useful context/story information.
+
+Use relevant secondary and semantic keywords naturally.
+
+Do NOT repeat the same keyword unnaturally.
+
+Do NOT write keyword-stuffed SEO text.
+
+Do NOT claim facts that are not supported by the video.
+
+If timestamps are supplied, use them accurately.
+
+If timestamps are NOT supplied, do not invent fake timestamps.
+
+Include a small number of highly relevant hashtags only.
+
+Avoid generic hashtag spam.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. TAG RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate 10–15 highly relevant tags.
+
+Tags should be selected from the available evidence whenever possible.
+
+Include a useful mixture of:
+* primary keyword
+* secondary keywords
+* long-tail variants
+* topic variations
+* semantic phrases
+* closely related search phrases
+
+Do NOT use unrelated high-volume keywords.
+
+Do NOT use competitor channel names unless directly relevant and appropriate.
+
+Keep total tag length within approximately 460 characters.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. TARGET KEYWORD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Select ONE target keyword.
+
+The target keyword must be:
+* strongly relevant
+* supported by supplied evidence
+* natural for the actual video
+* useful as the primary search positioning
+
+Do NOT select a keyword merely because it appears popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. PINNED COMMENT RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate ONE engaging pinned comment.
+
+Maximum 120 characters.
+
+The pinned comment should:
+* ask an intriguing question or invite discussion about the machine / futuristic technology shown in the video
+* encourage viewers to comment and engage
+* naturally include an appropriate emoji (e.g. 👇)
+* keep viewers thinking and talking in the comments section
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. QUALITY CONTROL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before returning the answer, internally verify:
+
+[ ] Title accurately represents the video.
+[ ] Title contains the strongest practical keyword opportunity where natural.
+[ ] Title is under 80 characters.
+[ ] Title is differentiated from competitors.
+[ ] No misleading claim exists.
+[ ] Description matches the title/search intent.
+[ ] Primary keyword is used naturally.
+[ ] Secondary terms are not stuffed.
+[ ] No invented timestamps.
+[ ] Hashtags are relevant.
+[ ] Tags are relevant.
+[ ] Pinned comment is engaging, concise (<120 chars), and prompts viewer discussion.
+[ ] No fabricated SEO statistics were introduced.
+[ ] No unsupported competitor claims were introduced.
+[ ] No irrelevant viral keywords were added.
+[ ] Metadata sounds human rather than machine-generated.
+[ ] Metadata is optimized for both search discovery and viewer click appeal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. OUTPUT FORMAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Return ONLY valid JSON.
+
+{
+""title"": ""final optimized YouTube title"",
+""seo_description"": ""final optimized YouTube description"",
+""tags"": [
+""tag 1"",
+""tag 2"",
+""tag 3""
+],
+""target_keyword"": ""primary target keyword"",
+""hashtags"": [
+""#hashtag1"",
+""#hashtag2"",
+""#hashtag3""
+],
+""pinned_comment"": ""engaging question or comment (<120 chars) to pin at the top of comments to drive viewer discussion"",
+""category"": ""Science & Technology"",
+""default_language"": ""en""
+}
+
+No markdown.
+
+No explanation.
+
+No analysis.
+
+No additional keys.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL PRINCIPLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REAL SEARCH EVIDENCE > GENERIC SEO ADVICE.
+
+RELEVANCE > KEYWORD STUFFING.
+
+ACCURATE CURIOSITY > EMPTY CLICKBAIT.
+
+DIFFERENTIATION > COPYING COMPETITORS.
+
+SEARCH INTENT + CTR + TOPIC FIT > CTR ALONE.
+
+The supplied SEO data is the source of truth.
+
+Use the evidence intelligently; do not merely repeat it."

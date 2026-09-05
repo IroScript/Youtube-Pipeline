@@ -5,8 +5,8 @@ Dry-run by default. Nothing touches the database unless you pass --apply.
 
 Typical usage:
 
-  # 1. See what the engine finds for one idea (no writes, no browser)
-  run_seo.bat --idea-id 1 --no-browser
+  # 1. See what the engine finds for one idea (dry-run, no writes)
+  run_seo.bat --idea-id 1
 
   # 2. Same, but let the browser LLM (chatgpt.com via CloakBrowser) write the copy
   run_seo.bat --idea-id 1
@@ -45,16 +45,20 @@ def main() -> int:
     target.add_argument("--idea-id", type=int, help="Run SEO for one idea id")
     target.add_argument("--idea-ids", type=str, help="Comma-separated idea ids")
     target.add_argument("--backfill-fallback", action="store_true",
-                        help="Run for every idea whose metadata is still the hardcoded fallback")
+                        help="Run for ideas needing real SEO")
+    target.add_argument("--all-pending", action="store_true",
+                        help="Run for all ideas that do not have real SEO yet")
     target.add_argument("--list-fallback", action="store_true",
-                        help="Audit only: list metadata rows that are still boilerplate")
+                        help="Audit only: list ideas needing real SEO")
+    target.add_argument("--list-pending", action="store_true",
+                        help="Audit only: list ideas needing real SEO")
 
+    ap.add_argument("--escalation-only", action="store_true",
+                    help="Only process ideas that already have 20/20 escalation prompts ready")
     ap.add_argument("--apply", action="store_true",
                     help="Actually write to the DB (default is dry-run). Backs up the DB first.")
     ap.add_argument("--force", action="store_true",
                     help="Overwrite existing metadata even when it is NOT the fallback")
-    ap.add_argument("--no-browser", action="store_true",
-                    help="Skip the browser LLM; use the keyword-grounded deterministic builder")
     ap.add_argument("--limit", type=int, default=0,
                     help="Cap how many ideas a batch processes (0 = no cap)")
     ap.add_argument("--provider", choices=["chatgpt", "gemini"], default=None,
@@ -65,18 +69,23 @@ def main() -> int:
     if args.provider:
         config.LLM_PROVIDER = args.provider
 
-    use_browser = not args.no_browser
+    use_browser = True
 
     # --- audit mode -------------------------------------------------------
-    if args.list_fallback:
-        rows = pipeline.find_fallback_metadata_ideas()
+    if args.list_fallback or args.list_pending:
+        rows = pipeline.find_pending_seo_ideas(escalation_only=args.escalation_only)
         print("=" * 72)
-        print(f"youtube_metadata rows still holding the HARDCODED FALLBACK: {len(rows)}")
+        print(f"Ideas pending real SEO in database: {len(rows)}")
+        ready_esc = sum(1 for r in rows if r.get("has_escalation"))
+        print(f"  • With 20/20 escalation prompts ready: {ready_esc}")
+        print(f"  • Awaiting prompt escalation first  : {len(rows) - ready_esc}")
         print("=" * 72)
         for r in rows:
-            print(f"  idea #{r['idea_id']:>4}  {r['title'][:76]}")
+            esc_mark = "[PROMPTS READY 20/20]" if r.get("has_escalation") else "[NEEDS PROMPTS]"
+            print(f"  Idea #{r['idea_id']:>4}  {esc_mark:<22}  {r['title'][:45]}")
         if rows:
-            print("\nRegenerate them with:  run_seo.bat --backfill-fallback --apply")
+            print("\nGenerate SEO for prompt-ready ideas with:  run_seo.bat --all-pending --escalation-only --apply")
+            print("Or for all pending ideas with:             run_seo.bat --all-pending --apply")
         if args.json:
             print(json.dumps(rows, indent=2, ensure_ascii=False))
         return 0
@@ -87,9 +96,9 @@ def main() -> int:
     elif args.idea_ids:
         idea_ids = [int(x) for x in args.idea_ids.replace(" ", "").split(",") if x]
     else:
-        rows = pipeline.find_fallback_metadata_ideas()
+        rows = pipeline.find_pending_seo_ideas(escalation_only=args.escalation_only)
         idea_ids = [r["idea_id"] for r in rows]
-        print(f"[backfill] {len(idea_ids)} idea(s) have fallback metadata.")
+        print(f"[pending] {len(idea_ids)} idea(s) pending real SEO (escalation_only={args.escalation_only}).")
 
     if args.limit and len(idea_ids) > args.limit:
         print(f"[limit] capping {len(idea_ids)} -> {args.limit} ideas this run.")

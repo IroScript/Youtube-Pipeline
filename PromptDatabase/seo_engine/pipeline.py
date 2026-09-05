@@ -108,6 +108,7 @@ def _persist(idea_id: int, harvest, report, package, *, apply: bool, force: bool
             upload_ready=1 if v.get("upload_ready") else 0,
             warnings=json.dumps(v.get("warnings", []), ensure_ascii=False),
             notes=json.dumps(report.notes, ensure_ascii=False),
+            prompt_sent=package.get("_prompt_sent"),
         )
         session.add(run)
         session.commit()
@@ -146,6 +147,7 @@ def _persist(idea_id: int, harvest, report, package, *, apply: bool, force: bool
                 title=package["title"],
                 seo_description=package["seo_description"],
                 tags=tags_json,
+                pinned_comment=package.get("pinned_comment", ""),
                 category=package["category"],
                 default_language=package["default_language"],
                 status="ready",
@@ -164,6 +166,7 @@ def _persist(idea_id: int, harvest, report, package, *, apply: bool, force: bool
                 existing.title = package["title"]
                 existing.seo_description = package["seo_description"]
                 existing.tags = tags_json
+                existing.pinned_comment = package.get("pinned_comment", "")
                 existing.category = package["category"]
                 existing.default_language = package["default_language"]
                 existing.updated_at = datetime.now(timezone.utc)
@@ -185,6 +188,7 @@ def _record_history(session, idea_id: int, existing, package: dict) -> None:
             ("title", existing.title, package["title"]),
             ("seo_description", existing.seo_description, package["seo_description"]),
             ("tags", existing.tags, json.dumps(package["tags"], ensure_ascii=False)),
+            ("pinned_comment", getattr(existing, "pinned_comment", ""), package.get("pinned_comment", "")),
         ):
             if (old or "") == (new or ""):
                 continue
@@ -272,27 +276,41 @@ def run_for_idea(idea_id: int, *, apply: bool = False, force: bool = False,
 # ---------------------------------------------------------------------------
 # Batch / backfill
 # ---------------------------------------------------------------------------
-def find_fallback_metadata_ideas() -> list[dict]:
+def find_pending_seo_ideas(escalation_only: bool = False) -> list[dict]:
     """
-    Identify `youtube_metadata` rows that still hold the hardcoded boilerplate.
-    These are the rows worth regenerating (currently: all of them).
+    Find all ideas in the database that do NOT yet have usable, data-grounded SEO
+    (i.e. has_seo(idea_id) is False, meaning no row or fallback/empty).
+    If escalation_only=True, only includes ideas where 20/20 prompts are already generated.
     """
     from sqlmodel import select
     from database.session import get_session, init_db
-    from database.models import YouTubeMetadata
+    from database.models import Idea
+    import stage_gates as sg
 
     init_db()
     out: list[dict] = []
     with get_session() as session:
-        for row in session.exec(select(YouTubeMetadata).order_by(YouTubeMetadata.idea_id)).all():
-            try:
-                tags = json.loads(row.tags) if row.tags else []
-            except Exception:
-                tags = []
-            if validators.is_legacy_fallback(row.title, row.seo_description, tags):
-                out.append({"idea_id": row.idea_id, "title": row.title,
-                            "package_folder": row.package_folder_path or ""})
+        ideas = session.exec(select(Idea).order_by(Idea.id)).all()
+        for idea in ideas:
+            if not sg.has_seo(idea.id):
+                has_esc = sg.has_escalation(idea.id)
+                if escalation_only and not has_esc:
+                    continue
+                out.append({
+                    "idea_id": idea.id,
+                    "title": idea.title,
+                    "topic": idea.topic or "",
+                    "has_escalation": has_esc,
+                })
     return out
+
+
+def find_fallback_metadata_ideas() -> list[dict]:
+    """
+    Identify ideas that need real SEO generation: either because they have no
+    youtube_metadata row, or because the row holds hardcoded fallback/empty metadata.
+    """
+    return find_pending_seo_ideas(escalation_only=False)
 
 
 def run_batch(idea_ids: list[int], *, apply: bool = False, force: bool = False,

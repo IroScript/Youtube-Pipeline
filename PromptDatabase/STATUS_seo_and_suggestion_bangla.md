@@ -122,7 +122,6 @@ run_seo.bat --backfill-fallback --apply     :: আসল লেখা; আগে
 | `--idea-id 34` | একটা idea |
 | `--idea-ids 34,35,36` | নির্দিষ্ট কয়েকটা |
 | `--limit 5` | প্রথমে অল্প কয়েকটা দিয়ে পরখ করা |
-| `--no-browser` | LLM ছাড়া, শুধু deterministic scoring |
 | `--force` | ইতিমধ্যে ভালো metadata থাকলেও আবার লিখবে |
 | `--json` | machine-readable output |
 

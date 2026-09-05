@@ -34,8 +34,8 @@ from .scoring import OpportunityReport
 # ---------------------------------------------------------------------------
 # Prompt construction
 # ---------------------------------------------------------------------------
-def _load_stage6_instruction() -> Optional[str]:
-    """Read the SEO prompt style from the DB registry, if present."""
+def _load_stage6_template() -> Optional[str]:
+    """Read the active SEO prompt template from the DB registry."""
     try:
         from sqlmodel import select
         from database.session import get_session, init_db
@@ -49,80 +49,104 @@ def _load_stage6_instruction() -> Optional[str]:
                     PromptingStyleMaster.is_active == 1,
                 )
             ).first()
-            if style:
-                return "\n".join(
-                    x for x in [style.system_role, style.system_instruction, style.rules_and_constraints] if x
-                )
+            if style and style.prompt_template:
+                return style.prompt_template
     except Exception as e:
-        config.log(f"[metadata] could not read STAGE_6 style from DB: {type(e).__name__}")
+        config.log(f"[metadata] could not read STAGE_6 template from DB: {type(e).__name__}")
     return None
 
 
 def build_seo_prompt(harvest: HarvestResult, report: OpportunityReport) -> str:
-    """Compose the data-grounded SEO prompt sent to the browser LLM."""
-    style = _load_stage6_instruction()
-    role = style or "You are a world-class YouTube SEO and packaging strategist."
+    """Compose the data-grounded SEO prompt sent to the browser LLM using the DB template."""
+    template = _load_stage6_template()
 
-    top_kw = report.top_keywords[:12]
+    # 1. Fetch video description / story and level 10 prompt if available
+    video_story = ""
+    try:
+        from sqlmodel import select
+        from database.session import get_session
+        from database.models import Idea, Prompt
+        with get_session() as session:
+            idea_obj = session.exec(select(Idea).where(Idea.id == harvest.idea_id)).first()
+            if idea_obj:
+                video_story = getattr(idea_obj, "description", "") or getattr(idea_obj, "story", "") or ""
+            lvl10 = session.exec(
+                select(Prompt).where(
+                    Prompt.idea_id == harvest.idea_id,
+                    Prompt.level == 10,
+                    Prompt.generation_type == "video"
+                )
+            ).first()
+            if lvl10 and lvl10.prompt_text:
+                if video_story:
+                    video_story += f"\n\nLevel 10 Video Script/Action:\n{lvl10.prompt_text[:300]}..."
+                else:
+                    video_story = lvl10.prompt_text
+    except Exception:
+        pass
+    if not video_story:
+        video_story = f"A colossal {harvest.idea_title} operating on {harvest.topic or 'the landscape'} in an 8-second cinematic vertical short."
+
+    # 2. Format measured SEO signals
+    signals = (
+        f"Demand Score: {report.demand_score:.0f}/100\n"
+        f"Novelty Score: {report.novelty_score:.0f}/100\n"
+        f"Saturation Score: {report.saturation_score:.0f}/100  (higher = more crowded)\n"
+        f"Opportunity Score: {report.opportunity_score:.0f}/100 -> verdict: {report.verdict}\n"
+        f"Competitor Breakdown: {report.exact_competitors} exact, {report.close_competitors} close, {report.substitute_competitors} substitute\n"
+        f"Harvested Keywords Count: {len(harvest.keywords)}\n"
+        f"Discovered Competitors Count: {len(harvest.competitors)}"
+    )
+
+    # 3. Format real keywords & competitors
+    top_kw = report.top_keywords[:15]
+    kw_lines = "\n".join(f"- {k}" for k in top_kw) if top_kw else "- (no keyword data available)"
+
     rivals = [c for c in report.classified if c.level in ("EXACT", "CLOSE", "SUBSTITUTE")][:10]
     rival_lines = "\n".join(
-        f"  - [{c.level}] {c.title[:80]} ({c.view_count:,} views, {c.channel[:28]})"
+        f"- [{c.level}] {c.title[:80]} ({c.view_count:,} views, channel: {c.channel[:28]})"
         for c in rivals
-    ) or "  (no close competitors found — this is likely content white space)"
+    ) if rivals else "- (no close competitors found — this is likely content white space)"
 
-    kw_lines = "\n".join(f"  - {k}" for k in top_kw) or "  (no keyword data available)"
+    replacements = {
+        "idea_id": str(harvest.idea_id),
+        "idea_title": harvest.idea_title,
+        "topic": harvest.topic or "General",
+        "format": "8-second vertical (9:16) AI-generated cinematic short",
+        "video_story": video_story,
+        "escalation_level": "Level 10 (Alien / Maximum Megastructure)",
+        "target_audience": "Viewers interested in agriculture, futuristic engineering, colossal machines, satisfying videos",
+        "video_duration": "8 seconds",
+        "default_language": config.YT_DEFAULT_LANGUAGE,
+        "category": config.YT_DEFAULT_CATEGORY,
+        "seo_signals": signals,
+        "harvested_keywords": kw_lines,
+        "competitor_videos": rival_lines,
+    }
 
-    return f"""{role}
+    if template:
+        res = template
+        for k, val in replacements.items():
+            res = res.replace(f"{{{{{k}}}}}", str(val)).replace(f"{{{k}}}", str(val))
+        return res
 
-=== REAL DATA (already collected — do NOT invent numbers, use these) ===
+    # Fallback to default inline template if DB template is missing
+    return f"""You are the final YouTube SEO Packaging Engine.
+
 VIDEO SUBJECT : {harvest.idea_title}
 TOPIC/ELEMENT : {harvest.topic or 'General'}
 FORMAT        : 8-second vertical (9:16) AI-generated cinematic short
 
-MEASURED SEO SIGNALS (computed from YouTube autocomplete + live search results):
-  demand score      : {report.demand_score:.0f}/100
-  novelty score     : {report.novelty_score:.0f}/100
-  saturation score  : {report.saturation_score:.0f}/100  (higher = more crowded)
-  opportunity score : {report.opportunity_score:.0f}/100 -> verdict: {report.verdict}
-  competitor mix    : {report.exact_competitors} exact, {report.close_competitors} close, {report.substitute_competitors} substitute
+MEASURED SEO SIGNALS:
+{signals}
 
-REAL KEYWORDS people actually search (from YouTube autocomplete):
+REAL KEYWORDS:
 {kw_lines}
 
-REAL COMPETING VIDEOS currently ranking:
+REAL COMPETING VIDEOS:
 {rival_lines}
 
-=== YOUR TASK ===
-Produce an upload-ready YouTube SEO package that BEATS the competitors above by
-differentiating on angle, and that naturally uses the real keywords above.
-
-HARD CONSTRAINTS (a violation makes the upload fail):
-  - "title": <= {config.YT_TITLE_SOFT} characters strongly preferred, {config.YT_TITLE_MAX} absolute max.
-    High-CTR, curiosity-driven, front-load the strongest real keyword. Max 1 emoji.
-  - "seo_description": 3 paragraphs. Paragraph 1 hooks in the first 120 characters
-    (that is all YouTube shows before "more"). Include a timestamp block for an
-    8-second video and end with exactly 5 hashtags.
-  - "tags": {config.YT_TAGS_MAX_COUNT} or fewer, each under {config.YT_TAG_MAX_LEN} chars,
-    combined length under {config.YT_TAGS_TOTAL_CHARS_MAX} characters.
-    Order them most-specific -> most-generic. Prefer the REAL keywords above.
-  - "hook": one spoken/on-screen opening line, under 90 characters.
-  - "pinned_comment": short engaging pinned comment / discussion question for viewers (under 120 characters) to drive maximum comments & engagement.
-  - "thumbnail_prompt": a concrete image-generation prompt for a scroll-stopping thumbnail.
-  - "target_keyword": the single best keyword to rank for, chosen from the real list.
-
-Return ONLY this raw JSON object, no markdown fence, no commentary:
-{{
-  "title": "...",
-  "seo_description": "...",
-  "tags": ["...", "..."],
-  "hashtags": ["#...", "#...", "#...", "#...", "#..."],
-  "hook": "...",
-  "pinned_comment": "...",
-  "thumbnail_prompt": "...",
-  "target_keyword": "...",
-  "category": "{config.YT_DEFAULT_CATEGORY}",
-  "default_language": "{config.YT_DEFAULT_LANGUAGE}"
-}}""".strip()
+Return ONLY a raw JSON object with keys: title, seo_description, tags, hashtags, target_keyword, pinned_comment, category, default_language.""".strip()
 
 
 # ---------------------------------------------------------------------------
@@ -209,9 +233,9 @@ def build_metadata(
     """
     package: Optional[dict] = None
     source = "browser_llm"
+    prompt = build_seo_prompt(harvest, report)
 
     if use_browser:
-        prompt = build_seo_prompt(harvest, report)
         try:
             own_llm = False
             if llm is None:
@@ -237,4 +261,5 @@ def build_metadata(
         package, fallback_title=fb["title"], fallback_desc=fb["seo_description"]
     )
     validated["_source"] = source
+    validated["_prompt_sent"] = prompt
     return validated

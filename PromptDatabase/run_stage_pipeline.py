@@ -125,7 +125,7 @@ def cmd_plan(idea_id) -> None:
 # ---------------------------------------------------------------------------
 # Stage executors - each calls the EXISTING implementation, nothing reimplemented
 # ---------------------------------------------------------------------------
-def do_escalation(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
+def do_escalation(idea_id: int, *, apply: bool) -> bool:
     from sqlmodel import select
     from database.session import get_session
     from database.models import Idea
@@ -139,27 +139,21 @@ def do_escalation(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
         title = idea.title
 
     if not apply:
-        how = " (offline placeholder)" if no_browser else " via CloakBrowser -> chatgpt.com"
-        print(f"  [DRY-RUN] would generate a 10-level escalation for #{idea_id} '{title}'{how}")
+        print(f"  [DRY-RUN] would generate a 10-level escalation for #{idea_id} '{title}' via CloakBrowser -> chatgpt.com")
         return False
-
-    if no_browser:
-        # The env gate added to generate_escalation_for_idea() blocks the hardcoded
-        # offline builder unless this is set. Only an explicit --no-browser opts in.
-        os.environ["ALLOW_OFFLINE_ESCALATION"] = "1"
 
     with get_session() as session:
         idea = session.exec(select(Idea).where(Idea.id == idea_id)).first()
-        saved = generate_escalation_for_idea(idea, skip_browser=no_browser)
+        saved = generate_escalation_for_idea(idea, skip_browser=False)
     print(f"  escalation prompts saved: {len(saved) if saved else 0}")
     return bool(saved)
 
 
-def do_seo(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
+def do_seo(idea_id: int, *, apply: bool) -> bool:
     from seo_engine import pipeline as seo_pipeline
 
     res = seo_pipeline.run_for_idea(
-        idea_id, apply=apply, force=False, use_browser=not no_browser
+        idea_id, apply=apply, force=False, use_browser=True
     )
     if "error" in res:
         print(f"  seo error: {res['error']}")
@@ -282,7 +276,7 @@ def register_rendered_video(idea_id: int, mp4: Path) -> None:
     print(f"  GeneratedVideo.file_path -> {mp4}")
 
 
-def do_video(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
+def do_video(idea_id: int, *, apply: bool) -> bool:
     info = build_prompt_info(idea_id)
     prompt = info["full_combined_prompt"]
     print(f"  prompt ({len(prompt)} chars): {prompt[:180]}...")
@@ -290,9 +284,6 @@ def do_video(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
     if not apply:
         print("  [DRY-RUN] would render via ExtensionVideoBridge (Chrome + Google Flow / Veo).")
         print("  [DRY-RUN] NO YouTube upload is part of this path.")
-        return False
-    if no_browser:
-        print("  --no-browser given: a real render needs Chrome. Skipping video stage.")
         return False
 
     from extension_bridge import ExtensionVideoBridge
@@ -308,7 +299,7 @@ def do_video(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
     return False
 
 
-def do_package(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
+def do_package(idea_id: int, *, apply: bool) -> bool:
     if not apply:
         print("  [DRY-RUN] would export prompt_info.json + youtube_metadata.json from SQLite "
               "and copy the mp4 into output_packaged/.")
@@ -319,7 +310,7 @@ def do_package(idea_id: int, *, apply: bool, no_browser: bool) -> bool:
     # comment in pipeline_packager.sync_and_get_youtube_metadata_from_sqlite().
     os.environ["PACKAGER_REAL_SEO"] = "1"
     from pipeline_packager import process_idea_level10_package
-    res = process_idea_level10_package(idea_id, skip_browser=no_browser)
+    res = process_idea_level10_package(idea_id, skip_browser=False)
     print(f"  packager status: {res.get('status')}")
     if res.get("folder"):
         print(f"  folder: {res['folder']}")
@@ -337,7 +328,7 @@ EXECUTORS = {
 # ---------------------------------------------------------------------------
 # Run
 # ---------------------------------------------------------------------------
-def run_one_stage(idea_id: int, *, apply: bool, no_browser: bool, allowed: list):
+def run_one_stage(idea_id: int, *, apply: bool, allowed: list):
     rep = sg.stage_report(idea_id)
     if "error" in rep:
         print(f"idea #{idea_id}: {rep['error']}")
@@ -359,7 +350,7 @@ def run_one_stage(idea_id: int, *, apply: bool, no_browser: bool, allowed: list)
     tag = "" if apply else "  [DRY-RUN]"
     print(f"idea #{idea_id} '{rep['title']}' -> stage '{stage}'{tag}")
     print("-" * 72)
-    ok = EXECUTORS[stage](idea_id, apply=apply, no_browser=no_browser)
+    ok = EXECUTORS[stage](idea_id, apply=apply)
     print(f"  stage '{stage}' -> {'DONE' if ok else 'not advanced'}")
     return stage, ok
 
@@ -372,7 +363,6 @@ def main() -> None:
     ap.add_argument("--chain", action="store_true", help="keep advancing this idea until blocked or complete")
     ap.add_argument("--idea-id", type=int, default=None, help="target a specific idea")
     ap.add_argument("--apply", action="store_true", help="REQUIRED to write anything")
-    ap.add_argument("--no-browser", action="store_true", help="deterministic/offline only, no Chrome")
     ap.add_argument("--stages", default=",".join(RUNNABLE_STAGES),
                     help="comma list of stages allowed to run (default: " + ",".join(RUNNABLE_STAGES) + ")")
     args = ap.parse_args()
@@ -399,13 +389,13 @@ def main() -> None:
         print("*** DRY-RUN - no writes. Add --apply to execute. ***\n")
 
     if args.run:
-        run_one_stage(tid, apply=args.apply, no_browser=args.no_browser, allowed=allowed)
+        run_one_stage(tid, apply=args.apply, allowed=allowed)
         return
 
     # --chain: advance the same idea stage by stage, stopping on the first no-progress
     seen = set()
     while True:
-        stage, ok = run_one_stage(tid, apply=args.apply, no_browser=args.no_browser, allowed=allowed)
+        stage, ok = run_one_stage(tid, apply=args.apply, allowed=allowed)
         if stage is None or not ok:
             break
         if stage in seen:

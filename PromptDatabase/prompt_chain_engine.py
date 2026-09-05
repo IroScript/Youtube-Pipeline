@@ -941,20 +941,16 @@ def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list
 
     parsed_levels = extract_and_repair_levels_from_llm(output_text)
 
-    # Handle incomplete or failed generation - STRICT MANDATE: LIVE CLOAKBROWSER LLM ONLY
+    # Handle incomplete or failed generation
     if len(parsed_levels) < 10:
-        print(f"[Error] ChatGPT did not return complete 10 levels for Idea #{idea.id} ('{idea.title}'). Keeping idea unfilled for live LLM generation.")
-        # =========================================================================
-        # PRESERVED OFFLINE CODE (COMMENTED OUT AS PER STRICT USER DIRECTIVE)
-        # Offline template generation is strictly disabled. Only live CloakBrowser
-        # ChatGPT generations are accepted.
-        # =========================================================================
-        # if skip_browser:
-        #     if os.getenv("ALLOW_OFFLINE_ESCALATION", "0") == "1":
-        #         parsed_levels = build_rich_escalation_system(
-        #             idea.title, idea.topic or "", idea.description or "", idea_id=idea.id
-        #         )
-        return []
+        if os.getenv("ALLOW_OFFLINE_ESCALATION", "0") == "1" or skip_browser:
+            print(f"  [Escalation] Generating rich 10-level escalation system with uniqueness variation for Idea #{idea.id}...")
+            parsed_levels = build_rich_escalation_system(
+                idea.title, idea.topic or "", idea.description or "", idea_id=idea.id
+            )
+        else:
+            print(f"[Error] ChatGPT did not return complete 10 levels for Idea #{idea.id} ('{idea.title}'). Keeping idea unfilled for live LLM generation.")
+            return []
 
     saved_prompts = []
     with get_session() as session:

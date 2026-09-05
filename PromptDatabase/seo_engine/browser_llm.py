@@ -276,7 +276,7 @@ class BrowserLLM:
     # -- browser driving (mirrors the proven prompt_chain_engine logic) -----
     def _run_once(self, prompt_text: str, wait_seconds: int) -> str:
         self._ensure_browser()
-        page = self._context.new_page()
+        page = self._context.pages[0] if (self._context and self._context.pages) else self._context.new_page()
         output_text = ""
         try:
             page.goto(self.url, wait_until="domcontentloaded", timeout=45000)
@@ -314,7 +314,8 @@ class BrowserLLM:
                     'div[contenteditable="true"]:visible, '
                     'textarea#mobile-composer-prompt:visible, '
                     'rich-textarea textarea:visible, '
-                    '[role="textbox"]:visible'
+                    '[role="textbox"]:visible, '
+                    'textarea:visible'
                 )
                 if cand.count() > 0:
                     input_box = cand.first
@@ -329,9 +330,9 @@ class BrowserLLM:
             time.sleep(0.5)
 
             send_selector = (
+                'button[data-testid="send-button"]:visible, '
                 'button.wm-composer-submitButton:visible, '
                 'button[aria-label*="Send" i]:visible, '
-                'button[data-testid="send-button"]:visible, '
                 'button[aria-label*="Send message" i]:visible'
             )
             send_btn = page.locator(send_selector).first
@@ -353,9 +354,20 @@ class BrowserLLM:
                     """() => {
                         const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i], button.wm-composer-stopButton');
                         const isStop = stopBtn !== null && stopBtn.offsetParent !== null;
-                        const turns = document.querySelectorAll('div[data-message-author-role="assistant"], message-content, .model-response-text');
-                        const last = turns.length ? turns[turns.length-1] : null;
-                        const text = last ? (last.innerText || '') : '';
+                        const turns = document.querySelectorAll('div[data-message-author-role="assistant"], [data-message-model-slug], .agent-turn, article, message-content, .model-response-text');
+                        let text = '';
+                        if (turns.length > 0) {
+                            text = turns[turns.length - 1].innerText || '';
+                        }
+                        if (!text || text.length < 5) {
+                            const candidates = Array.from(document.querySelectorAll('p, pre, code, div')).filter(el => {
+                                const t = el.innerText || '';
+                                return t.includes('"title"') && !t.includes('HARD CONSTRAINTS');
+                            });
+                            if (candidates.length > 0) {
+                                text = candidates[candidates.length - 1].innerText || '';
+                            }
+                        }
                         return {length: text.length, isStop, turns: turns.length};
                     }"""
                 )
@@ -384,9 +396,20 @@ class BrowserLLM:
                     """() => {
                         const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i], button.wm-composer-stopButton');
                         const isStop = stopBtn !== null && stopBtn.offsetParent !== null;
-                        const turns = document.querySelectorAll('div[data-message-author-role="assistant"], message-content, .model-response-text');
-                        const last = turns.length ? turns[turns.length-1] : null;
-                        const text = last ? (last.innerText || '') : '';
+                        const turns = document.querySelectorAll('div[data-message-author-role="assistant"], [data-message-model-slug], .agent-turn, article, message-content, .model-response-text');
+                        let text = '';
+                        if (turns.length > 0) {
+                            text = turns[turns.length - 1].innerText || '';
+                        }
+                        if (!text || text.length < 5) {
+                            const candidates = Array.from(document.querySelectorAll('p, pre, code, div')).filter(el => {
+                                const t = el.innerText || '';
+                                return t.includes('"title"') && !t.includes('HARD CONSTRAINTS');
+                            });
+                            if (candidates.length > 0) {
+                                text = candidates[candidates.length - 1].innerText || '';
+                            }
+                        }
                         return {isStop, length: text.length, text};
                     }"""
                 )
@@ -406,10 +429,7 @@ class BrowserLLM:
             if not output_text and curr_len > 0:
                 output_text = curr_text
         finally:
-            try:
-                page.close()
-            except Exception:
-                pass
+            pass
         return output_text
 
 

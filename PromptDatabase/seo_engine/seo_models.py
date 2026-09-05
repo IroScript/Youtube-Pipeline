@@ -53,6 +53,7 @@ class SEORun(SQLModel, table=True):
     upload_ready: int = 0
     warnings: Optional[str] = None            # JSON array of validator warnings
     notes: Optional[str] = None
+    prompt_sent: Optional[str] = None         # Exact prompt sent to LLM for full auditability
     created_at: datetime = Field(default_factory=_utcnow)
 
 
@@ -94,8 +95,10 @@ def init_seo_tables() -> None:
     """
     Create ONLY the new SEO tables if they do not exist.
     Safe/idempotent: create_all never modifies or drops existing tables.
+    Also ensures additive columns (like prompt_sent) exist in existing tables.
     """
     from database.session import engine
+    from sqlalchemy import text
     SQLModel.metadata.create_all(
         engine,
         tables=[
@@ -104,3 +107,8 @@ def init_seo_tables() -> None:
             SEOKeywordMetric.__table__,
         ],
     )
+    with engine.connect() as conn:
+        cols = [r[1] for r in conn.execute(text("PRAGMA table_info(seo_runs)")).fetchall()]
+        if "prompt_sent" not in cols:
+            conn.execute(text("ALTER TABLE seo_runs ADD COLUMN prompt_sent TEXT"))
+            conn.commit()

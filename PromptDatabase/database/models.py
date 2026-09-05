@@ -205,6 +205,7 @@ class YouTubeMetadata(YouTubeBaseModel, table=True):
     title: str
     seo_description: str
     tags: str  # JSON string array of tags
+    pinned_comment: Optional[str] = None
     category: str = "Science & Technology"
     default_language: str = "en"
     video_prompt_used: Optional[str] = None

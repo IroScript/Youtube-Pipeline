@@ -122,15 +122,11 @@ synced via the remediation plan's `--force-idea` path — which remains **your d
 
 ```bat
 run_seo.bat --list-fallback                  :: audit: which rows are boilerplate (35)
-run_seo.bat --idea-id 1 --no-browser         :: dry-run, keyless data only, no browser
 run_seo.bat --idea-id 1                      :: dry-run + browser LLM writes the copy
 run_seo.bat --idea-id 1 --apply              :: persist one idea (backs up first)
 run_seo.bat --backfill-fallback --apply      :: regenerate all 35 boilerplate rows
 run_seo.bat --backfill-fallback --apply --limit 5   :: safer staged rollout
 ```
-
-`--no-browser` still produces a **real, per-idea, keyword-grounded** package (never the old
-identical boilerplate) — useful for offline runs and for validating before spending browser time.
 
 ## 5. Browser LLM gateway
 
@@ -147,7 +143,7 @@ Reusable beyond SEO — any project module can call it instead of an API key.
 
 ### First run needs a one-time login
 
-The persistent profile starts empty. On the first non-`--no-browser` run a Chrome window opens;
+The persistent profile starts empty. On the first run a Chrome window opens;
 **log in to chatgpt.com once** and the session persists afterwards. Until then, runs cleanly fall
 back to the keyword-grounded builder rather than failing.
 

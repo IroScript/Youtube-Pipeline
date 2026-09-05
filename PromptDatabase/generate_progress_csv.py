@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
+from export_utils import get_timestamp_suffix, resolve_unique_path
 from database.session import init_db, get_session, DB_PATH
 from database.models import Category, Element, Idea, IdeaElement, Prompt, Task, TaskAttempt, GeneratedVideo
 
@@ -57,7 +58,15 @@ def export_raw_tables(db_path: Path, output_dir: Path):
     return table_summaries
 
 
-def generate_pipeline_hierarchy_progress():
+def generate_pipeline_hierarchy_progress(timestamp_suffix=None):
+    if timestamp_suffix is None:
+        timestamp_suffix = get_timestamp_suffix()
+
+    if timestamp_suffix:
+        target_file = EXPORT_DIR / f"pipeline_hierarchy_progress_{timestamp_suffix}.csv"
+    else:
+        target_file = PROGRESS_CSV_PATH
+
     init_db()
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
     
@@ -144,25 +153,34 @@ def generate_pipeline_hierarchy_progress():
                 })
 
     # Write Master Progress CSV safely
+    final_target = resolve_unique_path(target_file)
     if rows:
         fieldnames = list(rows[0].keys())
         try:
-            with open(PROGRESS_CSV_PATH, "w", newline="", encoding="utf-8-sig") as f:
+            with open(final_target, "w", newline="", encoding="utf-8-sig") as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(rows)
         except PermissionError:
-            fallback = EXPORT_DIR / "pipeline_hierarchy_progress_updated.csv"
+            fallback = resolve_unique_path(final_target.with_name(final_target.stem + "_alt" + final_target.suffix))
             with open(fallback, "w", newline="", encoding="utf-8-sig") as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(rows)
-            print(f"[Notice] '{PROGRESS_CSV_PATH.name}' is open in another app. Saved to '{fallback.name}'.")
+            print(f"[Notice] '{target_file.name}' is open in another app. Saved to '{fallback.name}'.")
 
     return rows
 
 
-def generate_table_fillup_summary(table_summaries: list):
+def generate_table_fillup_summary(table_summaries: list, timestamp_suffix=None):
+    if timestamp_suffix is None:
+        timestamp_suffix = get_timestamp_suffix()
+
+    if timestamp_suffix:
+        target_summary_file = EXPORT_DIR / f"table_fillup_summary_{timestamp_suffix}.csv"
+    else:
+        target_summary_file = SUMMARY_CSV_PATH
+
     fieldnames = ["Table_Name", "Row_Count", "Column_Count", "Status", "CSV_Path"]
     summary_rows = []
     for ts in table_summaries:
@@ -175,13 +193,14 @@ def generate_table_fillup_summary(table_summaries: list):
             "CSV_Path": ts["csv_path"]
         })
 
+    final_summary = resolve_unique_path(target_summary_file)
     try:
-        with open(SUMMARY_CSV_PATH, "w", newline="", encoding="utf-8-sig") as f:
+        with open(final_summary, "w", newline="", encoding="utf-8-sig") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(summary_rows)
     except PermissionError:
-        fallback = EXPORT_DIR / "table_fillup_summary_updated.csv"
+        fallback = resolve_unique_path(final_summary.with_name(final_summary.stem + "_alt" + final_summary.suffix))
         with open(fallback, "w", newline="", encoding="utf-8-sig") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()

@@ -16,7 +16,6 @@ Usage:
   python run_prompt_and_seo_fillup.py --idea-id 3      (Process specific idea)
   python run_prompt_and_seo_fillup.py --seo-only       (Backfill SEO for all pending ideas)
   python run_prompt_and_seo_fillup.py --export-only    (Refresh all CSV exports)
-  python run_prompt_and_seo_fillup.py --no-browser     (Fast deterministic keyword-grounded mode)
 """
 
 from __future__ import annotations
@@ -44,26 +43,8 @@ from generate_seo_csv import generate_seo_csvs
 
 def refresh_all_csvs():
     """Refreshes all master CSV files from the SQLite database."""
-    print("\n" + "-" * 70)
-    print("📊 [CSV AUTO-SYNC] Refreshing All Master CSV Exports...")
-    print("-" * 70)
-    try:
-        export_master_prompts_csv()
-    except Exception as e:
-        print(f"  [Notice] master_prompts_from_db.csv export notice: {e}")
-
-    try:
-        generate_seo_csvs()
-    except Exception as e:
-        print(f"  [Notice] seo_master.csv export notice: {e}")
-
-    try:
-        from generate_master_joined_csv import generate_unified_master_csv
-        generate_unified_master_csv()
-    except Exception as e:
-        print(f"  [Notice] unified_master_pipeline.csv export notice: {e}")
-
-    print("✅ [CSV AUTO-SYNC] All CSV files successfully updated in exports/")
+    from generate_all_csvs import generate_all
+    generate_all()
 
 
 def process_idea_full_fillup(idea_id: int, *, use_browser: bool = True, apply: bool = True) -> dict:
@@ -142,15 +123,25 @@ def run_full_pipeline_loop(
     print(f"  • Escalation Ready:     {sg_summary['counts']['escalation']}/{total}")
     print(f"  • Real SEO Ready:       {sg_summary['counts']['seo']}/{total}")
     print(f"  • Mode:                 {'SEO-Only Backfill' if seo_only else ('Prompts-Only' if prompt_only else 'Full Prompt + SEO Auto-Fill')}")
-    print(f"  • Browser:              {'CloakBrowser (Live LLM)' if use_browser else 'Fast Keyless / Deterministic'}")
+    print(f"  • Browser:              CloakBrowser (Live LLM)")
     print("=" * 76)
 
     if target_idea_id is not None:
         target_ids = [target_idea_id]
     elif seo_only:
-        rows = seo_pipeline.find_fallback_metadata_ideas()
+        rows = seo_pipeline.find_pending_seo_ideas(escalation_only=False)
         target_ids = [r["idea_id"] for r in rows]
         print(f"\n[SEO Backfill Mode] Found {len(target_ids)} ideas needing real SEO.")
+    elif prompt_only:
+        all_ids = sg.all_idea_ids()
+        target_ids = []
+        for i in all_ids:
+            rep = sg.stage_report(i)
+            if "error" in rep:
+                continue
+            if not rep["stages"]["escalation"]:
+                target_ids.append(i)
+        print(f"\n[Prompt-Only Mode] Found {len(target_ids)} ideas pending prompt escalation.")
     else:
         # Prioritize ideas needing escalation, then ideas needing SEO
         all_ids = sg.all_idea_ids()
@@ -206,7 +197,6 @@ def main():
     parser.add_argument("--seo-only", action="store_true", help="Backfill SEO only for all pending ideas")
     parser.add_argument("--prompt-only", action="store_true", help="Fill missing escalation prompts only")
     parser.add_argument("--export-only", action="store_true", help="Refresh all Master CSV exports and exit")
-    parser.add_argument("--no-browser", action="store_true", help="Fast keyless mode (deterministic keyword-grounded copy)")
     parser.add_argument("--delay", type=int, default=2, help="Delay between ideas in seconds (default: 2s)")
     args = parser.parse_args()
 
@@ -219,7 +209,7 @@ def main():
         target_idea_id=args.idea_id,
         seo_only=args.seo_only,
         prompt_only=args.prompt_only,
-        use_browser=not args.no_browser,
+        use_browser=True,
         apply=True,
         delay=args.delay
     )

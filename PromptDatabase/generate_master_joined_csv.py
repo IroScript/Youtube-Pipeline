@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
+from export_utils import get_timestamp_suffix, resolve_unique_path
 from database.session import init_db, get_session, DB_PATH
 from database.models import Category, Element, Idea, IdeaElement, Prompt, Task, TaskAttempt, GeneratedVideo
 
@@ -34,7 +35,15 @@ MASTER_CSV_PATH = EXPORT_DIR / "unified_master_pipeline.csv"
 OUTPUT_PACKAGED_DIR = BASE_DIR / "output_packaged"
 
 
-def generate_unified_master_csv():
+def generate_unified_master_csv(timestamp_suffix=None):
+    if timestamp_suffix is None:
+        timestamp_suffix = get_timestamp_suffix()
+
+    if timestamp_suffix:
+        target_file = EXPORT_DIR / f"unified_master_pipeline_{timestamp_suffix}.csv"
+    else:
+        target_file = MASTER_CSV_PATH
+
     init_db()
     
     with get_session() as session:
@@ -231,22 +240,22 @@ def generate_unified_master_csv():
                     })
 
     # Write unified master CSV safely
+    target_path = resolve_unique_path(target_file)
     if rows:
         fieldnames = list(rows[0].keys())
         try:
-            with open(MASTER_CSV_PATH, "w", newline="", encoding="utf-8-sig") as f:
+            with open(target_path, "w", newline="", encoding="utf-8-sig") as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(rows)
-            target_path = MASTER_CSV_PATH
         except PermissionError:
-            fallback_path = EXPORT_DIR / "unified_master_pipeline_updated.csv"
+            fallback_path = resolve_unique_path(target_path.with_name(target_path.stem + "_alt" + target_path.suffix))
             with open(fallback_path, "w", newline="", encoding="utf-8-sig") as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(rows)
             target_path = fallback_path
-            print(f"[Notice] '{MASTER_CSV_PATH.name}' is currently open in another app (e.g. Excel). Saved updated version to: {fallback_path.name}")
+            print(f"[Notice] '{target_file.name}' is currently open in another app (e.g. Excel). Saved updated version to: {fallback_path.name}")
 
     print(f"\n[Success] Unified Master CSV generated successfully!")
     print(f"  Path: {target_path}")

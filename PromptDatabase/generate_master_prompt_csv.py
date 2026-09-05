@@ -23,6 +23,7 @@ from __future__ import annotations
 import csv
 import sys
 from pathlib import Path
+from export_utils import get_timestamp_suffix, resolve_unique_path
 
 BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
@@ -52,8 +53,15 @@ COLUMNS = [
 ]
 
 
-def main() -> None:
+def main(timestamp_suffix=None) -> None:
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
+    if timestamp_suffix is None:
+        timestamp_suffix = get_timestamp_suffix()
+
+    if timestamp_suffix:
+        target_csv = EXPORT_DIR / f"master_prompts_from_db_{timestamp_suffix}.csv"
+    else:
+        target_csv = OUT_CSV
 
     with get_session() as session:
         cat = session.exec(select(Category)).first()
@@ -145,15 +153,23 @@ def main() -> None:
             "Next_Missing_Stage": rep.get("next_missing") or "COMPLETE",
         })
 
-    with open(OUT_CSV, "w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLUMNS)
-        w.writeheader()
-        w.writerows(rows)
+    final_csv = resolve_unique_path(target_csv)
+    try:
+        with open(final_csv, "w", encoding="utf-8-sig", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=COLUMNS)
+            w.writeheader()
+            w.writerows(rows)
+    except PermissionError:
+        final_csv = resolve_unique_path(final_csv.with_name(final_csv.stem + "_alt" + final_csv.suffix))
+        with open(final_csv, "w", encoding="utf-8-sig", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=COLUMNS)
+            w.writeheader()
+            w.writerows(rows)
 
     lvl10 = sum(1 for r in rows if r["Is_Level10_Video_Prompt"] == "YES")
     real = len({r["Idea_ID"] for r in rows if r["SEO_Status"] == "REAL"})
     print("[Success] Master Prompt CSV generated")
-    print(f"  Path            : {OUT_CSV}")
+    print(f"  Path            : {final_csv}")
     print(f"  Prompt rows     : {len(rows)}")
     print(f"  Distinct ideas  : {len({r['Idea_ID'] for r in rows})}")
     print(f"  Level-10 video  : {lvl10}")
