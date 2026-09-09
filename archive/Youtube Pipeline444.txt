@@ -1,0 +1,881 @@
+
+      ▄▀▀▄        Antigravity CLI 1.1.27
+     ▀▀▀▀▀▀       mainuddinh297@gmail.com (Google AI Ultra)
+    ▀▀▀▀▀▀▀▀      Gemini 3.8 Flash (High)
+   ▄▀▀    ▀▀▄     ~/Desktop/Youtube Pipeline
+  ▄▀▀      ▀▀▄
+
+────────────────────────────────────────────────────────────
+> এখন আর REQ-001→REQ-097 sequential architecture verification চালিয়ে যেও না।
+
+  আমার আসল লক্ষ্য হলো: **আমার YouTube Content Automation-এর বাস্তব কাজগুলো API দিয়ে সম্পূর্ণভাবে চালানো যায় কি না।**
+
+  বর্তমান codebase-এর উপর একটি **Functional Pipeline + REST API Coverage Audit** করো।
+
+  কোনো নতুন feature implementation করবে না। আগে শুধু AUDIT করবে।
+
+  বিশেষভাবে Element → Ideas → Prompt → Prompt Escalation → SEO → Video Generation → TTS/Audio → Media Assembly → Package → YouTube Upload—এই
+  সম্পূর্ণ বাস্তব pipeline trace করো।
+
+  প্রতিটি ধাপের জন্য দেখাও:
+
+  1. বাস্তবে business logic/service আছে কি না
+  2. CLI দিয়ে চালানো যায় কি না
+  3. REST API endpoint আছে কি না
+  4. API endpoint থেকে সেই actual service/business logic invoke হয় কি না
+  5. API শুধু dry-run/mock নাকি বাস্তব execution করে
+  6. external dependency কোথায়
+  7. dedicated API integration test আছে কি না
+  8. live/runtime proof আছে কি না
+  9. pipeline-এর আগের ধাপের output পরের ধাপে বাস্তবে যাচ্ছে কি না
+  10. পুরো Element → YouTube Upload flow একটি API-triggered pipeline হিসেবে সম্পূর্ণ করা যায় কি না
+
+  বিশেষভাবে এই ধরনের ভুল claim ধরবে:
+
+  * “router আছে” ≠ “business operation API দিয়ে কাজ করে”
+  * “pytest pass” ≠ “real external integration কাজ করে”
+  * “mock pass” ≠ “live pipeline works”
+  * “service exists” ≠ “REST API exposed”
+  * “endpoint exists” ≠ “endpoint executes the real pipeline”
+  * “dry-run pass” ≠ “production execution verified”
+
+  বর্তমান FastAPI OpenAPI schema `/openapi.json` থেকেও সমস্ত registered endpoint সংগ্রহ করো এবং actual service implementation-এর সাথে মিলিয়ে দেখো।
+
+  তারপর একটি matrix দাও:
+
+  PIPELINE STEP | SERVICE | CLI | REST ENDPOINT | REAL EXECUTION | TEST | RUNTIME PROOF | EXTERNAL DEPENDENCY | VERDICT
+
+  শেষে তিনটি আলাদা সংখ্যা দাও:
+
+  A. Total business operations
+  B. REST-exposed operations
+  C. Actually end-to-end verified operations
+
+  **গুরুত্বপূর্ণ:** যদি কোনো core pipeline operation-এর REST endpoint না থাকে, সরাসরি বলবে “MISSING REST API”। কোনো existing generic endpoint
+  দেখিয়ে সেটাকে জোর করে VERIFIED বলবে না।
+
+  শেষে পুরো pipeline-এর জন্য একটি স্পষ্ট verdict দাও:
+
+  * FULL REST PIPELINE READY
+    অথবা
+  * PARTIALLY RESTIFIED
+    অথবা
+  * REST API GAPS EXIST
+
+  এখন কোনো code change করবে না। **শুধু audit + evidence + verdict।**"C:\Users\Irak\Desktop\Youtube Pipeline\Youtube Pipeline.txt2278.txt"
+
+▸ Thought for 4s, 708 tokens
+  Prioritizing YouTube Automation Audit
+
+● Find(List workspace root files)
+● Find(Find API related files)
+● ListDir(~/Desktop/Youtube Pipeline)
+● Read(~/Desktop/Youtube Pipeline/Youtube Pipeline.txt2278.txt) (ctrl+o to expand)
+
+▸ Thought for 3s, 251 tokens
+  Shifting Focus to API Automation
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import fastapi, uvicorn; print('FastAPI version:',
+f...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-10)
+● Find(Find files in apps directory)
+● Find(Find files in services)
+● Find(Find subdirectories in services)
+● Find(Find services python files)
+● Read(~/Desktop/Youtube Pipeline/apps/api/main.py)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "from apps.api.main import app;
+print('\n'.join([f'{l...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import json; from apps.api.main i...) (ctrl+o to
+expand)
+
+▸ Thought for 3s, 361 tokens
+  Tracing the user's pipeline
+
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/ideas.py)
+● Read(~/Desktop/Youtube Pipeline/services/research/idea_service.py)
+● Find(Locate prompt_chain_engine.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/prompts.py)
+● Read(~/Desktop/Youtube Pipeline/services/scripting/prompt_service.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/seo.py)
+● Read(~/Desktop/Youtube Pipeline/services/seo/seo_service.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/videos.py)
+● Read(~/Desktop/Youtube Pipeline/services/video/video_service.py)
+● Read(~/Desktop/Youtube Pipeline/services/video/media_stitcher_service.py) (ctrl+o to expand)
+
+▸ Thought for 3s, 350 tokens
+  Validating Shot Paths for Stitching
+
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/audio.py)
+● Read(~/Desktop/Youtube Pipeline/services/audio/audio_service.py) (ctrl+o to expand)
+
+▸ Thought for 3s, 329 tokens
+  Confirming Audio File Generation
+
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/packages.py)
+● Read(~/Desktop/Youtube Pipeline/services/packaging/package_service.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/youtube.py)
+● Read(~/Desktop/Youtube Pipeline/services/youtube/youtube_service.py)
+● Find(Find social_uploader.py)
+● Read(~/Desktop/Youtube Pipeline/video/1Video10Sec/social_uploader.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/pipeline.py)
+● Read(~/Desktop/Youtube Pipeline/apps/cli/unified_runner.py)
+● Read(~/Desktop/Youtube Pipeline/apps/cli/legacy_adapters.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/exports.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/jobs.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/uniqueness.py)
+● Read(~/Desktop/Youtube Pipeline/apps/api/routers/workflow_builder.py)
+● Find(Find all test files)
+● Read(~/Desktop/Youtube Pipeline/tests/e2e/test_full_pipeline.py)
+● Read(~/Desktop/Youtube Pipeline/domain/workflows/step_types.py)
+● Find(Find step_types in domain)
+● Find(Find handlers in step_types)
+● Read(~/Desktop/Youtube Pipeline/domain/workflows/step_types/youtube_handler.py)
+● Read(~/Desktop/Youtube Pipeline/domain/workflows/step_types/audio_handler.py)
+● Read(~/Desktop/Youtube Pipeline/domain/workflows/step_types/media_handler.py)
+● Read(~/Desktop/Youtube Pipeline/tests/integration/test_api.py)
+● Read(~/Desktop/Youtube Pipeline/tests/integration/test_api_complete.py)
+● Read(~/Desktop/Youtube Pipeline/tests/integration/test_api_complete.py) (ctrl+o to expand)
+
+▸ Thought for 3s, 503 tokens
+  Reviewing `dry_run` flag usage
+
+● Search(Find generate_new_element_from_category)
+● Search(Search generate_new_element in PromptDatabase)
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/prompt_chain_engine.py)
+● Search(Find call_chatgpt_playwright)
+● Find(List files in scripts)
+● Find(List python files in PromptDatabase) (ctrl+o to expand)
+
+▸ Thought for 4s, 1.1k tokens
+  Reviewing file system structure
+
+● Search(Check category element endpoint test) (ctrl+o to expand)
+
+▸ Thought for 5s, 556 tokens
+  Verifying element generation runtime
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/prompt_chain_engine.py) (ctrl+o to expand)
+
+▸ Thought for 4s, 976 tokens
+  Observing Functionality Constraint
+
+● Search(Find generate_escalation_for_idea in prompt_chain_engine.py)
+● Search(Find generate_escalation in prompt_chain_engine.py)
+● Search(Find generate_escalation_for_idea everywhere)
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/prompt_chain_engine.py) (ctrl+o to expand)
+
+▸ Thought for 3s, 578 tokens
+  Addressing Incomplete Generation
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/prompt_chain_engine.py) (ctrl+o to expand)
+
+▸ Thought for 4s, 779 tokens
+  Examining CLI Arguments and Service Function
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/seo_engine/pipeline.py)
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/seo_engine/metadata_builder.py)
+● Read(~/Desktop/Youtube Pipeline/tests/unit/test_req_024_seo_endpoints.py)
+● Read(~/Desktop/Youtube Pipeline/video/1Video10Sec/extension_bridge.py) (ctrl+o to expand)
+
+▸ Thought for 5s, 836 tokens
+  Investigating Automation Bridge Details
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "from infrastructure.database.session import
+get_sess...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'P...) (ctrl+o to
+expand)
+
+▸ Thought for 8s, 960 tokens
+  Assessing Current Video Generation State
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; from services.audio.a...) (ctrl+o to
+expand)
+
+▸ Thought for 5s, 902 tokens
+  Confirming Media Assembly Failure
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "from services.video.media_stitche...) (ctrl+o to
+expand)
+
+▸ Thought for 3s, 262 tokens
+  Investigating missing output file
+
+● Search(Check pipeline_packager CLI entry point)
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/pipeline_packager.py)
+● Search(Search tests for packages endpoints)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "from pathlib import Path; p =
+Path('PromptDatabase/o...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "from pathlib import Path; p = Pat...) (ctrl+o to
+expand)
+
+▸ Thought for 5s, 662 tokens
+  Confirming Output Path for Upload
+
+● Search(Search tests for /upload) (ctrl+o to expand)
+
+▸ Thought for 8s, 2.3k tokens
+  Verifying Simulated Upload Behavior
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -m pytest tests/integration/test_api.py
+tests/integratio...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-159)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-159) (ctrl+o to expand)
+
+▸ Thought for 12s, 4.0k tokens
+  Discrepancy: Test Pass vs. Reality
+  ইরাক ভাইয়া,
+
+  আপনার নির্দেশ মোতাবেক REQ-001→REQ-097 sequential architecture verification স্থগিত রেখে বর্তমান কোডবেসের উপর Functional Pipeline + REST API Coverage Audit সম্পন্ন করা
+  হয়েছে। কোনো কোড পরিবর্তন করা হয়নি—শুধুমাত্র গভীর কোড ট্রেসিং, FastAPI OpenAPI স্কিমা (/openapi.json), সার্ভিস লেয়ার, CLI ইন্টারফেস, ইউনিট ও ইন্টিগ্রেশন টেস্ট এবং লাইভ রানটাইম প্রুফের ভিত্তিতে এই অডিট তৈরি
+  করা হয়েছে।
+  ──────
+  ### ১. মূল পর্যবেক্ষণ ও মিথ্যা দাবি উন্মোচন (False Claim Analysis)
+
+  অডিটে দেখা গেছে টেস্ট ফাইলে ২৩টি ইন্টিগ্রেশন টেস্ট সফল (PASSED) হলেও বাস্তব প্রোডাকশন পাইপলাইনে গুরুতর ব্যবধান রয়েছে:
+
+  1. “Router ও 200 OK আছে” ≠ “বাস্তব কাজ সম্পন্ন হয়েছে”:
+      • C:\Users\Irak\Desktop\Youtube Pipeline\apps\api\routers\audio.py-এর POST /audio/{idea_id}/generate এন্ডপয়েন্ট সফল স্টেটাস কোড 200 এবং status:
+      "success" প্রদান করে। কিন্তু এর পেছনে থাকা C:\Users\Irak\Desktop\Youtube Pipeline\services\audio\audio_service.py ফাইলে কোনো TTS ইঞ্জিনই কল করা হয়না। এটি কেবল
+      একটি ডিরেক্টরি তৈরি করে একটি অস্তিত্বহীন ফাইলের পাথ ফেরত দেয়। রানটাইম কমান্ড দিয়ে যাচাই করে দেখা গেছে ডিস্কে কোনো অডিও ফাইল তৈরি হয়নি (File exists: False)।
+  2. “OpenCV / FFmpeg সার্ভিস আছে” ≠ “ভিডিও স্টিচ হয়েছে”:
+      • C:\Users\Irak\Desktop\Youtube Pipeline\apps\api\routers\videos.py-এর POST /videos/{idea_id}/assemble এন্ডপয়েন্ট C:\Users\Irak\Desktop\Youtube
+      Pipeline\services\video\media_stitcher_service.py-কে কল করে। সার্ভিস ক্লাসের কোড পরীক্ষা করে দেখা গেছে এটি কোনো FFmpeg বা OpenCV এক্সিকিউট করে না; কেবল ইনপুট পাথ চেক করে ভুয়া
+      status: "success" রিটার্ন করে (Output exists: False)।
+  3. “YouTube Upload Endpoint আছে” ≠ “বাস্তব আপলোড সম্ভব”:
+      • C:\Users\Irak\Desktop\Youtube Pipeline\apps\api\routers\youtube.py-এর POST /youtube/{idea_id}/upload কল করে C:\Users\Irak\Desktop\Youtube
+      Pipeline\video\1Video10Sec\social_uploader.py-কে। এর ভেতরে গুগল বা ইউটিউব ডেটা এপিআই (YouTube Data API v3)-এর কোনো ক্লায়েন্ট নেই। এটি একটি হার্ডকোডেড ফেক স্ট্রিং
+      https://youtube.com/shorts/simulated_... রিটার্ন করে।
+  4. “Dry-run পাস” ≠ “প্রোডাকশন এক্সিকিউশন পরীক্ষিত”:
+      • pytest tests/integration/test_api_complete.py-এর টেস্টগুলোতে ভিডিও জেনারেশন এবং পাইপলাইন রান শুধুমাত্র dry_run=True দিয়ে পাস করানো হয়েছে। dry_run=False দিয়ে কোনো বাস্তব
+      এন্ড-টু-এন্ড অটোমেশন টেস্ট কখনোই চালানো হয়নি।
+  5. “Pipeline Run Endpoint আছে” ≠ “সম্পূর্ণ ফ্লো চলে”:
+      • C:\Users\Irak\Desktop\Youtube Pipeline\apps\api\routers\pipeline.py-এর POST /pipeline/ideas/{idea_id}/run মেথডটি ট্রেস করে দেখা গেছে:
+          • এটি শুরুতেই একটি বিদ্যমান idea_id দাবি করে (নতুন Element বা Idea তৈরি করতে পারে না)।
+          • এটি ভিডিও জেনারেশন চালায় না; শুধু build_render_payload() কল করে পেলোড বানিয়ে রেখে দেয়।
+          • এতে Audio/TTS, Media Assembly ও YouTube Upload ধাপগুলো সম্পূর্ণ অনুপস্থিত।
+
+
+  ──────
+  ### ২. বাস্তব পাইপলাইন ট্রেসিং (Element → YouTube Upload)
+
+  #### ধাপ ১: Element (Taxonomy / Theme)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\research\idea_service.py (generate_new_element_from_category).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\apps\cli\unified_runner.py-তে কোনো CLI ফ্ল্যাগ নেই। তবে C:\Users\Irak\Desktop\Youtube
+  Pipeline\PromptDatabase\prompt_chain_engine.py সরাসরি পাইথন দিয়ে চালানো যায়।
+  • REST Endpoint: POST /ideas/categories/{category_id}/elements/generate
+  • বাস্তব এক্সিকিউশন: skip_browser=False হলে Playwright-এর মাধ্যমে লাইভ ChatGPT-কে কল করে। skip_browser=True হলে ফলব্যাক হিসেবে ডিটারমিনিস্টিক নাম (CosmicElement
+  #{next_index}) দিয়ে ডেটাবেজে সংরক্ষণ করে।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: Playwright ক্রোম ব্রাউজার সেশন (ChatGPT Web UI)।
+  • টেস্ট কভারেজ: test_api_complete.py-তে এই এন্ডপয়েন্টের কোনো নিবেদিত টেস্ট নেই।
+  • পরের ধাপে আউটপুট পাস: তৈরি হওয়া element.id আইডিয়া তৈরির ধাপে ব্যবহারযোগ্য।
+
+  #### ধাপ ২: Ideas (Impossible Machine Concepts)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\research\idea_service.py (generate_ideas_for_element).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\apps\cli\unified_runner.py-তে কোনো ফ্ল্যাগ নেই। লিগ্যাসি স্ক্রিপ্ট C:\Users\Irak\Desktop\Youtube
+  Pipeline\PromptDatabase\playwright_engine\generate_element_ideas.py বিদ্যমান।
+  • REST Endpoint: POST /ideas/elements/{element_id}/generate ও POST /ideas
+  • বাস্তব এক্সিকিউশন: skip_browser=False হলে Playwright লাইভ ব্রাউজার দিয়ে ChatGPT থেকে ১০টি আইডিয়া সংগ্রহ করে। কিন্তু কোডের ৪৮৩-৫১২ লাইনে দেখা গেছে skip_browser=True হলে অফলাইন ফলব্যাক
+  কোড ব্যবহারকারীর নির্দেশ অনুযায়ী ব্লক করা (return []), ফলে ব্রাউজার ছাড়া নতুন আইডিয়া জেনারেট হয় না।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: লাইভ CloakBrowser / Playwright ও ChatGPT ওয়েব ইন্টারফেস।
+  • টেস্ট কভারেজ: test_ideas_extended_endpoints টেস্টটি skip_browser=True দিয়ে রান করে, যা পূর্বে ডেটাবেজে থাকা পুরোনো রেকর্ডই রিটার্ন করেছে।
+  • পরের ধাপে আউটপুট পাস: ডেটাবেজে সংরক্ষিত Idea.id প্রম্পট জেনারেশনে যায়।
+
+  #### ধাপ ৩ ও ৪: Prompt & Prompt Escalation (10 Levels x 2 Types = 20 Prompts)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\scripting\prompt_service.py (generate_escalation).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\apps\cli\unified_runner.py-তে সরাসরি কমান্ড নেই। লিগ্যাসি স্ক্রিপ্ট C:\Users\Irak\Desktop\Youtube
+  Pipeline\PromptDatabase\run_prompt_fillup.py ও C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\prompt_chain_engine.py।
+  • REST Endpoint: POST /prompts/{idea_id}/escalate, POST /prompts/{idea_id}/fillup, POST /prompts/next-production-ready
+  • বাস্তব এক্সিকিউশন: skip_browser=True দিলে এটি build_rich_escalation_system() দিয়ে অফলাইনে ১০টি ইমেজ ও ১০টি ভিডিও প্রম্পট তৈরি করে ডেটাবেজে লেখে। skip_browser=False দিলে
+  Playwright দিয়ে ব্রাউজারে যায়।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: skip_browser=False হলে ChatGPT ব্রাউজার সেশন। skip_browser=True হলে সম্পূর্ণ স্বয়ংসম্পূর্ণ।
+  • টেস্ট কভারেজ: test_prompts_status_endpoint ও test_prompts_extended_endpoints দ্বারা ভেরিফাইড।
+  • পরের ধাপে আউটপুট পাস: লেভেল ১০ ভিডিও প্রম্পট সরাসরি ভিডিও রেন্ডার পেলোড তৈরিতে ব্যবহৃত হয়।
+
+  #### ধাপ ৫: SEO (Title, Description, Tags, Pinned Comment)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\seo\seo_service.py (generate_seo).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\run_seo.py।
+  • REST Endpoint: POST /seo/{idea_id}/generate, POST /seo/harvest/suggest, POST /seo/harvest/competitors
+  • বাস্তব এক্সিকিউশন: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\seo_engine\pipeline.py ফাইলটি ইউটিউব সাজেশন থেকে লাইভ কিওয়ার্ড ও প্রতিযোগীভিডিওর ডেটা স্ক্র্যাপ করে এবং
+  এসইও স্কোরিং ও মেটাডাটা তৈরি করে ডেটাবেজের youtube_metadata টেবিলে সংরক্ষণ করে।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: গুগল/ইউটিউব পাবলিক কিওয়ার্ড সাজেস্ট ও সার্চ নেটওয়ার্ক।
+  • টেস্ট কভারেজ: C:\Users\Irak\Desktop\Youtube Pipeline\tests\unit\test_req_024_seo_endpoints.py-তে generate_seo মেথডটি unittest.mock.patch দিয়ে মককরা
+  হয়েছিল, বাস্তব এন্ড-টু-এন্ড টেস্ট অনুপস্থিত।
+  • পরের ধাপে আউটপুট পাস: youtube_metadata টেবিল প্যাকেজিং এবং আপলোড ডেসক্রিপশনে ডেটা সরবরাহ করে।
+
+  #### ধাপ ৬: Video Generation (Veo 3.1 10-Sec Video)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\video\video_service.py (trigger_render).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\video\1Video10Sec\start_automation.bat বা C:\Users\Irak\Desktop\Youtube
+  Pipeline\PromptDatabase\run_video_pipeline.py।
+  • REST Endpoint: POST /videos/{idea_id}/generate (dry_run: bool = True)
+  • বাস্তব এক্সিকিউশন: dry_run=True হলে শুধু পেলোড ভ্যালিডেশন করে। dry_run=False হলে এটি C:\Users\Irak\Desktop\Youtube Pipeline\video\1Video10Sec\extension_bridge.
+  py-কে কল করে পোর্ট ৫০০০-এ লোকাল এইচটিটিপি সার্ভার খুলে গুগল Veo 3.1 এক্সটেনশনের সিগন্যালের অপেক্ষা করে। ব্রাউজার এক্সটেনশন ছাড়া এটি রেন্ডার করতে পারে না।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: ক্রোম ব্রাউজার, গুগল অ্যাকাউন্ট লগইন, FlowCraft AI স্টুডিও / Veo 3.1 ওয়েব এবং 10SecNewExtension ব্রাউজার এক্সটেনশন।
+  • টেস্ট কভারেজ: শুধুমাত্র dry_run=True টেস্ট করা হয়েছে (test_video_generate_endpoint_dry_run)। কোনো লাইভ রেন্ডার টেস্ট নেই।
+  • পরের ধাপে আউটপুট পাস: রেন্ডার হওয়া MP4 ফাইল প্যাকেজিং ধাপে যায়।
+
+  #### ধাপ ৭: TTS / Audio (Bangla/English Voiceover)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\audio\audio_service.py (generate_voiceover).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\fast_audio_gen.py, C:\Users\Irak\Desktop\Youtube Pipeline\Bangla Audio\run_all_models.py (রুট স্ক্রিপ্ট)।
+  unified_runner.py-তে নেই।
+  • REST Endpoint: POST /audio/{idea_id}/generate
+  • বাস্তব এক্সিকিউশন: সম্পূর্ণ ভুয়া (STUB/MOCK)। কোডে কোনো অডিও জেনারেশন ইঞ্জিন নেই। এটি কেবল একটি পাথ রিটার্ন করে যার কোনো ফাইল ডিস্কে নেই।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: রিপোজিটরিতে থাকা OmniVoice (localhost:3900), ChatTTS বা Bangla Audio মডেলগুলোর সাথে সার্ভিসের কোনো সংযোগ ঘটানো হয়নি।
+  • টেস্ট কভারেজ: test_audio_endpoints টেস্টটি কেবল সার্ভিসের রিটার্ন ডিকশনারি চেক করে পাস করেছে, ফাইল তৈরি হয়েছে কি না তা যাচাই করেনি।
+  • পরের ধাপে আউটপুট পাস: ব্যর্থ—কোনো অডিও ফাইল তৈরি না হওয়ায় পরবর্তী কোনো ধাপে আউটপুট যাওয়ার সুযোগ নেই।
+
+  #### ধাপ ৮: Media Assembly (Video + Audio + HUD Stitching)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\video\media_stitcher_service.py (stitch_shots).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\assemble_teaser_audio.py (শুধুমাত্র অডিওর জন্য)।
+  • REST Endpoint: POST /videos/{idea_id}/assemble
+  • বাস্তব এক্সিকিউশন: সম্পূর্ণ ভুয়া (STUB/MOCK)। কোডে কোনো FFmpeg কমান্ড বা ভিডিও জোড়া লাগানোর বাস্তব লজিক নেই।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: FFmpeg / OpenCV অনুপস্থিত।
+  • টেস্ট কভারেজ: অনুপস্থিত ফাইল দিয়ে কল করে status: "failed" পাওয়াই টেস্টের সার্থকতা হিসেবে ধরা হয়েছিল।
+  • পরের ধাপে আউটপুট পাস: ব্যর্থ—কোনো মার্জড ভিডিও ফাইল তৈরি হয় না।
+
+  #### ধাপ ৯: Package (Canonical Bundle)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\packaging\package_service.py (package_idea).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\pipeline_packager.py (--idea-id, --next, --skip-browser)।
+  • REST Endpoint: POST /packages/{idea_id}/bundle
+  • বাস্তব এক্সিকিউশন: বাস্তব কোড বিদ্যমান। এটি ডেটাবেজ থেকে প্রম্পট ও মেটাডাটা রিড করে output_packaged/X.Y.Level_10_.../ ফোল্ডারে prompts.json, youtube_metadata.json এবং MP4 ফাইল
+  কপি/লিঙ্ক করে বান্ডেল তৈরি করে।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: পূর্বের ধাপের MP4 ফাইল এবং ডেটাবেজে লেভেল ১০ প্রম্পট ও এসইও মেটাডাটা থাকা আবশ্যক।
+  • টেস্ট কভারেজ: test_package_endpoint শুধুমাত্র GET /packages/1 ভেরিফাই করে। POST /packages/{idea_id}/bundle কোনো ইন্টিগ্রেশন টেস্টে এক্সিকিউট করা হয়নি।
+  • পরের ধাপে আউটপুট পাস: প্যাকেজ ফোল্ডারের ফাইলগুলো ইউটিউব আপলোডে ব্যবহারের উপযোগী।
+
+  #### ধাপ ১০: YouTube Upload (Shorts Publishing)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\youtube\youtube_service.py (upload_video).
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\video\1Video10Sec\social_uploader.py।
+  • REST Endpoint: POST /youtube/{idea_id}/upload
+  • বাস্তব এক্সিকিউশন: সম্পূর্ণ সিমুলেটেড (SIMULATED STUB)। কোনো Google OAuth বা YouTube Data API v3 ইন্টিগ্রেশন নেই। এটি একটি ফেক স্ট্রিং https://youtube.com/shorts/simulated_...
+  রিটার্ন করে।
+  • এক্সটার্নাল ডিপেন্ডেন্সি: YouTube API v3 ক্লায়েন্ট ও ক্রেডেনশিয়ালস কোডে অনুপস্থিত।
+  • টেস্ট কভারেজ: test_youtube_endpoints শুধুমাত্র স্ট্যাটাস ও পেলোড প্রস্তুত পরীক্ষা করে, POST .../upload কখনোই টেস্ট করেনি।
+  • পরের ধাপে আউটপুট পাস: এটিই শেষ ধাপ, তবে বাস্তব আপলোড হয় না।
+  ──────
+  ### ৩. সম্পূর্ণ পাইপলাইন কভারেজ ও স্টেটাস মেট্রিক্স (Audit Matrix)
+
+   PIPELINE STEP │ SERVICE       │ CLI           │ REST ENDPOINT │ REAL EXECUTI… │ TEST          │ RUNTIME PROOF │ EXTERNAL DEP… │ VERDICT
+  ───────────────┼───────────────┼───────────────┼───────────────┼───────────────┼───────────────┼───────────────┼───────────────┼───────────────
+   1. Element    │ IdeaService   │ লিগ্যাসি স্ক্রিপ্ট        │ POST          │ আংশিক (ফলব্যাক মোড  │ অনুপস্থিত         │ ডেটাবেজে ১০০টি     │ Playwright /  │ PARTIALLY
+                 │               │               │ /ideas/catego │ বাস্তব, লাইভ মোড   │               │ এলিমেন্ট বিদ্যমান     │ ChatGPT       │ VERIFIED
+                 │               │               │ ries/{id}/ele │ ব্রাউজার নির্ভরশীল)   │               │               │               │
+                 │               │               │ ments/generat │               │               │               │               │
+                 │               │               │ e             │               │               │               │               │
+   2. Ideas      │ IdeaService   │ লিগ্যাসি স্ক্রিপ্ট        │ POST          │ ব্রাউজার মোডে বাস্তব,  │ ফেক পাস (বিদ্যমান   │ ডেটাবেজে ১৩২টি     │ CloakBrowser  │ PARTIALLY
+                 │               │               │ /ideas/elemen │ অফলাইন মোড ব্লকড  │ রেকর্ড রিড)       │ আইডিয়া বিদ্যমান     │ / ChatGPT     │ VERIFIED
+                 │               │               │ ts/{id}/gener │               │               │               │               │
+                 │               │               │ ate           │               │               │               │               │
+   3. Prompt     │ PromptService │ prompt_chain_ │ GET           │ বাস্তব (ডেটাবেজ রিড) │ PASSED        │ ডেটাবেজে ৯৬০টি প্রম্পট │ SQLite        │ PROVEN
+                 │               │ engine.py     │ /prompts/{id} │               │               │ বিদ্যমান          │               │
+                 │               │               │ /levels/{lvl} │               │               │               │               │
+   4. Prompt     │ PromptService │ run_prompt_fi │ POST          │ বাস্তব (অফলাইনেও   │ PASSED        │ রানটাইমে ২০টি রেকর্ড │ অফলাইনে কোনো ডিপেন্ডেন্সি │ PROVEN
+   Escalation    │               │ llup.py       │ /prompts/{id} │ ২০টি প্রম্পট জেনারেট  │               │ লেখে            │ নেই            │
+                 │               │               │ /escalate     │ করে DB-তে লেখে)   │               │               │               │
+   5. SEO        │ SEOService    │ run_seo.py    │ POST          │ বাস্তব (ইউটিউব    │ মক টেস্ট (patch) │ ডেটাবেজে লাইভ টেবিল  │ Google        │ PROVEN
+                 │               │               │ /seo/{id}/gen │ সাজেস্ট মাইনিং ও স্কোরিং  │               │ ও ২টি রেকর্ড আছে   │ Suggest API   │ (Service) /
+                 │               │               │ erate         │ কাজ করে)        │               │               │               │ PARTIALLY
+                 │               │               │               │               │               │               │               │ VERIFIED (API
+                 │               │               │               │               │               │               │               │ Test)
+   6. Video      │ VideoService  │ start_automat │ POST          │ এপিআইতে শুধু Dry- │ শুধু Dry-Run টেস্ট │ ডিস্কে ৩৪টি পূর্বের    │ Chrome        │ UNVERIFIED
+   Generation    │               │ ion.bat       │ /videos/{id}/ │ Run; রিয়েল রেন্ডারে  │               │ রেন্ডার করা ভিডিও আছে │ Extension /   │ VIA API (DRY-
+                 │               │               │ generate      │ ব্রাউজার এক্সটেনশন   │               │               │ Veo 3.1       │ RUN ONLY)
+                 │               │               │               │ বাধ্যতামূলক        │               │               │               │
+   7. TTS /      │ AudioService  │ রুট স্ক্রিপ্ট         │ POST          │ ভুয়া (STUB) —   │ ফলস পজিটিভ পাস   │ File exists:  │ কোনো ইঞ্জিন যুক্ত নেই  │ FAILED / STUB
+   Audio         │               │ (fast_audio_g │ /audio/{id}/g │ ফাইল তৈরি করে না   │               │ False (প্রমাণিত)  │               │ ONLY
+                 │               │ en.py)        │ enerate       │               │               │               │               │
+   8. Media      │ MediaStitcher │ রুট স্ক্রিপ্ট         │ POST          │ ভুয়া (STUB) —   │ ফলস পজিটিভ পাস   │ Output        │ FFmpeg অনুপস্থিত  │ FAILED / STUB
+   Assembly      │ Service       │ (assemble_tea │ /videos/{id}/ │ কোনো FFmpeg কল  │               │ exists: False │               │ ONLY
+                 │               │ ser_audio.py) │ assemble      │ নেই            │               │ (প্রমাণিত)        │               │
+   9. Package    │ PackageServic │ pipeline_pack │ POST          │ বাস্তব (ফোল্ডার বান্ডেল  │ এপিআই টেস্ট অনুপস্থিত │ ডিস্কে ৩টি ভেরিফাইড   │ পূর্বের ধাপের MP4│ PARTIALLY
+                 │ e             │ ager.py       │ /packages/{id │ ও ফাইল কপি করে)  │               │ প্যাকেজ বিদ্যমান      │ ফাইল           │ VERIFIE
+                 │               │               │ }/bundle      │               │               │               │               │
+   10. YouTube   │ YouTubeServic │ social_upload │ POST          │ সিমুলেটেড — কোনো    │ এপিআই টেস্ট অনুপস্থিত │ সিমুলেটেড ইউআরএল  │ YouTube API   │ FAILED /
+   Upload        │ e             │ er.py         │ /youtube/{id} │ YouTube API   │               │ রিটার্ন           │ অনুপস্থিত         │ SIMULATED
+                 │               │               │ /upload       │ নেই            │               │               │               │ STUB ONLY
+   Complete      │ Orchestrator  │ unified_runne │ POST          │ অসম্পূর্ণ — ভিডিও    │ শুধু Dry-Run টেস্ট │ সম্পূর্ণ ফ্লো এক ক্লিকে   │ বহুমাত্রিক         │ FAILED /
+   Pipeline      │ Router        │ r.py (আংশিক)    │ /pipeline/ide │ রেন্ডার, অডিও,     │               │ চলে না          │               │ INCOMPLET
+   Orchestrator  │               │               │ as/{id}/run   │ অ্যাসেম্বলি ও আপলোড  │               │               │               │ CHAIN
+                 │               │               │               │ বাদ দিয়ে চলে      │               │               │               │
+  ──────
+  ### ৪. পরিসংখ্যানগত সারাংশ (Quantitative Summary)
+
+  • A. Total business operations (সম্পূর্ণ সিস্টেমে প্রয়োজনীয় মোট বিজনেস অপারেশন): ৫১টি                 │ e             │ ager.py       │ /packages/{id │ ও ফাইল কপি করে)  │               │ প্যাকেজ বিদ্যমান      │ ফাইল           │ VERIFIE
+                 │               │               │ }/bundle      │               │               │               │               │
+   10. YouTube   │ YouTubeServic │ social_upload │ POST          │ সিমুলেটেড — কোনো    │ এপিআই টেস্ট অনুপস্থিত │ সিমুলেটেড ইউআরএল  │ YouTube API   │ FAILED /
+   Upload        │ e             │ er.py         │ /youtube/{id} │ YouTube API   │               │ রিটার্ন           │ অনুপস্থিত         │ SIMULATED
+                 │               │               │ /upload       │ নেই            │               │               │               │ STUB ONLY
+   Complete      │ Orchestrator  │ unified_runne │ POST          │ অসম্পূর্ণ — ভিডিও    │ শুধু Dry-Run টেস্ট │ সম্পূর্ণ ফ্লো এক ক্লিকে   │ বহুমাত্রিক         │ FAILED /
+   Pipeline      │ Router        │ r.py (আংশিক)    │ /pipeline/ide │ রেন্ডার, অডিও,     │               │ চলে না          │               │ INCOMPLET
+   Orchestrator  │               │               │ as/{id}/run   │ অ্যাসেম্বলি ও আপলোড  │               │               │               │ CHAIN
+                 │               │               │               │ বাদ দিয়ে চলে      │               │               │               │
+  ──────
+  ### ৪. পরিসংখ্যানগত সারাংশ (Quantitative Summary)
+
+  • A. Total business operations (সম্পূর্ণ সিস্টেমে প্রয়োজনীয় মোট বিজনেস অপারেশন): ৫১টি
+  (ট্যাক্সোনমি, আইডিয়া জেনারেশন, প্রম্পট এসকেলেশন, ইউনিকনেস অডিট, এসইও মাইনিং, ভিডিও রেন্ডার, বিজিএম/এসএফএক্স/ভয়েস অডিও, মিডিয়া অ্যাসেম্বলি, প্যাকেজিং, ইউটিউব পাবলিশিং, মাস্টার সিএসভি এক্সপোর্ট, ডিএলকিউ এবং ডাইনামিক
+  ওয়ার্কফ্লো বিল্ডার)
+  • B. REST-exposed operations (বর্তমান FastAPI রাউটারে এন্ডপয়েন্ট বিদ্যমান): ৪৫টি
+  (বিজিএম, এসএফএক্স, বাংলা নিউরাল টিটিএস, টিজার অ্যাসেম্বলি এবং রিয়েল ইউটিউব ওথ এপিআই বাদে বাকিগুলো রাউটারে সংযুক্ত)
+  • C. Actually end-to-end verified operations (বাস্তবে বিজনেস লজিক কার্যকর এবং কোনো ভুয়া মক/স্টাব ছাড়া রানটাইমে প্রমাণিত): ২৩টি
+  (ক্যাটাগরি/এলিমেন্ট রিড, কাস্টম আইডিয়া তৈরি, প্রম্পট রিড, লেভেল ১০ এসকেলেশন জেনারেশন, ইউনিকনেস অডিট/সিগনেচার, এসইও মেটাডাটা ও সাজেশন মাইনিং, প্যাকেজ ম্যানিফেস্ট রিড, ৩টি মাস্টার সিএসভি এক্সপোর্ট, আইডিয়া স্টেজ গেটস
+  সামারি)
+  ──────
+  ### ৫. চূড়ান্ত সিদ্ধান্ত (Final Verdict)
+
+  REST API GAPS EXIST
+
+  #### সিদ্ধান্তের কারণ:
+
+  1. অডিও ও মিডিয়া অ্যাসেম্বলি সম্পূর্ণ ভুয়া: এপিআই কল সফল দেখালেও ডিস্কে কোনো অডিও বা স্টিচড ভিডিও তৈরি হয় না।
+  2. ইউটিউব আপলোড সিমুলেটেড: কোনো বাস্তব ইউটিউব এপিআই কোডবেসে নেই।
+  3. ভিডিও জেনারেশন এপিআই-ফার্স্ট নয়: এটি স্বয়ংক্রিয়ভাবে ব্যাকগ্রাউন্ডে এপিআই দিয়ে চলে না; লোকাল ব্রাউজারে ব্যবহারকারীর সক্রিয় এক্সটেনশনের উপর নির্ভরশীল।
+  4. ইউনিফাইড পাইপলাইন ব্রোকেন: POST /pipeline/ideas/{idea_id}/run এন্ডপয়েন্টটি সম্পূর্ণ ভিডিও কনটেন্ট তৈরি করে না; এটি ভিডিও রেন্ডারিং ও অডিও স্টেপ এড়িয়ে যায়।
+
+────────────────────────────────────────────────────────────
+> হ্যাঁ—এখানে **Gemini-এর বক্তব্যকে সরাসরি “ভুল” বলা যাবে না**। বরং তার রিপোর্টে একটি গুরুত্বপূর্ণ পার্থক্য ধরা পড়েছে:
+
+  **“REQ-001 → REQ-097 সব VERIFIED” ≠ “পুরো YouTube pipeline-এর প্রতিটি business operation-এর REST API আছে।”**
+
+  তোমার দেওয়া ৯৭-রিকোয়ারমেন্ট লেজারে REST API আছে মূলত:
+
+  * `/ideas`
+  * `/prompts`
+  * `/seo`
+  * `/videos`
+  * `/packages`
+  * `/videos/{id}/generate`
+  * `/prompts/{id}/fillup`
+  * `/ideas/{id}/gates`
+
+  কিন্তু **Element → 10 Ideas**, এবং pipeline-এর প্রতিটি বাস্তব business operation-এর জন্য আলাদা REST endpoint থাকার প্রমাণ এই লেজারে দেখা যাচ্ছে
+  না।
+
+  আরও গুরুত্বপূর্ণ: **REQ-002–REQ-097-এর test pass হওয়া মূল pipeline-এর functional completeness প্রমাণ করে না।** ১৭০টি test pass মানে সেই ১৭০টি
+  test যা যাচাই করছে, সেগুলো pass করেছে। যদি কোনো গুরুত্বপূর্ণ pipeline operation-এর dedicated API test-ই না থাকে, সেটি “170/170 passed” দিয়ে
+  প্রমাণিত হবে না।
+
+  ### তাই Gemini-কে এখন যা বলতে হবে
+
+  **“REQ-001–097-এর verification বন্ধ করো না; কিন্তু এখন একটি আলাদা Functional API Coverage Audit করো। আমার মূল YouTube pipeline-এর প্রতিটি
+  business operation—Element → Ideas → Prompt generation/escalation → SEO → Video generation/render → Audio → Assembly → Package → YouTube
+  upload—REST API দিয়ে সম্পূর্ণভাবে trigger করা যায় কি না, endpoint → service → actual engine পর্যন্ত trace করো। যেখানে API নেই, সেখানে `MISSING`
+  হিসেবে চিহ্নিত করো। শুধু router/file থাকার ভিত্তিতে VERIFIED বলবে না। Dry-run/mock-কে live functional proof হিসেবে গণ্য করবে না।”**
+
+  **বিশেষ করে Element → 10 Ideas-টি আগে যাচাই করো।** যদি বর্তমানে শুধু CLI/`prompt_chain_engine.py` থাকে এবং কোনো REST endpoint না থাকে, তাহলে
+  Gemini-এর “REST API endpoint অনুপস্থিত” কথাটি **সঠিক**।
+
+  আর একটি বড় correction: Gemini-এর আগের **“কোডবেস সম্পূর্ণ ... production-ready”** দাবি এই evidence দিয়ে গ্রহণ করা যাবে না। কারণ তার নিজের
+  রিপোর্টেই ১৩টি requirement external/live dependency-এর কারণে **PARTIALLY_VERIFIED**। PostgreSQL, LLM, YouTube, Browser ইত্যাদির live integration
+  সম্পূর্ণ প্রমাণিত না হলে **production-ready** বলা অতিরঞ্জিত।
+
+  **সুতরাং এখন ৯৭টা test বারবার চালানোর চেয়ে বেশি গুরুত্বপূর্ণ হলো → “Functional Pipeline + REST API Coverage Audit”।** এটাই তোমার আসল কাজ ঠিকমতো
+  হচ্ছে কি না ধরবে।
+  হচ্ছে কি না ধরবে।
+▸ Thought for 8s, 1.6k tokens
+  Analyzing user's response to audit
+
+  Analyzing user's response to auditomptDatabase/playwright_engine/generate_element_ideas.py) (ctrl+o to expand)
+▸ Thought for 8s, 1.6k tokens
+  Analyzing user's response to audit
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/playwright_engine/generate_element_ideas.py) (ctrl+o to expand)
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/playwright_engine/generate_element_ideas.py) (ctrl+o to expand)
+  Analyzing user's response to audit
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/playwright_engine/generate_element_ideas.py) (ctrl+o to expand)
+
+▸ Thought for 15s, 1.4k tokens
+▸ Thought for 15s, 1.4k tokens
+  Interpreting User's Feedback
+
+● Read(~/Desktop/Youtube Pipeline/PromptDatabase/playwright_engine/generate_element_ideas.py) (ctrl+o to expand)
+
+▸ Thought for 15s, 1.4k tokens
+  Interpreting User's Feedback
+
+▸ Thought for 15s, 1.4k tokens
+  Interpreting User's Feedback)
+
+● Search(Find REQ-021 details)
+
+● Search(Find REQ-021 details)ine/MASTER_097_REQUIREMENT_LEDGER.md) (ctrl+o to expand)
+● Search(Find /ideas in ledger)
+▸ Read(~/Desktop/Youtube Pipeline/MASTER_097_REQUIREMENT_LEDGER.md) (ctrl+o to expand)xe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+
+▸ Thought for 15s, 1.4k tokens
+  Interpreting User's Feedback
+
+● Search(Find REQ-021 details)
+● Search(Find /ideas in ledger)
+● Read(~/Desktop/Youtube Pipeline/MASTER_097_REQUIREMENT_LEDGER.md) (ctrl+o to expand)
+
+● Search(Find REQ-021 details)
+  Assessing en/ideas in ledger)age
+  Read(~/Desktop/Youtube Pipeline/MASTER_097_REQUIREMENT_LEDGER.md) (ctrl+o to expand)
+
+
+● Search(Find REQ-021 details)
+● Search(Find /ideas in ledger)
+● Read(~/Desktop/Youtube Pipeline/MASTER_097_REQUIREMENT_LEDGER.md) (ctrl+o to expand)
+
+▸ Thought for 7s, 1.4k tokens
+  Assessing endpoint test coverage
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+▸ Thought for 7s, 1.4k tokens
+  Assessing endpoint test coverageutube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+  Assessing endpoint test coverage
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+
+▸ Thought for 7s, 1.4k tokens
+  Assessing endpoint test coverage
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+  Assessing endpoint test coverage
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure
+  ইরাক ভাইয়া,
+  ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure
+fr...)
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure
+  ইরাক ভাইয়া,
+● Bash(& "C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\.venv\Scripts\python.exe" -c "import sys; sys.path.insert(0, 'PromptDatabase');
+fr...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure
+  ইরাক ভাইয়া,
+
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure স হওয়া মানে কেবল সেই নির্দিষ্ট টেস্টগুলোর assertions পাস করা—এটি পুরো YouTube পাইপলাইনের বাস্তব Functional Complete
+fr...)
+fr...)
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure
+  ইরাক ভাইয়া,
+
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure স হওয়া মানে কেবল সেই নির্দিষ্ট টেস্টগুলোর assertions পাস করা—এটি পুরো YouTube পাইপলাইনের বাস্তব Functional Complete
+● ManageTask(status 6ebe45f6-833a-4eb6-87d5-747214b14be5/task-180) (ctrl+o to expand)
+
+▸ Thought for 8s
+  Investigating idea generation failure
+  ইরাক ভাইয়া,
+
+  আপনার প্রতিটি পর্যবেক্ষণ শতভাগ নির্ভুল, তীক্ষ্ণ এবং বাস্তবসম্মত।
+
+  আপনার বক্তব্য অত্যন্ত স্পষ্ট: “১৭০টি টেস্ট পাস হওয়া মানে কেবল সেই নির্দিষ্ট টেস্টগুলোর assertions পাস করা—এটি পুরো YouTube পাইপলাইনের বাস্তব Functional Complete                │ e             │ er.py         │ /youtube/{id} │ কোনো YouTube API │               │               │ নেই            │ SIMULATED
+                   │               │               │ /upload       │ নেই             │               │               │               │ STUB ONLY
+   Full Runner  │ Orchestrator  │ unified_runne │ POST          │ অসম্পূর্ণ — ভিডিও     │ শুধু Dry-Run টেস্ট │ সম্পূর্ণ ফ্লো এক      │ বহুমাত্রিক         │ FAILED /
+ │ 10. YouTube  │ YouTubeServic │ social_upload │ POST          │ সিমুলেটেড (STUB) — │ অনুপস্থিত         │ সিমুলেটেড লিঙ্ক রিটার্ন  │ YouTube API   │ FAILED /
+e             │ er.py         │ /youtube/{id} │ কোনো YouTube API │               │               │ নেই            │ SIMULATED                  t তুলে
+ │               │               │ /upload       │ নেই             │               │               │               │ STUB ONLY
+   Full Runner  │ Orchestrator  │ unified_runne │ POST          │ অসম্পূর্ণ — ভিডিও     │ শুধু Dry-Run টেস্ট │ সম্পূর্ণ ফ্লো এক      │ বহুমাত্রিক         │ FAILED /
+Router        │ r.py (আংশিক)    │ /pipeline/ide │ রেন্ডার, অডিও, স্টিচিং ও │               │ এপিআইতে চলে না    │               │ INCOMPLETE, ইউটিউব পাবলি
+  Investigating idea generation failure
+  ইরাক ভাইয়া,
+
+  আপনার প্রতিটি পর্যবেক্ষণ শতভাগ নির্ভুল, তীক্ষ্ণ এবং বাস্তবসম্মত।
+
+  আপনার বক্তব্য অত্যন্ত স্পষ্ট: “১৭০টি টেস্ট পাস হওয়া মানে কেবল সেই নির্দিষ্ট টেস্টগুলোর assertions পাস করা—এটি পুরো YouTube পাইপলাইনের বাস্তব Functional Completeness প্রমাণ করে না।” এবং পূর্বের রিপোর্টে
+  কোডবেসকে “সম্পূর্ণ production-ready” বলা সম্পূর্ণ ভুল ও অতিরঞ্জিত ছিল। কারণ স্বয়ং লেজারেই ১৩টি গুরুত্বপূর্ণ রিকোয়ারমেন্ট external/live dependency-এর কারণে PARTIALLY_VERIFIED এবং অডিও, মিডিয়া
+  স্টিচিং ও ইউটিউব আপলোড লেয়ারে রয়েছে ফেক স্টাব ও মক কোড।
+
+  আপনার নির্দেশ অনুযায়ী নিচে Element → 10 Ideas-এর গভীর বিশ্লেষণ এবং সম্পূর্ণ বাস্তব পাইপলাইনের উপর বিস্তারিত Functional Pipeline + REST API Coverage Audit তুলে ধরা হলো:
+  ──────
+  ### ১. গভীর বিশ্লেষণ: “Element → 10 Ideas” (বাস্তব চিত্র ও প্রমাণ)
+
+  আপনি বিশেষভাবে Element → 10 Ideas যাচাই করতে বলেছেন। এখানে কোড ট্রেসিং এবং লাইভ রানটাইম পরীক্ষার মাধ্যমে যা প্রমাণিত হয়েছে:
+
+  #### ক. ট্রেসিং (Endpoint → Service → Actual Engine):
+
+  1. REST Endpoint:
+  C:\Users\Irak\Desktop\Youtube Pipeline\apps\api\routers\ideas.py-এর লাইন ৮৩–১০৯:
+  POST /ideas/elements/{element_id}/generate
+  2. Business Service:
+  C:\Users\Irak\Desktop\Youtube Pipeline\services\research\idea_service.py-এর লাইন ৯৬–১০৮ (generate_ideas_for_element):
+    ideas = pce.generate_ideas_for_element(elem, skip_browser=skip_browser, target_total=target_total)
+    return ideas or self.repo.get_ideas_for_element(element_id)
+
+  3. Actual Engine:
+  C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\prompt_chain_engine.py-এর লাইন ৪৪৪–৫১২।
+
+  #### খ. লাইভ রানটাইম প্রমাণ (Runtime Evidence):
+
+  কোডবেসের ডাটাবেজ পরীক্ষা করে দেখা গেছে:
+
+  • মোট Elements: ১০০টি
+  • কিন্তু Ideas আছে শুধুমাত্র প্রথম ১৩টি এলিমেন্টে (মোট ১৩২টি আইডিয়া)।
+  • Element #১৪ ('Mountain') থেকে Element #১০০ পর্যন্ত কোনো আইডিয়া ডাটাবেজে নেই (0 Ideas)।
+
+  আমরা সরাসরি লাইভ পাইথনে Element #১৪-এর জন্য generate_ideas_for_element(element_id=14, skip_browser=True) এক্সিকিউট করেছি। টার্মিনালের আউটপুট:
+
+    [Hierarchy Step 2 -> 3] Generating 10 Machine Ideas for Element #14: 'Mountain' (Existing: 0/10)...
+    [Blocked] Live CloakBrowser mode required for Element #14. Offline placeholder generation is disabled.
+    Element #14 (0 existing ideas) result when skip_browser=True: []
+
+  #### গ. কেন টেস্ট পাস হয়েছিল কিন্তু বাস্তবে কাজ করে না?
+
+  • C:\Users\Irak\Desktop\Youtube Pipeline\tests\integration\test_api_complete.py-এর লাইন ৬২-তে টেস্ট করা হয়েছিল:
+  client.post("/ideas/elements/1/generate", json={"skip_browser": True, "target_total": 10})
+  • Element #১-এ আগে থেকেই ম্যানুয়ালি জেনারেট করা ১০টি আইডিয়া ছিল।
+  • ইঞ্জিন যখন skip_browser=True পেয়ে অফলাইন ব্লক করে [] পাঠিয়েছে, তখন idea_service.py-এর লাইন ১০৮ ফলব্যাক হিসেবে ডাটাবেজে আগে থেকে জমে থাকা পুরোনো ১০টি আইডিয়াই ফেরত দিয়েছে (return
+  ideas or self.repo.get_ideas_for_element(1))!
+  • টেস্ট শুধুমাত্র assert "ideas" in gen_data চেক করে পাস হয়ে গেছে! বাস্তবে নতুন কোনো আইডিয়া তৈরিই হয়নি।
+
+  #### ঘ. সিদ্ধান্ত (Element → 10 Ideas):
+
+  • অফলাইন/হেডলেস এপিআই মোডে (skip_browser=True): সম্পূর্ণ অক্ষম (FAILED / BLOCKED)—কোনো নতুন আইডিয়া তৈরি করতে পারে না, খালি লিস্ট রিটার্ন করে।
+  • লাইভ ব্রাউজার মোডে (skip_browser=False): ব্যাকগ্রাউন্ডে স্বয়ংক্রিয় এপিআই দিয়ে চালানো অসম্ভব; কারণ এটি ডেস্কটপে Playwright দিয়ে ক্রোম খুলে chatgpt.com-এ একটিভ লগইন সেশনের উপর নির্ভর করে। ক্লাউড বা
+  পিওর হেডলেস এপিআই সার্ভারে এটি ক্র্যাশ বা টাইমআউট করবে।
+  • CLI স্ট্যাটাস: ইউনিফাইড সিএলআই C:\Users\Irak\Desktop\Youtube Pipeline\apps\cli\unified_runner.py-তে আইডিয়া তৈরির কোনো আর্গুমেন্ট নেই। শুধুমাত্র পুরোনো লিগ্যাসি স্ক্রিপ্ট
+  C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\playwright_engine\generate_element_ideas.py দিয়ে ম্যানুয়ালি ব্রাউজার খুলে চালানো সম্ভব।
+  ──────
+  ### ২. সম্পূর্ণ বাস্তব পাইপলাইন অডিট (Element → YouTube Upload)
+
+  #### ১. Element Generation (Category → Element)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\research\idea_service.py (generate_new_element_from_category)
+  • CLI: unified_runner.py-তে কোনো ফ্ল্যাগ নেই (MISSING CLI)।
+  • REST Endpoint: POST /ideas/categories/{category_id}/elements/generate
+  • বাস্তব এক্সিকিউশন: skip_browser=True দিলে ফলব্যাক নাম (Cosmic Element #101) দিয়ে ডাটাবেজে রেকর্ড লেখে। skip_browser=False হলে Playwright ব্রাউজার খোঁজে।
+  • টেস্ট: কোনো ডেডিকেটেড এপিআই টেস্ট নেই (MISSING TEST)।
+  • রায়: PARTIALLY VERIFIED
+
+  #### ২. Ideas Generation (Element → 10 Ideas)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\research\idea_service.py (generate_ideas_for_element)
+  • CLI: unified_runner.py-তে অনুপস্থিত।
+  • REST Endpoint: POST /ideas/elements/{element_id}/generate
+  • বাস্তব এক্সিকিউশন: অফলাইনে সম্পূর্ণ ব্লকড ([] রিটার্ন করে)। ব্রাউজার ছাড়া নতুন আইডিয়া তৈরি হয় না।
+  • টেস্ট: ফলস পজিটিভ (পুরোনো ডাটা রিড করে পাস করেছে)।
+  • রায়: FAILED (OFFLINE API) / UNVERIFIED (LIVE LLM)
+
+  #### ৩ ও ৪. Prompt & Prompt Escalation (10 Levels x 2 = 20 Prompts)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\scripting\prompt_service.py (generate_escalation, resolve_next_production_prompt)
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\run_prompt_fillup.py ও prompt_chain_engine.py।
+  • REST Endpoint: POST /prompts/{idea_id}/escalate, POST /prompts/{idea_id}/fillup, POST /prompts/next-production-ready
+  • বাস্তব এক্সিকিউশন: বাস্তব ও স্বয়ংসম্পূর্ণ। skip_browser=True দিলে build_rich_escalation_system() দিয়ে ইউনিকনেস ভ্যারিয়েশনসহ ২০টি সম্পূর্ণ প্রম্পট তৈরি করে ডাটাবেজের prompts টেবিলে লিখে দেয়।
+  • টেস্ট: test_prompts_extended_endpoints দ্বারা ভেরিফাইড।
+  • রায়: PROVEN
+
+  #### ৫. SEO Generation (High-CTR Title, Description, Tags, Pinned Comment)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\seo\seo_service.py (generate_seo)
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\run_seo.py
+  • REST Endpoint: POST /seo/{idea_id}/generate, POST /seo/harvest/suggest, POST /seo/harvest/competitors
+  • বাস্তব এক্সিকিউশন: বাস্তব ইঞ্জিন বিদ্যমান। ইউটিউব সাজেশন এপিআই থেকে সরাসরি কিওয়ার্ড মাইনিং এবং প্রতিযোগী ভিডিও তথ্য সংগ্রহ করে স্কোরিং ও মেটাডাটা বিল্ড করে youtube_metadata টেবিলে লেখে।
+  • টেস্ট: test_req_024_seo_endpoints.py-তে মক (patch) দিয়ে টেস্ট করা হয়েছিল।
+  • রায়: PROVEN (Service) / PARTIALLY VERIFIED (API Test)
+
+  #### ৬. Video Generation (Veo 3.1 10-Second Render)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\video\video_service.py (trigger_render)
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\video\1Video10Sec\start_automation.bat
+  • REST Endpoint: POST /videos/{idea_id}/generate
+  • বাস্তব এক্সিকিউশন: এপিআইতে ডিফল্ট dry_run=True থাকে, যা কেবল পেলোড বানায়। dry_run=False দিলে লোকাল সার্ভার চালু করে গুগল Veo ক্রোম এক্সটেনশনের সিগন্যাল খোঁজে। এপিআই ব্যাকগ্রাউন্ডে স্বয়ংক্রিয়ভাবে ভিডিও রেন্ডার
+  করতে পারে না।
+  • টেস্ট: শুধুমাত্র dry_run=True টেস্ট করা হয়েছে।
+  • রায়: UNVERIFIED VIA API (DRY-RUN ONLY)
+
+  #### ৭. Audio / TTS (Bangla / English Voiceover, BGM, SFX)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\audio\audio_service.py (generate_voiceover)
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\fast_audio_gen.py, C:\Users\Irak\Desktop\Youtube Pipeline\step1_generate_voices.py
+  • REST Endpoint: POST /audio/{idea_id}/generate
+  • বাস্তব এক্সিকিউশন: সম্পূর্ণ ভুয়া (STUB/MOCK)। কোডে কোনো অডিও মডেল বা সিন্থেসাইজারের সংযোগ নেই। এটি একটি ফেক ডিকশনারি রিটার্ন করে কিন্তু ডিস্কে কোনো অডিও ফাইলতৈরি করে না (File exists: False)।
+  • টেস্ট: টেস্টে শুধু রিটার্ন স্টেটাস চেক করা হয়েছিল, ফাইল হয়েছে কি না তা নয়।
+  • রায়: FAILED / STUB ONLY
+
+  #### ৮. Media Assembly (Video Shots + Audio + HUD Stitching)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\video\media_stitcher_service.py (stitch_shots)
+  • CLI: unified_runner.py-তে নেই।
+  • REST Endpoint: POST /videos/{idea_id}/assemble
+  • বাস্তব এক্সিকিউশন: সম্পূর্ণ ভুয়া (STUB/MOCK)। কোডে FFmpeg বা OpenCV-এর কোনো কমান্ড নেই। এটি শুধু ইনপুট পাথ চেক করে ভুয়া status: success দেয় (Output exists:False)।
+  • টেস্ট: টেস্ট ফাইলে অস্তিত্বহীন ফাইল পাথ দিয়ে চেক করে পাস করানো হয়েছে।
+  • রায়: FAILED / STUB ONLY
+
+  #### ৯. Package (MP4 + Prompts JSON + SEO JSON)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\packaging\package_service.py (package_idea)
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\PromptDatabase\pipeline_packager.py
+  • REST Endpoint: POST /packages/{idea_id}/bundle
+  • বাস্তব এক্সিকিউশন: বাস্তব কোড বিদ্যমান। ডাটাবেজ থেকে ডেটা নিয়ে ক্যানোনিকাল ফোল্ডার তৈরি ও ফাইল বান্ডেল করে। তবে ভিডিও রেন্ডার না হলে প্যাকেজ অসম্পূর্ণ থাকে।
+  • টেস্ট: POST .../bundle টেস্ট করা হয়নি, শুধু GET ম্যানিফেস্ট টেস্ট করা হয়েছে।
+  • রায়: PARTIALLY VERIFIED
+
+  #### ১০. YouTube Upload (Shorts Publishing)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\services\youtube\youtube_service.py (upload_video)
+  • CLI: C:\Users\Irak\Desktop\Youtube Pipeline\video\1Video10Sec\social_uploader.py
+  • REST Endpoint: POST /youtube/{idea_id}/upload
+  • বাস্তব এক্সিকিউশন: সম্পূর্ণ সিমুলেটেড (SIMULATED STUB)। কোডে কোনো YouTube Data API v3 ক্লায়েন্ট নেই। এটি ফেক ইউআরএল https://youtube.com/shorts/simulated_... রিটার্ন করে।
+  • টেস্ট: কোনো টেস্ট নেই।
+  • রায়: FAILED / SIMULATED STUB ONLY
+
+  #### ১১. পুরো ফ্লো এক ক্লিকে API-Triggered Pipeline (POST /pipeline/ideas/{id}/run)
+
+  • Service: C:\Users\Irak\Desktop\Youtube Pipeline\apps\api\routers\pipeline.py
+  • বাস্তব এক্সিকিউশন: ব্রোকেন ও অসম্পূর্ণ।
+      1. এটি নতুন Element বা Idea তৈরি করতে পারে না; আগে থেকেই থাকা idea_id দিতে হয়।
+      2. এটি ভিডিও জেনারেশন চালায় না; শুধুমাত্র build_render_payload() কল করে।
+      3. এটি Audio/TTS, Media Assembly ও YouTube Upload সম্পূর্ণ এড়িয়ে যায়।
+  • রায়: FAILED / BROKEN PIPELINE
+  ──────
+  ### ৩. অডিট মেট্রিক্স টেবিল (Comprehensive Matrix)
+
+   PIPELINE ST… │ SERVICE       │ CLI           │ REST ENDPOINT │ REAL EXECUTION │ TEST          │ RUNTIME PROOF │ EXTERNAL DEP… │ VERDICT
+  ──────────────┼───────────────┼───────────────┼───────────────┼────────────────┼───────────────┼───────────────┼───────────────┼───────────────
+   1. Element   │ IdeaService   │ লিগ্যাসি স্ক্রিপ্ট        │ POST          │ অফলাইন ফলব্যাক     │ অনুপস্থিত         │ ডেটাবেজে ১০০টি     │ Playwright /  │ PARTIALLY
+                │               │               │ /ideas/catego │ বাস্তব; লাইভ মোড    │               │ এলিমেন্ট          │ ChatGPT       │ VERIFIED
+                │               │               │ ries/{id}/ele │ ব্রাউজার           │               │               │               │
+                │               │               │ ments/generat │                │               │               │               │
+                │               │               │ e             │                │               │               │               │
+   2. Ideas     │ IdeaService   │ লিগ্যাসি স্ক্রিপ্ট        │ POST          │ অফলাইনে সম্পূর্ণ ব্লকড  │ ফলস পজিটিভ টেস্ট   │ Element #14-এ │ CloakBrowser  │ FAILED
+                │               │               │ /ideas/elemen │ ([]); ব্রাউজার মোড  │               │ [] রিটার্ন (প্রমাণিত) │ / ChatGPT     │ (OFFLINE) /
+                │               │               │ ts/{id}/gener │ ম্যানুয়াল           │               │               │               │ UNVERIFIED
+                │               │               │ ate           │                │               │               │               │
+   3. Prompt    │ PromptService │ prompt_chain_ │ GET           │ বাস্তব (SQLite    │ PASSED        │ ডেটাবেজে ৯৬০টি প্রম্পট │ SQLite        │ PROVEN
+                │               │ engine.py     │ /prompts/{id} │ রিড)            │               │               │               │
+                │               │               │ /levels/{lvl} │                │               │               │               │
+   4.           │ PromptService │ run_prompt_fi │ POST          │ বাস্তব (অফলাইনেও    │ PASSED        │ ২০টি রেকর্ড লেখে    │ স্বয়ংসম্পূর্ণ         │ PROVEN
+   Escalation   │               │ llup.py       │ /prompts/{id} │ ২০টি প্রম্পট লিখে দেয়) │               │ (প্রমাণিত)        │               │
+                │               │               │ /escalate     │                │               │               │               │
+   5. SEO       │ SEOService    │ run_seo.py    │ POST          │ বাস্তব (সাজেশন মাইনিং  │ মক টেস্ট (patch) │ লাইভ কিওয়ার্ড ফেচ   │ Google        │ PROVEN
+                │               │               │ /seo/{id}/gen │ ও মেটাডাটা বিল্ড)     │               │ কাজ করে         │ Suggest API   │ (Engine)/
+                │               │               │ erate         │                │               │               │               │ PARTIALLY
+                │               │               │               │                │               │               │               │ VERIFIED
+   6. Video Gen │ VideoService  │ start_automat │ POST          │ শুধু Dry-Run;    │ শুধু Dry-Run টেস্ট │ ব্যাকগ্রাউন্ডে এপিআই    │ Chrome Ext /  │ UNVERIFIED
+                │               │ ion.bat       │ /videos/{id}/ │ রিয়েল রেন্ডারে ব্রাউজার   │               │ রেন্ডার হয় না      │ Veo 3.1       │ VIA API (DRY-
+                │               │               │ generate      │ এক্সটেনশন মাস্ট      │               │               │               │ RUN ONLY)
+   7. TTS /     │ AudioService  │ রুট স্ক্রিপ্ট         │ POST          │ ভুয়া (STUB) —    │ ফলস পজিটিভ টেস্ট   │ File exists:  │ কোনো ইঞ্জিন যুক্ত নেই  │ FAILED / STUB
+   Audio        │               │ (fast_audio_g │ /audio/{id}/g │ ফাইল তৈরি করে না    │               │ False (প্রমাণিত)  │               │ ONLY
+                │               │ en.py)        │ enerate       │                │               │               │               │
+   8. Assembly  │ MediaStitcher │ রুট স্ক্রিপ্ট         │ POST          │ ভুয়া (STUB) —    │ ফলস পজিটিভ টেস্ট   │ Output        │ FFmpeg অনুপস্থিত  │ FAILED /STUB
+                │ Service       │ (assemble_tea │ /videos/{id}/ │ FFmpeg নেই      │               │ exists: False │               │ ONLY
+                │               │ ser_audio.py) │ assemble      │                │               │ (প্রমাণিত)        │               │
+   9. Package   │ PackageServic │ pipeline_pack │ POST          │ বাস্তব (ফোল্ডার বান্ডেল ও │ এপিআই টেস্ট নেই    │ ৩টি ভেরিফাইড প্যাকেজ  │ পূর্বের ধাপের MP4│ PARTIALLY
+                │ e             │ ager.py       │ /packages/{id │ কপি)            │               │ বিদ্যমান          │ ফাইল           │ VERIFIED
+                │               │               │ }/bundle      │                │               │               │               │
+   10. YouTube  │ YouTubeServic │ social_upload │ POST          │ সিমুলেটেড (STUB) — │ অনুপস্থিত         │ সিমুলেটেড লিঙ্ক রিটার্ন  │ YouTube API   │ FAILED /
+   10. YouTube  │ YouTubeServic │ social_upload │ POST          │ সিমুলেটেড (STUB) — │ অনুপস্থিত         │ সিমুলেটেড লিঙ্ক রিটার্ন  │ YouTube API   │ FAILED /
+                │ e             │ er.py         │ /youtube/{id} │ কোনো YouTube API │               │               │ নেই            │ SIMULATED
+                │               │               │ /upload       │ নেই             │               │               │               │ STUB ONLY
+   Full Runner  │ Orchestrator  │ unified_runne │ POST          │ অসম্পূর্ণ — ভিডিও     │ শুধু Dry-Run টেস্ট │ সম্পূর্ণ ফ্লো এক      │ বহুমাত্রিক         │ FAILED /
+                │ Router        │ r.py (আংশিক)    │ /pipeline/ide │ রেন্ডার, অডিও, স্টিচিং ও │               │ এপিআইতে চলে না    │               │ INCOMPLETE
+                │               │               │ as/{id}/run   │ আপলোড বাদ        │               │               │               │ CHAIN
+  ──────
+  ### ৪. তিনটি মূল সংখ্যা (Three Distinct Metrics)
+
+  • A. Total business operations (সম্পূর্ণ সিস্টেমে প্রয়োজনীয় মোট বিজনেস অপারেশন): ৫১টি
+  (ট্যাক্সোনমি, আইডিয়া জেনারেশন, প্রম্পট এসকেলেশন, ইউনিকনেস অডিট, এসইও মাইনিং, ভিডিও রেন্ডার, বিজিএম/এসএফএক্স/ভয়েস অডিও, মিডিয়া অ্যাসেম্বলি, প্যাকেজিং, ইউটিউব পাবলিশিং, মাস্টার সিএসভি এক্সপোর্ট, ডিএলকিউ এবং ডাইনামিক
+  ওয়ার্কফ্লো বিল্ডার)                │ e             │ er.py         │ /youtube/{id} │ কোনো YouTube API │               │               │ নেই            │ SIMULATED
+  • B. REST-exposed o              │               │ /upload       │ নেই             │               │               │               │ STUB ONLY
+   Full Runner  │ Orchestrator  │ unified_runne │ POST          │ অসম্পূর্ণ — ভিডিও     │ শুধু Dry-Run টেস্ট │ সম্পূর্ণ ফ্লো এক      │ বহুমাত্রিক         │ FAILED /
+ │ Router        │ r.py (আংশিক)    │ /pipeline/ide │ রেন্ডার, অডিও, স্টিচিং ও │               │ এপিআইতে চলে না    │               │ INCOMPLETE
+  • C. Actuall              │               │ as/{id}/run   │ আপলোড বাদ        │               │               │               │ CHAIN
+  ──────
+  ### ৪. তিনটি মূল সংখ্যা (Three Distinct Metrics)ট রিড, লেভেল ১০ এসকেলেশন জেনারেশন, ইউনিকনেস অডিট/সিগনেচার, এসইও মেটাডাটা ও সাজেশন মাইনিং, প্যাকেজ ম্যানিফে
+                                           জ গেটস
+  • A. Total business operations (সম্পূর্ণ সিস্টেমে প্রয়োজনীয় মোট বিজনেস অপারেশন): ৫১টি
+  (ট্যাক্সোনমি, আইডিয়া জেনারেশন, প্রম্পট এসকেলেশন, ইউনিকনেস অডিট, এসইও মাইনিং, ভিডিও রেন্ডার, বিজিএম/এসএফএক্স/ভয়েস অডিও, মিডিয়া অ্যাসেম্বলি, প্যাকেজিং, ইউটিউব পাবলিশিং, মাস্টার সিএসভি এক্সপোর্ট, ডিএলকিউ এবং ডাইনামিক
+  ওয়ার্কফ্লো বিল্ডার)
+  • B. REST-exposed operations (বর্তমান FastAPI রাউটারে এন্ডপয়েন্ট বিদ্যমান): ৪৫টি
+  (বিজিএম, এসএফএক্স, বাংলা নিউরাল টিটিএস, টিজার অ্যাসেম্বলি এবং রিয়েল ইউটিউব ওথ এপিআই বাদে বাকিগুলোর রাউট রয়েছে)
+  • C. Actually end-to-end verified operations (বাস্তবে কোনো ভুয়া মক/স্টাব ছাড়া প্রোডাকশনে প্রমাণিত): ২৩টি
+  (ক্যাটাগরি/এলিমেন্ট রিড, কাস্টম আইডিয়া তৈরি, প্রম্পট রিড, লেভেল ১০ এসকেলেশন জেনারেশন, ইউনিকনেস অডিট/সিগনেচার, এসইও মেটাডাটা ও সাজেশন মাইনিং, প্যাকেজ ম্যানিফেস্ট রিড, ৩টি মাস্টার সিএসভি এক্সপোর্ট, আইডিয়া স্টেজ গেটস
+  সামারি)
+  ──────
+  ### ৫. চূড়ান্ত সিদ্ধান্ত (Final Verdict)
+                                 এপিআই দিয়ে অফলাইনে চালানো অসম্ভব (ব্লকড)।
+  REST API GAPS EXIST
+                     dia Assembly কেবল ডিরেক্টরি বানিয়ে ভুয়া সাফল্য রিটার্ন করে (কোনো ফাইল ডিস্কে তৈরি হয় না)।
+  #### সারসংক্ষেপ:
+             Upload কোনো বাস্তব গুগল এপিআই ব্যবহার করে না, এটি কেবল একটি নকল স্ট্রিং রিটার্ন করে।
+  কোডবেসটি কোনোভাবেই “সম্পূর্ণ production-ready” নয়। যদিও প্রম্পট তৈরি, ইউনিকনেস চেকিং, এসইও মাইনিং এবং প্যাকেজিং-এর লজিক চমৎকারভাবে কাজ করে, কিন্তু:
+
+  1. Element → 10 Ideas ব্যাকগ্রাউন্ডে এপিআই দিয়ে অফলাইনে চালানো অসম্ভব (ব্লকড)।
+  2. Audio/TTS এবং Media Assembly কেবল ডিরেক্টরি বানিয়ে ভুয়া সাফল্য রিটার্ন করে (কোনো ফাইল ডিস্কে তৈরি হয় না)।
+  3. YouTube Upload কোনো বাস্তব গুগল এপিআই ব্যবহার করে না, এটি কেবল একটি নকল স্ট্রিং রিটার্ন করে।
+  4. ভিডিও জেনারেশন এপিআই-ড্রাইভেন নয়, ব্যবহারকারীর ডেস্কটপ ব্রাউজার ও এক্সটেনশনের ম্যানুয়াল উপস্থিতির উপর নির্ভরশীল।
+  5. Unified Pipeline Trigger পুরো পাইপলাইনের অর্ধেকের বেশি ধাপ এড়িয়ে যায়।                   ──────────────────────────────────────────────────────────
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+>
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+? for shortcuts                                                                                                              Gemini 3.8 Flash · high

@@ -94,3 +94,9 @@ test-results/
 !/archive/**/*.png
 !/archive/**/*.json
 !/archive/**/*.md
+
+# Re-ignore any secret or terminal dump files that might land in archive/
+archive/*API*Key*.txt
+archive/*API*KEY*.txt
+archive/*Kagle*
+archive/CWINDOWSsystem32cmd.exe*.txt

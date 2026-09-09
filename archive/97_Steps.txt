@@ -1,0 +1,3345 @@
+হ্যাঁ। আগের উত্তরের ওপর ভিত্তি করে এখন সবচেয়ে গুরুত্বপূর্ণ কাজ হলো **“কী বানাবেন” নয়, “কীভাবে বানালে পরে সিস্টেমটি ভেঙে যাবে না”**—এটা নির্ধারণ করা।
+
+আপনার দেওয়া audit এবং সংরক্ষিত project evidence-ও দেখেছি। সেখানে সরাসরি SQLite connection এবং `youtube_pipeline.db` ব্যবহারের প্রমাণ আছে; Git history-তেও SQLite/PromptDatabase integration এবং সাম্প্রতিক pipeline পরিবর্তন দেখা যাচ্ছে।  তবে আপনার দেওয়া audit-এর **প্রতিটি নির্দিষ্ট file/line আমি এখনো source-code file হিসেবে খুলে যাচাই করিনি**, তাই সেগুলোকে “verified project fact” আর “audit-এর দাবি”—এই দুই ভাগে রাখছি।
+
+---
+
+# ১. প্রথমে সবচেয়ে গুরুত্বপূর্ণ সংশোধন
+
+আপনার আগের architecture-এর এই ধারণাটি একটু পরিবর্তন করা দরকার:
+
+> `PostgreSQL = Source of Truth`
+> `Windmill/Temporal = Execution State`
+
+এখানে **দুই ধরনের truth** আলাদা করতে হবে।
+
+### Business Truth
+
+PostgreSQL:
+
+```text
+Video #123
+Channel
+Workflow
+Workflow Version
+Step Definition
+Asset
+Prompt
+SEO metadata
+YouTube video ID
+Attempt history
+Idempotency records
+Audit
+```
+
+### Execution Truth
+
+Temporal/Windmill/DBOS:
+
+```text
+কোন execution চলছে
+কোন activity scheduled
+কোন worker কাজ করছে
+কোন retry হবে
+কোন timeout হয়েছে
+কোন checkpoint completed
+কোন task পুনরায় চালাতে হবে
+```
+
+**একই state দুই জায়গায় স্বাধীনভাবে authoritative করলে split-brain তৈরি হবে।** তাই PostgreSQL হবে আপনার **business/control-plane source of truth**, আর orchestration engine হবে **execution engine**। Temporal-এর durable execution model এই separation-এর সঙ্গে খুব ভালোভাবে যায়। ([Google for Developers][1])
+
+---
+
+# ২. আপনার সবচেয়ে বড় architectural পরিবর্তন
+
+বর্তমান:
+
+```text
+Python script
+      ↓
+SQLite
+      ↓
+ফাইল
+      ↓
+Browser
+```
+
+এটা বদলে:
+
+```text
+                    ┌──────────────────────┐
+                    │    ERP UI            │
+                    │ React / Vite         │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │    FastAPI           │
+                    │ Control Plane        │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │    PostgreSQL        │
+                    │ Business State       │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ Workflow Orchestrator│
+                    │ Windmill / Temporal  │
+                    └──────────┬───────────┘
+                               ↓
+        ┌──────────────┬───────┼──────────────┐
+        ↓              ↓       ↓              ↓
+     LLM Worker    Browser   Media        YouTube
+                   Worker    Worker        Worker
+```
+
+এটাই আপনার long-term target।
+
+---
+
+# ৩. কিন্তু এখনই সব বানাবেন না
+
+এটাই সবচেয়ে গুরুত্বপূর্ণ practical advice।
+
+**একসঙ্গে SQLite → PostgreSQL → FastAPI → React → Temporal → workers → ERP করলে project আবার ৬ মাসের rabbit hole হয়ে যাবে।**
+
+আপনার existing pipeline-এর সবচেয়ে মূল্যবান জিনিস হলো:
+
+```text
+Prompt generation
+SEO
+CloakBrowser
+Playwright
+Veo
+FFmpeg
+Voice
+existing database
+existing scripts
+```
+
+এসব ফেলে নতুন করে শুরু করা যাবে না।
+
+বরং:
+
+```text
+OLD PIPELINE
+     ↓
+Adapter
+     ↓
+NEW ORCHESTRATION
+```
+
+অর্থাৎ প্রথমে existing script-গুলোকে **worker হিসেবে wrap করবেন**।
+
+---
+
+# ৪. Phase 0 — কিছুই migrate করবেন না
+
+প্রথমে বর্তমান pipeline freeze করুন।
+
+```text
+C:\Users\Irak\Desktop\Youtube Pipeline
+```
+
+এর ভিতরে:
+
+```text
+legacy/
+workers/
+control_plane/
+workflow/
+database/
+tests/
+```
+
+এভাবে logical separation করুন।
+
+বর্তমান database-এ ইতিমধ্যে `ideas`, `youtube_metadata`, `seo_runs`, `llm_cache`, `prompting_style_master` ইত্যাদি data আছে বলে project evidence-এ দেখা যাচ্ছে। বিশেষ করে SEO prompt-এর পূর্ণ payload বর্তমানে cache database-এ থাকলেও `seo_runs`-এ সরাসরি রাখা হচ্ছে না—এটি নতুন architecture-এ অবশ্যই ঠিক করা উচিত। 
+
+---
+
+# ৫. Phase 1 — SQLite → PostgreSQL
+
+এটাই প্রথম আসল migration।
+
+### PostgreSQL-এ যাওয়ার আগে schema redesign করুন।
+
+শুধু:
+
+```text
+SQLite → PostgreSQL
+```
+
+করবেন না।
+
+বরং:
+
+```text
+Old schema
+   ↓
+Canonical schema
+   ↓
+PostgreSQL
+```
+
+---
+
+# ৬. নতুন database architecture
+
+আমি আপনার জন্য মোটামুটি এই entity model নেব:
+
+```text
+channels
+   │
+   ├── workflows
+   │       │
+   │       └── workflow_versions
+   │               │
+   │               └── workflow_steps
+   │
+   └── videos
+           │
+           └── executions
+                    │
+                    └── step_runs
+                            │
+                            └── attempts
+```
+
+আর পাশে:
+
+```text
+assets
+prompts
+llm_runs
+browser_sessions
+external_effects
+idempotency_keys
+schedules
+dead_letters
+audit_logs
+```
+
+---
+
+# ৭. Workflow table
+
+```sql
+CREATE TABLE workflows (
+    id UUID PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    channel_id UUID,
+    content_type TEXT,
+    active_version_id UUID,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
+
+এখানে `workflow` মানে:
+
+> “এই channel-এর জন্য YouTube production process-এর logical identity।”
+
+---
+
+# ৮. Workflow version
+
+সবচেয়ে গুরুত্বপূর্ণ table:
+
+```sql
+CREATE TABLE workflow_versions (
+    id UUID PRIMARY KEY,
+    workflow_id UUID NOT NULL REFERENCES workflows(id),
+
+    version_number INTEGER NOT NULL,
+
+    status TEXT NOT NULL
+        CHECK (status IN (
+            'draft',
+            'published',
+            'deprecated'
+        )),
+
+    definition JSONB NOT NULL,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    UNIQUE(workflow_id, version_number)
+);
+```
+
+### কিন্তু একটা নিয়ম:
+
+**Published version কখনো edit করবেন না।**
+
+উদাহরণ:
+
+```text
+V1
+Research
+Script
+SEO
+Audio
+Video
+Upload
+```
+
+তারপর Audio বাদ দিতে চাইলে:
+
+```text
+V2
+Research
+Script
+SEO
+Video
+Upload
+```
+
+V1 থাকবে।
+
+V2 তৈরি হবে।
+
+এটাই immutable versioning।
+
+---
+
+# ৯. কেন V1 edit করা যাবে না?
+
+ধরুন:
+
+```text
+Video #100
+Execution → V1
+```
+
+এটি চলতে শুরু করল।
+
+আপনি V1 পরিবর্তন করে দিলেন:
+
+```text
+Audio deleted
+Fact Check added
+```
+
+তখন execution history বলছে:
+
+```text
+Step 4 = Audio
+```
+
+কিন্তু বর্তমান workflow বলছে:
+
+```text
+Step 4 = Fact Check
+```
+
+এখন system-এর কাছে:
+
+> “আমি আসলে কী execute করেছিলাম?”
+
+এর উত্তর অস্পষ্ট।
+
+তাই:
+
+```text
+Published Workflow Version = Immutable
+```
+
+এটি আপনার system-এর **Golden Rule #1**।
+
+---
+
+# ১০. Step-এর identity খুব গুরুত্বপূর্ণ
+
+এখানে আপনার audit-এর একটি subtle সমস্যা আছে।
+
+আপনি যদি শুধু রাখেন:
+
+```text
+step_number = 4
+```
+
+তাহলে সমস্যা হবে।
+
+কারণ V1:
+
+```text
+1 Research
+2 Script
+3 SEO
+4 Audio
+5 Video
+```
+
+V2:
+
+```text
+1 Research
+2 Script
+3 FactCheck
+4 SEO
+5 Video
+```
+
+এখানে number বদলে গেছে।
+
+তাই:
+
+```text
+step_number
+```
+
+এর পাশাপাশি অবশ্যই:
+
+```text
+step_key
+```
+
+রাখবেন।
+
+উদাহরণ:
+
+```text
+research
+script
+fact_check
+seo
+audio
+video_generation
+thumbnail
+upload
+```
+
+---
+
+# ১১. Step definition
+
+```sql
+CREATE TABLE workflow_steps (
+    id UUID PRIMARY KEY,
+
+    workflow_version_id UUID NOT NULL
+        REFERENCES workflow_versions(id),
+
+    step_key TEXT NOT NULL,
+
+    step_type TEXT NOT NULL,
+
+    display_name TEXT NOT NULL,
+
+    position INTEGER NOT NULL,
+
+    enabled BOOLEAN NOT NULL DEFAULT TRUE,
+
+    config JSONB NOT NULL DEFAULT '{}',
+
+    retry_policy JSONB NOT NULL DEFAULT '{}',
+
+    timeout_seconds INTEGER,
+
+    condition JSONB,
+
+    created_at TIMESTAMPTZ DEFAULT now(),
+
+    UNIQUE(workflow_version_id, step_key)
+);
+```
+
+এখন আপনি database/UI থেকে:
+
+```text
+ADD
+DELETE
+ENABLE
+DISABLE
+REORDER
+DUPLICATE
+EDIT
+```
+
+করতে পারবেন।
+
+---
+
+# ১২. Workflow definition কেমন হবে?
+
+উদাহরণ:
+
+```json
+{
+  "version": 7,
+  "steps": [
+    {
+      "key": "research",
+      "type": "llm",
+      "enabled": true
+    },
+    {
+      "key": "script",
+      "type": "llm",
+      "enabled": true
+    },
+    {
+      "key": "fact_check",
+      "type": "python",
+      "enabled": true
+    },
+    {
+      "key": "seo",
+      "type": "llm",
+      "enabled": true
+    },
+    {
+      "key": "audio",
+      "type": "audio",
+      "enabled": false
+    },
+    {
+      "key": "video",
+      "type": "browser",
+      "enabled": true
+    },
+    {
+      "key": "upload",
+      "type": "youtube",
+      "enabled": true
+    }
+  ]
+}
+```
+
+---
+
+# ১৩. আরও ভালো: Linear pipeline নয়, DAG
+
+আপনার pipeline এখন linear:
+
+```text
+A → B → C → D
+```
+
+কিন্তু ভবিষ্যতে দরকার হবে:
+
+```text
+             ┌→ Thumbnail
+Research → Script → SEO
+             └→ Fact Check
+                    ↓
+                  Video
+                    ↓
+                  Audio
+                    ↓
+                  Upload
+```
+
+অথবা:
+
+```text
+Script
+ ├── SEO
+ ├── Thumbnail
+ ├── Voice
+ └── Fact Check
+
+সব complete
+      ↓
+Video
+      ↓
+Upload
+```
+
+তাই database model-এ dependency রাখুন:
+
+```json
+{
+  "key": "video",
+  "depends_on": [
+    "script",
+    "seo",
+    "thumbnail",
+    "audio"
+  ]
+}
+```
+
+---
+
+# ১৪. Conditional step
+
+এটা আপনার requirement-এর জন্য অত্যন্ত গুরুত্বপূর্ণ।
+
+উদাহরণ:
+
+```json
+{
+  "key": "audio",
+  "enabled": true,
+  "condition": {
+    "field": "content.audio_required",
+    "equals": true
+  }
+}
+```
+
+তাহলে:
+
+```text
+Audio required = true
+        ↓
+Audio runs
+
+Audio required = false
+        ↓
+Audio SKIPPED
+```
+
+এটা `delete` করার চেয়ে অনেক বেশি powerful।
+
+---
+
+# ১৫. Disable বনাম Delete
+
+দুটিকে আলাদা রাখবেন।
+
+### Disable
+
+```text
+Step exists
+History exists
+Definition exists
+Execution skip করবে
+```
+
+### Delete
+
+```text
+নতুন workflow version-এ step নেই
+```
+
+এতে historical audit intact থাকে।
+
+---
+
+# ১৬. Running execution-এর আসল সমাধান
+
+এটাই আপনার পুরো system-এর সবচেয়ে গুরুত্বপূর্ণ অংশ।
+
+ধরুন:
+
+```text
+Video #123
+Workflow V5
+
+Research       SUCCESS
+Script         SUCCESS
+Fact Check     SUCCESS
+SEO            SUCCESS
+Audio          RUNNING
+Video          PENDING
+Upload         PENDING
+```
+
+এখন আপনি V6 বানালেন:
+
+```text
+Research
+Script
+Fact Check
+SEO
+Video
+Upload
+```
+
+Audio বাদ।
+
+**Video #123-কে V6-এ সরাসরি mutate করবেন না।**
+
+বরং:
+
+```text
+Execution V5
+     ↓
+MIGRATED
+     ↓
+Execution V6
+```
+
+---
+
+# ১৭. কিন্তু আগের successful result নষ্ট হবে না
+
+নতুন execution শুরু হলে:
+
+```text
+V6 Research
+```
+
+দেখবে:
+
+```text
+V5 Research SUCCESS
+```
+
+তারপর:
+
+```text
+reuse
+```
+
+Script-ও reuse।
+
+Fact Check-ও reuse।
+
+SEO-ও reuse।
+
+Audio V6-তে নেই।
+
+তারপর:
+
+```text
+Video
+```
+
+থেকে নতুন execution।
+
+এটাকে আমি বলব:
+
+# Checkpoint-aware workflow migration
+
+---
+
+# ১৮. কিন্তু এখানে একটি বড় trap আছে
+
+শুধু:
+
+```text
+step_key = "script"
+```
+
+মিলে গেলেই previous output reuse করা যাবে না।
+
+কারণ Script-এর configuration পরিবর্তিত হতে পারে।
+
+উদাহরণ:
+
+V5:
+
+```text
+model = Claude
+temperature = 0.7
+prompt_template = A
+```
+
+V6:
+
+```text
+model = Gemini
+temperature = 0.2
+prompt_template = B
+```
+
+Step একই:
+
+```text
+script
+```
+
+কিন্তু semantics আলাদা।
+
+তাই প্রতিটি step-এর:
+
+```text
+definition_hash
+input_hash
+config_hash
+```
+
+রাখুন।
+
+---
+
+# ১৯. Step reuse algorithm
+
+```text
+CanReuse(previous_step, new_step)?
+
+1. same step_key?
+2. same input_hash?
+3. same config_hash?
+4. same dependency outputs?
+5. previous status == SUCCESS?
+6. output still exists?
+7. output schema compatible?
+
+YES
+   ↓
+REUSE
+
+NO
+   ↓
+RERUN
+```
+
+এটাই আপনার migration system-এর brain।
+
+---
+
+# ২০. Output versioning
+
+প্রতিটি output-এর জন্য:
+
+```text
+asset_id
+step_run_id
+content_hash
+schema_version
+created_at
+```
+
+রাখবেন।
+
+উদাহরণ:
+
+```text
+script.json
+SHA256 = abc123
+schema = 2
+```
+
+এখন script সত্যিই একই কিনা বোঝা যাবে।
+
+---
+
+# ২১. Step run বনাম Attempt
+
+আপনার proposed schema মোটামুটি সঠিক, কিন্তু আরও পরিষ্কারভাবে:
+
+```text
+step_run
+    │
+    ├── attempt 1
+    ├── attempt 2
+    ├── attempt 3
+    └── attempt 4 SUCCESS
+```
+
+### Step Run
+
+Logical execution:
+
+```text
+Video 123
+Step = video_generation
+```
+
+### Attempt
+
+বাস্তব execution:
+
+```text
+Attempt 1
+Browser crashed
+
+Attempt 2
+Timeout
+
+Attempt 3
+429
+
+Attempt 4
+SUCCESS
+```
+
+---
+
+# ২২. Recommended status machine
+
+### Execution
+
+```text
+CREATED
+QUEUED
+RUNNING
+PAUSED
+MIGRATING
+COMPLETED
+FAILED
+DEAD_LETTER
+CANCELLED
+```
+
+### Step
+
+```text
+PENDING
+READY
+RUNNING
+RETRY_WAIT
+SUCCESS
+FAILED
+SKIPPED
+CANCELLED
+```
+
+### Attempt
+
+```text
+STARTED
+SUCCESS
+FAILED
+TIMEOUT
+CANCELLED
+UNKNOWN
+```
+
+---
+
+# ২৩. `UNKNOWN` status অত্যন্ত গুরুত্বপূর্ণ
+
+এটি আপনার বর্তমান design-এ যোগ করা উচিত।
+
+ধরুন:
+
+```text
+YouTube upload শুরু হয়েছে
+```
+
+তারপর:
+
+```text
+Internet disconnect
+```
+
+আপনার worker জানে না:
+
+```text
+Upload হয়নি
+```
+
+নাকি:
+
+```text
+Upload হয়েছে কিন্তু response আসেনি
+```
+
+এ অবস্থায়:
+
+```text
+FAILED
+```
+
+লেখা ভুল।
+
+লিখবেন:
+
+```text
+UNKNOWN
+```
+
+তারপর:
+
+```text
+VERIFY_EXTERNAL_STATE
+```
+
+---
+
+# ২৪. YouTube-এর ক্ষেত্রে এটি বিশেষভাবে গুরুত্বপূর্ণ
+
+YouTube-এর resumable upload protocol-এ upload session URI সংরক্ষণ করে interruption-এর পরে upload resume করা যায়। Upload progress `308` response-এর `Range` দিয়েও জানা যায়। ([Google for Developers][2])
+
+তাই আপনার YouTube worker:
+
+```text
+START_UPLOAD
+     ↓
+SAVE_UPLOAD_SESSION
+     ↓
+UPLOAD_CHUNK
+     ↓
+FAIL?
+ ┌───┴────┐
+NO       YES
+│         │
+SUCCESS   QUERY SESSION
+          ↓
+       RESUME
+```
+
+করবে।
+
+---
+
+# ২৫. YouTube upload-কে সাধারণ retry দেবেন না
+
+ভুল:
+
+```python
+retry(upload_video)
+```
+
+সঠিক:
+
+```text
+reserve operation
+       ↓
+create/resume upload session
+       ↓
+upload
+       ↓
+timeout?
+       ↓
+query external state/session
+       ↓
+resume or verify
+```
+
+কারণ `videos.insert` আসলে YouTube-এ নতুন video resource তৈরি করে এবং successful হলে unique video ID দেয়। ([Google for Developers][3])
+
+---
+
+# ২৬. YouTube idempotency table আরও উন্নত করুন
+
+আপনার:
+
+```sql
+idempotency_records
+```
+
+ধারণা ভালো।
+
+আমি এটাকে করব:
+
+```sql
+CREATE TABLE external_operations (
+    id UUID PRIMARY KEY,
+
+    execution_id UUID NOT NULL,
+
+    step_run_id UUID NOT NULL,
+
+    operation_key TEXT NOT NULL UNIQUE,
+
+    provider TEXT NOT NULL,
+
+    operation_type TEXT NOT NULL,
+
+    request_hash TEXT NOT NULL,
+
+    status TEXT NOT NULL,
+
+    external_id TEXT,
+
+    external_url TEXT,
+
+    provider_state JSONB,
+
+    created_at TIMESTAMPTZ DEFAULT now(),
+
+    updated_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+---
+
+# ২৭. Operation key
+
+উদাহরণ:
+
+```text
+youtube-upload:
+channel-abc:
+video-123:
+asset-final-v7
+```
+
+অথবা hash:
+
+```text
+SHA256(
+  channel_id +
+  video_id +
+  workflow_version +
+  step_key +
+  final_asset_hash
+)
+```
+
+এতে একই final asset-এর জন্য দ্বিতীয় upload operation তৈরি হবে না।
+
+---
+
+# ২৮. কিন্তু “exactly once” বলবেন না
+
+খুব গুরুত্বপূর্ণ।
+
+আপনি practically পাবেন:
+
+> **effectively-once business behavior**
+
+কিন্তু arbitrary external API-তে mathematically guaranteed exactly-once নয়।
+
+কারণ:
+
+```text
+request sent
+↓
+server processed
+↓
+response lost
+```
+
+এই classic distributed-systems problem-এর কারণে client নিশ্চিতভাবে জানে না operation সফল হয়েছে কিনা।
+
+তাই:
+
+```text
+At-least-once execution
++
+Idempotent business operation
++
+External verification
+=
+Effectively-once outcome
+```
+
+---
+
+# ২৯. Browser automation আরও কঠিন
+
+আপনার:
+
+```text
+CloakBrowser
+Playwright
+Chrome Extension
+Veo
+ChatGPT web
+```
+
+API worker-এর মতো deterministic নয়।
+
+এখানে:
+
+```text
+Browser crashed
+tab disappeared
+login expired
+captcha
+DOM changed
+extension disconnected
+network timeout
+generation queued
+generation completed but download failed
+```
+
+এসব হতে পারে।
+
+তাই Browser Worker-কে **stateless function** বানাবেন না।
+
+---
+
+# ৩০. Browser Worker-এর নিজস্ব state machine
+
+```text
+ALLOCATE_BROWSER
+       ↓
+RESTORE_PROFILE
+       ↓
+VERIFY_LOGIN
+       ↓
+OPEN_TARGET
+       ↓
+SUBMIT_JOB
+       ↓
+WAIT_FOR_RESULT
+       ↓
+VERIFY_RESULT
+       ↓
+DOWNLOAD
+       ↓
+CHECKSUM
+       ↓
+SUCCESS
+```
+
+প্রতিটি transition DB/execution engine-এ record হবে।
+
+---
+
+# ৩১. Browser retry কখন safe?
+
+### Safe
+
+```text
+Browser crashed BEFORE prompt submitted
+```
+
+আবার submit করা যায়।
+
+### Unsafe
+
+```text
+Prompt submitted
+Browser crashed
+```
+
+এখন blind retry করলে duplicate generation হতে পারে।
+
+তাই:
+
+```text
+UNKNOWN
+   ↓
+search existing generation
+   ↓
+found?
+ ├── YES → attach result
+ └── NO  → retry
+```
+
+---
+
+# ৩২. Veo-এর ক্ষেত্রে বিশেষভাবে
+
+আপনার existing architecture যেহেতু browser/extension bridge-এর ওপর নির্ভর করছে, আমি একটি আলাদা:
+
+```text
+generation_job
+```
+
+table রাখব।
+
+```sql
+CREATE TABLE generation_jobs (
+    id UUID PRIMARY KEY,
+
+    video_id UUID,
+
+    step_run_id UUID,
+
+    provider TEXT,
+
+    provider_job_key TEXT,
+
+    prompt_hash TEXT,
+
+    status TEXT,
+
+    browser_session_id UUID,
+
+    result_asset_id UUID,
+
+    created_at TIMESTAMPTZ,
+
+    updated_at TIMESTAMPTZ
+);
+```
+
+এতে browser crash হলেও system জানবে:
+
+> “আমি কোন generation-এর জন্য browser খুলেছিলাম?”
+
+---
+
+# ৩৩. Heartbeat
+
+Browser/Media worker-কে heartbeat দিতে হবে।
+
+উদাহরণ:
+
+```text
+worker starts
+   ↓
+heartbeat every 10 sec
+```
+
+DB:
+
+```text
+last_heartbeat
+```
+
+যদি:
+
+```text
+NOW - last_heartbeat > 60 sec
+```
+
+তাহলে:
+
+```text
+WORKER_SUSPECTED_DEAD
+```
+
+কিন্তু সঙ্গে সঙ্গে retry নয়।
+
+প্রথমে:
+
+```text
+lease expired?
+```
+
+check করুন।
+
+---
+
+# ৩৪. Lease system
+
+একই job দুই worker যেন না চালায়।
+
+```sql
+UPDATE jobs
+SET
+    worker_id = :worker,
+    lease_until = now() + interval '60 seconds'
+WHERE id = :job
+  AND (
+      worker_id IS NULL
+      OR lease_until < now()
+  );
+```
+
+তারপর affected row:
+
+```text
+1 → acquired
+0 → অন্য worker already owns it
+```
+
+এটি খুব গুরুত্বপূর্ণ।
+
+---
+
+# ৩৫. Worker crash হলে
+
+```text
+Worker A
+   ↓
+Job #123
+   ↓
+lease_until = 10:30
+```
+
+Worker crash।
+
+10:31:
+
+```text
+lease expired
+```
+
+Worker B:
+
+```text
+acquire job
+```
+
+তারপর আবার কাজ।
+
+এতে:
+
+```text
+server restart
+machine restart
+browser crash
+worker crash
+```
+
+সব সামলানো যায়।
+
+---
+
+# ৩৬. Retry policy database-driven করুন
+
+আপনার proposed:
+
+```json
+{
+  "max_attempts": 5,
+  "backoff": "exponential"
+}
+```
+
+ভালো।
+
+কিন্তু আরও রাখুন:
+
+```json
+{
+  "max_attempts": 5,
+  "initial_delay_seconds": 5,
+  "max_delay_seconds": 300,
+  "backoff": "exponential",
+  "jitter": true,
+  "retryable_errors": [
+    "NETWORK_ERROR",
+    "TIMEOUT",
+    "HTTP_429",
+    "BROWSER_CRASH"
+  ],
+  "non_retryable_errors": [
+    "INVALID_PROMPT",
+    "AUTH_FAILED",
+    "SCHEMA_ERROR"
+  ]
+}
+```
+
+---
+
+# ৩৭. Fixed 5-second retry সব জায়গায় করবেন না
+
+আপনার audit-এর:
+
+```text
+Browser crash → 5 sec
+```
+
+ধারণা খুব rigid।
+
+বরং:
+
+```text
+Browser crash
+5s → 10s → 20s → 40s → 80s
+```
+
+কিন্তু:
+
+```text
+429
+```
+
+হলে provider-এর retry-after থাকলে সেটাই priority।
+
+Google/YouTube API-তে নির্দিষ্ট API errors যেমন invalid metadata, invalid category, invalid publish time ইত্যাদি আছে—এসবকে blind retry না করে validation failure হিসেবে classify করা উচিত। ([Google for Developers][4])
+
+---
+
+# ৩৮. Retry classification engine
+
+একটি central classifier বানান:
+
+```python
+class ErrorClass(Enum):
+
+    NETWORK_TRANSIENT = "network_transient"
+    TIMEOUT = "timeout"
+    RATE_LIMIT = "rate_limit"
+
+    BROWSER_CRASH = "browser_crash"
+    AUTH_EXPIRED = "auth_expired"
+
+    INVALID_INPUT = "invalid_input"
+    SCHEMA_ERROR = "schema_error"
+
+    EXTERNAL_UNKNOWN = "external_unknown"
+
+    RESOURCE_EXHAUSTED = "resource_exhausted"
+
+    BUG = "bug"
+```
+
+তারপর:
+
+```text
+Error
+ ↓
+Classifier
+ ↓
+Policy
+ ↓
+Retry / Recover / DLQ
+```
+
+---
+
+# ৩৯. Self-healing architecture
+
+আপনার desired:
+
+```text
+Failure
+ ↓
+Detect
+ ↓
+Classify
+ ↓
+Recover
+ ↓
+Verify
+ ↓
+Continue
+```
+
+এটি ঠিক।
+
+কিন্তু একটি extra step দরকার:
+
+```text
+Failure
+ ↓
+Classify
+ ↓
+Is operation state known?
+ ├── YES → recover
+ └── NO  → reconcile external state
+```
+
+এটিই distributed system-এর আসল intelligence।
+
+---
+
+# ৪০. Dead Letter Queue
+
+DLQ-কে শুধু:
+
+```text
+failed = true
+```
+
+করবেন না।
+
+রাখবেন:
+
+```text
+dead_letters
+
+id
+execution_id
+step_run_id
+attempt_id
+error_class
+error_message
+stack_trace
+input_snapshot
+config_snapshot
+last_output
+retry_count
+reason
+created_at
+resolved_at
+resolution
+```
+
+---
+
+# ৪১. অন্য video বন্ধ হবে না
+
+এটি orchestration engine-এর বড় সুবিধা।
+
+ভুল architecture:
+
+```text
+Video #123 failed
+      ↓
+entire pipeline stops
+```
+
+সঠিক:
+
+```text
+Video #123
+      ↓
+DLQ
+
+Video #124 → continues
+Video #125 → continues
+Video #126 → continues
+```
+
+Temporal/queue-based architecture এটাই সহজ করে। Temporal-এর task queues ও durable execution এই ধরনের worker decoupling-এর জন্য তৈরি। ([Google for Developers][1])
+
+---
+
+# ৪২. আপনার 7–8 prompt stage কীভাবে model হবে?
+
+আমি এমন করব:
+
+```text
+WORKFLOW
+│
+├── Research
+│
+├── Idea Expansion
+│
+├── Prompt L1
+│
+├── Prompt L2
+│
+├── Prompt L3
+│
+├── Prompt L4
+│
+├── Prompt L5
+│
+├── Prompt L6
+│
+├── Prompt L7
+│
+├── Prompt L8
+│
+├── SEO
+│
+├── Thumbnail
+│
+├── Audio
+│
+├── Video
+│
+├── QC
+│
+└── Upload
+```
+
+কিন্তু **L1-L8 আলাদা Python script নয়**।
+
+একটি generic step executor:
+
+```text
+prompt_step
+```
+
+হবে।
+
+তার configuration:
+
+```json
+{
+  "step_key": "prompt_l7",
+  "type": "llm",
+  "config": {
+    "template_id": "escalation_l7",
+    "provider": "gemini",
+    "model": "..."
+  }
+}
+```
+
+---
+
+# ৪৩. এর বিশাল সুবিধা
+
+আগে:
+
+```text
+prompt1.py
+prompt2.py
+prompt3.py
+...
+prompt8.py
+```
+
+এখন:
+
+```text
+generic_llm_worker
+```
+
+এবং database:
+
+```text
+template = escalation_l1
+template = escalation_l2
+...
+template = escalation_l8
+```
+
+অর্থাৎ নতুন:
+
+```text
+L9
+```
+
+যোগ করতে Python code পরিবর্তনের প্রয়োজন নেই।
+
+---
+
+# ৪৪. আপনার existing PromptDatabase এখানেই কাজে লাগবে
+
+আপনার বর্তমান project-এ database-driven prompt template-এর ব্যবহার ইতিমধ্যে শুরু হয়েছে। যেমন `metadata_builder.py` active template database থেকে load করছে এবং `prompting_style_master`-এ template রাখা হচ্ছে বলে project evidence দেখা যায়। 
+
+এটাই আসলে ভবিষ্যৎ architecture-এর seed।
+
+কিন্তু এখন:
+
+```text
+Prompt template DB
++
+Hardcoded execution flow
+```
+
+আছে।
+
+আপনাকে বানাতে হবে:
+
+```text
+Prompt template DB
++
+Dynamic workflow DB
++
+Generic worker
+```
+
+---
+
+# ৪৫. Prompt audit আরও শক্ত করুন
+
+বর্তমানে SEO prompt-এর full input/output সব জায়গায় canonicalভাবে রাখা হচ্ছে না; project evidence-এ prompt cache-এ থাকা কিন্তু `seo_runs`-এ full prompt না থাকার বিষয়টি ধরা পড়েছে। 
+
+নতুন system-এ প্রত্যেক LLM call-এ:
+
+```text
+provider
+model
+system_prompt
+user_prompt
+input_hash
+output
+temperature
+top_p
+token_usage
+latency
+attempt
+workflow_version
+step_key
+```
+
+রাখুন।
+
+---
+
+# ৪৬. LLM worker interface
+
+সব LLM provider-এর জন্য এক interface:
+
+```python
+class LLMProvider:
+
+    async def generate(
+        self,
+        *,
+        system_prompt: str,
+        user_prompt: str,
+        model: str,
+        config: dict
+    ) -> LLMResult:
+        ...
+```
+
+তারপর:
+
+```text
+OpenAIProvider
+GeminiProvider
+ClaudeProvider
+GroqProvider
+OpenRouterProvider
+```
+
+সব একই interface।
+
+---
+
+# ৪৭. Browser worker interface
+
+একইভাবে:
+
+```python
+class BrowserWorker:
+
+    async def execute(
+        self,
+        job: BrowserJob
+    ) -> BrowserResult:
+        ...
+```
+
+তার মধ্যে:
+
+```text
+ChatGPTBrowser
+CloakBrowser
+VeoBrowser
+GoogleFlowBrowser
+```
+
+---
+
+# ৪৮. Media worker
+
+```text
+FFmpegWorker
+WhisperWorker
+TTSWorker
+VideoAssemblerWorker
+ThumbnailWorker
+```
+
+সব worker-এর interface একই ধরনের:
+
+```text
+Input
+ ↓
+Execution
+ ↓
+Output Asset
+```
+
+---
+
+# ৪৯. Asset system বানান
+
+ফাইল path database-এ ছড়িয়ে রাখবেন না।
+
+ভুল:
+
+```text
+C:\Users\Irak\Desktop\...\final.mp4
+```
+
+সঠিক:
+
+```text
+assets
+```
+
+table:
+
+```sql
+CREATE TABLE assets (
+    id UUID PRIMARY KEY,
+    video_id UUID,
+    asset_type TEXT,
+    storage_uri TEXT,
+    sha256 TEXT,
+    size_bytes BIGINT,
+    mime_type TEXT,
+    version INTEGER,
+    metadata JSONB,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+---
+
+# ৫০. File system থাকবে, কিন্তু database জানবে
+
+উদাহরণ:
+
+```text
+D:\youtube-assets\
+    video-123\
+        script\
+        audio\
+        thumbnail\
+        video\
+```
+
+DB:
+
+```text
+asset_id
+storage_uri
+sha256
+```
+
+এতে file হারালে system বুঝবে।
+
+---
+
+# ৫১. Checksum কেন দরকার?
+
+ধরুন:
+
+```text
+video-final.mp4
+```
+
+নাম একই।
+
+কিন্তু file পরিবর্তিত।
+
+শুধু filename দেখে system বলবে:
+
+```text
+already exists
+```
+
+—ভুল।
+
+SHA256:
+
+```text
+old = abc123
+new = xyz789
+```
+
+তখন বুঝবে এটি নতুন artifact।
+
+---
+
+# ৫২. FastAPI-কে কী করতে হবে?
+
+FastAPI worker নয়।
+
+এটি হবে:
+
+# Control Plane
+
+API:
+
+```text
+POST   /videos
+GET    /videos
+GET    /videos/{id}
+
+POST   /workflows
+GET    /workflows
+POST   /workflows/{id}/versions
+
+POST   /executions
+GET    /executions/{id}
+
+POST   /executions/{id}/retry
+POST   /executions/{id}/cancel
+POST   /executions/{id}/migrate
+
+GET    /step-runs
+GET    /attempts
+
+GET    /dead-letters
+POST   /dead-letters/{id}/retry
+```
+
+---
+
+# ৫৩. Workflow UI
+
+UI-তে:
+
+```text
+Workflow: YouTube Shorts V4
+
+[Research]
+     ↓
+[Script]
+     ↓
+[Fact Check]
+     ↓
+[SEO]
+     ↓
+[Thumbnail] ─────┐
+                 ↓
+[Audio] ─────────┤
+                 ↓
+[Video]
+     ↓
+[QC]
+     ↓
+[Upload]
+```
+
+প্রতিটি node click করলে:
+
+```text
+Enabled
+Worker
+Timeout
+Retry
+Max attempts
+Condition
+Dependencies
+Input mapping
+Output mapping
+```
+
+---
+
+# ৫৪. কিন্তু প্রথম version-এ visual DAG editor বানাবেন না
+
+এখানে আমি আপনাকে থামাব।
+
+প্রথম version:
+
+```text
+JSON/YAML workflow editor
+```
+
+দিয়ে শুরু করুন।
+
+তারপর:
+
+```text
+React Flow
+```
+
+জাতীয় visual editor।
+
+কারণ visual DAG editor নিজেই একটি আলাদা বড় project।
+
+---
+
+# ৫৫. MVP UI
+
+প্রথম UI শুধু:
+
+```text
+Workflow list
+Version list
+Step list
+Execution list
+Attempt logs
+DLQ
+```
+
+এগুলো করুক।
+
+Graph পরে।
+
+---
+
+# ৫৬. আপনার প্রথম usable UI এমন হতে পারে
+
+```text
+┌────────────────────────────────────────────┐
+│ YouTube Operations                        │
+├────────────────────────────────────────────┤
+│ Videos: 132                               │
+│ Running: 7                                │
+│ Waiting: 23                               │
+│ Failed: 3                                 │
+│ DLQ: 1                                    │
+├────────────────────────────────────────────┤
+│ VIDEO #123                                │
+│                                            │
+│ Research       ✓                           │
+│ Script         ✓                           │
+│ Fact Check     ✓                           │
+│ SEO            ✓                           │
+│ Audio          ⏭ SKIPPED                  │
+│ Video          ● RUNNING                   │
+│ QC             ○                           │
+│ Upload         ○                           │
+└────────────────────────────────────────────┘
+```
+
+---
+
+# ৫৭. Migration strategy
+
+আপনার জন্য আমি এই sequence দেব:
+
+```text
+PHASE 0
+Backup + freeze
+      ↓
+PHASE 1
+PostgreSQL
+      ↓
+PHASE 2
+Canonical data model
+      ↓
+PHASE 3
+Generic workers
+      ↓
+PHASE 4
+Workflow definition
+      ↓
+PHASE 5
+Windmill orchestration
+      ↓
+PHASE 6
+FastAPI control plane
+      ↓
+PHASE 7
+Operations UI
+      ↓
+PHASE 8
+Advanced recovery
+      ↓
+PHASE 9
+Workflow migration
+      ↓
+PHASE 10
+YouTube autonomous factory
+```
+
+---
+
+# ৫৮. Phase 1-এ SQLite সরাবেন না
+
+এটি অত্যন্ত গুরুত্বপূর্ণ।
+
+প্রথমে:
+
+```text
+SQLite
+   ↓
+PostgreSQL mirror
+```
+
+করুন।
+
+কিছুদিন:
+
+```text
+OLD SYSTEM → SQLite
+NEW SYSTEM → PostgreSQL
+```
+
+চলুক।
+
+তারপর validation:
+
+```text
+SQLite count
+=
+PostgreSQL count
+```
+
+তারপর:
+
+```text
+SQLite → read-only
+```
+
+শেষে remove।
+
+---
+
+# ৫৯. Migration validation
+
+প্রতিটি table:
+
+```text
+row count
+primary keys
+foreign keys
+nulls
+duplicate IDs
+hash
+timestamps
+```
+
+check করুন।
+
+বিশেষ করে আপনার project-এ backup-গুলোর data count আলাদা পাওয়া গেছে—যেমন একটি backup-এ `youtube_metadata=48`, `seo_runs=30`; অন্য execution snapshot-এ count অনেক কম। এই ধরনের historical divergence migration-এর আগে বোঝা জরুরি। 
+
+---
+
+# ৬০. Existing code ভাঙবে কীভাবে?
+
+আপনার existing:
+
+```python
+from database.session import get_session
+```
+
+এগুলো সরাসরি বদলাবেন না।
+
+প্রথমে:
+
+```python
+from repository import VideoRepository
+```
+
+করুন।
+
+তারপর:
+
+```python
+repo.get_video(...)
+repo.save_result(...)
+```
+
+Repository internally SQLite ব্যবহার করবে।
+
+পরের phase:
+
+```text
+Repository
+   ↓
+PostgreSQL
+```
+
+তখন worker-এর code পরিবর্তন করতে হবে না।
+
+---
+
+# ৬১. এটি অত্যন্ত গুরুত্বপূর্ণ abstraction
+
+বর্তমান:
+
+```text
+Business Logic
+      ↓
+SQLAlchemy/SQLite
+```
+
+হওয়া উচিত:
+
+```text
+Business Logic
+      ↓
+Repository
+      ↓
+Database
+```
+
+---
+
+# ৬২. Worker architecture
+
+আমি folder structure করব:
+
+```text
+youtube_pipeline/
+│
+├── control_plane/
+│   ├── api/
+│   ├── services/
+│   └── auth/
+│
+├── domain/
+│   ├── videos/
+│   ├── workflows/
+│   ├── executions/
+│   └── assets/
+│
+├── workers/
+│   ├── llm/
+│   ├── browser/
+│   ├── media/
+│   ├── youtube/
+│   └── qc/
+│
+├── orchestration/
+│   ├── workflows/
+│   ├── activities/
+│   └── policies/
+│
+├── database/
+│   ├── models/
+│   ├── migrations/
+│   └── repositories/
+│
+├── storage/
+│
+├── tests/
+│
+└── docker/
+```
+
+---
+
+# ৬৩. Windmill কোথায় বসবে?
+
+যদি **এখন দ্রুত production-এ যেতে চান**:
+
+```text
+FastAPI
+   ↓
+PostgreSQL
+   ↓
+Windmill
+   ↓
+Workers
+```
+
+Windmill-এর flow editor, retries, workers, browser automation, PostgreSQL-backed deployment এবং versioning আপনার current stage-এ অনেক infrastructure নিজে লিখতে না দেওয়ার সুবিধা দেবে। ([Google for Developers][1])
+
+---
+
+# ৬৪. Temporal কোথায় বসবে?
+
+যদি final architecture:
+
+```text
+Custom ERP
++
+Complex autonomous workflows
++
+Long-running jobs
++
+Strict recovery
++
+Workflow migration
+```
+
+হয়:
+
+```text
+FastAPI
+   ↓
+PostgreSQL
+   ↓
+Temporal
+   ↓
+Workers
+```
+
+Temporal-এর Activity retry/timeout/heartbeat এবং workflow versioning model এই ধরনের long-running execution-এর জন্য তৈরি। ([Google for Developers][1])
+
+---
+
+# ৬৫. আমার recommendation এখন একটু বদলাচ্ছি
+
+আগের উত্তরে বলেছিলাম:
+
+> Windmill দিয়ে শুরু করুন।
+
+এখন আপনার actual project evidence এবং migration complexity দেখার পরে আমি বলব:
+
+## **Phase 1–4: নিজের Control Plane + PostgreSQL foundation**
+
+তারপর:
+
+## **Windmill = immediate orchestration**
+
+এবং যদি project খুব বড় হয়:
+
+## **Temporal = long-term durable core**
+
+অর্থাৎ Windmill-কে এমনভাবে বসাবেন যেন পরে সরানো সম্ভব।
+
+---
+
+# ৬৬. Vendor lock-in এড়ানোর কৌশল
+
+আপনার workflow definition **Windmill-specific format-এ রাখবেন না**।
+
+নিজস্ব canonical JSON রাখুন:
+
+```json
+{
+  "schema_version": 1,
+  "workflow_version": 7,
+  "steps": [...]
+}
+```
+
+তারপর:
+
+```text
+Canonical Workflow
+       ↓
+Windmill Adapter
+```
+
+অথবা:
+
+```text
+Canonical Workflow
+       ↓
+Temporal Adapter
+```
+
+এতে ভবিষ্যতে engine বদলালেও business layer থাকবে।
+
+---
+
+# ৬৭. এটিই আপনার সবচেয়ে গুরুত্বপূর্ণ architectural principle
+
+```text
+YOUR ERP
+   ↓
+YOUR WORKFLOW MODEL
+   ↓
+ORCHESTRATOR ADAPTER
+   ↓
+Windmill / Temporal / DBOS
+```
+
+**উল্টোটা নয়।**
+
+ভুল:
+
+```text
+Windmill
+   ↓
+সব business logic
+```
+
+তাহলে পরে Windmill বদলানো কঠিন হবে।
+
+---
+
+# ৬৮. Workflow compiler বানান
+
+এটি আপনার system-এর সবচেয়ে powerful component হতে পারে।
+
+```text
+Database Workflow Definition
+            ↓
+       Validator
+            ↓
+      Dependency Check
+            ↓
+      Condition Check
+            ↓
+      Compile DAG
+            ↓
+     Execution Plan
+            ↓
+   Windmill / Temporal
+```
+
+Compiler check করবে:
+
+```text
+duplicate step key?
+missing dependency?
+circular dependency?
+disabled dependency?
+invalid worker?
+invalid timeout?
+invalid retry?
+missing input?
+```
+
+---
+
+# ৬৯. Circular dependency detect
+
+উদাহরণ:
+
+```text
+A → B
+B → C
+C → A
+```
+
+এটি reject হবে।
+
+```text
+Workflow validation FAILED:
+Cycle detected:
+A → B → C → A
+```
+
+Workflow publish হবে না।
+
+---
+
+# ৭০. Publish করার আগে validation
+
+UI:
+
+```text
+SAVE DRAFT
+      ↓
+VALIDATE
+      ↓
+VALID
+      ↓
+PUBLISH
+```
+
+Publish-এর আগে:
+
+```text
+DAG valid?
+Worker exists?
+Input mappings valid?
+Output mappings valid?
+Retry valid?
+Timeout valid?
+Conditions valid?
+```
+
+সব check।
+
+---
+
+# ৭১. Schema versioning
+
+Workflow:
+
+```text
+schema_version = 1
+```
+
+পরে schema বদলালে:
+
+```text
+schema_version = 2
+```
+
+Migration:
+
+```text
+v1 definition
+     ↓
+migration function
+     ↓
+v2 definition
+```
+
+এতে পুরোনো workflow হারাবে না।
+
+---
+
+# ৭২. Execution snapshot
+
+Execution তৈরি হওয়ার সময়:
+
+```text
+workflow_version_id
++
+definition_hash
++
+resolved_config
+```
+
+snapshot করুন।
+
+অর্থাৎ:
+
+```text
+Execution #ABC
+Workflow V7
+Definition hash = XYZ
+```
+
+তারপর V8 হলেও execution #ABC একই definition-এ থাকবে।
+
+---
+
+# ৭৩. এটা না করলে কী হবে?
+
+আজ:
+
+```text
+V7
+```
+
+চলছে।
+
+কাল:
+
+```text
+V8
+```
+
+publish।
+
+পরশু:
+
+```text
+V9
+```
+
+publish।
+
+তারপর পুরোনো execution-এর log খুলে আপনি বুঝতেই পারবেন না:
+
+> কোন prompt template দিয়ে ভিডিওটি তৈরি হয়েছিল?
+
+তাই execution snapshot অপরিহার্য।
+
+---
+
+# ৭৪. আপনার ERP-তে Audit Trail
+
+প্রতিটি পরিবর্তন:
+
+```text
+WHO
+WHAT
+WHEN
+BEFORE
+AFTER
+WHY
+```
+
+রাখুন।
+
+উদাহরণ:
+
+```text
+User: Irak
+Action: DISABLE_STEP
+Workflow: Shorts Production
+Version: 8
+Step: audio
+Before: enabled=true
+After: enabled=false
+Time: 2026-09-06 10:20
+```
+
+---
+
+# ৭৫. Prompt-এর audit-ও একইভাবে
+
+```text
+Prompt Template V12
+↓
+used by
+↓
+Video #123
+↓
+Execution #ABC
+↓
+Step prompt_l7
+```
+
+পরে আপনি জানতে পারবেন:
+
+> “এই ভিডিওর এই exact output কোন prompt থেকে এসেছিল?”
+
+আপনার বর্তমান SEO architecture-এ এই traceability পুরোপুরি consolidated নয়—এটি future ERP-এর একটি বড় improvement হবে। 
+
+---
+
+# ৭৬. Quality Control-কে ordinary step করবেন না
+
+QC একটি special gate হতে পারে:
+
+```text
+Video
+ ↓
+QC
+ ├── PASS → Upload
+ └── FAIL → Video regenerate
+```
+
+অর্থাৎ workflow loop-ও সম্ভব।
+
+```text
+Video
+ ↓
+QC
+ ↓
+FAIL
+ ↓
+Video v2
+ ↓
+QC
+ ↓
+PASS
+```
+
+---
+
+# ৭৭. QC output structured করুন
+
+```json
+{
+  "status": "FAIL",
+  "checks": {
+    "duration": false,
+    "resolution": true,
+    "audio": true,
+    "black_frames": true,
+    "duplicate_frames": false
+  },
+  "reason": [
+    "duration_out_of_range"
+  ]
+}
+```
+
+তখন retry engine বুঝতে পারবে কী করতে হবে।
+
+---
+
+# ৭৮. Retry-এর তিন স্তর রাখুন
+
+### Level 1 — একই attempt পুনরায়
+
+```text
+Network timeout
+```
+
+### Level 2 — worker reset
+
+```text
+Browser crash
+```
+
+### Level 3 — strategy change
+
+```text
+Provider failure
+```
+
+উদাহরণ:
+
+```text
+Gemini failed
+   ↓
+retry Gemini
+   ↓
+still failed
+   ↓
+fallback provider
+   ↓
+Claude
+```
+
+এটি আপনার autonomous system-কে অনেক শক্তিশালী করবে।
+
+---
+
+# ৭৯. কিন্তু fallback সব জায়গায় নয়
+
+উদাহরণ:
+
+```text
+Fact Check
+```
+
+এর জন্য provider বদলানো যেতে পারে।
+
+কিন্তু:
+
+```text
+YouTube Upload
+```
+
+এখানে provider fallback অর্থহীন।
+
+তাই step-specific recovery policy:
+
+```json
+{
+  "recovery": {
+    "retry": true,
+    "fallback_provider": true
+  }
+}
+```
+
+---
+
+# ৮০. Resource-aware queue
+
+আপনার PC resource সীমিত হলে:
+
+```text
+LLM workers = 3
+Browser workers = 1
+FFmpeg workers = 2
+Veo workers = 1
+```
+
+রাখুন।
+
+Browser worker:
+
+```text
+concurrency = 1
+```
+
+কারণ browser profile collision হতে পারে।
+
+FFmpeg:
+
+```text
+concurrency = CPU/RAM dependent
+```
+
+LLM:
+
+```text
+API rate-limit dependent
+```
+
+---
+
+# ৮১. Queue আলাদা করুন
+
+```text
+queue.llm
+queue.browser
+queue.media
+queue.youtube
+queue.qc
+```
+
+তাহলে:
+
+```text
+Veo stuck
+```
+
+হলেও:
+
+```text
+LLM
+SEO
+Research
+```
+
+চলতে থাকবে।
+
+---
+
+# ৮২. Priority
+
+প্রতিটি job:
+
+```text
+priority
+```
+
+রাখুন।
+
+```text
+URGENT = 100
+NORMAL = 50
+BULK = 10
+```
+
+তাহলে manual urgent video আগে যাবে।
+
+---
+
+# ৮৩. Concurrency limit channel-wise
+
+এটিও আপনার YouTube ERP-তে দরকার।
+
+```text
+Channel A:
+browser = 1
+upload = 1
+
+Channel B:
+browser = 2
+upload = 1
+```
+
+কারণ provider/account-level rate limit থাকতে পারে।
+
+---
+
+# ৮৪. YouTube upload-এর পরে আরও একটি step দরকার
+
+Upload successful হলেই pipeline complete নয়।
+
+YouTube documentation অনুযায়ী upload successful হওয়ার পরে video processing চলতে পারে; `videos.list` দিয়ে `processingDetails.processingStatus` দেখে processing শেষ হয়েছে কিনা যাচাই করা যায়। ([Google for Developers][5])
+
+তাই:
+
+```text
+Upload
+ ↓
+YouTube Processing Wait
+ ↓
+Verify
+ ↓
+Schedule/Publish
+```
+
+---
+
+# ৮৫. YouTube pipeline-এর ideal final form
+
+```text
+Idea
+ ↓
+Research
+ ↓
+Script
+ ↓
+Fact Check
+ ↓
+Prompt L1
+ ↓
+Prompt L2
+ ↓
+...
+ ↓
+Prompt L8
+ ↓
+SEO
+ ├── Title
+ ├── Description
+ └── Keywords
+ ↓
+Thumbnail
+ ↓
+Audio
+ ↓
+Video Generation
+ ↓
+Video Assembly
+ ↓
+QC
+ ↓
+YouTube Upload
+ ↓
+YouTube Processing
+ ↓
+Schedule
+ ↓
+Publish
+ ↓
+Analytics
+ ↓
+Optimization
+ ↓
+Next Version
+```
+
+---
+
+# ৮৬. Analytics-কে একই workflow-এর অংশ না করাই ভালো
+
+এটি asynchronous feedback loop:
+
+```text
+Production Workflow
+        ↓
+Published Video
+        ↓
+Analytics Collector
+        ↓
+Analytics DB
+        ↓
+Optimization Engine
+        ↓
+New Idea / New Metadata
+```
+
+এটি মূল production execution-এর সঙ্গে synchronous করলে pipeline অযথা দীর্ঘ হবে।
+
+---
+
+# ৮৭. Analytics workflow
+
+```text
+Every 6 hours
+      ↓
+Fetch YouTube stats
+      ↓
+Store snapshot
+      ↓
+Compare
+      ↓
+CTR / retention / views
+      ↓
+Optimization signal
+```
+
+YouTube Data API-তে video resource-এর list/update/insert ইত্যাদি operations এবং analytics ecosystem-এর জন্য API resources রয়েছে। ([Google for Developers][1])
+
+---
+
+# ৮৮. Final architecture আমি এভাবে করব
+
+```text
+                         ┌─────────────────────┐
+                         │ React/Vite ERP      │
+                         └──────────┬──────────┘
+                                    │
+                              REST/WebSocket
+                                    │
+                         ┌──────────▼──────────┐
+                         │ FastAPI Control     │
+                         │ Plane               │
+                         └──────────┬──────────┘
+                                    │
+                    ┌───────────────▼───────────────┐
+                    │         PostgreSQL             │
+                    │                                │
+                    │ Workflow / Version             │
+                    │ Video / Channel               │
+                    │ Execution / Step / Attempt    │
+                    │ Asset / Prompt                │
+                    │ Idempotency / Audit           │
+                    │ DLQ / Schedule                │
+                    └───────────────┬────────────────┘
+                                    │
+                          Canonical Workflow
+                                    │
+                    ┌───────────────▼───────────────┐
+                    │     Orchestration Adapter      │
+                    │                               │
+                    │ Windmill now                  │
+                    │ Temporal later                │
+                    └───────┬──────┬──────┬────────┘
+                            │      │      │
+                ┌───────────▼┐ ┌──▼────┐ ┌▼──────────┐
+                │ LLM Worker │ │Browser│ │Media      │
+                │            │ │Worker  │ │Worker     │
+                └────────────┘ └───────┘ └────────────┘
+                                           │
+                                      ┌────▼─────┐
+                                      │ YouTube  │
+                                      │ Worker   │
+                                      └──────────┘
+```
+
+---
+
+# ৮৯. সবচেয়ে কঠিন সমস্যাগুলোর সমাধান একসঙ্গে
+
+| সমস্যা                   | সমাধান                                 |
+| ------------------------ | -------------------------------------- |
+| Step add/delete          | নতুন workflow version                  |
+| Step reorder             | নতুন version + position                |
+| Step disable             | `enabled=false`                        |
+| Step condition           | condition JSON                         |
+| Running workflow change  | live mutation নয়                       |
+| Existing execution       | immutable snapshot                     |
+| Migration                | new execution + checkpoint reuse       |
+| Duplicate execution      | idempotency key                        |
+| Browser crash            | lease + heartbeat + recovery           |
+| API timeout              | UNKNOWN + external reconciliation      |
+| YouTube upload           | resumable upload + session persistence |
+| Duplicate YouTube upload | operation record + verification        |
+| Machine restart          | durable execution                      |
+| Worker crash             | lease expiry                           |
+| Rate limit               | retry-after/backoff                    |
+| Permanent error          | DLQ                                    |
+| Prompt change            | prompt version                         |
+| File replacement         | SHA256                                 |
+| Workflow corruption      | immutable versions                     |
+| DB concurrency           | PostgreSQL                             |
+| LLM provider failure     | provider fallback                      |
+| Video QC failure         | conditional retry loop                 |
+| Channel isolation        | channel-level queues                   |
+| Resource overload        | worker concurrency limits              |
+
+YouTube-এর resumable upload mechanism বিশেষভাবে এখানে আপনার reliability বাড়াতে সাহায্য করবে। ([Google for Developers][2])
+
+---
+
+# ৯০. কোন জিনিসগুলো এখনই করবেন না
+
+### ❌ React visual DAG editor প্রথমে বানাবেন না
+
+### ❌ নিজের Temporal clone বানাবেন না
+
+### ❌ সব existing Python script rewrite করবেন না
+
+### ❌ SQLite একদিনে delete করবেন না
+
+### ❌ running workflow mutate করবেন না
+
+### ❌ retry = `except: run_again` করবেন না
+
+### ❌ YouTube upload blind retry করবেন না
+
+### ❌ file path-কে asset identity বানাবেন না
+
+### ❌ step number-কে identity বানাবেন না
+
+### ❌ published workflow edit করবেন না
+
+### ❌ Windmill-specific data model-কে আপনার core database বানাবেন না
+
+---
+
+# ৯১. প্রথম MVP-তে মাত্র ৮টি জিনিস
+
+আমি আপনার জায়গায় হলে **প্রথম milestone** করতাম:
+
+```text
+1. PostgreSQL
+2. Workflow + Workflow Version
+3. Workflow Step
+4. Video
+5. Execution
+6. Step Run
+7. Attempt
+8. Asset
+```
+
+তারপর:
+
+```text
+9. FastAPI
+10. Worker
+11. Retry
+12. Idempotency
+13. DLQ
+```
+
+তারপর UI।
+
+---
+
+# ৯২. প্রথম real workflow
+
+প্রথমে শুধু:
+
+```text
+Research
+ ↓
+Script
+ ↓
+SEO
+ ↓
+Video
+```
+
+চালান।
+
+তারপর:
+
+```text
+Audio
+```
+
+যোগ করুন।
+
+তারপর:
+
+```text
+Fact Check
+```
+
+যোগ করুন।
+
+তারপর:
+
+```text
+Thumbnail
+```
+
+যোগ করুন।
+
+এভাবে system-এর dynamic capability বাস্তবে পরীক্ষা করুন।
+
+---
+
+# ৯৩. প্রথম Dynamic Workflow Test
+
+আপনার acceptance test হওয়া উচিত:
+
+### Test 1
+
+V1:
+
+```text
+Research
+Script
+SEO
+Video
+```
+
+Run.
+
+### Test 2
+
+V2:
+
+```text
+Research
+Script
+FactCheck
+SEO
+Video
+```
+
+Run.
+
+Expected:
+
+```text
+Research ✓
+Script ✓
+FactCheck ✓
+SEO ✓
+Video ✓
+```
+
+---
+
+# ৯৪. Migration test
+
+V1 execution:
+
+```text
+Research ✓
+Script ✓
+SEO ✓
+Video FAILED
+```
+
+V2:
+
+```text
+Research
+Script
+FactCheck
+SEO
+Video
+```
+
+Expected:
+
+```text
+Research → REUSED
+Script → REUSED
+FactCheck → NEW
+SEO → REUSED
+Video → RETRY
+```
+
+**এই test pass না করলে আপনার dynamic workflow system production-ready নয়।**
+
+---
+
+# ৯৫. Crash test
+
+Video worker:
+
+```text
+Video generation
+      ↓
+kill -9
+```
+
+তারপর worker restart।
+
+Expected:
+
+```text
+Execution = RUNNING
+Step = RECOVERABLE
+Attempt = recorded
+Worker = reassigned
+```
+
+তারপর resume।
+
+---
+
+# ৯৬. Duplicate test
+
+Worker:
+
+```text
+YouTube upload
+```
+
+এর ঠিক পরে:
+
+```text
+kill -9
+```
+
+Expected:
+
+```text
+system does NOT blindly upload again
+```
+
+বরং:
+
+```text
+UNKNOWN
+ ↓
+check operation
+ ↓
+check YouTube
+ ↓
+existing?
+ ├── yes → attach video ID
+ └── no → resume/retry
+```
+
+YouTube upload সফল হলে API response-এ video ID পাওয়া যায় এবং পরে `videos.list` দিয়ে processing state verify করা যায়। ([Google for Developers][3])
+
+---
+
+# ৯৭. শেষ পর্যন্ত আপনার system আসলে কী হবে?
+
+এটি আর:
+
+> “YouTube automation script”
+
+থাকবে না।
+
+এটি হবে:
+
+```text
+Content Operations ERP
+        +
+Workflow Management System
+        +
+Durable Execution Platform
+        +
+Worker Orchestration
+        +
+Asset Management
+        +
+YouTube Integration
+```
+
+অর্থাৎ আপনার ভাষায়:
+
+# **YouTube Content Factory ERP**
+
+---
+
+# 🏆 আমার চূড়ান্ত technical recommendation
+
+**এখনই পুরো ERP rewrite করবেন না।**
+
+বরং:
+
+```text
+CURRENT PIPELINE
+      ↓
+PostgreSQL migration
+      ↓
+Repository abstraction
+      ↓
+Generic Workers
+      ↓
+Canonical Workflow JSON
+      ↓
+Windmill Adapter
+      ↓
+FastAPI Control Plane
+      ↓
+Operations UI
+      ↓
+Idempotency + DLQ + Reconciliation
+      ↓
+Temporal migration path
+```
+
+### সবচেয়ে গুরুত্বপূর্ণ ৫টি rule:
+
+**১. Published workflow immutable।**
+
+**২. Running execution কখনো live graph mutation করবে না।**
+
+**৩. Step identity = stable `step_key`, position নয়।**
+
+**৪. External side effect = idempotency + reconciliation; শুধু retry নয়।**
+
+**৫. PostgreSQL = business truth; orchestration engine = execution truth।**
+
+আর আপনার existing project-এর ক্ষেত্রে সবচেয়ে বড় opportunity হলো—আপনার PromptDatabase ইতিমধ্যে কিছু configuration/template database-driven করেছে; এটিকে ধীরে ধীরে **“database-driven prompt system” থেকে “database-driven workflow operating system”**-এ রূপান্তর করা। বর্তমান SEO/template evidence-ও দেখায় যে এই transition পুরোপুরি শূন্য থেকে শুরু করতে হবে না। 
+
+**আমি হলে এখন Temporal দিয়ে শুরু করতাম না।** আপনার বর্তমান অবস্থায় **PostgreSQL + FastAPI + canonical workflow model + Windmill + existing Python workers** দিয়ে প্রথম production version বানাতাম। যখন ২০–৫০+ concurrent video, long-running browser jobs, migration/replay এবং failure-recovery সত্যিই bottleneck হবে, তখন একই domain model-এর নিচে **Temporal** বসাতাম। এতে আপনি আবার নতুন করে পুরো ERP লিখতে বাধ্য হবেন না।
+
+[1]: https://developers.google.com/youtube/v3/docs?utm_source=chatgpt.com "API Reference  |  YouTube Data API  |  Google for Developers"
+[2]: https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol?utm_source=chatgpt.com "Resumable Uploads  |  YouTube Data API  |  Google for Developers"
+[3]: https://developers.google.com/youtube/v3/docs/videos/insert?authuser=8&utm_source=chatgpt.com "Videos: insert  |  YouTube Data API  |  Google for Developers"
+[4]: https://developers.google.com/youtube/v3/docs/errors?utm_source=chatgpt.com "YouTube Data API - Errors  |  Google for Developers"
+[5]: https://developers.google.com/youtube/v3/guides/implementation/videos?authuser=19&utm_source=chatgpt.com "Implementation: Videos  |  YouTube Data API  |  Google for Developers"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

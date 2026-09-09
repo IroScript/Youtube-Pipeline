@@ -1,0 +1,565 @@
+﻿id,uuid,stage_name,target_hierarchy_level,style_title,system_role,system_instruction,prompt_template,output_format,model_target,rules_and_constraints,is_active,version,created_at,updated_at
+1,40f3bfc0-f3e7-48a1-bfe0-50918ca51bfd,STAGE_1_ELEMENT_GENERATION,Level 1 -> 2 (Category to New Element #101+),Universal Cosmic & Nature Element Generator,Senior SciFi Worldbuilder & Megastructure Architect,"Generate creative, highly visual theme/element names suitable for giant impossible machines. Must return strict JSON.","Give me 1 creative, highly visual theme/element name (like 'Dark Matter Core', 'Neutron Star Forge', 'Cybernetic Hive', 'Liquid Crystal Glacier') suitable for generating giant impossible machines in the category '{category_name}'.
+Return strictly JSON format:
+{{
+  ""name"": ""Element Name"",
+  ""group_type"": ""Group (Nature/Tech/Environment/Energy/Space)""
+}}",JSON_OBJECT,ChatGPT-4o / Playwright,1. Must return strict JSON object with 'name' and 'group_type'. 2. Must be visually unique and scalable for giant engineering.,1,1,2026-08-16 16:03:19.041465,2026-08-16 16:03:19.041465
+2,ef21da17-523e-4366-9467-0e1a737eb7ef,STAGE_2_IDEA_GENERATION,Level 2 -> 3 (Element to 10 Machine Ideas),10-Titan Impossible Megastructure Ideation Engine,Colossal SciFi Machine Engineer & Visual Concept Designer,"Generate exactly 10 distinct, impossible giant machine ideas for a given element. Each must be colossal/titan scale. Return strictly JSON array.","Give me 10 creative impossible machine ideas related to {element_name} (Category/Group: {element_group}).
+Primary feature: Each machine MUST be giant in size (colossal megastructures, titan-scale, impossible engineering).
+
+CRITICAL FORMATTING INSTRUCTION:
+Please return the 10 ideas strictly as a JSON array of 10 objects. Do not include markdown conversational text.
+
+JSON Schema:
+[
+  {{
+    ""id"": 1,
+    ""title"": ""Machine Title"",
+    ""description"": ""Short 2-3 sentence description of how the giant machine operates on {element_name}.""
+  }}
+]",JSON_ARRAY,ChatGPT-4o / Playwright,1. Return strict JSON array of 10 objects. 2. Every machine must be colossal/planetary scale. 3. Short 2-3 sentence description per idea.,0,1,2026-08-16 16:03:19.049464,2026-08-25 05:53:20.032468
+3,ba714c0e-04a7-473d-a657-effb2738a8c5,STAGE_3_PROMPT_ESCALATION_MASTER,Level 3 -> 4 (Idea to 10-Level Escalation Prompts),10-Level Escalation Master Prompt Architecture (Basic to Alien Level),Master SciFi Cinematographer & Prompt Escalation Architect,"Build 10 escalating levels from Level 1 (BASIC) to Level 10 (ALIEN LEVEL / MAXIMUM). Each level has 1 Image Prompt (5-Layer Open Montage: Subject, Environment, Architecture, Energy/Physics, Cinematic Presentation 16k) + 1 Video Prompt (Exactly 8 seconds, 9:16 vertical ratio, 5-step HUD text popups for seconds 1-5, continuous close-up descent for seconds 6-8). Total 20 prompts. Return strictly JSON array.","Given the following Impossible Machine Idea:
+Title: {idea_title}
+Topic/Element: {topic}
+Concept: {description}
+
+Please build a complete 10-level escalation prompting system (10 Image Prompts + 10 Video Prompts = 20 Prompts total) evolving from Level 1 (BASIC) to Level 10 (ALIEN LEVEL / MAXIMUM).
+
+STRICT RULES & ARCHITECTURE:
+1. IMAGE PROMPT (5-Layer Open Montage Structure, 9:16 vertical aspect ratio, 16K photorealistic render):
+   Layer 1 — Subject: Colossal titan machine silhouette, scale, harvesting arms/claws, autonomous drones, sensor crowns.
+   Layer 2 — Environment: Continental landscape, thousands of fields/features, tiny vehicles/workers showing scale, atmospheric depth.
+   Layer 3 — Architecture: Multi-level torso, processing chambers, threshing cylinders, cyclone separators, drying reactors, storage vaults.
+   Layer 4 — Energy/Physics: High-voltage plasma conduits, electromagnetic fields, glowing thermal loops, magnetic suspension.
+   Layer 5 — Cinematic Presentation: Dramatic low-angle cinematic framing, 9:16 vertical composition, volumetric lighting, wet-surface reflections, 16K render.
+
+2. VIDEO PROMPT (EXACTLY 8 SECONDS, 9:16 VERTICAL ASPECT RATIO, NO CUTS):
+   Must follow this EXACT second-by-second timeline:
+   ""Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+
+   Second 1 [0:00-0:01] — HUD Popup Text: \""STEP 1: [ACTION NAME]\"" — [Detailed description of core activation, sensor halos, and systems].
+
+   Second 2 [0:01-0:02] — HUD Popup Text: \""STEP 2: [ACTION NAME]\"" — [Detailed description of harvesting arms deploying and gathering crops/matter].
+
+   Second 3 [0:02-0:03] — HUD Popup Text: \""STEP 3: [ACTION NAME]\"" — [Detailed description of processing/threshing streams entering internal belly factories].
+
+   Second 4 [0:03-0:04] — HUD Popup Text: \""STEP 4: [ACTION NAME]\"" — [Detailed description of quantum/electromagnetic purification, gravity separation, and drying].
+
+   Second 5 [0:04-0:05] — HUD Popup Text: \""STEP 5: [ACTION NAME]\"" — [Detailed description of cascading storage into vast glowing reservoirs].
+
+   Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single harvested particle/grain suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.""
+
+CRITICAL FORMATTING INSTRUCTION:
+Return strictly a JSON array of 10 objects. Do NOT include markdown conversation outside the JSON.
+
+JSON Schema:
+[
+  {{
+    ""level"": 1,
+    ""level_name"": ""Level 1 - Basic Prototype"",
+    ""image_prompt"": ""5-Layer Open Montage Structure\n\nLayer 1 — Subject: ...\n\nLayer 2 — Environment: ...\n\nLayer 3 — Architecture: ...\n\nLayer 4 — Energy/Physics: ...\n\nLayer 5 — Cinematic Presentation: ..."",
+    ""video_prompt"": ""Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \""STEP 1: ...\"" — ...\n\nSecond 2 [0:01-0:02] — HUD Popup Text: \""STEP 2: ...\"" — ...\n\nSecond 3 [0:02-0:03] — HUD Popup Text: \""STEP 3: ...\"" — ...\n\nSecond 4 [0:03-0:04] — HUD Popup Text: \""STEP 4: ...\"" — ...\n\nSecond 5 [0:04-0:05] — HUD Popup Text: \""STEP 5: ...\"" — ...\n\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the titan into its belly, through processing architecture, reaching a maximum close-up beside the mechanism, stabilizing into continuous rhythm, no cuts, exactly 8 seconds.""
+  }}
+]",JSON_ARRAY,ChatGPT-4o / Playwright,"1. Strict JSON array of 10 level objects. 2. Exactly 20 prompts (10 Image + 10 Video). 3. All video prompts are 9:16 vertical aspect ratio, exactly 8 seconds, no cuts, with Second 1-5 HUD popups and Seconds 6-8 continuous descent close-up. 4. All image prompts use 5-Layer Open Montage.",0,1,2026-08-16 16:03:19.051462,2026-08-25 05:53:20.024471
+4,12d1380e-c9b6-4f53-bf4a-8902d5d33cdf,STAGE_4_IMAGE_5LAYER_BLUEPRINT,Level 4 (Image Prompt Layer Structure),5-Layer Open Montage Image Blueprint (9:16 Vertical),Cinematic Visual Prompt Engineer,5 distinct visual layers: Layer 1 (Subject Titan) + Layer 2 (Landscape/Environment) + Layer 3 (Chassis/Materials) + Layer 4 (Quantum Energy Glows) + Layer 5 (16k Photorealistic Framing). 9:16 vertical ratio.,"5-Layer Open Montage Structure
+
+Layer 1 — Subject: Colossal {idea_title} titan machine towering above the terrain, massive articulated harvesting claws, autonomous drone arrays, and multi-sensor crown.
+
+Layer 2 — Environment: Vast continental {topic} landscape extending to horizon, atmospheric clouds, tiny vehicles and structures emphasizing astronomical scale.
+
+Layer 3 — Architecture: Heavy armored chassis, multi-tier belly processing complex, stacked threshing drums, cyclone separation vaults, and glowing modular silos.
+
+Layer 4 — Energy/Physics: Brilliant plasma conduits, electromagnetic flux fields, thermal radiation loops, and localized gravity distortion around mechanical joints.
+
+Layer 5 — Cinematic Presentation: Low-angle IMAX perspective, 9:16 vertical framing, photorealistic volumetric lighting, wet-surface reflections, deep atmospheric depth, 16K render.",STRUCTURED_TEXT,Imagen 3 / Midjourney / DALL-E 3,Must contain all 5 layers explicitly separated for maximum visual depth and photorealism in 9:16 vertical aspect ratio.,1,1,2026-08-16 16:03:19.053500,2026-08-16 16:03:19.053500
+5,eac54959-0b72-4869-8ab1-67f3312d5a3d,STAGE_5_VIDEO_8S_HUD_BLUEPRINT,Level 4 (Video Prompt Structure - 1Video10Sec / Veo),8-Second 5-Step HUD Popup Video Blueprint (9:16 Vertical),Cinematic Motion & Video Director,8-second continuous cinematic shot. 9:16 vertical ratio. Seconds 1-5 display 5-step HUD text popups. Seconds 6-8 perform continuous descent and maximum close-up stabilization. No cuts.,"Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+
+Second 1 [0:00-0:01] — HUD Popup Text: ""STEP 1: AWAKEN THE TITAN"" — The agricultural intelligence activates, illuminating sensor halos and planetary-scale systems across {idea_title}.
+
+Second 2 [0:01-0:02] — HUD Popup Text: ""STEP 2: HARVEST REALITY"" — Innumerable colossal arms sweep across {topic} terrain and gather resources with synchronized mechanical precision.
+
+Second 3 [0:02-0:03] — HUD Popup Text: ""STEP 3: TRANSDIMENSIONAL THRESH"" — Entire crop streams enter internal intakes and emerge inside the titan's impossible belly factory.
+
+Second 4 [0:03-0:04] — HUD Popup Text: ""STEP 4: QUANTUM PURIFICATION"" — Harvested matter floats through gravitational separators, magnetic fields, and drying reactors.
+
+Second 5 [0:04-0:05] — HUD Popup Text: ""STEP 5: STORE THE HARVEST UNIVERSE"" — Finished yield cascades into an infinite-dimensional storage chamber containing vast glowing reserves.
+
+Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the cosmic titan into its belly, through alien processing architecture, and finally reaches a maximum close-up of a single harvested unit suspended beside a colossal quantum mechanism, with the surrounding machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",STRUCTURED_TEXT,Google Veo 2 / 1Video10Sec,1. Exactly 8 seconds duration. 2. 9:16 vertical aspect ratio. 3. 5-step HUD overlays during seconds 1-5. 4. Smooth continuous descent in seconds 6-8. 5. Zero cuts or scene transitions.,1,1,2026-08-16 16:03:19.056471,2026-08-16 16:03:19.056471
+6,b0b0f4e2-6ce3-4e19-9a74-5c1d0444e10e,STAGE_6_YOUTUBE_METADATA,Level 5 (Output Package & YouTube SEO),High-CTR YouTube Metadata & SEO Optimizer,Viral YouTube Growth & SEO Strategist,"Generate viral, curiosity-driven YouTube Title (<80 chars + 1 emoji), 3-paragraph SEO description with timestamps and 5 hashtags, and 10-15 search tags in JSON.","Given the following AI-generated impossible giant machine video:
+Video Subject: {idea_title}
+Topic/Element: {topic}
+Escalation Level: {level_info}
+
+Please generate a professional YouTube metadata package in strict JSON format:
+{{
+  ""title"": ""A high-CTR, curiosity-driven YouTube video title (under 80 chars, with 1 emoji)"",
+  ""seo_description"": ""A 3-paragraph SEO-rich video description with timecodes, storyline breakdown, and 5 hashtags (#AI #Megastructure #Veo #SciFi #ImpossibleEngineering)"",
+  ""tags"": [""10-15 viral search tags as array of strings""],
+  ""pinned_comment"": ""An engaging question or comment (<120 chars) to pin at the top of comments to drive viewer discussion"",
+  ""category"": ""Science & Technology"",
+  ""default_language"": ""en""
+}}
+Return ONLY the raw JSON object.",JSON_OBJECT,ChatGPT-4o / Playwright,1. High-CTR title with emoji. 2. 3-paragraph description with timestamps. 3. 5 viral hashtags. 4. Strict JSON format.,0,1,2026-08-16 16:03:19.059495,2026-09-05 05:27:43.128166
+7,78ed9ac9-81e5-4345-8cdc-7d304ae5df2c,STAGE_3_PROMPT_ESCALATION_MASTER,Level 3->4,"10-Level Escalation Master (v2 — subject-faithful, anti-uniform)",Cinematic Prompt Architect (Diversity-Enforcing),"You are a cinematic prompt architect building a large library of visually DISTINCT impossible-machine videos. Your prompts are judged on two axes: (a) fidelity to the specific subject given, and (b) visual difference from every other prompt in the library. Repeating a house style across subjects is the failure mode to avoid.","Given the following Impossible Machine Idea:
+Title: {idea_title}
+Topic/Element: {topic}
+Concept: {description}
+
+Build a complete 10-level escalation prompting system (10 Image Prompts + 10 Video Prompts
+= 20 prompts total) escalating from Level 1 (BASIC, plausible) to Level 10 (ALIEN LEVEL /
+MAXIMUM, physically impossible in scale).
+
+=== RULE 0 — SUBJECT FIDELITY (most important) ===
+Every single prompt MUST describe ""{idea_title}"" specifically, operating on {topic}.
+- Name the actual subject and its actual mechanism in Layer 1 and in Second 1.
+- Derive all machinery from what ""{idea_title}"" actually does. If the subject has nothing
+  to do with grain or harvesting, it must NOT contain threshing drums, grain silos or
+  harvesting claws.
+- NEVER substitute a generic placeholder subject such as ""Forest Titan Megastructure"",
+  ""Titan Harvester"" or ""the megastructure"". A reader must be able to identify which idea
+  the prompt belongs to from the prompt text alone.
+
+=== RULE 1 — ANTI-UNIFORMITY (this is a hard requirement) ===
+These prompts are one of hundreds in a library. They must NOT look like the others.
+- Do NOT open the video prompt with a boilerplate specification sentence.
+- Do NOT end every level with a descent/zoom into a small object. Specifically, do NOT
+  use ""continuous impossible-scale descent"", and do NOT close on ""a single grain/particle
+  beside a quantum mechanism"". That exact ending is already overused and is banned.
+- Choose a camera language and a closing beat that suit THIS subject, and make the ten
+  levels differ from each other, not just escalate in adjective strength.
+- Vary the HUD step wording. Do not use the sequence AWAKEN / HARVEST / THRESH /
+  PURIFICATION / RESERVOIRS.
+
+=== IMAGE PROMPT (per level) ===
+9:16 vertical, photorealistic, high detail. Cover in prose (not as labelled headings):
+  Subject      — ""{idea_title}"" itself: its distinctive form, silhouette and scale cues.
+  Environment  — the {topic} setting, with something recognisable for scale.
+  Mechanism    — the parts that make THIS subject work, named concretely.
+  Energy       — how it is powered and how that is visible.
+  Presentation — framing, lighting and atmosphere specific to this level.
+
+=== VIDEO PROMPT (per level) ===
+Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.
+  - Open by naming the subject and the shot, not with a spec preamble.
+  - Include on-screen HUD popup beats with SHORT step labels, and state their timing.
+  - Close with a distinct final beat chosen for this subject (see RULE 1).
+  - Escalate scale across levels: Level 1 believable machine -> Level 10 impossible,
+    landscape-dominating structure.
+
+=== OUTPUT FORMAT ===
+Return ONLY a strict JSON array of exactly 10 objects, no prose, no markdown fence:
+[
+  {{
+    ""level"": 1,
+    ""level_name"": ""Level 1 - BASIC"",
+    ""image_prompt"": ""..."",
+    ""video_prompt"": ""...""
+  }}
+]
+Rules: exactly 10 objects, levels 1..10 in order, both prompt fields non-empty and at
+least 350 characters each, all prompts 9:16 vertical, all video prompts exactly 8 seconds.",JSON_ARRAY,ChatGPT / Playwright CloakBrowser,"1. Strict JSON array of exactly 10 level objects (levels 1-10). 2. Exactly 20 prompts (10 image + 10 video), each >= 350 chars. 3. All prompts 9:16 vertical; all video prompts exactly 8 seconds, single continuous shot. 4. RULE 0 subject fidelity: every prompt names '{idea_title}' and its real mechanism; generic placeholder subjects are forbidden. 5. RULE 1 anti-uniformity: no boilerplate opening sentence; the 'continuous impossible-scale descent into a single grain/particle' ending is BANNED; camera language, closing beat and HUD verbs must vary per level and per idea.",1,2,2026-08-25 05:53:20.024471,2026-08-25 05:53:20.024471
+8,61775c01-ccd8-48d7-b7b1-5460a803e0ca,STAGE_2_IDEA_GENERATION,Level 2->3,10-Idea Generator (v2 — function/form diversity enforced),Concept Designer (Diversity-Enforcing),You generate sets of impossible-machine concepts. A set is only good if the ten ideas are mutually distinct in function and form; ten variations on one machine is a failed answer.,"Give me 10 impossible-machine ideas built around {element_name}
+(category/group: {element_group}).
+
+Each machine must be enormous — colossal, landscape-scale engineering.
+
+=== DIVERSITY REQUIREMENTS (the set of 10 is graded as a whole) ===
+The 10 ideas must be genuinely DIFFERENT from one another, not ten rewordings of the
+same machine. Across the set:
+  1. Vary the FUNCTION: do not make all ten harvest or extract. Include machines that
+     build, move, protect, transform, measure, recycle, transport, or terraform.
+  2. Vary the FORM: no more than two may share a body plan. Spread across forms such as
+     bridge/span, tower, ring, buried burrower, walking chassis, overhead canopy,
+     segmented spine, honeycomb mass, tracked crawler, suspended aerial platform.
+  3. Vary the RELATIONSHIP to {element_name}: some work on it, some are made of it, some
+     protect it, some replace it, some study it.
+  4. Avoid near-duplicate titles. Do not produce a set where most titles share a word.
+  5. Do not use the words ""Titan"" or ""Colossus"" in more than one title.
+
+Each description must state concretely what the machine DOES and HOW it works
+mechanically — 2 to 4 sentences, no vague grandeur.
+
+Return ONLY a strict JSON array of 10 objects, no markdown, no commentary:
+[
+  {{
+    ""id"": 1,
+    ""title"": ""Machine Title"",
+    ""description"": ""What it does and how it mechanically operates on {element_name}.""
+  }}
+]",JSON_ARRAY,ChatGPT / Playwright CloakBrowser,"1. Strict JSON array of exactly 10 objects. 2. Each idea giant/colossal in scale. 3. Diversity is mandatory: vary function, body form, and relationship to the element; no more than two ideas may share a body plan. 4. No near-duplicate titles; 'Titan'/'Colossus' at most once each. 5. Descriptions state concrete mechanism in 2-4 sentences.",1,2,2026-08-25 05:53:20.032468,2026-08-25 05:53:20.032468
+9,fcd7054b-fa95-4a10-8249-44db7c01b642,STAGE_6_YOUTUBE_METADATA,Level 5 (Output Package & YouTube SEO),Final YouTube SEO Packaging Engine (v2 - Evidence-Grounded),Final YouTube SEO Packaging Engine,Transform supplied video concept + real YouTube search/competition evidence into the strongest possible YouTube metadata package.,"You are the final YouTube SEO Packaging Engine.
+
+Your job is NOT simply to write a catchy title.
+
+Your job is to transform the supplied video concept + real YouTube search/competition evidence into the strongest possible YouTube metadata package.
+
+You must use the supplied evidence first, reason from it, and then generate the final metadata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CORE OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize the metadata for the combined objective:
+
+SEARCH DISCOVERABILITY
+* CLICK-THROUGH POTENTIAL
+* TOPIC RELEVANCE
+* VIEWER INTENT MATCH
+* COMPETITOR DIFFERENTIATION
+* LONG-TERM SEARCH VALUE
+− MISLEADING/CLICKBAIT RISK
+
+Do NOT optimize for CTR alone.
+
+A title that gets clicks but poorly matches the actual video is inferior to a title that creates both strong curiosity and accurate expectation.
+
+Never invent search-volume numbers, rankings, competitor facts, keywords, or SEO evidence.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. INPUT VIDEO CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IDEA_ID:
+{{idea_id}}
+
+VIDEO_TITLE / CONCEPT:
+{{idea_title}}
+
+TOPIC:
+{{topic}}
+
+FORMAT:
+{{format}}
+
+VIDEO_DESCRIPTION / STORY:
+{{video_story}}
+
+ESCALATION / SCALE:
+{{escalation_level}}
+
+TARGET_AUDIENCE:
+{{target_audience}}
+
+VIDEO_DURATION:
+{{video_duration}}
+
+PRIMARY_LANGUAGE:
+{{default_language}}
+
+CATEGORY:
+{{category}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. REAL SEO EVIDENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following information was harvested from YouTube/search data.
+
+You MUST treat this as evidence.
+
+### SEO SIGNALS
+
+{{seo_signals}}
+
+Possible fields may include:
+* demand
+* novelty
+* opportunity_score
+* competition_score
+* relevance_score
+* keyword_count
+* competitor_count
+* other calculated SEO metrics
+
+Do not assume a metric means something different from what its name indicates.
+
+### HARVESTED YOUTUBE KEYWORDS
+
+{{harvested_keywords}}
+
+These are real harvested search suggestions/keywords.
+
+Analyze them for:
+* direct relevance to the video
+* search intent
+* specificity
+* recurring terms
+* keyword clusters
+* long-tail opportunities
+* natural title opportunities
+* natural description opportunities
+* irrelevant/noisy terms
+
+Do NOT blindly stuff keywords.
+
+### COMPETITOR VIDEOS
+
+{{competitor_videos}}
+
+Analyze competitors for:
+* recurring title language
+* dominant keyword patterns
+* topic angles
+* obvious audience intent
+* successful framing patterns
+* oversaturated wording
+* opportunities for differentiation
+* gaps that our video can exploit
+
+Do NOT assume that high views automatically means high SEO quality.
+
+Do NOT copy competitor titles.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. SEO REASONING PROCESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before generating metadata, internally perform these steps:
+
+STEP 1 — Identify the actual search intent.
+Determine what a viewer is likely searching for when looking for this topic.
+
+STEP 2 — Build a keyword hierarchy.
+Classify available keywords into:
+PRIMARY KEYWORDS
+SECONDARY KEYWORDS
+LONG-TAIL KEYWORDS
+SUPPORTING/SEMANTIC TERMS
+IRRELEVANT/NOISY TERMS
+
+STEP 3 — Identify the strongest keyword opportunity.
+Select the keyword or keyword phrase that provides the best combination of:
+relevance
+* specificity
+* search intent
+* evidence strength
+* competitive opportunity.
+
+STEP 4 — Analyze competitors.
+Determine:
+WHAT THEY ARE ALREADY DOING WELL
+WHAT IS OVERSATURATED
+WHAT WORDING IS REPEATED TOO OFTEN
+WHAT ANGLE IS MISSING
+HOW OUR TITLE CAN BE DIFFERENT WITHOUT BECOMING IRRELEVANT
+
+STEP 5 — Determine the positioning.
+Create one clear positioning statement:
+“This video should be discovered by people interested in ________, and should stand out because ________.”
+
+STEP 6 — Generate multiple internal title candidates.
+Generate several candidate concepts internally.
+Evaluate them against:
+* keyword relevance
+* search intent
+* clarity
+* curiosity
+* specificity
+* differentiation
+* CTR potential
+* natural language
+* accuracy
+* character length
+Then select the strongest candidate.
+
+STEP 7 — Optimize the description around the chosen positioning.
+The description must support the same search intent as the title.
+Never write a generic SEO paragraph simply by inserting keywords.
+
+STEP 8 — Generate tags.
+Use only relevant terms.
+Prioritize:
+exact topic
+primary keyword
+secondary keyword
+long-tail variations
+semantic variants
+natural search phrases
+
+Do NOT generate fake “viral” tags merely because they sound popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TITLE RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate ONE final title.
+
+Maximum 80 characters.
+
+Prefer approximately 45–70 characters when possible.
+
+The title should:
+* accurately represent the actual video
+* naturally incorporate the strongest relevant keyword opportunity
+* create curiosity
+* communicate the video's unique visual/conceptual hook
+* differentiate from competitors
+* avoid generic AI-video wording when a stronger topic-specific phrase exists
+* avoid keyword stuffing
+* avoid fake claims
+* avoid misleading promises
+* avoid excessive punctuation
+* use at most ONE emoji, and only if it genuinely improves the title
+
+Do NOT force an emoji if it weakens the title.
+
+Do NOT use ALL CAPS unless a very small emphasis is genuinely useful.
+
+Do NOT copy competitor wording.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. DESCRIPTION RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write a natural, human-readable YouTube description.
+
+The FIRST 1–2 sentences are the most important.
+
+They should clearly communicate:
+WHAT THE VIDEO IS ABOUT
+* WHY IT IS INTERESTING
+* the strongest natural search phrase where appropriate.
+
+Then provide useful context/story information.
+
+Use relevant secondary and semantic keywords naturally.
+
+Do NOT repeat the same keyword unnaturally.
+
+Do NOT write keyword-stuffed SEO text.
+
+Do NOT claim facts that are not supported by the video.
+
+If timestamps are supplied, use them accurately.
+
+If timestamps are NOT supplied, do not invent fake timestamps.
+
+Include a small number of highly relevant hashtags only.
+
+Avoid generic hashtag spam.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. TAG RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate 10–15 highly relevant tags.
+
+Tags should be selected from the available evidence whenever possible.
+
+Include a useful mixture of:
+* primary keyword
+* secondary keywords
+* long-tail variants
+* topic variations
+* semantic phrases
+* closely related search phrases
+
+Do NOT use unrelated high-volume keywords.
+
+Do NOT use competitor channel names unless directly relevant and appropriate.
+
+Keep total tag length within approximately 460 characters.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. TARGET KEYWORD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Select ONE target keyword.
+
+The target keyword must be:
+* strongly relevant
+* supported by supplied evidence
+* natural for the actual video
+* useful as the primary search positioning
+
+Do NOT select a keyword merely because it appears popular.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. PINNED COMMENT RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate ONE engaging pinned comment.
+
+Maximum 120 characters.
+
+The pinned comment should:
+* ask an intriguing question or invite discussion about the machine / futuristic technology shown in the video
+* encourage viewers to comment and engage
+* naturally include an appropriate emoji (e.g. 👇)
+* keep viewers thinking and talking in the comments section
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. QUALITY CONTROL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before returning the answer, internally verify:
+
+[ ] Title accurately represents the video.
+[ ] Title contains the strongest practical keyword opportunity where natural.
+[ ] Title is under 80 characters.
+[ ] Title is differentiated from competitors.
+[ ] No misleading claim exists.
+[ ] Description matches the title/search intent.
+[ ] Primary keyword is used naturally.
+[ ] Secondary terms are not stuffed.
+[ ] No invented timestamps.
+[ ] Hashtags are relevant.
+[ ] Tags are relevant.
+[ ] Pinned comment is engaging, concise (<120 chars), and prompts viewer discussion.
+[ ] No fabricated SEO statistics were introduced.
+[ ] No unsupported competitor claims were introduced.
+[ ] No irrelevant viral keywords were added.
+[ ] Metadata sounds human rather than machine-generated.
+[ ] Metadata is optimized for both search discovery and viewer click appeal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. OUTPUT FORMAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Return ONLY valid JSON.
+
+{
+""title"": ""final optimized YouTube title"",
+""seo_description"": ""final optimized YouTube description"",
+""tags"": [
+""tag 1"",
+""tag 2"",
+""tag 3""
+],
+""target_keyword"": ""primary target keyword"",
+""hashtags"": [
+""#hashtag1"",
+""#hashtag2"",
+""#hashtag3""
+],
+""pinned_comment"": ""engaging question or comment (<120 chars) to pin at the top of comments to drive viewer discussion"",
+""category"": ""{{category}}"",
+""default_language"": ""{{default_language}}""
+}
+
+No markdown.
+
+No explanation.
+
+No analysis.
+
+No additional keys.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL PRINCIPLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REAL SEARCH EVIDENCE > GENERIC SEO ADVICE.
+
+RELEVANCE > KEYWORD STUFFING.
+
+ACCURATE CURIOSITY > EMPTY CLICKBAIT.
+
+DIFFERENTIATION > COPYING COMPETITORS.
+
+SEARCH INTENT + CTR + TOPIC FIT > CTR ALONE.
+
+The supplied SEO data is the source of truth.
+
+Use the evidence intelligently; do not merely repeat it.",JSON_OBJECT,ChatGPT-4o / CloakBrowser,Real search evidence > generic SEO advice. Relevance > keyword stuffing. Accurate curiosity > empty clickbait. Return ONLY valid JSON.,1,2,2026-09-04T17:21:04.281050+00:00,2026-09-05 05:25:13.981551
