@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — YouTube Uploader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-cream-paper: #ffffeb;
+      --color-midnight-ink: #1a1a1a;
+      --color-white: #ffffff;
+      --color-stone-mist: #e4e4d0;
+      --color-graphite-veil: #8a8a80;
+      --color-smoke: #5f5f59;
+      --color-charcoal: #222222;
+      --color-lavender-whisper: #f0d7ff;
+      --font-figtree: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+      --font-eb-garamond: 'EB Garamond', Georgia, serif;
+      --radius-cards: 12px;
+      --radius-buttons: 14px;
+      --radius-nav: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      font-family: var(--font-figtree);
+      font-size: 16px;
+      line-height: 1.3;
+      color: var(--color-midnight-ink);
+      background: var(--color-cream-paper);
+      -webkit-font-smoothing: antialiased;
+    }
+    section {
+      width: min(420px, 100%);
+      background: var(--color-white);
+      border: 1px solid var(--color-stone-mist);
+      border-radius: var(--radius-cards);
+      padding: 32px;
+    }
+    .tick {
+      display: block;
+      width: 40px;
+      height: 4px;
+      background: var(--color-lavender-whisper);
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: var(--font-eb-garamond);
+      font-weight: 400;
+      font-size: clamp(1.75rem, 5vw, 2rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin: 0 0 8px;
+    }
+    h1 .muted { color: var(--color-graphite-veil); font-weight: 400; }
+    p {
+      color: var(--color-smoke);
+      font-size: 14px;
+      margin: 0 0 20px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-smoke);
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border: 1px solid var(--color-graphite-veil);
+      border-radius: var(--radius-nav);
+      font-family: var(--font-figtree);
+      font-size: 16px;
+      color: var(--color-midnight-ink);
+      background: var(--color-cream-paper);
+      margin-bottom: 16px;
+    }
+    input:focus { outline: none; border-color: var(--color-midnight-ink); }
+    button {
+      width: 100%;
+      background: var(--color-lavender-whisper);
+      color: var(--color-midnight-ink);
+      border: 1px solid var(--color-midnight-ink);
+      padding: 10px 18px;
+      border-radius: var(--radius-buttons);
+      font-family: var(--font-figtree);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover:not(:disabled) { background: color-mix(in srgb, var(--color-lavender-whisper) 85%, white); }
+    button:disabled { opacity: 0.6; cursor: wait; }
+    .error { color: var(--color-charcoal); font-size: 14px; font-weight: 600; margin-bottom: 12px; display: none; }
+  </style>
+</head>
+<body>
+  <section>
+    <span class="tick" aria-hidden="true"></span>
+    <h1><span class="muted">YouTube</span> Uploader</h1>
+    <p>Sign in with your dashboard password.</p>
+    <div id="error" class="error"></div>
+    <form id="login-form">
+      <label for="secret">Password</label>
+      <input id="secret" name="secret" type="password" autocomplete="current-password" required autofocus />
+      <button type="submit" id="submit">Sign in</button>
+    </form>
+  </section>
+  <script>
+    const form = document.getElementById('login-form');
+    const errorEl = document.getElementById('error');
+    const submitBtn = document.getElementById('submit');
+    const next = new URLSearchParams(location.search).get('next') || '/';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.style.display = 'none';
+      submitBtn.disabled = true;
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ password: document.getElementById('secret').value }),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.detail || 'Sign in failed');
+        }
+        location.href = next;
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

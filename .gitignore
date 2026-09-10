@@ -100,3 +100,17 @@ archive/*API*Key*.txt
 archive/*API*KEY*.txt
 archive/*Kagle*
 archive/CWINDOWSsystem32cmd.exe*.txt
+
+# YouTube API OAuth Secrets (NEVER push these)
+client_secrets.json
+token.json
+YoutubeAPI.txt
+chatgpt_com_cookies.json
+
+# youtube-uploader local state (queue, uploaded, registry)
+youtube-uploader-eval/state/
+youtube-uploader-eval/queue/
+youtube-uploader-eval/uploaded/
+youtube-uploader-eval/logs/
+youtube-uploader-eval/uv.lock
+youtube-uploader-eval/test.mp4

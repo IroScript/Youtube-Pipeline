@@ -1,0 +1,175 @@
+"""Inventory of CLI commands and their API coverage."""
+
+from __future__ import annotations
+
+CLI_COMMANDS: list[dict] = [
+    {
+        "group": "channel",
+        "command": "uploader channel add",
+        "description": "OAuth in browser; save YouTube channel",
+        "api": "POST /v1/oauth/start?mode=add",
+        "implemented": True,
+    },
+    {
+        "group": "channel",
+        "command": "uploader channel list",
+        "description": "List configured channels and auth status",
+        "api": "GET /v1/channels",
+        "implemented": True,
+    },
+    {
+        "group": "channel",
+        "command": "uploader channel reauth <ref>",
+        "description": "Re-authenticate a saved channel",
+        "api": "POST /v1/channels/{id}/oauth/start",
+        "implemented": True,
+    },
+    {
+        "group": "channel",
+        "command": "uploader channels",
+        "description": "Alias for channel list",
+        "api": "GET /v1/channels",
+        "implemented": True,
+    },
+    {
+        "group": "storage",
+        "command": "uploader storage init",
+        "description": "Create R2/local bucket layout",
+        "api": "POST /v1/storage/init",
+        "implemented": True,
+    },
+    {
+        "group": "queue",
+        "command": "uploader queue add",
+        "description": "Stage video + metadata to queue/",
+        "api": "POST /v1/channels/{id}/jobs (multipart)",
+        "implemented": True,
+    },
+    {
+        "group": "queue",
+        "command": "uploader queue list [--channel]",
+        "description": "Show pending jobs",
+        "api": "GET /v1/jobs?channel=&status=pending",
+        "implemented": True,
+    },
+    {
+        "group": "queue",
+        "command": "uploader queue upload --count N",
+        "description": "Upload oldest N pending jobs",
+        "api": "POST /v1/channels/{id}/runs",
+        "implemented": True,
+    },
+    {
+        "group": "queue",
+        "command": "uploader queue remove",
+        "description": "Remove staged job from queue",
+        "api": "DELETE /v1/channels/{id}/jobs/{job_id}",
+        "implemented": True,
+    },
+    {
+        "group": "scheduler",
+        "command": "uploader plan",
+        "description": "Preview publish schedule (dry run)",
+        "api": "GET /v1/channels/{id}/plan",
+        "implemented": True,
+    },
+    {
+        "group": "scheduler",
+        "command": "uploader run",
+        "description": "Upload all pending for one channel",
+        "api": "POST /v1/channels/{id}/runs (count=all)",
+        "implemented": True,
+    },
+    {
+        "group": "scheduler",
+        "command": "uploader run-all",
+        "description": "Upload pending for every channel",
+        "api": "POST /v1/runs/all",
+        "implemented": True,
+    },
+    {
+        "group": "youtube",
+        "command": "uploader list [--scheduled-only]",
+        "description": "List videos on YouTube channel",
+        "api": "GET /v1/channels/{id}/youtube/videos",
+        "implemented": True,
+    },
+    {
+        "group": "direct",
+        "command": "uploader test / upload",
+        "description": "Direct upload bypassing queue",
+        "api": "POST /v1/channels/{id}/upload/direct",
+        "implemented": True,
+    },
+    {
+        "group": "registry",
+        "command": "uploader enqueue",
+        "description": "Register pending job when video URIs already exist in storage",
+        "api": "POST /v1/channels/{id}/jobs/register",
+        "implemented": True,
+    },
+    {
+        "group": "queue",
+        "command": "uploader reconcile-uploads [--channel] [--dry-run]",
+        "description": "Repair stuck uploading jobs; archive completed jobs left in queue/",
+        "api": "POST /v1/uploads/reconcile",
+        "implemented": True,
+    },
+    {
+        "group": "queue",
+        "command": "dismiss stuck upload (dashboard / API)",
+        "description": "Clear stuck Uploading now row — finalize, retry, or fail",
+        "api": "POST /v1/channels/{id}/jobs/{job_id}/dismiss-upload",
+        "implemented": True,
+    },
+]
+
+YOUTUBE_FEATURES: list[dict] = [
+    {"id": "oauth_multi_channel", "name": "Multi-channel OAuth", "description": "One refresh token per YouTube channel"},
+    {"id": "resumable_upload", "name": "Resumable video upload", "description": "YouTube Data API v3 insert with progress"},
+    {"id": "custom_thumbnail", "name": "Custom thumbnail", "description": "Best-effort thumbnail set after upload"},
+    {"id": "schedule_publish", "name": "Scheduled publish", "description": "publishAt RFC3339 UTC; uploads as private until publish time"},
+    {"id": "upload_registry", "name": "Upload registry", "description": "JSON-lines queue: pending → uploading → uploaded | failed"},
+    {
+        "id": "upload_reconcile",
+        "name": "Upload reconcile cron",
+        "description": "POST /v1/uploads/reconcile repairs stuck Uploading now jobs (Cloud Scheduler every 10 min)",
+    },
+    {
+        "id": "upload_at_scheduler",
+        "name": "Per-job upload_at Cloud Scheduler",
+        "description": (
+            "When UPLOADER_UPLOAD_AT_SCHEDULER=1, register/stage with upload_at arms a one-shot "
+            "Cloud Scheduler job → POST .../jobs/{id}/dispatch-at (past times → ready, no cron)"
+        ),
+    },
+    {"id": "batch_stagger", "name": "Batch stagger", "description": "interval_hours between videos in a run"},
+    {"id": "retry_transient", "name": "Retry transient errors", "description": "408/429/5xx and network errors with backoff"},
+    {"id": "list_scheduled", "name": "List scheduled videos", "description": "Query channel for future publishAt videos"},
+    {"id": "r2_storage", "name": "Cloudflare R2 storage", "description": "Config, tokens, queue/, uploaded/ on R2"},
+    {"id": "job_metadata", "name": "Per-job metadata", "description": "metadata.json: privacy, is_short, tags, category, made_for_kids"},
+    {"id": "layered_defaults", "name": "Layered defaults", "description": ".env → channels.yaml defaults → channel → CLI/API flags"},
+    {"id": "shorts", "name": "YouTube Shorts flag", "description": "is_short in job metadata"},
+    {
+        "id": "assembler_register",
+        "name": "ai-music-assembler auto-queue",
+        "description": "POST .../jobs/register with s3://music-assembly-data/... URIs (reference-by-URI, idempotent job_id)",
+    },
+    {
+        "id": "channel_analytics",
+        "name": "Channel & category analytics",
+        "description": (
+            "YouTube Analytics rollups: views, watch time, subs, CTR, avg view % "
+            "by channel and category (GET /v1/analytics)"
+        ),
+    },
+]
+
+ASSEMBLY_INTEGRATION_NOTES: list[str] = [
+    "Register is idempotent: re-posting the same channel_ref + job_id returns 200 without duplicating.",
+    "External assembler URIs are kept in place; MP4/thumbnail are downloaded at upload time (no copy on register).",
+    "YouTube Data API default quota is ~10,000 units/day (~6 uploads/day at ~1,600 units each).",
+    "Upload runs process one job at a time per channel (sequential) to respect quota and bandwidth.",
+    "Trigger uploads with POST /v1/channels/{ref}/runs {\"count\": 1}, per-job upload_at Cloud Scheduler "
+    "(UPLOADER_UPLOAD_AT_SCHEDULER=1), or manual cron.",
+]

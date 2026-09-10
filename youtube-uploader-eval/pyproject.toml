@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "youtube-uploader"
+version = "0.1.0"
+description = "Standalone microservice for uploading pre-rendered videos to YouTube"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "google-api-python-client>=2.100.0",
+    "google-auth-oauthlib>=1.2.0",
+    "google-auth-httplib2>=0.2.0",
+    "Pillow>=10.0.0",
+    "python-dotenv>=1.0.0",
+    "PyYAML>=6.0",
+    "tzdata>=2024.1; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+s3 = ["boto3>=1.34"]
+api = ["fastapi>=0.110", "uvicorn[standard]>=0.27", "pydantic>=2.0", "httpx>=0.27", "python-multipart>=0.0.9"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+uploader = "cli.main:main"
+uploader-api = "api.server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["uploader*", "cli*", "api*"]
+
+[tool.setuptools.package-data]
+api = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

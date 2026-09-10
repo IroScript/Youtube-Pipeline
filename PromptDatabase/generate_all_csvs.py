@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
-from export_utils import get_timestamp_suffix, resolve_unique_path
+from export_utils import get_timestamp_suffix, resolve_unique_path, cleanup_old_exports
 
 
 def generate_all(timestamp_suffix: Optional[str] = None):
@@ -77,9 +77,14 @@ def generate_all(timestamp_suffix: Optional[str] = None):
     generate_seo_csvs(timestamp_suffix=ts)
 
     # 4. Unified Master Joined Pipeline CSV
-    print("\n>>> [4/4] Generating Unified Master Pipeline Joined CSV...")
+    print("\n>>> [4/5] Generating Unified Master Pipeline Joined CSV...")
     from generate_master_joined_csv import generate_unified_master_csv
     master_rows = generate_unified_master_csv(timestamp_suffix=ts)
+
+    # 5. Master Dashboard (One Row Per Idea — the only CSV users need)
+    print("\n>>> [5/5] Generating Master Dashboard CSV (single file, one row per idea)...")
+    from generate_dashboard_csv import generate_dashboard_csv
+    dashboard_rows = generate_dashboard_csv(timestamp_suffix=ts)
 
     elapsed = time.time() - start
     print("\n" + "=" * 76)
@@ -96,7 +101,17 @@ def generate_all(timestamp_suffix: Optional[str] = None):
     print(f"  7. Table Fillup Summary CSV : exports/table_fillup_summary_{ts}.csv")
     print(f"  8. Prompting Style Master   : exports/prompting_style_master_{ts}.csv")
     print(f"  9. Raw SQLite Tables (34)   : {CSV_TABLES_DIR}")
-    print("=" * 76 + "\n")
+    print("=" * 76)
+
+    # Auto-cleanup: keep only last 3 versions per CSV type
+    deleted = cleanup_old_exports(EXPORT_DIR, keep=3)
+    if deleted:
+        print(f"\n🧹 [Cleanup] Removed {len(deleted)} old CSV exports (keeping last 3 per type):")
+        for d in deleted:
+            print(f"   ❌ {d.name}")
+    else:
+        print("\n🧹 [Cleanup] No old exports to remove.")
+    print()
 
 
 def main():

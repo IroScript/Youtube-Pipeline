@@ -92,7 +92,9 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
     reuses PROMPT_BROWSER_PROFILE_DIR so a one-time chatgpt.com login survives between runs.
     Pass persistent=False for the original throwaway-profile behaviour.
     """
-    print(f"\n[CloakBrowser] Launching stealth anti-detect Chrome browser window (Full Screen)...", flush=True)
+    # FORCE visible browser — never headless
+    headless = False
+    print(f"\n[CloakBrowser] Launching stealth anti-detect Chrome browser window (VISIBLE, headless={headless})...", flush=True)
     output_text = ""
     context = None
     playwright = None   # tracked so the persistent profile lock is released on teardown
@@ -180,10 +182,56 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
         if not input_box:
             raise RuntimeError("No visible input element found on ChatGPT.")
 
-        # Focus & fill prompt text
+        # Focus & fill prompt text via CLIPBOARD PASTE (fill() doesn't trigger
+        # React state updates in ChatGPT's ProseMirror/contenteditable editor,
+        # causing empty messages to be sent. Clipboard paste works universally.)
         input_box.click()
-        time.sleep(0.3)
+        time.sleep(0.5)
+
+        # Try fill() first, then verify; fall back to clipboard paste if needed
         input_box.fill(prompt_text)
+        time.sleep(0.5)
+
+        # Verify text was actually entered
+        entered_len = page.evaluate('''() => {
+            const el = document.querySelector('textarea.wm-composer-textarea, #prompt-textarea, div[contenteditable="true"], [role="textbox"], textarea');
+            if (!el) return 0;
+            return (el.value || el.innerText || el.textContent || '').trim().length;
+        }''')
+        print(f"[CloakBrowser] After fill(): textarea has {entered_len} chars", flush=True)
+
+        if entered_len < 10:
+            print("[CloakBrowser] fill() didn't work — switching to clipboard paste...", flush=True)
+            # Clear any partial content
+            input_box.click()
+            time.sleep(0.3)
+            input_box.press("Control+a")
+            time.sleep(0.1)
+            input_box.press("Backspace")
+            time.sleep(0.3)
+            # Clipboard paste
+            page.evaluate('(text) => navigator.clipboard.writeText(text)', prompt_text)
+            time.sleep(0.3)
+            input_box.press("Control+v")
+            time.sleep(1.0)
+
+            # Re-verify
+            entered_len2 = page.evaluate('''() => {
+                const el = document.querySelector('textarea.wm-composer-textarea, #prompt-textarea, div[contenteditable="true"], [role="textbox"], textarea');
+                if (!el) return 0;
+                return (el.value || el.innerText || el.textContent || '').trim().length;
+            }''')
+            print(f"[CloakBrowser] After clipboard paste: textarea has {entered_len2} chars", flush=True)
+
+            if entered_len2 < 10:
+                # Last resort: type() with delay (slow but guaranteed)
+                print("[CloakBrowser] Clipboard paste also failed — using type() as last resort...", flush=True)
+                input_box.click()
+                time.sleep(0.2)
+                # Type first 200 chars to verify, then paste the rest
+                input_box.type(prompt_text[:200], delay=5)
+                time.sleep(0.5)
+
         time.sleep(0.5)
 
         # Click active Send button
@@ -193,7 +241,7 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
             'button[data-testid="send-button"]:visible'
         )
         send_btn = page.locator(send_selector).first
-        for _ in range(6):
+        for _ in range(8):
             if send_btn.count() > 0 and not send_btn.is_disabled():
                 send_btn.click()
                 print("[CloakBrowser] Clicked Send button successfully!", flush=True)
@@ -205,9 +253,9 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
 
         print(f"[CloakBrowser] Waiting for ChatGPT response to stream completely (max {wait_seconds}s)...", flush=True)
         
-        # 1. Wait for stream to start
+        # 1. Wait for stream to start (60 iterations × 1.5s = 90s max)
         started = False
-        for sec in range(30):
+        for sec in range(60):
             time.sleep(1.5)
             res = page.evaluate('''() => {
                 const stopBtn = document.querySelector('button[aria-label*="Stop" i], button[data-testid*="stop" i], button.wm-composer-stopButton, button[aria-label*="stop generation" i]');
@@ -222,21 +270,65 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
                 started = True
                 break
 
-            # Fallback Send click / Control+Enter at 15s if stream hasn't started
-            if sec == 10:
+            # Progress diagnostic every 15s
+            if sec % 10 == 9:
+                diag = page.evaluate('''() => {
+                    const url = window.location.href;
+                    const title = document.title;
+                    const bodyText = (document.body.innerText || '').substring(0, 500);
+                    const allBtns = Array.from(document.querySelectorAll('button')).map(b => b.textContent.trim()).filter(t => t.length > 0 && t.length < 50).slice(0, 15);
+                    const hasLogin = bodyText.includes('Log in') || bodyText.includes('Sign up') || bodyText.includes('Create account');
+                    const hasCaptcha = bodyText.includes('verify') || bodyText.includes('Captcha') || bodyText.includes('robot') || bodyText.includes('challenge');
+                    const hasRateLimit = bodyText.includes('limit') || bodyText.includes('too many') || bodyText.includes('try again');
+                    return { url, title, bodySnippet: bodyText.substring(0, 300), buttons: allBtns, hasLogin, hasCaptcha, hasRateLimit };
+                }''')
+                elapsed_s = round(sec * 1.5)
+                print(f"[CloakBrowser DIAG @ {elapsed_s}s] URL: {diag['url']}", flush=True)
+                print(f"[CloakBrowser DIAG @ {elapsed_s}s] Title: {diag['title']}", flush=True)
+                print(f"[CloakBrowser DIAG @ {elapsed_s}s] Login={diag['hasLogin']} Captcha={diag['hasCaptcha']} RateLimit={diag['hasRateLimit']}", flush=True)
+                print(f"[CloakBrowser DIAG @ {elapsed_s}s] Buttons: {diag['buttons'][:8]}", flush=True)
+                print(f"[CloakBrowser DIAG @ {elapsed_s}s] Body: {diag['bodySnippet'][:200]}", flush=True)
+
+            # Fallback Send click / Control+Enter at 30s if stream hasn't started
+            if sec == 20:
                 try:
                     s_btn = page.locator(send_selector).first
                     if s_btn.count() > 0 and not s_btn.is_disabled():
                         s_btn.click()
-                        print("[CloakBrowser] Fallback Send click at 15s...", flush=True)
+                        print("[CloakBrowser] Fallback Send click at 30s...", flush=True)
                     else:
                         input_box.press("Control+Enter")
-                        print("[CloakBrowser] Fallback Control+Enter at 15s...", flush=True)
+                        print("[CloakBrowser] Fallback Control+Enter at 30s...", flush=True)
                 except Exception:
                     pass
 
         if not started:
-            print("[CloakBrowser Warning] Stream did not start within 30s. Exiting for immediate retry.", flush=True)
+            # DIAGNOSTIC: Screenshot + DOM dump before giving up
+            try:
+                diag_dir = BASE_DIR / "_cloakbrowser_diagnostics"
+                diag_dir.mkdir(parents=True, exist_ok=True)
+                ss_path = diag_dir / f"timeout_screenshot_{int(time.time())}.png"
+                page.screenshot(path=str(ss_path), full_page=False)
+                print(f"[CloakBrowser DIAG] Screenshot saved: {ss_path}", flush=True)
+
+                final_diag = page.evaluate('''() => {
+                    const url = window.location.href;
+                    const bodyText = (document.body.innerText || '').substring(0, 1500);
+                    const assistantDivs = document.querySelectorAll('div[data-message-author-role="assistant"]').length;
+                    const allDivs = document.querySelectorAll('[data-message-author-role]').length;
+                    const articles = document.querySelectorAll('article').length;
+                    const textareas = document.querySelectorAll('textarea').length;
+                    const contentEditables = document.querySelectorAll('[contenteditable="true"]').length;
+                    return { url, bodyText, assistantDivs, allDivs, articles, textareas, contentEditables };
+                }''')
+                print(f"[CloakBrowser DIAG] Final URL: {final_diag['url']}", flush=True)
+                print(f"[CloakBrowser DIAG] assistant divs={final_diag['assistantDivs']}, all message divs={final_diag['allDivs']}, articles={final_diag['articles']}", flush=True)
+                print(f"[CloakBrowser DIAG] textareas={final_diag['textareas']}, contentEditables={final_diag['contentEditables']}", flush=True)
+                print(f"[CloakBrowser DIAG] Body text (first 500 chars):\n{final_diag['bodyText'][:500]}", flush=True)
+            except Exception as diag_err:
+                print(f"[CloakBrowser DIAG] Could not capture diagnostics: {diag_err}", flush=True)
+
+            print("[CloakBrowser Warning] Stream did not start within 90s. Exiting for immediate retry.", flush=True)
             return ""
 
         # 2. Instant non-blocking DOM monitoring loop
@@ -419,7 +511,7 @@ def generate_new_element_from_category(category_name: str, skip_browser: bool = 
 
     if not skip_browser:
         try:
-            resp = call_chatgpt_playwright(prompt_text, wait_seconds=45)
+            resp = call_chatgpt_playwright(prompt_text, wait_seconds=120)
             match = re.search(r'\{.*\}', resp, re.DOTALL)
             if match:
                 data = json.loads(match.group(0))
@@ -468,7 +560,7 @@ def generate_ideas_for_element(element: Element, skip_browser: bool = False, tar
     ideas_data = []
     if not skip_browser:
         try:
-            resp = call_chatgpt_playwright(prompt_text, wait_seconds=60)
+            resp = call_chatgpt_playwright(prompt_text, wait_seconds=180)
             match = re.search(r'\[\s*\{.*\}\s*\]', resp, re.DOTALL)
             if match:
                 ideas_data = json.loads(match.group(0))

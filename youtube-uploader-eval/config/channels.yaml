@@ -1,0 +1,17 @@
+categories:
+- impossible-machines
+channels:
+- category: impossible-machines
+  id: astrosparksai
+  name: Astro Sparks AI
+  registry_path: C:\Users\Irak\Desktop\Youtube Pipeline\youtube-uploader-eval\state\astrosparksai\upload_registry.txt
+  token_path: C:\Users\Irak\Desktop\Youtube Pipeline\youtube-uploader-eval\secrets\astrosparksai\youtube_token.json
+defaults:
+  category_id: '28'
+  is_short: true
+  language: en
+  made_for_kids: false
+  privacy: public
+  tags: []
+google:
+  oauth_port: 8090
