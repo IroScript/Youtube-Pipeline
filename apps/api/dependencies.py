@@ -83,3 +83,7 @@ def get_retry_engine():
     return RetryEngine
 
 
+
+def get_production_orchestrator(session: Session = Depends(get_db_session)):
+    from services.pipeline.production_orchestrator import ProductionOrchestrator
+    return ProductionOrchestrator(session)

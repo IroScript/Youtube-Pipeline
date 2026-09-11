@@ -389,3 +389,52 @@ class ExecutionActionResponse(BaseModel):
     message: Optional[str] = None
 
 
+
+# ============================================================================
+# PRODUCTION PIPELINE ORCHESTRATOR SCHEMAS (Phase 3-4)
+# ============================================================================
+
+class ProductionPipelineRequest(BaseModel):
+    idea_id: Optional[int] = None  # None = auto-discover next
+    dry_run: bool = True
+    skip_browser: bool = False
+    max_ideas: int = 1  # For sequential mode
+
+class StageVerificationResult(BaseModel):
+    stage: str
+    valid: bool
+    missing_fields: List[str] = []
+    details: Dict[str, Any] = {}
+
+class ProductionPipelineResponse(BaseModel):
+    job_id: str
+    idea_id: Optional[int] = None
+    title: Optional[str] = None
+    initial_state: str
+    final_state: str
+    stages_completed: List[str] = []
+    stages_failed: List[str] = []
+    stages_skipped: List[str] = []
+    verification_results: Dict[str, bool] = {}
+    is_complete: bool
+    error: Optional[str] = None
+    dry_run: bool = False
+
+class PipelineRowStateResponse(BaseModel):
+    idea_id: int
+    current_state: str
+    previous_state: Optional[str] = None
+    prompt_verified: bool = False
+    seo_verified: bool = False
+    video_verified: bool = False
+    upload_verified: bool = False
+    package_verified: bool = False
+    all_fields_validated: bool = False
+    missing_fields: List[str] = []
+    is_paused: bool = False
+    failure_reason: Optional[str] = None
+
+class GuardCheckResponse(BaseModel):
+    allowed: bool
+    reason: str
+    existing_job_id: Optional[str] = None

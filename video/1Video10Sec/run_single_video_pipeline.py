@@ -59,6 +59,37 @@ class SingleVideoPipelineRunner:
         
         logging.info(f"📜 Generated Prompt: {prompt_info['full_combined_prompt']}")
 
+        # Step 2.5: Hard Gate + Auto-Generate SEO via CloakBrowser if missing
+        idea_id = prompt_info.get("selected_idea", {}).get("id")
+        if idea_id:
+            try:
+                from pathlib import Path
+                prompt_db_dir = Path(self.base_dir).parent.parent / "PromptDatabase"
+                if str(prompt_db_dir) not in sys.path:
+                    sys.path.insert(0, str(prompt_db_dir))
+                import stage_gates as sg
+                if not sg.has_seo(idea_id):
+                    logging.info(f"🌐 [SEO Gate] Idea #{idea_id} missing verified SEO -> Auto-triggering CloakBrowser (chatgpt.com)...")
+                    from database.session import get_session
+                    from services.seo.seo_service import SEOService
+                    with get_session() as session:
+                        seo_svc = SEOService(session)
+                        seo_svc.generate_seo(idea_id, apply=True, force=False, use_browser=True)
+
+                    if not sg.has_seo(idea_id):
+                        seo_det = sg.seo_detail(idea_id)
+                        logging.error(f"⛔ HARD GATE: Cannot generate video for Idea #{idea_id} ('{prompt_info['selected_idea']['title']}') — SEO generation not complete! Reason: {seo_det.get('reason')}")
+                        return {
+                            "category": category,
+                            "selected_idea": prompt_info["selected_idea"]["title"],
+                            "video_path": None,
+                            "youtube_url": None,
+                            "status": "BLOCKED_SEO_MISSING"
+                        }
+                    logging.info(f"✅ [SEO Gate Passed] Real SEO generated and verified for Idea #{idea_id}")
+            except Exception as e:
+                logging.warning(f"SEO gate check notice: {e}")
+
         # Step 3: Render via Extension with 10-time retry on failure
         video_path = self.extension_bridge.generate_single_video(prompt_info)
 
@@ -74,6 +105,7 @@ class SingleVideoPipelineRunner:
 
         # Step 3.5: Direct SQLite & Output_Packaged Integration (Hierarchical Naming by ID)
         idea_id = prompt_info.get("selected_idea", {}).get("id")
+        package_folder = None
         if idea_id and video_path and os.path.exists(video_path):
             try:
                 import shutil
@@ -145,8 +177,49 @@ class SingleVideoPipelineRunner:
             except Exception as pkg_err:
                 logging.warning(f"⚠️ Direct packaging notice: {pkg_err}")
 
-        # Step 4: Auto upload to YouTube Shorts and Social Media
-        upload_info = self.uploader.upload_video(video_path, prompt_info)
+        # Step 4: Real YouTube Upload via upload_bridge
+        youtube_url = None
+        try:
+            from pathlib import Path
+            repo_root = Path(self.base_dir).parent.parent
+            if str(repo_root) not in sys.path:
+                sys.path.insert(0, str(repo_root))
+            import upload_bridge
+
+            pkgs = upload_bridge.scan_packages()
+            target_pkg = None
+            if package_folder:
+                for p in pkgs:
+                    if str(package_folder) == str(p.get("folder_path")):
+                        target_pkg = p
+                        break
+            if not target_pkg and pkgs:
+                # Find package matching idea title or id
+                for p in pkgs:
+                    if idea_id and (str(idea_id) in p.get("folder_name", "") or prompt_info.get("selected_idea", {}).get("title", "") in p.get("title", "")):
+                        target_pkg = p
+                        break
+
+            if target_pkg:
+                logging.info(f"🚀 [Real YouTube Upload] Queuing package '{target_pkg['folder_name']}'...")
+                job_id = upload_bridge.queue_video(target_pkg, dry_run=False)
+                if job_id:
+                    up_res = upload_bridge.run_upload(limit=1, dry_run=False)
+                    if up_res.get("uploaded"):
+                        results_map = upload_bridge.parse_uploaded_results()
+                        yt_id = results_map.get(job_id, "")
+                        if yt_id:
+                            youtube_url = f"https://youtube.com/shorts/{yt_id}"
+                        conn = upload_bridge.get_db_connection()
+                        upload_bridge.update_db_status(conn, target_pkg["folder_path"], yt_id)
+                        conn.close()
+                        logging.info(f"✅ [Real YouTube Upload Success] URL: {youtube_url or 'Uploaded successfully'}")
+            else:
+                logging.info("ℹ️ No un-uploaded package pending for YouTube upload.")
+        except Exception as up_err:
+            logging.error(f"❌ Real YouTube upload notice: {up_err}. Falling back to social uploader...")
+            upload_info = self.uploader.upload_video(video_path, prompt_info)
+            youtube_url = upload_info.get("youtube_url")
 
         summary = {
             "category": category,

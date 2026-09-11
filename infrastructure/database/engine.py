@@ -73,6 +73,7 @@ def init_database(custom_engine: Engine | None = None) -> None:
     import domain.workflows.execution_model  # noqa: F401
     import domain.workflows.step_run_model  # noqa: F401
     import domain.workflows.attempt_model  # noqa: F401
+    import domain.pipeline.pipeline_row_model  # noqa: F401  -- production pipeline state
     active_engine = custom_engine or engine
     SQLModel.metadata.create_all(active_engine)
 
