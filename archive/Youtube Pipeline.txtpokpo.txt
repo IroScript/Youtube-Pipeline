@@ -295,7 +295,7 @@ Pipeline\PromptDatabase\youtube_uploader.py")
 
   এই URL টি আপনার ব্রাউজারে ওপেন করুন:
 
-    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-REDACTED_OAUTH_ID.apps.googleusercontent.
   com&redirect_uri=http%3A%2F%2Flocalhost%3A8090%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.
   com%2Fauth%2Fyoutube&state=CEeUypDsPlis21cTEBDuEMn1Exd47l&code_challenge=DwaYk2BezMuo4RZQ8VvFjPL98Zj4wSYDKHSszhv665E&code_challenge_method=S256
   &access_type=offline
@@ -1841,8 +1841,8 @@ storage, existing YouTube OAuth)?)
 
 ● Edit(~/Desktop/Youtube Pipeline/youtube-uploader-eval/.env)
   ⎿  +2 / -2 lines
-        5    GOOGLE_CLIENT_ID=1076305260584-3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.com
-        6    GOOGLE_CLIENT_SECRET=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
+        5    GOOGLE_CLIENT_ID=[REDACTED_GOOGLE_CLIENT_ID]
+        6    GOOGLE_CLIENT_SECRET=[REDACTED_GOOGLE_CLIENT_SECRET]
         7    GOOGLE_PROJECT_ID=youtube-pipeline
         8 -  GOOGLE_OAUTH_PORT=8765
         9 -  GOOGLE_OAUTH_REDIRECT_URI=http://localhost:8765
@@ -1868,7 +1868,7 @@ storage, existing YouTube OAuth)?)
             error: (mismatching_state) CSRF Warning! State not equal in request and response.
             Please visit this URL to authorize this application:
             https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-
-     3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8090&scope=https%3A%2F%2Fwww.googleapis.com%2Faut
+     REDACTED_OAUTH_ID.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8090&scope=https%3A%2F%2Fwww.googleapis.com%2Faut
      h%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-
      ssl+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyt-
      analytics.readonly&state=U3XtMASqa8CVymVVzvMeb6R0JGNu3s&access_type=offline&prompt=select_account+consent (ctrl+o to collapse)
@@ -1891,7 +1891,7 @@ storage, existing YouTube OAuth)?)
 
   Log-এ URL প্রিন্ট হয়নি। youtube-uploader সরাসরি ব্রাউজার ওপেন করে URL দেখায় না। আমি manually URL তৈরি করে দিচ্ছি:
 
-    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-REDACTED_OAUTH_ID.apps.googleusercontent.
   com&redirect_uri=http%3A%2F%2Flocalhost%3A8090&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.
   com%2Fauth%2Fyoutube.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyt-
   analytics.readonly&access_type=offline&prompt=consent
@@ -1914,7 +1914,7 @@ storage, existing YouTube OAuth)?)
 
   Server চালু আছে port 8090-এ এবং ব্রাউজার auto-open করার চেষ্টা করেছে। এই URL টা ব্রাউজারে পেস্ট করুন — এটা server-এর নিজের generated URL, state সহ:
 
-    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-REDACTED_OAUTH_ID.apps.googleusercontent.
   com&redirect_uri=http%3A%2F%2Flocalhost%3A8090&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.
   com%2Fauth%2Fyoutube.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyt-
   analytics.readonly&access_type=offline&prompt=select_account+consent
@@ -2036,7 +2036,7 @@ PID: $($p.OwningProcess)"; Get-Process -Id $p.OwningProcess | Select-Object Id, 
 
   Log-এ output buffer হচ্ছে মনে হয়। run_local_server(open_browser=False) URL stdout-এ প্রিন্ট করে। ইরাক ভাইয়া, এই URL টা Chrome Profile 7-এ ওপেন করুন:
 
-    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-REDACTED_OAUTH_ID.apps.googleusercontent.
   com&redirect_uri=http%3A%2F%2Flocalhost%3A8090&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.
   com%2Fauth%2Fyoutube.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyt-
   analytics.readonly&access_type=offline&prompt=consent
@@ -2085,7 +2085,7 @@ PID: $($p.OwningProcess)"; Get-Process -Id $p.OwningProcess | Select-Object Id, 
 
   পেয়ে গেছি! ইরাক ভাইয়া, শুধুমাত্র এই URL টা Chrome Profile 7-এ ওপেন করুন — অন্য কোনো URL না:
 
-    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-3ouvu4hsg7grvsu8j4v3k6n7ldjtlqvb.apps.googleusercontent.
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1076305260584-REDACTED_OAUTH_ID.apps.googleusercontent.
   com&redirect_uri=http%3A%2F%2Flocalhost%3A8090%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.
   com%2Fauth%2Fyoutube.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyt-
   analytics.readonly&state=yFFtIraIZOGBCKvNWisoSUtAimj2qA&prompt=consent&access_type=offline

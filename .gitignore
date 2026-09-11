@@ -103,9 +103,13 @@ archive/CWINDOWSsystem32cmd.exe*.txt
 
 # YouTube API OAuth Secrets (NEVER push these)
 client_secrets.json
+client_secrets*.json
 token.json
 YoutubeAPI.txt
 chatgpt_com_cookies.json
+*google*client*id*
+*google*client*secret*
+*oauth_credentials*
 
 # youtube-uploader local state (queue, uploaded, registry)
 youtube-uploader-eval/state/
