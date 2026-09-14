@@ -60,3 +60,29 @@
 ```powershell
 python run_single_video_pipeline.py
 ```
+
+---
+
+## 🛑 ৬. কঠোর নিষেধাজ্ঞা ও কোর আর্কিটেকচার নীতি (Strict Prohibition & Core Architecture)
+
+### ১. FFmpeg, OpenCV, Pillow সম্পূর্ণরূপে নিষিদ্ধ
+- ভিডিও তৈরির জন্য কখনোই কোনো অবস্থাতেই FFmpeg, OpenCV, Pillow বা অন্য কোনো লোকাল সিন্থেটিক রেন্ডারিং স্ক্রিপ্ট ব্যবহার করা যাবে না।
+- কোনো শর্টকাট বা ফেক ভিডিও স্ক্রিপ্ট তৈরি করা সম্পূর্ণ বেআইনি ও নিষিদ্ধ।
+
+### ২. একমাত্র অনুমোদিত ভিডিও জেনারেশন ইঞ্জিন: Google Veo 3.1 Chrome Extension
+- ভিডিও অবশ্যই `10SecNewExtension` (FlowCraft AI Studio) ক্রোম এক্সটেনশনের মাধ্যমে Google Flow (`https://labs.google/fx/tools/flow`) প্ল্যাটফর্মে **Veo 3.1 Lower Priority** মডেলে রেন্ডার ও ডাউনলোড হতে হবে।
+- উইন্ডোজে এক্সিকিউশন: `run_single_video_pipeline.py` (বা `start_automation.bat`)
+- লিনাক্সে এক্সিকিউশন: `run_single_video_pipeline_linux.py` (বা `start_automation_linux.sh`)
+
+### ৩. ডেটা প্রসেসিংয়ের একমাত্র উৎস: SQLite Database (কোনো CSV রিডিং নয়)
+- সমস্ত প্রম্পট ফেচিং (Level 10), স্ট্যাটাস ট্র্যাকিং ও মেটাডেটা প্রসেসিং সরাসরি SQLite ডাটাবেজ (`youtube_pipeline.db`) থেকে সম্পন্ন হবে।
+- কোনো প্রসেস বা ডিসিশনের জন্য CSV ফাইল রিড করা সম্পূর্ণ নিষিদ্ধ। CSV শুধুমাত্র এক্সটার্নাল এক্সপোর্ট/ড্যাশবোর্ড রিপোর্ট হিসেবে ব্যবহৃত হবে।
+
+### ৪. হার্ডকোডেড CloakBrowser / ChatGPT (`chatgpt.com`) ও yt-dlp ইঞ্জিন
+- প্রম্পট (লেভেল ১-১০) এবং এসইও তৈরির একমাত্র অনুমোদিত ইঞ্জিন হলো হার্ডকোডেড **CloakBrowser + ChatGPT (`chatgpt.com`)** এবং **yt-dlp** (কোনো থার্ড-পার্টি LLM API নয়)।
+- সমস্ত প্রসেস একক ক্লিকে `run_prompt_and_seo_fillup.py` স্ক্রিপ্টের মাধ্যমে চলে সরাসরি SQLite ডাটাবেজ পূরণ করবে।
+
+### ৫. গুগল ভিও ৩.১ ডেডিকেটেড অ্যাকাউন্ট ও জিরো-চ্যানেল-আপলোড নীতি (Veo 3.1 Dedicated Account Lock)
+- গুগল অ্যাকাউন্ট `mainuddinh297@gmail.com` (ক্রোম `Profile 5`) শুধুমাত্র এবং শুধুমাত্র **Google Veo 3.1 ভিডিও জেনারেশনের জন্য (Google Flow Ultra Tier)** ডেডিকেটেড।
+- এই অ্যাকাউন্ট বা এর সাথে যুক্ত কোনো ব্যক্তিগত চ্যানেল (যেমন: `Gaming Dot Bangla` / `@gamingdotbangla249`)-এ কখনোই পাইপলাইন ভিডিও আপলোড করা যাবে না।
+- পাইপলাইনের সমস্ত ভিডিও শুধুমাত্র মূল নির্ধারিত চ্যানেল **`@AstroSparksAI`** (Astro Sparks AI)-তে আপলোড হবে। `Gaming Dot Bangla` চ্যানেলে আপলোড করার কোনো প্রচেষ্টা বা প্রস্তাবনা সম্পূর্ণরূপে নিষিদ্ধ।

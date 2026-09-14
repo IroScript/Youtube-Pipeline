@@ -141,7 +141,7 @@ class ExtensionVideoBridge:
         self.max_retries = max_retries or self.config.get("max_retries", 10)
         self.chrome_exe = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
         self.profile_dir = self.config.get("chrome_profile", "Profile 5")
-        self.google_flow_url = "https://labs.google/fx/tools/flow"
+        self.google_flow_url = "https://flow.google.com/"
         self.bridge_port = 8102
 
         # Download paths to monitor for real MP4 files (ONLY external browser download folders)

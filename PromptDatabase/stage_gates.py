@@ -234,10 +234,26 @@ def package_folder_for(idea_id: int) -> Path | None:
 
 
 def has_video(idea_id: int) -> bool:
-    """True if a real (>10KB) mp4 exists for this idea, on disk or via generated_videos."""
+    """True if a real (>10KB) mp4 exists for this idea on disk, or video is marked completed in DB."""
     from sqlmodel import select
     from database.session import get_session
-    from database.models import GeneratedVideo
+    from database.models import GeneratedVideo, YouTubeMetadata, Idea
+
+    with get_session() as session:
+        # DB Ground Truth check
+        idea = session.exec(select(Idea).where(Idea.id == idea_id)).first()
+        if idea and idea.status in ("completed", "uploaded", "published"):
+            return True
+
+        yt_meta = session.exec(select(YouTubeMetadata).where(YouTubeMetadata.idea_id == idea_id)).first()
+        if yt_meta and (yt_meta.status == "uploaded" or yt_meta.youtube_video_id):
+            return True
+
+        rec = session.exec(
+            select(GeneratedVideo).where(GeneratedVideo.idea_id == idea_id)
+        ).first()
+        if rec and rec.status == "completed":
+            return True
 
     folder = package_folder_for(idea_id)
     if folder and folder.is_dir():

@@ -33,7 +33,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   try {
     const tabs = await chrome.tabs.query({});
     for (const tab of tabs) {
-      if (tab.id && tab.url && (tab.url.includes('labs.google/fx/tools/flow') || tab.url.includes('labs.google'))) {
+      if (tab.id && tab.url && (tab.url.includes('flow.google.com') || tab.url.includes('labs.google/fx/tools/flow') || tab.url.includes('labs.google'))) {
         await chrome.tabs.reload(tab.id).catch(() => {});
       }
     }
@@ -172,16 +172,16 @@ async function checkBackgroundBridgeNavigation() {
       lastNavigatedJobId = data.job_id;
 
       const tabs = await chrome.tabs.query({});
-      const flowTab = tabs.find(t => t.url && (t.url.includes('labs.google/fx/tools/flow') || t.url.includes('labs.google')));
+      const flowTab = tabs.find(t => t.url && (t.url.includes('flow.google.com') || t.url.includes('labs.google/fx/tools/flow') || t.url.includes('labs.google')));
 
       if (!flowTab) {
         // Reuse blank / newtab or open clean new tab internally via Chrome API
         const activeTabs = await chrome.tabs.query({ active: true, currentWindow: true });
         const cur = activeTabs[0];
         if (cur && (!cur.url || cur.url.startsWith('chrome://') || cur.url === 'about:blank')) {
-          await chrome.tabs.update(cur.id, { url: 'https://labs.google/fx/tools/flow', active: true });
+          await chrome.tabs.update(cur.id, { url: 'https://flow.google.com/', active: true });
         } else {
-          await chrome.tabs.create({ url: 'https://labs.google/fx/tools/flow', active: true });
+          await chrome.tabs.create({ url: 'https://flow.google.com/', active: true });
         }
       } else {
         await chrome.tabs.update(flowTab.id, { active: true });

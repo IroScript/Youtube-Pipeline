@@ -1,7 +1,10 @@
 """
 Media Assembly & Video Stitcher Service
 =======================================
-Combines video shots, audio tracks, and subtitles using OpenCV / FFmpeg.
+PROHIBITION NOTICE:
+Synthetic video generation via FFmpeg, OpenCV, or Pillow is STRICTLY PROHIBITED.
+The ONLY authorized video generation engine for the YouTube Pipeline is Google Veo 3.1
+Chrome Extension (10SecNewExtension / FlowCraft AI Studio).
 """
 
 from __future__ import annotations
@@ -11,6 +14,7 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+PROHIBIT_SYNTHETIC_RENDERING = True
 
 
 class MediaStitcherService:

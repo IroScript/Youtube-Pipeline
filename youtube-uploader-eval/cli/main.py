@@ -346,7 +346,7 @@ def _resolve_upload_metadata(channel, title: str | None, description: str | None
             channel_name=channel.name,
             timezone_name=channel.publish.timezone,
         )
-    elif description and Path(description).is_file():
+    elif description and "\n" not in description and len(description) < 260 and Path(description).is_file():
         resolved_description = Path(description).read_text(encoding="utf-8")
     else:
         resolved_description = description
@@ -808,7 +808,7 @@ def _cmd_queue_add(args, config) -> int:
     base = config_base_from_path(config_path)
 
     description = args.description
-    if description and Path(description).is_file():
+    if description and "\n" not in description and len(description) < 260 and Path(description).is_file():
         description = Path(description).read_text(encoding="utf-8")
 
     title = args.title

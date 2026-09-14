@@ -6,3 +6,21 @@
    - CloakBrowser stealth browser-এ ChatGPT (https://chatgpt.com) ব্যবহার করতে কোনো অ্যাকাউন্ট লগইন প্রয়োজন নেই (cloack browser e login laage na for chatgpt)।
    - ChatGPT গেস্ট মোড / 'Stay logged out' মোডেই সরাসরি প্রম্পট এক্সিকিউশন ও রেসপন্স স্ট্রিম রিড করতে পারে।
    - লগইন সংক্রান্ত কোনো এরর বা ফলব্যাককে 'লগইন নেই' হিসেবে ভুল ব্যাখ্যা করা যাবে না। DOM পপআপ ডিসমিস ('Stay logged out'), টেক্সট এরিয়া লোকেটর বা রেসপন্স স্ট্রিম হ্যান্ডলিং যাচাই করতে হবে।
+
+## Google Veo 3.1 Account vs Target Upload Channel Mandate
+
+1. **VEO 3.1 DEDICATED PROFILE (ULTRA TIER ONLY):**
+   - Google অ্যাকাউন্ট `mainuddinh297@gmail.com` (ক্রোম `Profile 5`) শুধুমাত্র এবং শুধুমাত্র **Google Flow / Veo 3.1 (Ultra Tier)** ভিডিও জেনারেশনের জন্য নির্ধারিত।
+   - এই অ্যাকাউন্টের সাথে যুক্ত কোনো ইউটিউব চ্যানেল (যেমন `Gaming Dot Bangla` / `@gamingdotbangla249`)-এ পাইপলাইনের কোনো ভিডিও আপলোড করা সম্পূর্ণ নিষিদ্ধ।
+   - পাইপলাইনের সমস্ত ভিডিওর একমাত্র বৈধ টার্গেট চ্যানেল হলো **`@AstroSparksAI`** (Astro Sparks AI)। `Gaming Dot Bangla` বা অন্য কোনো জেনারেশন প্রোফাইল চ্যানেলে আপলোড করার কোনো প্রস্তাব বা প্রচেষ্টা চালানো যাবে না।
+
+## Absolute Prohibition on Autonomous Deletion & Modification (YouTube Videos & Database)
+
+1. **NO AUTONOMOUS DELETION OR MODIFICATION OF YOUTUBE UPLOADED VIDEOS:**
+   - AGY CLI / AI agents must NEVER take any autonomous decision to delete, unlist, private, or remove any YouTube uploaded video (via YouTube API, Studio, scripts, or CLI).
+   - AGY CLI must NEVER autonomously modify the title, description, tags, privacy status, thumbnail, or metadata of an already uploaded YouTube video.
+   - Any decision, command, or action to delete, modify, or replace an uploaded YouTube video MUST ALWAYS come directly and explicitly from Iraq bhai ("user end theke aste hobe must").
+
+2. **NO AUTONOMOUS DELETION, REPLACEMENT OR WIPING OF DATABASE DATA:**
+   - Any information, records, rows, or tables inside the SQLite database (`youtube_pipeline.db`), associated tables (`prompts`, `ideas`, `youtube_metadata`, `publishing`, `pipeline_row_state`, etc.), or related state/registry files (`upload_registry.txt`, `output_packaged/` files) must NEVER be deleted, replaced, wiped, or modified autonomously by AGY CLI.
+   - All manual deletion, record replacement, schema alteration, or data purging decisions MUST strictly originate from Iraq bhai. AGY CLI will never independently decide to delete or overwrite database data.

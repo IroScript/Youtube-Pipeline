@@ -85,7 +85,7 @@ def get_prompt_style(stage_name: str) -> PromptingStyleMaster:
 # ============================================================================
 
 def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless: bool = False,
-                            persistent: bool = None) -> str:
+                            persistent: bool = None, submit: bool = True) -> str | dict:
     """Executes prompt on ChatGPT via CloakBrowser / Playwright anti-detect stealth automation.
 
     persistent=None (default) follows PROMPT_BROWSER_PERSISTENT (on unless set to 0), which
@@ -166,73 +166,87 @@ def call_chatgpt_playwright(prompt_text: str, wait_seconds: int = 240, headless:
                     except Exception:
                         pass
 
-            candidates = page.locator(
-                'textarea.wm-composer-textarea:visible, '
-                'textarea:visible:not(.wcDTda_fallbackTextarea), '
-                '#prompt-textarea:visible, '
-                'div[contenteditable="true"]:visible, '
-                'textarea#mobile-composer-prompt:visible, '
-                '[role="textbox"]:visible'
-            )
-            if candidates.count() > 0:
-                input_box = candidates.first
+            # If fallback placeholder textarea is present, click to mount ProseMirror editor
+            try:
+                fb = page.locator("textarea.wcDTda_fallbackTextarea:visible, textarea[placeholder*='Ask']:visible").first
+                if fb.count() > 0:
+                    fb.click()
+                    time.sleep(0.5)
+            except Exception:
+                pass
+
+            # Target active ProseMirror editor directly
+            editor = page.locator("#prompt-textarea, div[contenteditable='true']:visible").first
+            if editor.count() > 0:
+                input_box = editor
                 break
             time.sleep(1)
 
         if not input_box:
+            # Fallback to any visible textbox
+            for alt_sel in ["[role='textbox']:visible", "textarea:visible:not(.wcDTda_fallbackTextarea)"]:
+                cand = page.locator(alt_sel).first
+                if cand.count() > 0:
+                    input_box = cand
+                    break
+
+        if not input_box:
             raise RuntimeError("No visible input element found on ChatGPT.")
 
-        # Focus & fill prompt text via CLIPBOARD PASTE (fill() doesn't trigger
-        # React state updates in ChatGPT's ProseMirror/contenteditable editor,
-        # causing empty messages to be sent. Clipboard paste works universally.)
+        # Focus editor
         input_box.click()
-        time.sleep(0.5)
+        time.sleep(0.3)
 
-        # Try fill() first, then verify; fall back to clipboard paste if needed
-        input_box.fill(prompt_text)
-        time.sleep(0.5)
+        # Clear any partial/existing content
+        page.keyboard.press("Control+a")
+        time.sleep(0.1)
+        page.keyboard.press("Backspace")
+        time.sleep(0.2)
 
-        # Verify text was actually entered
-        entered_len = page.evaluate('''() => {
-            const el = document.querySelector('textarea.wm-composer-textarea, #prompt-textarea, div[contenteditable="true"], [role="textbox"], textarea');
-            if (!el) return 0;
-            return (el.value || el.innerText || el.textContent || '').trim().length;
-        }''')
-        print(f"[CloakBrowser] After fill(): textarea has {entered_len} chars", flush=True)
+        # Insert prompt text via direct keyboard text insertion (universal for ProseMirror)
+        print(f"[CloakBrowser] Inserting {len(prompt_text)} chars into ChatGPT editor...", flush=True)
+        page.keyboard.insert_text(prompt_text)
+        time.sleep(1.0)
 
-        if entered_len < 10:
-            print("[CloakBrowser] fill() didn't work — switching to clipboard paste...", flush=True)
-            # Clear any partial content
-            input_box.click()
-            time.sleep(0.3)
-            input_box.press("Control+a")
-            time.sleep(0.1)
-            input_box.press("Backspace")
-            time.sleep(0.3)
-            # Clipboard paste
-            page.evaluate('(text) => navigator.clipboard.writeText(text)', prompt_text)
-            time.sleep(0.3)
-            input_box.press("Control+v")
-            time.sleep(1.0)
-
-            # Re-verify
-            entered_len2 = page.evaluate('''() => {
-                const el = document.querySelector('textarea.wm-composer-textarea, #prompt-textarea, div[contenteditable="true"], [role="textbox"], textarea');
-                if (!el) return 0;
-                return (el.value || el.innerText || el.textContent || '').trim().length;
+        if not submit:
+            print("[CloakBrowser] Delivery verification mode (submit=False) — extracting readable content and skipping Send.", flush=True)
+            time.sleep(0.5)
+            browser_data = page.evaluate('''() => {
+                const el = document.querySelector("#prompt-textarea");
+                if (!el) return { found: false, text: "", pCount: 0 };
+                const paragraphs = el.querySelectorAll("p");
+                let lines = [];
+                if (paragraphs.length > 0) {
+                    paragraphs.forEach(p => {
+                        if (p.getAttribute("data-empty-paragraph") === "true" || p.innerHTML === "<br>" || p.textContent === "") {
+                            lines.push("");
+                        } else {
+                            lines.push(p.textContent);
+                        }
+                    });
+                }
+                const pJoined = lines.join("\\n");
+                return {
+                    found: true,
+                    text: pJoined,
+                    rawInnerText: el.innerText,
+                    pCount: paragraphs.length
+                };
             }''')
-            print(f"[CloakBrowser] After clipboard paste: textarea has {entered_len2} chars", flush=True)
-
-            if entered_len2 < 10:
-                # Last resort: type() with delay (slow but guaranteed)
-                print("[CloakBrowser] Clipboard paste also failed — using type() as last resort...", flush=True)
-                input_box.click()
-                time.sleep(0.2)
-                # Type first 200 chars to verify, then paste the rest
-                input_box.type(prompt_text[:200], delay=5)
-                time.sleep(0.5)
-
-        time.sleep(0.5)
+            proof_path = str(PROMPT_BROWSER_PROFILE_DIR.parent / "scratch/chatgpt_real_delivery_verified.png")
+            page.screenshot(path=proof_path)
+            print(f"[CloakBrowser] Saved delivery proof screenshot: {proof_path}", flush=True)
+            context.close()
+            if playwright:
+                playwright.stop()
+            return {
+                "status": "DELIVERY_VERIFIED",
+                "browser_text": browser_data.get("text", ""),
+                "browser_len": len(browser_data.get("text", "")),
+                "p_count": browser_data.get("pCount", 0),
+                "screenshot": proof_path,
+                "submitted": False
+            }
 
         # Click active Send button
         send_selector = (
@@ -1106,7 +1120,21 @@ def is_idea_packaged_and_completed(idea_id: int) -> bool:
         idea = session.exec(select(Idea).where(Idea.id == idea_id)).first()
         if not idea:
             return False
-        
+
+        # Ground Truth Check 0: Database status locked/completed/uploaded
+        if idea.status in ("completed", "uploaded", "published"):
+            return True
+
+        from database.models import YouTubeMetadata
+        yt_meta = session.exec(select(YouTubeMetadata).where(YouTubeMetadata.idea_id == idea_id)).first()
+        if yt_meta and (yt_meta.status == "uploaded" or yt_meta.upload_status == "uploaded" or yt_meta.youtube_video_id):
+            return True
+
+        # Check generated_videos table for completed status
+        gen_vid = session.exec(select(GeneratedVideo).where(GeneratedVideo.idea_id == idea_id, GeneratedVideo.status == "completed")).first()
+        if gen_vid:
+            return True
+
         # Must actually have 20 prompts
         prompt_count = len(session.exec(select(Prompt).where(Prompt.idea_id == idea_id)).all())
         if prompt_count < 20:
@@ -1131,8 +1159,6 @@ def is_idea_packaged_and_completed(idea_id: int) -> bool:
             if real_mp4s and (has_meta or has_prompt_info):
                 return True
 
-        # 2. Check generated_videos table
-        gen_vid = session.exec(select(GeneratedVideo).where(GeneratedVideo.idea_id == idea_id, GeneratedVideo.status == "completed")).first()
         if gen_vid and gen_vid.file_path:
             vp = Path(gen_vid.file_path)
             if vp.exists() and vp.stat().st_size > 10240:

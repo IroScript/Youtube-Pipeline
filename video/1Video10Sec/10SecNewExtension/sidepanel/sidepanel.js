@@ -216,9 +216,9 @@ class SidePanelApp {
 
   async getActiveGoogleLabsTab() {
     const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-    let targetTab = tabs.find(t => t.url?.includes('labs.google'));
+    let targetTab = tabs.find(t => t.url?.includes('flow.google.com') || t.url?.includes('labs.google'));
     if (!targetTab) {
-      const allTabs = await chrome.tabs.query({ url: ['*://labs.google/*'] });
+      const allTabs = await chrome.tabs.query({ url: ['*://flow.google.com/*', '*://labs.google/*'] });
       targetTab = allTabs[0];
     }
     return targetTab;

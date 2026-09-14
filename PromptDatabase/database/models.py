@@ -213,6 +213,14 @@ class YouTubeMetadata(YouTubeBaseModel, table=True):
     video_file_path: Optional[str] = None
     package_folder_path: Optional[str] = None
     status: str = "ready"  # ready, uploaded, archived
+    # Dual-Entry YouTube Live Data
+    youtube_video_id: Optional[str] = Field(default=None, unique=True, index=True)
+    youtube_url: Optional[str] = None
+    tracking_token: Optional[str] = None
+    live_title: Optional[str] = None
+    live_description: Optional[str] = None
+    upload_status: Optional[str] = None
+    published_at: Optional[datetime] = None
     created_at: datetime = Field(default_factory=_utcnow)
     updated_at: datetime = Field(default_factory=_utcnow)
 

@@ -1,7 +1,10 @@
 """
-REQ-087: Dedicated Media Worker (FFmpeg/OpenCV)
+REQ-087: Dedicated Media Worker
 ==============================================
-Processes video assembly, audio multiplexing, audio ducking, and MP4 encoding.
+PROHIBITION NOTICE:
+Synthetic video generation via FFmpeg, OpenCV, or Pillow is STRICTLY PROHIBITED.
+The ONLY authorized video generation engine for the YouTube Pipeline is Google Veo 3.1
+Chrome Extension (10SecNewExtension / FlowCraft AI Studio).
 """
 
 from __future__ import annotations

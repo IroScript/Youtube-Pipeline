@@ -26,7 +26,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # ── Paths ─────────────────────────────────────────────────────────
-PIPELINE_ROOT    = Path(r"C:\Users\Irak\Desktop\Youtube Pipeline")
+_default_root    = Path(__file__).resolve().parent
+_win_root        = Path(r"C:\Users\Irak\Desktop\Youtube Pipeline")
+PIPELINE_ROOT    = _win_root if _win_root.exists() else _default_root
 PACKAGES_DIR     = PIPELINE_ROOT / "PromptDatabase" / "output_packaged"
 DB_PATH          = PIPELINE_ROOT / "PromptDatabase" / "database" / "youtube_pipeline.db"
 UPLOADER_DIR     = PIPELINE_ROOT / "youtube-uploader-eval"
@@ -121,11 +123,18 @@ def scan_packages() -> list[dict]:
             log(f"  ⏭️  {folder.name}: metadata পড়তে সমস্যা: {e}")
             continue
 
+        tracking_token = meta.get("tracking_token", "")
+        idea_id = meta.get("idea_id")
+        if not tracking_token and idea_id:
+            tracking_token = f"[Ref: AGY-IDEA-{int(idea_id):03d}]"
+
         packages.append({
             "folder_name": folder.name,
             "folder_path": str(folder),
             "video_path": str(video_file),
             "video_size_mb": round(video_file.stat().st_size / (1024 * 1024), 2),
+            "idea_id": idea_id,
+            "tracking_token": tracking_token,
             "title": meta.get("title", folder.name),
             "description": meta.get("seo_description", ""),
             "tags": meta.get("tags", []),
@@ -143,12 +152,18 @@ def queue_video(pkg: dict, dry_run: bool = False) -> str | None:
 
     tags_str = ",".join(pkg["tags"]) if isinstance(pkg["tags"], list) else str(pkg["tags"])
 
+    # Ensure machine tracking token is appended to description
+    desc = pkg.get("description", "")
+    token = pkg.get("tracking_token", "")
+    if token and token not in desc:
+        desc = f"{desc}\n\n{token}".strip()
+
     cmd = [
         "uploader", "queue", "add",
         "--channel", CHANNEL_SLUG,
         "--video", pkg["video_path"],
         "--title", pkg["title"],
-        "--description", pkg["description"],
+        "--description", desc,
         "--id", job_id,
         "--privacy", "public",
         "--short",
@@ -212,40 +227,91 @@ def run_upload(limit: int | None = None, dry_run: bool = False) -> dict:
 
 
 def update_db_status(conn: sqlite3.Connection, folder_path: str, youtube_id: str = "") -> None:
-    """SQLite youtube_metadata table-এ status='uploaded' আপডেট করে।"""
+    """SQLite youtube_metadata, ideas, and publishing tables-এ dual-entry ডেটা আপডেট করে।"""
     now = datetime.now(timezone.utc).isoformat()
     folder_name = Path(folder_path).name
+    yt_url = f"https://youtube.com/shorts/{youtube_id}" if youtube_id else None
 
     # First try exact path match
     cursor = conn.execute(
-        "UPDATE youtube_metadata SET status = 'uploaded', updated_at = ? WHERE package_folder_path = ?",
-        (now, folder_path),
+        """UPDATE youtube_metadata 
+           SET status = 'uploaded', 
+               upload_status = 'uploaded',
+               youtube_video_id = COALESCE(?, youtube_video_id),
+               youtube_url = COALESCE(?, youtube_url),
+               published_at = COALESCE(published_at, ?),
+               updated_at = ? 
+           WHERE package_folder_path = ?""",
+        (youtube_id or None, yt_url, now, now, folder_path),
     )
 
-    if cursor.rowcount == 0:
-        # Try matching by folder name pattern in title or by updating NULL paths
-        # Extract element.idea pattern like "1.2" from "1.2.Level_10_..."
+    idea_id = None
+    if cursor.rowcount > 0:
+        row = conn.execute("SELECT idea_id FROM youtube_metadata WHERE package_folder_path = ?", (folder_path,)).fetchone()
+        if row:
+            idea_id = row["idea_id"]
+    else:
+        # Try matching by folder name pattern
         parts = folder_name.split(".")
         if len(parts) >= 2:
             try:
                 element_id = int(parts[0])
                 idea_idx = int(parts[1])
-                # Update matching row by element position AND set the missing paths
                 conn.execute(
                     """UPDATE youtube_metadata 
-                       SET status = 'uploaded', updated_at = ?,
+                       SET status = 'uploaded', 
+                           upload_status = 'uploaded',
+                           youtube_video_id = COALESCE(?, youtube_video_id),
+                           youtube_url = COALESCE(?, youtube_url),
                            package_folder_path = COALESCE(package_folder_path, ?),
-                           video_file_path = COALESCE(video_file_path, ?)
-                       WHERE idea_id = ? AND package_folder_path IS NULL""",
-                    (now, folder_path, 
+                           video_file_path = COALESCE(video_file_path, ?),
+                           published_at = COALESCE(published_at, ?),
+                           updated_at = ?
+                       WHERE idea_id = ?""",
+                    (youtube_id or None, yt_url, folder_path,
                      str(Path(folder_path) / (folder_name + ".mp4")),
-                     idea_idx),
+                     now, now, idea_idx),
                 )
+                idea_id = idea_idx
             except (ValueError, IndexError):
                 pass
 
+    if idea_id:
+        # Update ideas table to completed
+        conn.execute(
+            "UPDATE ideas SET status = 'completed', published_at = COALESCE(published_at, ?), updated_at = ? WHERE id = ?",
+            (now, now, idea_id)
+        )
+        # Update publishing table if youtube_id present
+        if youtube_id:
+            gv = conn.execute("SELECT id FROM generated_videos WHERE idea_id = ?", (idea_id,)).fetchone()
+            video_id = gv["id"] if gv else None
+            if video_id:
+                existing = conn.execute("SELECT id FROM publishing WHERE platform_video_id = ?", (youtube_id,)).fetchone()
+                if existing:
+                    conn.execute(
+                        "UPDATE publishing SET url = ?, status = 'published', published_at = ? WHERE id = ?",
+                        (yt_url, now, existing["id"]),
+                    )
+                else:
+                    conn.execute(
+                        """INSERT INTO publishing (
+                               video_id, platform, channel_name, platform_video_id,
+                               title, url, status, published_at, views, likes, comments,
+                               watch_time, retention_pct, ctr_pct, subscribers_gained, created_at
+                           ) VALUES (?, 'youtube', '@AstroSparksAI', ?, ?, ?, 'published', ?, 0, 0, 0, 0.0, 0.0, 0, ?)""",
+                        (video_id, youtube_id, folder_name, yt_url, now, now),
+                    )
+        # Update pipeline_row_state
+        conn.execute(
+            """UPDATE pipeline_row_state 
+               SET current_state = 'LOCKED_UPLOADED', upload_verified = 1, last_verified_at = ?, updated_at = ?
+               WHERE idea_id = ?""",
+            (now, now, idea_id)
+        )
+
     conn.commit()
-    log(f"  📝 DB status updated → uploaded: {folder_name}")
+    log(f"  📝 DB status updated → uploaded: {folder_name} (YouTube ID: {youtube_id or 'none'})")
 
 
 def parse_uploaded_results() -> dict[str, str]:

@@ -31,6 +31,13 @@
    - Path: `C:\Users\Irak\Desktop\AI_Agent\DigitalHistory\run_openrecall.py`.
    - Exclude OpenRecall from any process cleanup commands.
 9. **COMPLETION NOTIFICATION:** Always inform the user that all tasks are done, cross-checked, and 200% verified.
+10. **ABSOLUTE PROHIBITION ON AUTONOMOUS DELETION OR MODIFICATION OF YOUTUBE UPLOADED VIDEOS:**
+    - The AI / AGY CLI must NEVER autonomously decide to delete, unlist, private, or remove any YouTube uploaded video (whether via YouTube API, Studio, scripts, or CLI).
+    - The AI must NEVER autonomously modify the title, description, tags, privacy status, thumbnail, or metadata of an already uploaded YouTube video.
+    - Any decision, command, or action to delete, modify, or replace an uploaded YouTube video MUST ALWAYS come directly and explicitly from Iraq bhai ("user end theke aste hobe must").
+11. **ABSOLUTE PROHIBITION ON AUTONOMOUS DELETION, REPLACEMENT OR WIPING OF DATABASE DATA:**
+    - Any information, records, rows, or tables inside the SQLite database (`youtube_pipeline.db`), associated tables (`prompts`, `ideas`, `youtube_metadata`, `publishing`, `pipeline_row_state`, etc.), or related state/registry files (`upload_registry.txt`, `output_packaged/` files) must NEVER be deleted, replaced, wiped, or modified autonomously by AGY CLI.
+    - All manual deletion, record replacement, schema alteration, or data purging decisions MUST strictly originate from Iraq bhai. AGY CLI will never independently decide to delete or overwrite database data.
 
 ---
 

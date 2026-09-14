@@ -217,9 +217,11 @@ def export_package_files_from_sqlite(idea: Idea, elem_id: int, idea_idx: int, vi
             tags_list = [t.strip() for t in yt_rec.tags.split(",") if t.strip()]
 
         from seo_engine.validators import extract_hashtags
-        hashtags_list = extract_hashtags(yt_rec.seo_description)
-
+        hashtags_list = extract_hashtags(yt_rec.seo_description or "")
+        token = getattr(yt_rec, "tracking_token", None) or f"[Ref: AGY-IDEA-{idea.id:03d} | UUID: {idea.uuid}]"
         yt_meta_data = {
+            "idea_id": idea.id,
+            "tracking_token": token,
             "title": yt_rec.title,
             "seo_description": yt_rec.seo_description,
             "tags": tags_list,

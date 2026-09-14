@@ -284,6 +284,8 @@ class IdeaPromptGenerator:
                   AND level=? 
                   AND length(prompt_text) > 50 
                   AND idea_id NOT IN (SELECT idea_id FROM generated_videos WHERE status='completed')
+                  AND idea_id NOT IN (SELECT idea_id FROM youtube_metadata WHERE status='uploaded' OR youtube_video_id IS NOT NULL)
+                  AND idea_id NOT IN (SELECT id FROM ideas WHERE status IN ('completed', 'uploaded', 'published'))
                 ORDER BY idea_id ASC, id ASC
                 """,
                 (level,)

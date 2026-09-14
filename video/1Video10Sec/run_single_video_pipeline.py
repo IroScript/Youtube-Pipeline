@@ -59,7 +59,7 @@ class SingleVideoPipelineRunner:
         
         logging.info(f"📜 Generated Prompt: {prompt_info['full_combined_prompt']}")
 
-        # Step 2.5: Hard Gate + Auto-Generate SEO via CloakBrowser if missing
+        # Step 2.5: Zero-Skip Hard Gate (Prompt = VERIFIED and SEO = VERIFIED)
         idea_id = prompt_info.get("selected_idea", {}).get("id")
         if idea_id:
             try:
@@ -68,6 +68,21 @@ class SingleVideoPipelineRunner:
                 if str(prompt_db_dir) not in sys.path:
                     sys.path.insert(0, str(prompt_db_dir))
                 import stage_gates as sg
+
+                # Hard Gate Check 1: Prompt Escalation Verification
+                if not sg.has_escalation(idea_id):
+                    esc_det = sg.escalation_detail(idea_id)
+                    logging.error(f"⛔ HARD GATE BLOCKED: Idea #{idea_id} ('{prompt_info['selected_idea']['title']}') — Level 10 Prompt not verified! Filled: {esc_det.get('filled')}/{esc_det.get('required')}")
+                    return {
+                        "category": category,
+                        "selected_idea": prompt_info["selected_idea"]["title"],
+                        "video_path": None,
+                        "youtube_url": None,
+                        "status": "BLOCKED_PROMPT_NOT_VERIFIED"
+                    }
+                logging.info(f"✅ [Prompt Gate Passed] Level 10 Prompt Escalation verified for Idea #{idea_id}")
+
+                # Hard Gate Check 2: SEO Verification (Usable, non-fallback)
                 if not sg.has_seo(idea_id):
                     logging.info(f"🌐 [SEO Gate] Idea #{idea_id} missing verified SEO -> Auto-triggering CloakBrowser (chatgpt.com)...")
                     from database.session import get_session
@@ -78,17 +93,25 @@ class SingleVideoPipelineRunner:
 
                     if not sg.has_seo(idea_id):
                         seo_det = sg.seo_detail(idea_id)
-                        logging.error(f"⛔ HARD GATE: Cannot generate video for Idea #{idea_id} ('{prompt_info['selected_idea']['title']}') — SEO generation not complete! Reason: {seo_det.get('reason')}")
+                        logging.error(f"⛔ HARD GATE BLOCKED: Cannot generate video for Idea #{idea_id} ('{prompt_info['selected_idea']['title']}') — SEO verification failed! Reason: {seo_det.get('reason')}")
                         return {
                             "category": category,
                             "selected_idea": prompt_info["selected_idea"]["title"],
                             "video_path": None,
                             "youtube_url": None,
-                            "status": "BLOCKED_SEO_MISSING"
+                            "status": "BLOCKED_SEO_NOT_VERIFIED"
                         }
-                    logging.info(f"✅ [SEO Gate Passed] Real SEO generated and verified for Idea #{idea_id}")
+                logging.info(f"✅ [SEO Gate Passed] Real SEO generated and verified for Idea #{idea_id}")
+
             except Exception as e:
-                logging.warning(f"SEO gate check notice: {e}")
+                logging.error(f"⛔ HARD GATE ERROR: Verification gate failed for Idea #{idea_id}: {e}")
+                return {
+                    "category": category,
+                    "selected_idea": prompt_info["selected_idea"]["title"],
+                    "video_path": None,
+                    "youtube_url": None,
+                    "status": "BLOCKED_VERIFICATION_ERROR"
+                }
 
         # Step 3: Render via Extension with 10-time retry on failure
         video_path = self.extension_bridge.generate_single_video(prompt_info)
@@ -189,8 +212,9 @@ class SingleVideoPipelineRunner:
             pkgs = upload_bridge.scan_packages()
             target_pkg = None
             if package_folder:
+                target_resolved = Path(package_folder).resolve()
                 for p in pkgs:
-                    if str(package_folder) == str(p.get("folder_path")):
+                    if target_resolved == Path(p.get("folder_path", "")).resolve():
                         target_pkg = p
                         break
             if not target_pkg and pkgs:
@@ -225,7 +249,7 @@ class SingleVideoPipelineRunner:
             "category": category,
             "selected_idea": prompt_info["selected_idea"]["title"],
             "video_path": video_path,
-            "youtube_url": upload_info.get("youtube_url"),
+            "youtube_url": youtube_url,
             "status": "COMPLETED_SUCCESSFULLY"
         }
         return summary
@@ -282,6 +306,11 @@ class SingleVideoPipelineRunner:
                 time.sleep(8)
 
 if __name__ == "__main__":
+    import sys
     runner = SingleVideoPipelineRunner()
-    # Execute autonomous continuous pipeline across prompts
-    runner.run_autonomous_pipeline()
+    if "--single" in sys.argv or "-s" in sys.argv:
+        logging.info("🎯 Executing single cycle for next pending idea in SQLite...")
+        runner.run_single_cycle()
+    else:
+        # Execute autonomous continuous pipeline across prompts
+        runner.run_autonomous_pipeline()
