@@ -10,7 +10,11 @@ key (keyless scrapers).
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
+
+if "DISPLAY" not in os.environ and sys.platform.startswith("linux"):
+    os.environ["DISPLAY"] = ":99"
 
 # ---------------------------------------------------------------------------
 # Paths — resolved relative to PromptDatabase/ so the engine is portable.

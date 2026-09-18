@@ -28,7 +28,7 @@ from database.models import (
 )
 
 MIN_PROMPT_CHARS = 50
-REQUIRED_PROMPT_COUNT = 20
+REQUIRED_PROMPT_COUNT = 10
 MIN_REAL_VIDEO_BYTES = 10240
 
 
@@ -89,9 +89,10 @@ class RowValidator:
 
             details["count"] = len(prompts)
             if len(prompts) < REQUIRED_PROMPT_COUNT:
-                missing_fields.append(f"prompts_count_{len(prompts)}_expected_{REQUIRED_PROMPT_COUNT}")
+                missing_fields.append(f"prompts_count_{len(prompts)}_expected_at_least_{REQUIRED_PROMPT_COUNT}")
 
             levels_seen: set[int] = set()
+            video_levels_seen: set[int] = set()
             types_seen: set[str] = set()
             blank_count = 0
 
@@ -105,19 +106,20 @@ class RowValidator:
                 if len(text) < MIN_PROMPT_CHARS:
                     blank_count += 1
                     missing_fields.append(f"prompt_{p.id}_blank_text")
+                elif p.generation_type == "video" and p.level:
+                    video_levels_seen.add(p.level)
 
             details["levels_present"] = sorted(levels_seen)
+            details["video_levels_present"] = sorted(video_levels_seen)
             details["types_present"] = sorted(types_seen)
             details["blank_count"] = blank_count
 
-            # Must have all 10 levels
+            # Must have all 10 video levels
             for lvl in range(1, 11):
-                if lvl not in levels_seen:
+                if lvl not in video_levels_seen:
                     missing_fields.append(f"missing_level_{lvl}")
 
-            # Must have both image and video types
-            if "image" not in types_seen:
-                missing_fields.append("missing_type_image")
+            # Video type is mandatory
             if "video" not in types_seen:
                 missing_fields.append("missing_type_video")
 

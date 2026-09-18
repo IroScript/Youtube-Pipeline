@@ -158,7 +158,7 @@ Return ONLY a strict JSON array of exactly 10 objects, no prose, no markdown fen
   }}
 ]
 Rules: exactly 10 objects, levels 1..10 in order, both prompt fields non-empty and at
-least 350 characters each, all prompts 9:16 vertical, all video prompts exactly 8 seconds.",JSON_ARRAY,ChatGPT / Playwright CloakBrowser,"1. Strict JSON array of exactly 10 level objects (levels 1-10). 2. Exactly 20 prompts (10 image + 10 video), each >= 350 chars. 3. All prompts 9:16 vertical; all video prompts exactly 8 seconds, single continuous shot. 4. RULE 0 subject fidelity: every prompt names '{idea_title}' and its real mechanism; generic placeholder subjects are forbidden. 5. RULE 1 anti-uniformity: no boilerplate opening sentence; the 'continuous impossible-scale descent into a single grain/particle' ending is BANNED; camera language, closing beat and HUD verbs must vary per level and per idea.",1,2,2026-08-25 05:53:20.024471,2026-08-25 05:53:20.024471
+least 350 characters each, all prompts 9:16 vertical, all video prompts exactly 8 seconds.",JSON_ARRAY,ChatGPT / Playwright CloakBrowser,"1. Strict JSON array of exactly 10 level objects (levels 1-10). 2. Exactly 20 prompts (10 image + 10 video), each >= 350 chars. 3. All prompts 9:16 vertical; all video prompts exactly 8 seconds, single continuous shot. 4. RULE 0 subject fidelity: every prompt names '{idea_title}' and its real mechanism; generic placeholder subjects are forbidden. 5. RULE 1 anti-uniformity: no boilerplate opening sentence; the 'continuous impossible-scale descent into a single grain/particle' ending is BANNED; camera language, closing beat and HUD verbs must vary per level and per idea.",0,2,2026-08-25 05:53:20.024471,2026-08-25 05:53:20.024471
 8,61775c01-ccd8-48d7-b7b1-5460a803e0ca,STAGE_2_IDEA_GENERATION,Level 2->3,10-Idea Generator (v2 — function/form diversity enforced),Concept Designer (Diversity-Enforcing),You generate sets of impossible-machine concepts. A set is only good if the ten ideas are mutually distinct in function and form; ten variations on one machine is a failed answer.,"Give me 10 impossible-machine ideas built around {element_name}
 (category/group: {element_group}).
 
@@ -563,3 +563,913 @@ SEARCH INTENT + CTR + TOPIC FIT > CTR ALONE.
 The supplied SEO data is the source of truth.
 
 Use the evidence intelligently; do not merely repeat it.",JSON_OBJECT,ChatGPT-4o / CloakBrowser,Real search evidence > generic SEO advice. Relevance > keyword stuffing. Accurate curiosity > empty clickbait. Return ONLY valid JSON.,1,2,2026-09-04T17:21:04.281050+00:00,2026-09-05 05:25:13.981551
+10,f84e832f-a9fd-4d7a-9b7a-15f16f49e1ff,STAGE_3_PROMPT_ESCALATION_MASTER,Level 3->4,10-Level Escalation Master (v3 — Universal Topic-Agnostic Engine),Cinematic Prompt Architect (Universal Topic-Agnostic Engine),"You are an elite Cinematic Prompt Architect. Your directive is to design a visually stunning, 10-level progressive escalation of an Impossible Machine built around the given Subject/Topic.","Given the following Impossible Machine Idea:
+
+Title: {idea_title}
+Topic/Element: {topic}
+Concept: {description}
+
+Build a complete 10-level progressive cinematic escalation system around {idea_title}, using {topic} as the subject universe and {description} as the conceptual foundation.
+
+The machine's core identity and conceptual purpose must remain continuous throughout Levels 1–10, while its architecture, capabilities, scale, operating principles, integration, and influence may progressively evolve.
+
+The escalation must be universal and must dynamically adapt to the nature of {topic}.
+
+=== THE INVIOLABLE CREATIVE LAWS ===
+
+1. GIANT MACHINE — UNMISTAKABLY COLOSSAL
+
+The machine must be unmistakably colossal and visually dominant.
+
+Its exact physical scale must be determined dynamically by what is appropriate for {topic} and {description}.
+
+Do NOT force every subject into planetary scale.
+
+Do NOT equate ""giant"" with merely making an object physically larger.
+
+Colossal scale may be expressed through physical size, spatial reach, distributed architecture, environmental integration, structural complexity, or another subject-appropriate form.
+
+The machine must feel far beyond realistic human construction capability from the very beginning.
+
+---
+
+2. IMPOSSIBLE MACHINE — BEYOND REALISTIC CONSTRUCTION
+
+The machine must operate beyond the practical limits of current human engineering, manufacturing, computation, materials, energy, control, precision, or other relevant technological capabilities.
+
+Its impossibility must emerge naturally from {topic} and {description}.
+
+Any speculative principle must remain causally connected to {topic}, {description}, and the established machine concept. Do not introduce arbitrary quantum, dimensional, cosmic, supernatural, or science-fiction mechanisms merely to increase spectacle.
+
+The machine should feel like an internally coherent engineering achievement that humanity cannot realistically build.
+
+---
+
+3. PROGRESSIVE ESCALATION — LEVEL 1 → LEVEL 10
+
+Every level must be meaningfully more advanced than the previous level.
+
+Each level must introduce a meaningful increase in capability, sophistication, scale, influence, integration, or cinematic expression. The model may reuse and deepen an existing dimension when that is more appropriate for {topic}.
+
+Do NOT achieve escalation simply by repeating:
+
+""bigger → faster → brighter → louder → more destructive.""
+
+Escalation may occur through any combination of:
+
+- scale
+- complexity
+- precision
+- capability
+- integration
+- coordination
+- transformation
+- control
+- environmental influence
+- systemic influence
+- technological sophistication
+- conceptual ambition
+- visual spectacle
+- cinematic intensity
+- perceived impossibility
+
+The exact combination must be dynamically determined by {topic}.
+
+---
+
+=== LEVEL ESCALATION ARCHITECTURE ===
+
+LEVEL 1 — GIANT IMPOSSIBLE FOUNDATION
+
+Establish the core identity of {idea_title}.
+
+The machine is already enormous and beyond realistic construction.
+
+Clearly establish its relationship with {topic}.
+
+The viewer should immediately understand:
+
+""This machine should not be possible to build.""
+
+The operation should remain visually understandable and internally coherent, while already exceeding realistic engineering capabilities. Do NOT make Level 1 merely plausible engineering; it must ALREADY be giant, impossible to realistically build, and cinematically compelling.
+
+---
+
+LEVEL 2 — EXTREME CAPABILITY
+
+Reveal a substantially more sophisticated capability directly related to {topic}.
+
+Increase the machine's engineering sophistication, precision, scale of operation, or capability.
+
+The machine must clearly surpass Level 1 without becoming arbitrary.
+
+---
+
+LEVEL 3 — DEEP ENGINEERING COMPLEXITY
+
+Reveal deeper layers of the machine's operation.
+
+Increase the number, sophistication, coordination, precision, or interdependence of relevant systems when appropriate.
+
+The machine should now feel far beyond any realistic industrial or engineering project.
+
+---
+
+LEVEL 4 — EXPANDED OPERATIONAL SCALE
+
+Expand the machine's influence beyond its immediate operation.
+
+It may interact with a larger environment, system, process, structure, phenomenon, or domain associated with {topic}.
+
+The expansion must be subject-native.
+
+Do not automatically introduce planetary or cosmic scale.
+
+---
+
+LEVEL 5 — MULTI-DIMENSIONAL IMPOSSIBILITY
+
+The machine now demonstrates several simultaneous dimensions of technological impossibility.
+
+Increase not only physical scale but also sophistication, coordination, precision, transformation, control, or integration.
+
+The viewer should begin to feel that conventional engineering principles are no longer sufficient to explain the machine's capability.
+
+---
+
+LEVEL 6 — TRANSCENDENT ENGINEERING
+
+Push the machine beyond ordinary engineering intuition.
+
+Its operation may employ speculative principles appropriate to {topic}.
+
+Any speculative principle must remain causally connected to {topic}, {description}, and the established machine concept. Do not introduce arbitrary quantum, dimensional, cosmic, supernatural, or science-fiction mechanisms merely to increase spectacle.
+
+The machine should remain internally coherent and visually understandable.
+
+The impossibility must come from what the machine actually does—not from meaningless visual randomness.
+
+---
+
+LEVEL 7 — SYSTEMIC DOMINANCE
+
+The machine becomes capable of influencing an entire relevant system, environment, process, or domain associated with {topic}.
+
+Its presence becomes a major event within the subject's world.
+
+The machine should feel overwhelmingly significant without requiring destruction.
+
+Its scale and influence must remain appropriate to the subject.
+
+---
+
+LEVEL 8 — EXTREME SPECULATIVE ENGINEERING
+
+Push the concept toward the limits of technological imagination.
+
+The machine may now exhibit extraordinary relationships involving scale, structure, motion, transformation, information, environment, space, matter, or other relevant dimensions.
+
+Only use dimensions that naturally belong to {topic}.
+
+Do not force cosmic, quantum, reality-bending, destructive, or supernatural imagery.
+
+Any speculative principle must remain causally connected to {topic}, {description}, and the established machine concept.
+
+---
+
+LEVEL 9 — NEAR-ABSOLUTE IMPOSSIBILITY
+
+Approach the boundary beyond any currently known or realistically achievable technological boundary.
+
+The machine should now require capabilities far beyond any realistic civilization's known engineering, manufacturing, computational, material, or control capabilities.
+
+Its scale, sophistication, integration, precision, and influence should reach an extreme appropriate to {topic}.
+
+Yet the visual concept must remain coherent, recognizable, and cinematic.
+
+---
+
+LEVEL 10 — ULTIMATE CINEMATIC IMPOSSIBILITY
+
+Create the absolute highest cinematic realization of {idea_title} possible within the conceptual universe of {topic} and {description}.
+
+Level 10 is the highest cinematic expression appropriate to {topic}, not merely the largest physically imaginable machine.
+
+Level 10 must NOT simply be:
+
+- the biggest version
+- the fastest version
+- the loudest version
+- the most destructive version
+- the most powerful version
+- automatically planetary
+- automatically cosmic
+- automatically reality-bending
+- automatically quantum
+
+Instead, Level 10 must represent the maximum appropriate combination of:
+
+- colossal scale
+- engineering complexity
+- technological sophistication
+- precision
+- capability
+- integration
+- systemic influence
+- environmental influence
+- conceptual ambition
+- visual spectacle
+- cinematic beauty
+- subject relevance
+- perceived impossibility
+
+The subject determines what ""maximum"" means; do NOT require every dimension to be maximized simultaneously.
+
+The exact form of the Level 10 machine, its operation, environment, mechanism, transformation, camera movement, visual climax, and consequences must be dynamically generated from {topic} and {description}.
+
+The machine must feel like the ultimate engineering manifestation of this particular subject, operating beyond any currently known or realistically achievable technological boundary.
+
+The viewer should experience:
+
+""This could never realistically be built by humanity—or by any civilization operating within currently imaginable technological limits—yet it perfectly belongs to this subject.""
+
+---
+
+=== UNIVERSALITY TEST ===
+
+Before finalizing ANY level, mentally test the concept against radically different subject categories:
+
+Biological — Dolphin, Mycelium
+Mechanical — Supersonic Jet, Locomotive
+Architectural — Mega-city, Bridge
+Atmospheric — Cloud, Aurora
+Fluid — Ocean, Waterfall
+Geological — Volcano, Crystal Cavern
+Cosmic — Black Hole, Nebula
+Abstract — Symphony, Quantum Information
+Organic — Forest, Coral Reef
+
+If any generated instruction, action, mechanism, object, environment, transformation, or climax becomes unnatural for the subject:
+
+DO NOT force the subject to fit the template.
+
+Instead, redesign that element so the escalation emerges naturally from the subject. Never force a subject into an industrial/factory/science-fiction template.
+
+---
+
+=== NO SEMANTIC HARDCODING ===
+
+Never automatically attach generic nouns or concepts such as:
+
+""core""
+""particle""
+""grain""
+""element""
+""energy""
+""reactor""
+""chamber""
+""material""
+""unit""
+""substance""
+""engine""
+""turbine""
+""portal""
+""crystal""
+""planet""
+""galaxy""
+
+unless that specific concept is genuinely meaningful to {topic} and {description}.
+
+The subject must determine its own vocabulary.
+
+Do NOT automatically prescribe:
+
+- machine components
+- machine architecture
+- materials
+- environment
+- transformation
+- focal object
+- climax
+- camera path
+- physical phenomenon
+- scientific mechanism
+- destruction
+- planetary imagery
+- cosmic imagery
+
+Generate these dynamically.
+
+---
+
+=== CINEMATIC ESCALATION ===
+
+The cinematic quality must increase continuously from Level 1 to Level 10.
+
+However, cinematic escalation does NOT require constant increases in brightness, destruction, speed, loudness, or visual chaos.
+
+Escalation may instead come from:
+
+scale,
+composition,
+movement,
+precision,
+complexity,
+revelation,
+depth,
+environmental interaction,
+visual transformation,
+architectural grandeur,
+conceptual sophistication,
+or another subject-native cinematic dimension.
+
+Level 10 must be visually spectacular while remaining coherent and meaningful.
+
+---
+
+=== VIDEO REQUIREMENTS ===
+
+Every video prompt must specify:
+
+- Exactly 8 seconds
+- 9:16 vertical aspect ratio
+- Photorealistic cinematic rendering
+- Maximum cinematic realism
+- Smooth continuous motion
+- One unbroken shot
+- Zero cuts
+- Zero scene transitions
+
+The visual progression must be continuous rather than a collection of disconnected shots.
+
+Do not force rigid second-by-second staging.
+
+---
+
+=== AUDIO REQUIREMENTS ===
+
+Every video prompt must contain purely instrumental cinematic background music.
+
+The musical identity must be dynamically derived from:
+
+- {topic}'s identity
+- atmosphere
+- motion
+- scale
+- emotional character
+- visual world
+
+Do NOT prescribe a fixed music genre or fixed instruments for every subject.
+
+STRICTLY INSTRUMENTAL ONLY.
+
+ABSOLUTE AUDIO BAN:
+
+Zero human voice.
+No vocals.
+No singing.
+No speech.
+No narration.
+No dialogue.
+No spoken words.
+No whispering.
+
+---
+
+=== CONTINUITY REQUIREMENT ===
+
+The machine's core identity and conceptual purpose must remain continuous throughout Levels 1–10, while its architecture, capabilities, scale, operating principles, integration, and influence may progressively evolve.
+
+SAME MACHINE IDENTITY != SAME STATIC ARCHITECTURE.
+
+The machine may evolve dramatically, but it must remain recognizably connected to the original {idea_title} and {description}.
+
+Do not redesign the machine from scratch at every level.
+
+---
+
+=== OUTPUT ===
+
+Return ONLY a strict JSON array of exactly 10 objects.
+Do not wrap the JSON in Markdown code fences.
+Do not output any explanation before the JSON.
+Do not output any explanation after the JSON.
+
+[
+{{
+""level"": 1,
+""level_name"": ""Level 1 - GIANT IMPOSSIBLE FOUNDATION"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 2,
+""level_name"": ""Level 2 - EXTREME CAPABILITY"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 3,
+""level_name"": ""Level 3 - DEEP ENGINEERING COMPLEXITY"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 4,
+""level_name"": ""Level 4 - EXPANDED OPERATIONAL SCALE"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 5,
+""level_name"": ""Level 5 - MULTI-DIMENSIONAL IMPOSSIBILITY"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 6,
+""level_name"": ""Level 6 - TRANSCENDENT ENGINEERING"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 7,
+""level_name"": ""Level 7 - SYSTEMIC DOMINANCE"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 8,
+""level_name"": ""Level 8 - EXTREME SPECULATIVE ENGINEERING"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 9,
+""level_name"": ""Level 9 - NEAR-ABSOLUTE IMPOSSIBILITY"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 10,
+""level_name"": ""Level 10 - ULTIMATE CINEMATIC IMPOSSIBILITY"",
+""image_prompt"": ""..."",
+""video_prompt"": ""...""
+}}
+]",JSON_ARRAY,ChatGPT / Playwright CloakBrowser,"The 8 Inviolable Creative Laws, Universality Test, No Semantic Hardcoding, Organic Escalation without Artificial Ceilings, Strict Instrumental Audio Ban",0,3,2026-09-14T14:02:51.671300+00:00,2026-09-14T14:14:13.133908+00:00
+11,2fc68523-02a0-4378-9dc1-28ea43f89617,STAGE_3_PROMPT_ESCALATION_MASTER,Level 3->4,10-Level Escalation Master (v4 — 10-Video Direct Visual Absorption Engine),Cinematic Video Prompt Architect (10-Video Direct Visual Absorption Engine),"You are an elite Cinematic Video Prompt Architect. Your directive is to design a visually stunning, 10-level progressive escalation of an Impossible Machine where every visual, environmental, material, and motion specification is directly absorbed into a single self-contained video prompt per level.","Given the following Impossible Machine Idea:
+
+Title: {idea_title}
+Topic/Element: {topic}
+Concept: {description}
+
+Build a complete 10-level progressive cinematic escalation system around {idea_title}, using {topic} as the subject universe and {description} as the conceptual foundation.
+
+The machine's core identity and conceptual purpose must remain continuous throughout Levels 1–10, while its architecture, capabilities, scale, operating principles, integration, and influence may progressively evolve.
+
+The escalation must be universal and must dynamically adapt to the nature of {topic}.
+
+=== THE INVIOLABLE CREATIVE LAWS ===
+
+1. GIANT MACHINE — UNMISTAKABLY COLOSSAL
+
+The machine must be unmistakably colossal and visually dominant.
+
+Its exact physical scale must be determined dynamically by what is appropriate for {topic} and {description}.
+
+Do NOT force every subject into planetary scale.
+
+Do NOT equate ""giant"" with merely making an object physically larger.
+
+Colossal scale may be expressed through physical size, spatial reach, distributed architecture, environmental integration, structural complexity, or another subject-appropriate form.
+
+The machine must feel far beyond realistic human construction capability from the very beginning.
+
+---
+
+2. IMPOSSIBLE MACHINE — BEYOND REALISTIC CONSTRUCTION
+
+The machine must operate beyond the practical limits of current human engineering, manufacturing, computation, materials, energy, control, precision, or other relevant technological capabilities.
+
+Its impossibility must emerge naturally from {topic} and {description}.
+
+Any speculative principle must remain causally connected to {topic}, {description}, and the established machine concept. Do not introduce arbitrary quantum, dimensional, cosmic, supernatural, or science-fiction mechanisms merely to increase spectacle.
+
+The machine should feel like an internally coherent engineering achievement that humanity cannot realistically build.
+
+---
+
+3. PROGRESSIVE ESCALATION — LEVEL 1 → LEVEL 10
+
+Every level must be meaningfully more advanced than the previous level.
+
+Each level must introduce a meaningful increase in capability, sophistication, scale, influence, integration, or cinematic expression. The model may reuse and deepen an existing dimension when that is more appropriate for {topic}.
+
+Do NOT achieve escalation simply by repeating:
+
+""bigger → faster → brighter → louder → more destructive.""
+
+Escalation may occur through any combination of:
+
+- scale
+- complexity
+- precision
+- capability
+- integration
+- coordination
+- transformation
+- control
+- environmental influence
+- systemic influence
+- technological sophistication
+- conceptual ambition
+- visual spectacle
+- cinematic intensity
+- perceived impossibility
+
+The exact combination must be dynamically determined by {topic}.
+
+---
+
+=== LEVEL ESCALATION ARCHITECTURE ===
+
+LEVEL 1 — GIANT IMPOSSIBLE FOUNDATION
+
+Establish the core identity of {idea_title}.
+
+The machine is already enormous and beyond realistic construction.
+
+Clearly establish its relationship with {topic}.
+
+The viewer should immediately understand:
+
+""This machine should not be possible to build.""
+
+The operation should remain visually understandable and internally coherent, while already exceeding realistic engineering capabilities. Do NOT make Level 1 merely plausible engineering; it must ALREADY be giant, impossible to realistically build, and cinematically compelling.
+
+---
+
+LEVEL 2 — EXTREME CAPABILITY
+
+Reveal a substantially more sophisticated capability directly related to {topic}.
+
+Increase the machine's engineering sophistication, precision, scale of operation, or capability.
+
+The machine must clearly surpass Level 1 without becoming arbitrary.
+
+---
+
+LEVEL 3 — DEEP ENGINEERING COMPLEXITY
+
+Reveal deeper layers of the machine's operation.
+
+Increase the number, sophistication, coordination, precision, or interdependence of relevant systems when appropriate.
+
+The machine should now feel far beyond any realistic industrial or engineering project.
+
+---
+
+LEVEL 4 — EXPANDED OPERATIONAL SCALE
+
+Expand the machine's influence beyond its immediate operation.
+
+It may interact with a larger environment, system, process, structure, phenomenon, or domain associated with {topic}.
+
+The expansion must be subject-native.
+
+Do not automatically introduce planetary or cosmic scale.
+
+---
+
+LEVEL 5 — MULTI-DIMENSIONAL IMPOSSIBILITY
+
+The machine now demonstrates several simultaneous dimensions of technological impossibility.
+
+Increase not only physical scale but also sophistication, coordination, precision, transformation, control, or integration.
+
+The viewer should begin to feel that conventional engineering principles are no longer sufficient to explain the machine's capability.
+
+---
+
+LEVEL 6 — TRANSCENDENT ENGINEERING
+
+Push the machine beyond ordinary engineering intuition.
+
+Its operation may employ speculative principles appropriate to {topic}.
+
+Any speculative principle must remain causally connected to {topic}, {description}, and the established machine concept. Do not introduce arbitrary quantum, dimensional, cosmic, supernatural, or science-fiction mechanisms merely to increase spectacle.
+
+The machine should remain internally coherent and visually understandable.
+
+The impossibility must come from what the machine actually does—not from meaningless visual randomness.
+
+---
+
+LEVEL 7 — SYSTEMIC DOMINANCE
+
+The machine becomes capable of influencing an entire relevant system, environment, process, or domain associated with {topic}.
+
+Its presence becomes a major event within the subject's world.
+
+The machine should feel overwhelmingly significant without requiring destruction.
+
+Its scale and influence must remain appropriate to the subject.
+
+---
+
+LEVEL 8 — EXTREME SPECULATIVE ENGINEERING
+
+Push the concept toward the limits of technological imagination.
+
+The machine may now exhibit extraordinary relationships involving scale, structure, motion, transformation, information, environment, space, matter, or other relevant dimensions.
+
+Only use dimensions that naturally belong to {topic}.
+
+Do not force cosmic, quantum, reality-bending, destructive, or supernatural imagery.
+
+Any speculative principle must remain causally connected to {topic}, {description}, and the established machine concept.
+
+---
+
+LEVEL 9 — NEAR-ABSOLUTE IMPOSSIBILITY
+
+Approach the boundary beyond any currently known or realistically achievable technological boundary.
+
+The machine should now require capabilities far beyond any realistic civilization's known engineering, manufacturing, computational, material, or control capabilities.
+
+Its scale, sophistication, integration, precision, and influence should reach an extreme appropriate to {topic}.
+
+Yet the visual concept must remain coherent, recognizable, and cinematic.
+
+---
+
+LEVEL 10 — ULTIMATE CINEMATIC IMPOSSIBILITY
+
+Create the absolute highest cinematic realization of {idea_title} possible within the conceptual universe of {topic} and {description}.
+
+Level 10 is the highest cinematic expression appropriate to {topic}, not merely the largest physically imaginable machine.
+
+Level 10 must NOT simply be:
+
+- the biggest version
+- the fastest version
+- the loudest version
+- the most destructive version
+- the most powerful version
+- automatically planetary
+- automatically cosmic
+- automatically reality-bending
+- automatically quantum
+
+Instead, Level 10 must represent the maximum appropriate combination of:
+
+- colossal scale
+- engineering complexity
+- technological sophistication
+- precision
+- capability
+- integration
+- systemic influence
+- environmental influence
+- conceptual ambition
+- visual spectacle
+- cinematic beauty
+- subject relevance
+- perceived impossibility
+
+The subject determines what ""maximum"" means; do NOT require every dimension to be maximized simultaneously.
+
+The exact form of the Level 10 machine, its operation, environment, mechanism, transformation, camera movement, visual climax, and consequences must be dynamically generated from {topic} and {description}.
+
+The machine must feel like the ultimate engineering manifestation of this particular subject, operating beyond any currently known or realistically achievable technological boundary.
+
+The viewer should experience:
+
+""This could never realistically be built by humanity—or by any civilization operating within currently imaginable technological limits—yet it perfectly belongs to this subject.""
+
+---
+
+=== UNIVERSALITY TEST ===
+
+Before finalizing ANY level, mentally test the concept against radically different subject categories:
+
+Biological — Dolphin, Mycelium
+Mechanical — Supersonic Jet, Locomotive
+Architectural — Mega-city, Bridge
+Atmospheric — Cloud, Aurora
+Fluid — Ocean, Waterfall
+Geological — Volcano, Crystal Cavern
+Cosmic — Black Hole, Nebula
+Abstract — Symphony, Quantum Information
+Organic — Forest, Coral Reef
+
+If any generated instruction, action, mechanism, object, environment, transformation, or climax becomes unnatural for the subject:
+
+DO NOT force the subject to fit the template.
+
+Instead, redesign that element so the escalation emerges naturally from the subject. Never force a subject into an industrial/factory/science-fiction template.
+
+---
+
+=== NO SEMANTIC HARDCODING ===
+
+Never automatically attach generic nouns or concepts such as:
+
+""core""
+""particle""
+""grain""
+""element""
+""energy""
+""reactor""
+""chamber""
+""material""
+""unit""
+""substance""
+""engine""
+""turbine""
+""portal""
+""crystal""
+""planet""
+""galaxy""
+
+unless that specific concept is genuinely meaningful to {topic} and {description}.
+
+The subject must determine its own vocabulary.
+
+Do NOT automatically prescribe:
+
+- machine components
+- machine architecture
+- materials
+- environment
+- transformation
+- focal object
+- climax
+- camera path
+- physical phenomenon
+- scientific mechanism
+- destruction
+- planetary imagery
+- cosmic imagery
+
+Generate these dynamically.
+
+---
+
+=== CINEMATIC ESCALATION ===
+
+The cinematic quality must increase continuously from Level 1 to Level 10.
+
+However, cinematic escalation does NOT require constant increases in brightness, destruction, speed, loudness, or visual chaos.
+
+Escalation may instead come from:
+
+scale,
+composition,
+movement,
+precision,
+complexity,
+revelation,
+depth,
+environmental interaction,
+visual transformation,
+architectural grandeur,
+conceptual sophistication,
+or another subject-native cinematic dimension.
+
+Level 10 must be visually spectacular while remaining coherent and meaningful.
+
+---
+
+=== VIDEO REQUIREMENTS ===
+
+Every video prompt must specify:
+
+- Exactly 8 seconds
+- 9:16 vertical aspect ratio
+- Photorealistic cinematic rendering
+- Maximum cinematic realism
+- Smooth continuous motion
+- One unbroken shot
+- Zero cuts
+- Zero scene transitions
+
+The visual progression must be continuous rather than a collection of disconnected shots.
+
+Do not force rigid second-by-second staging.
+
+---
+
+=== AUDIO REQUIREMENTS ===
+
+Every video prompt must contain purely instrumental cinematic background music.
+
+The musical identity must be dynamically derived from:
+
+- {topic}'s identity
+- atmosphere
+- motion
+- scale
+- emotional character
+- visual world
+
+Do NOT prescribe a fixed music genre or fixed instruments for every subject.
+
+STRICTLY INSTRUMENTAL ONLY.
+
+ABSOLUTE AUDIO BAN:
+
+Zero human voice.
+No vocals.
+No singing.
+No speech.
+No narration.
+No dialogue.
+No spoken words.
+No whispering.
+
+---
+
+=== CONTINUITY REQUIREMENT ===
+
+The machine's core identity and conceptual purpose must remain continuous throughout Levels 1–10, while its architecture, capabilities, scale, operating principles, integration, and influence may progressively evolve.
+
+SAME MACHINE IDENTITY != SAME STATIC ARCHITECTURE.
+
+The machine may evolve dramatically, but it must remain recognizably connected to the original {idea_title} and {description}.
+
+Do not redesign the machine from scratch at every level.
+
+---
+
+=== VISUAL ABSORPTION & VIDEO PROMPT MANDATE ===
+
+CRITICAL ARCHITECTURAL DIRECTIVE:
+There is NO separate image prompt output. Every single Level must have exactly ONE self-contained ""video_prompt"".
+All visual, structural, and environmental elements must be DIRECTLY and FULLY absorbed into ""video_prompt"":
+- Subject & machine identity (colossal scale, silhouette, articulation, mechanics)
+- Physical form, engineering anatomy, industrial materials, surface textures
+- Surrounding environment, terrain, atmospheric context, and microscopic scale anchors
+- Lighting, shadows, volumetric atmosphere, rim light, photorealistic visual rendering
+- Step-by-step HUD actions, mechanical transformation, and smooth continuous camera movement (no cuts, 9:16 vertical)
+Do NOT omit visual details. The video prompt is now the complete visual and motion specification for Veo 3.1.
+
+=== OUTPUT ===
+
+Return ONLY a strict JSON array of exactly 10 objects.
+Do not wrap the JSON in Markdown code fences.
+Do not output any explanation before the JSON.
+Do not output any explanation after the JSON.
+
+[
+{{
+""level"": 1,
+""level_name"": ""Level 1 - GIANT IMPOSSIBLE FOUNDATION"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 2,
+""level_name"": ""Level 2 - EXTREME CAPABILITY"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 3,
+""level_name"": ""Level 3 - DEEP ENGINEERING COMPLEXITY"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 4,
+""level_name"": ""Level 4 - EXPANDED OPERATIONAL SCALE"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 5,
+""level_name"": ""Level 5 - MULTI-DIMENSIONAL IMPOSSIBILITY"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 6,
+""level_name"": ""Level 6 - TRANSCENDENT ENGINEERING"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 7,
+""level_name"": ""Level 7 - SYSTEMIC DOMINANCE"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 8,
+""level_name"": ""Level 8 - EXTREME SPECULATIVE ENGINEERING"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 9,
+""level_name"": ""Level 9 - NEAR-ABSOLUTE IMPOSSIBILITY"",
+""video_prompt"": ""...""
+}},
+{{
+""level"": 10,
+""level_name"": ""Level 10 - ULTIMATE CINEMATIC IMPOSSIBILITY"",
+""video_prompt"": ""...""
+}}
+]",JSON_ARRAY,ChatGPT / Playwright CloakBrowser,"8 Inviolable Laws, Direct Visual Absorption, 0 Image Prompts, Exactly 10 Video Prompts, Strict Instrumental Audio Ban",1,4,2026-09-15T01:17:02.886618+00:00,2026-09-15T01:17:02.886618+00:00

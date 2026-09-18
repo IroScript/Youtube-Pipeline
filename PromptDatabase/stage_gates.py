@@ -77,7 +77,7 @@ MIN_REAL_VIDEO_BYTES = 10240        # same threshold the packager uses for "real
 # A prompt shorter than this is treated as blank/placeholder, matching the existing
 # check inside get_or_create_next_production_ready_prompt().
 MIN_PROMPT_CHARS = 50
-REQUIRED_PROMPT_COUNT = 20          # 10 image + 10 video
+REQUIRED_PROMPT_COUNT = 10          # 10 video prompts (or legacy 20 with 10 img + 10 vid)
 
 STAGE_ORDER = ["category", "element", "ideas", "escalation", "seo", "video", "package"]
 
@@ -121,7 +121,7 @@ def idea_count(element_id: int) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Stage 4: escalation (the 10-level, 20-prompt set)
+# Stage 4: escalation (the 10-level video prompt set)
 # ---------------------------------------------------------------------------
 def escalation_detail(idea_id: int) -> dict:
     """
@@ -138,18 +138,22 @@ def escalation_detail(idea_id: int) -> dict:
         filled = [p for p in prompts
                   if p.prompt_text and len(p.prompt_text.strip()) > MIN_PROMPT_CHARS]
         levels_present = sorted({p.level for p in filled if p.level})
+        video_levels = sorted({p.level for p in filled if p.level and p.generation_type == "video"})
 
         lvl10_vid = next((p for p in filled
                           if p.level == 10 and p.generation_type == "video"), None)
         lvl10_img = next((p for p in filled
                           if p.level == 10 and p.generation_type == "image"), None)
 
+        missing_video_levels = [n for n in range(1, 11) if n not in video_levels]
+
         return {
             "total": len(prompts),
             "filled": len(filled),
             "required": REQUIRED_PROMPT_COUNT,
             "levels_present": levels_present,
-            "missing_levels": [n for n in range(1, 11) if n not in levels_present],
+            "video_levels": video_levels,
+            "missing_levels": missing_video_levels,
             "has_level_10_video": lvl10_vid is not None,
             "has_level_10_image": lvl10_img is not None,
             "level_10_video_id": lvl10_vid.id if lvl10_vid else None,
@@ -158,14 +162,12 @@ def escalation_detail(idea_id: int) -> dict:
 
 def has_escalation(idea_id: int) -> bool:
     """
-    True only if the idea holds a complete, genuinely filled 10-level escalation.
-
-    Deliberately matches the existing production check in
-    prompt_chain_engine.get_or_create_next_production_ready_prompt():
-    20 filled prompts AND a usable level-10 video prompt.
+    True only if the idea holds a complete, genuinely filled 10-level video escalation.
+    Deliberately validates all 10 video levels (1-10) and a usable level-10 video prompt.
+    100% backward-compatible with legacy 20-prompt sets and new 10-video prompt sets.
     """
     d = escalation_detail(idea_id)
-    return d["filled"] >= d["required"] and d["has_level_10_video"]
+    return len(d["missing_levels"]) == 0 and d["has_level_10_video"]
 
 
 # ---------------------------------------------------------------------------

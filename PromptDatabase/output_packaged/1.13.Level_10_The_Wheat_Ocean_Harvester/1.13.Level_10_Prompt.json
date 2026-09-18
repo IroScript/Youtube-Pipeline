@@ -1,0 +1,18 @@
+{
+  "idea_id": 13,
+  "idea_title": "The Wheat Ocean Harvester",
+  "idea_topic": "Wheat Field",
+  "element_id": 1,
+  "idea_index_in_element": 13,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "Level 10 - Alien Level / Maximum",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: AWAKEN THE TITAN\" — The alien agricultural intelligence activates, illuminating countless sensor halos and planetary-scale harvesting systems across The Wheat Ocean Harvester.\n\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: HARVEST REALITY\" — Innumerable colossal arms reach through folded space and gather Wheat Field from multiple worlds simultaneously.\n\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TRANSDIMENSIONAL THRESH\" — Entire crop streams enter wormholes and emerge inside the titan's impossible belly factory.\n\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: QUANTUM PURIFICATION\" — Individual Wheat Field particles float through miniature artificial suns, gravitational separators, magnetic fields, and alien drying reactors.\n\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: STORE THE HARVEST UNIVERSE\" — Finished yield cascades into an infinite-dimensional storage chamber containing vast glowing reserves of Wheat Field.\n\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; a locked low-angle push-in from the ground, the structure looming and filling the vertical frame, and the sequence closes as the machine falls into stark silhouette against a vast sky as its running lights ignite in sequence. The surrounding Wheat Field machinery settles into a continuous operating rhythm; lighting and atmosphere throughout: harsh vertical noon sun, bleached highlights, sharp black shadows. No cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "The Wheat Ocean Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "5-Layer Open Montage Structure\n\nLayer 1 — Subject: The ultimate god-tier alien The Wheat Ocean Harvester megastructure, a transcendent cosmic intelligence commanding planetary-scale sensor halos, transdimensional harvesting arms reaching through folded reality, and an infinite-dimensional processing heart.\n\nLayer 2 — Environment: Multiple worlds and cosmic horizons converging beneath the titan's presence, billions of hectares of Wheat Field across infinite realities illuminated in ethereal cosmic dawn light.\n\nLayer 3 — Architecture: Alien hyper-matter chassis, transparent hyper-dimensional processing cathedrals, wormhole intake conduits, infinite-dimensional storage spheres glowing with limitless yield.\n\nLayer 4 — Energy/Physics: Ethereal multi-spectrum cosmic radiance, dimensional gravity waves, tachyon quantum loops, and reality-stabilizing field geometries.\n\nLayer 5 — Cinematic Presentation: Supreme cinematic masterpiece, 9:16 vertical framing, IMAX cosmic angle, photorealistic hyper-detailed alien textures, breathtaking lighting and reflections, 16K render. Overall silhouette reads as a single slender vertical tower with stacked working tiers ascending its height; camera language: a locked low-angle push-in from the ground, the structure looming and filling the vertical frame; atmosphere: harsh vertical noon sun, bleached highlights, sharp black shadows.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-17T09:36:50.090661+00:00"
+}

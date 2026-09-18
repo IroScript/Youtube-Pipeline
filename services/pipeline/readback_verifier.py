@@ -39,7 +39,7 @@ class ReadbackVerifier:
     this verifier reads back the data and confirms it matches expectations.
     """
 
-    def verify_prompt_insertion(self, idea_id: int, expected_count: int = 20) -> VerifyResult:
+    def verify_prompt_insertion(self, idea_id: int, expected_count: int = 10) -> VerifyResult:
         mismatches: list[str] = []
         actual: dict[str, Any] = {}
         with get_session() as session:
@@ -51,6 +51,17 @@ class ReadbackVerifier:
 
             if actual_count < expected_count:
                 mismatches.append(f"Expected >= {expected_count} prompts, found {actual_count}")
+
+            # Check all 10 video levels exist and non-blank
+            video_levels = {
+                p.level for p in prompts
+                if p.level and p.generation_type == "video"
+                and len((p.prompt_text or "").strip()) >= MIN_PROMPT_CHARS
+            }
+            actual["video_levels"] = sorted(video_levels)
+            missing_levels = [n for n in range(1, 11) if n not in video_levels]
+            if missing_levels:
+                mismatches.append(f"Missing video levels: {missing_levels}")
 
             # Check level 10 video prompt exists and is non-blank
             lvl10_vid = [

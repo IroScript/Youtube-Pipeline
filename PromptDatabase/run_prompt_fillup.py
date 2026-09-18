@@ -13,6 +13,7 @@ Usage:
 
 import sys
 import time
+import random
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -92,6 +93,9 @@ def main():
     parser.add_argument("--count", type=int, default=0, help="Number of cycles to run (0 = infinite continuous loop)")
     parser.add_argument("--loop", action="store_true", default=True, help="Run continuously in loop")
     parser.add_argument("--delay", type=int, default=3, help="Cooldown delay in seconds between fresh Chrome browser cycles (default: 3s)")
+    parser.add_argument("--random-delay", action="store_true", default=True, help="Enable random human delay between 5-15 minutes (default: True)")
+    parser.add_argument("--min-delay", type=int, default=300, help="Minimum random delay in seconds (default: 300s / 5 mins)")
+    parser.add_argument("--max-delay", type=int, default=900, help="Maximum random delay in seconds (default: 900s / 15 mins)")
     args = parser.parse_args()
 
     init_db()
@@ -100,9 +104,12 @@ def main():
     print("       🚀 AUTONOMOUS PROMPT FILLUP LOOP ENGINE (PART 1)")
     print("=" * 80)
     print(f"  • Initial Database Stats: {stats['elements']} Elements | {stats['ideas']} Ideas | {stats['prompts']} Prompts")
-    print(f"  • Mode:                   {'Finite Count: ' + str(args.count) if args.count > 0 else 'Continuous Autonomous Loop'}")
+    print(f"  • Mode:                   {'Finite Count: ' + str(args.count) if args.count > 0 else 'Continuous 24/7 Autonomous Loop'}")
     print(f"  • Browser Mode:           {'Skip Browser (Fast Test)' if args.skip_browser else 'Fresh Chrome per Cycle'}")
-    print(f"  • Cycle Delay:            {args.delay} seconds")
+    if args.random_delay:
+        print(f"  • Human Delay Mode:       Randomized ({args.min_delay}s - {args.max_delay}s / {args.min_delay//60}-{args.max_delay//60} mins per step)")
+    else:
+        print(f"  • Fixed Delay Mode:       {args.delay} seconds")
     print("=" * 80)
 
     cycle = 1
@@ -114,8 +121,14 @@ def main():
                 print(f"\n🎉 Completed requested {args.count} cycle(s). Stopping loop.")
                 break
 
-            print(f"⏳ Waiting {args.delay}s before starting next fresh Chrome cycle (Cycle #{cycle + 1})... (Press Ctrl+C to stop)")
-            time.sleep(args.delay)
+            if args.random_delay:
+                sleep_sec = random.randint(args.min_delay, args.max_delay)
+                mins = sleep_sec / 60.0
+                print(f"\n⏳ [Human Interaction Cooldown] Sleeping {sleep_sec}s ({mins:.1f} mins) before starting next cycle (Cycle #{cycle + 1})... (Press Ctrl+C to stop)")
+                time.sleep(sleep_sec)
+            else:
+                print(f"⏳ Waiting {args.delay}s before starting next fresh Chrome cycle (Cycle #{cycle + 1})... (Press Ctrl+C to stop)")
+                time.sleep(args.delay)
             cycle += 1
 
     except KeyboardInterrupt:

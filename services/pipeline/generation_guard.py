@@ -77,7 +77,7 @@ class GenerationGuard:
 
         # Check if escalation is already complete via stage_gates
         if sg.has_escalation(idea_id):
-            return GuardResult(False, "Prompt escalation already complete (20/20 verified)")
+            return GuardResult(False, "Prompt escalation already complete (verified)")
 
         return GuardResult(True, "Prompt generation allowed")
 

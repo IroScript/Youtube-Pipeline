@@ -4,6 +4,7 @@
   "extension_dir": "/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/video/1Video10Sec/10SecNewExtension",
   "chrome_profile": "Profile 5",
   "chrome_user_data_dir": "/home/mdkamruzzamanirak_gmail_com/.config/google-chrome",
+  "chrome_exe": "/home/mdkamruzzamanirak_gmail_com/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
   "downloads_dirs": [
     "/home/mdkamruzzamanirak_gmail_com/Downloads/FlowCraft_Outputs",
     "/home/mdkamruzzamanirak_gmail_com/Downloads"
@@ -37,7 +38,7 @@
     "chat_id": "YOUR_TELEGRAM_CHAT_ID"
   },
   "youtube": {
-    "auto_upload": true,
+    "auto_upload": false,
     "privacy_status": "public",
     "tags": ["#Shorts", "#AI", "#ImpossibleMachines", "#SciFi", "#Veo"]
   }

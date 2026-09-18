@@ -14,6 +14,8 @@ import logging
 import subprocess
 import random
 import glob
+import socketserver
+import threading
 from pathlib import Path
 
 # Add current directory to path
@@ -24,6 +26,25 @@ if BASE_DIR not in sys.path:
 from extension_bridge import ExtensionVideoBridge, BridgeHTTPHandler
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+
+class ThreadingTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
+
+class BridgeHTTPHandlerLinux(BridgeHTTPHandler):
+    """
+    Linux HTTP Handler: ensures Connection: close so socket requests never block TCPServer.
+    """
+    def _set_headers(self, status=200):
+        self.send_response(status)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Connection', 'close')
+        self.end_headers()
 
 
 class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
@@ -38,7 +59,7 @@ class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
         super().__init__(config_path=config_path, extension_path=extension_path, max_retries=max_retries, output_dir=output_dir, **kwargs)
 
         # Linux-specific runtime parameters
-        self.chrome_exe = "/usr/bin/google-chrome-stable"
+        self.chrome_exe = self.config.get("chrome_exe", "/home/mdkamruzzamanirak_gmail_com/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome")
         self.display = os.environ.get("DISPLAY", ":99")
         self.user_data_dir = self.config.get("chrome_user_data_dir", os.path.expanduser("~/.config/google-chrome"))
         self.downloads_dirs = self.config.get("downloads_dirs", [
@@ -49,6 +70,20 @@ class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
         # Ensure download directories exist
         for d in self.downloads_dirs:
             os.makedirs(d, exist_ok=True)
+
+    def _ensure_server_running(self):
+        """
+        Starts the embedded background Threaded HTTP bridge server on port 8102.
+        """
+        if ExtensionVideoBridge._server_instance is None:
+            try:
+                ThreadingTCPServer.allow_reuse_address = True
+                ExtensionVideoBridge._server_instance = ThreadingTCPServer(('127.0.0.1', self.bridge_port), BridgeHTTPHandlerLinux)
+                ExtensionVideoBridge._server_thread = threading.Thread(target=ExtensionVideoBridge._server_instance.serve_forever, daemon=True)
+                ExtensionVideoBridge._server_thread.start()
+                logging.info(f"🌐 Background HTTP Bridge Server (Linux Threaded) active on http://127.0.0.1:{self.bridge_port}")
+            except Exception as e:
+                logging.warning(f"⚠️ HTTP Bridge Server notice: {e}")
 
     def _ensure_display(self) -> bool:
         """
@@ -86,10 +121,10 @@ class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
 
     def is_chrome_running(self) -> bool:
         """
-        Linux process inspection using pgrep.
+        Linux process inspection using pgrep matching profile.
         """
         try:
-            res = subprocess.run(["pgrep", "-f", "google-chrome"], capture_output=True, text=True, check=False)
+            res = subprocess.run(["pgrep", "-f", self.profile_dir], capture_output=True, text=True, check=False)
             return bool(res.stdout.strip())
         except Exception:
             return False
@@ -146,6 +181,14 @@ class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
                 "--disable-fre",
                 "--disable-first-run-ui",
                 "--disable-search-engine-choice-screen",
+                "--disable-session-crashed-bubble",
+                "--disable-infobars",
+                "--deny-permission-prompts",
+                "--disable-web-security",
+                "--allow-running-insecure-content",
+                "--remote-debugging-port=9222",
+                "--window-size=1920,1080",
+                "--start-maximized",
                 f"--load-extension={self.extension_path}",
                 f"--disable-extensions-except={self.extension_path}",
                 f"--user-data-dir={self.user_data_dir}",
@@ -183,31 +226,39 @@ class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
             logging.info("✅ [Check 1 Passed] Google Flow tab is already active and pinging Python bridge!")
             return True
 
-        # Check 2: Navigate to Google Flow tab
-        logging.info(f"🌐 [Check 2 Action] Opening Google Flow tab ({self.google_flow_url})...")
-        try:
-            env = os.environ.copy()
-            env["DISPLAY"] = self.display
-            cmd = [
-                self.chrome_exe,
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--no-first-run",
-                "--no-default-browser-check",
-                "--disable-fre",
-                "--disable-first-run-ui",
-                "--disable-search-engine-choice-screen",
-                f"--load-extension={self.extension_path}",
-                f"--disable-extensions-except={self.extension_path}",
-                f"--user-data-dir={self.user_data_dir}",
-                f"--profile-directory={self.profile_dir}",
-                "--password-store=basic",
-                self.google_flow_url
-            ]
-            subprocess.Popen(cmd, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        except Exception as e:
-            logging.warning(f"⚠️ Notice on opening tab on Linux: {e}")
+        # Check 2: Navigate to Google Flow tab if Chrome is not running
+        if not self.is_chrome_running():
+            logging.info(f"🌐 [Check 2 Action] Opening Google Flow tab ({self.google_flow_url})...")
+            try:
+                env = os.environ.copy()
+                env["DISPLAY"] = self.display
+                cmd = [
+                    self.chrome_exe,
+                    "--no-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--no-first-run",
+                    "--no-default-browser-check",
+                    "--disable-fre",
+                    "--disable-first-run-ui",
+                    "--disable-search-engine-choice-screen",
+                    "--disable-session-crashed-bubble",
+                    "--disable-infobars",
+                    "--deny-permission-prompts",
+                    "--disable-web-security",
+                    "--allow-running-insecure-content",
+                    "--window-size=1920,1080",
+                    "--start-maximized",
+                    f"--load-extension={self.extension_path}",
+                    f"--disable-extensions-except={self.extension_path}",
+                    f"--user-data-dir={self.user_data_dir}",
+                    f"--profile-directory={self.profile_dir}",
+                    "--password-store=basic",
+                    self.google_flow_url
+                ]
+                subprocess.Popen(cmd, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except Exception as e:
+                logging.warning(f"⚠️ Notice on opening tab on Linux: {e}")
 
         # Check 3: Wait for live handshake ping confirmation from Google Flow
         logging.info("⏳ [Check 3 Verification] Waiting for Extension Handshake from Google Flow tab (up to 25s)...")

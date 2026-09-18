@@ -39,6 +39,9 @@ BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
+if "DISPLAY" not in os.environ and sys.platform.startswith("linux"):
+    os.environ["DISPLAY"] = ":99"
+
 from database.session import init_db, get_session
 from database.models import Category, Element, Idea, IdeaElement, Prompt, Task, TaskAttempt, GeneratedVideo, PromptingStyleMaster
 
@@ -70,14 +73,55 @@ PROMPT_BROWSER_PERSISTENT = os.getenv("PROMPT_BROWSER_PERSISTENT", "1") == "1"
 
 
 def get_prompt_style(stage_name: str) -> PromptingStyleMaster:
-    """Fetches official prompt style and template from `prompting_style_master` table."""
+    """Fetches official prompt style and template from `prompting_style_master` table.
+    Fails closed if 0 or >1 active styles exist for the stage to prevent silent corruption or unguided execution.
+    """
     init_db()
     with get_session() as session:
-        style = session.exec(select(PromptingStyleMaster).where(
+        styles = session.exec(select(PromptingStyleMaster).where(
             PromptingStyleMaster.stage_name == stage_name,
             PromptingStyleMaster.is_active == 1
+        )).all()
+
+        if len(styles) == 0:
+            raise RuntimeError(
+                f"[Critical Failure] No active prompting style found for stage '{stage_name}'. "
+                f"System fails closed to prevent unguided prompt generation."
+            )
+        if len(styles) > 1:
+            active_ids = [s.id for s in styles]
+            active_versions = [s.version for s in styles]
+            raise RuntimeError(
+                f"[Critical Failure] Ambiguous active styles detected for stage '{stage_name}': "
+                f"Found {len(styles)} active rows (IDs: {active_ids}, Versions: {active_versions}). "
+                f"System fails closed to prevent database corruption. Exactly 1 active style required."
+            )
+        return styles[0]
+
+
+def set_active_prompt_style(stage_name: str, target_version: int) -> PromptingStyleMaster:
+    """Atomically activates target_version for stage_name and deactivates all other versions.
+    Ensures exactly 1 active style invariant in a single database transaction.
+    """
+    init_db()
+    with get_session() as session:
+        target = session.exec(select(PromptingStyleMaster).where(
+            PromptingStyleMaster.stage_name == stage_name,
+            PromptingStyleMaster.version == target_version
         )).first()
-        return style
+        if not target:
+            raise ValueError(f"Target style version {target_version} not found for stage '{stage_name}'.")
+
+        all_styles = session.exec(select(PromptingStyleMaster).where(
+            PromptingStyleMaster.stage_name == stage_name
+        )).all()
+        for s in all_styles:
+            s.is_active = 1 if s.version == target_version else 0
+            session.add(s)
+        session.commit()
+        session.refresh(target)
+        print(f"[Success] Activated {stage_name} Version {target_version} (ID: {target.id}, Title: '{target.style_title}'). All other versions set to inactive.")
+        return target
 
 
 # ============================================================================
@@ -485,6 +529,8 @@ def check_prompt_browser_login() -> bool:
     import sqlite3
     cookie_db = PROMPT_BROWSER_PROFILE_DIR / "Default" / "Network" / "Cookies"
     if not cookie_db.exists():
+        cookie_db = PROMPT_BROWSER_PROFILE_DIR / "Default" / "Cookies"
+    if not cookie_db.exists():
         print(f"[Login] No profile yet at {PROMPT_BROWSER_PROFILE_DIR} -- run --login first.")
         return False
     try:
@@ -888,7 +934,8 @@ Layer 4 — Energy/Physics: {t['img_eng']}
 
 Layer 5 — Cinematic Presentation: {t['img_cin']}"""
 
-        vid_text = f"""Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+        vid_text = f"""Direct Visual Absorption Architecture: Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.
+Visual Environment & Subject: {t['img_subj']} {t['img_env']} {t['img_arch']} {t['img_eng']} {t['img_cin']}
 
 Second 1 [0:00-0:01] — HUD Popup Text: "{t['s1_hud']}" — {t['s1_desc']}
 
@@ -945,7 +992,7 @@ def extract_and_repair_levels_from_llm(output_text: str) -> list[dict]:
                     name = it.get("level_name", f"Level {lvl}")
                     img = str(it.get("image_prompt", "")).strip()
                     vid = str(it.get("video_prompt", "")).strip()
-                    if img and vid and 1 <= lvl <= 10 and lvl not in results:
+                    if vid and 1 <= lvl <= 10 and lvl not in results:
                         results[lvl] = {"level": lvl, "level_name": name, "image_prompt": img, "video_prompt": vid}
                 if len(results) >= 10:
                     return [results[k] for k in sorted(results.keys())[:10]]
@@ -973,7 +1020,7 @@ def extract_and_repair_levels_from_llm(output_text: str) -> list[dict]:
                 img = img.replace('\\n', '\n').replace('\\"', '"').strip()
                 vid = vid.replace('\\n', '\n').replace('\\"', '"').strip()
 
-                if 1 <= lvl <= 10 and lvl not in levels and img and vid:
+                if 1 <= lvl <= 10 and lvl not in levels and vid:
                     levels[lvl] = {"level": lvl, "level_name": name, "image_prompt": img, "video_prompt": vid}
             except Exception:
                 continue
@@ -992,8 +1039,8 @@ def extract_and_repair_levels_from_llm(output_text: str) -> list[dict]:
             img_match = re.search(r'IMAGE\s*\d*\s*[:\-]\s*(.*?)(?=VIDEO|\Z)', block, re.DOTALL | re.IGNORECASE)
             vid_match = re.search(r'VIDEO\s*\d*\s*[:\-]\s*(.*?)(?=LEVEL|\Z)', block, re.DOTALL | re.IGNORECASE)
             img_text = img_match.group(1).strip() if img_match else ""
-            vid_text = vid_match.group(1).strip() if vid_match else ""
-            if img_text and vid_text and 1 <= lvl_num <= 10 and lvl_num not in text_levels:
+            vid_text = vid_match.group(1).strip() if vid_match else (block.strip() if not img_match else "")
+            if vid_text and 1 <= lvl_num <= 10 and lvl_num not in text_levels:
                 text_levels[lvl_num] = {
                     "level": lvl_num,
                     "level_name": lvl_name,
@@ -1007,7 +1054,7 @@ def extract_and_repair_levels_from_llm(output_text: str) -> list[dict]:
 
 
 def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list[Prompt]:
-    """Level 3 -> Level 4: Generates 10 Image + 10 Video Prompts (Level 1 to 10) for an Idea."""
+    """Level 3 -> Level 4: Generates 10 Video Prompts (Level 1 to 10) for an Idea (Direct Visual Absorption, 0 Image Prompts)."""
     init_db()
     print(f"\n[Hierarchy Step 3 -> 4] Generating 10-Level Escalation Prompts for Idea #{idea.id}: '{idea.title}' (Topic: {idea.topic})...")
 
@@ -1019,7 +1066,7 @@ def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list
             description=idea.description or idea.raw_idea
         )
     else:
-        prompt_instruction = f"Given {idea.title}, build 10-level escalation (10 image + 10 video prompts in 9:16 ratio)."
+        prompt_instruction = f"Given {idea.title}, build 10-level escalation (10 video prompts in 9:16 ratio with direct visual absorption)."
 
     # >>> UNIQUENESS-HOOK:creative_direction BEGIN (added by uniqueness/integrate.py) <<<
     # ADDITIVE: the prompt_instruction built above is preserved verbatim as the prefix;
@@ -1068,23 +1115,6 @@ def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list
         for item in parsed_levels:
             lvl = item["level"]
             lvl_name = item["level_name"]
-            
-            img_prompt = Prompt(
-                uuid=str(uuid.uuid4()),
-                idea_id=idea.id,
-                prompt_type="image_prompt",
-                title=f"{idea.title} - {lvl_name} (Image)",
-                prompt_text=item["image_prompt"],
-                generation_type="image",
-                aspect_ratio="9:16",
-                level=lvl,
-                level_name=lvl_name,
-                structure_type="5_layer_montage",
-                status="ready"
-            )
-            session.add(img_prompt)
-            session.commit()
-            session.refresh(img_prompt)
 
             vid_prompt = Prompt(
                 uuid=str(uuid.uuid4()),
@@ -1098,15 +1128,16 @@ def generate_escalation_for_idea(idea: Idea, skip_browser: bool = False) -> list
                 level=lvl,
                 level_name=lvl_name,
                 structure_type="8s_5_step_hud_popup",
-                reference_image_prompt_id=img_prompt.id,
+                reference_image_prompt_id=None,
+                version=style.version if style else 1,
                 status="ready"
             )
             session.add(vid_prompt)
             session.commit()
             session.refresh(vid_prompt)
-            saved_prompts.extend([img_prompt, vid_prompt])
+            saved_prompts.append(vid_prompt)
 
-    print(f"[Success] Inserted 20 prompts (10 Image + 10 Video in 9:16 vertical) for Idea #{idea.id} into `prompts` table!")
+    print(f"[Success] Inserted 10 Video prompts (Level 1-10 in 9:16 vertical, Direct Visual Absorption) for Idea #{idea.id} into `prompts` table!")
     return saved_prompts
 
 
@@ -1135,9 +1166,14 @@ def is_idea_packaged_and_completed(idea_id: int) -> bool:
         if gen_vid:
             return True
 
-        # Must actually have 20 prompts
-        prompt_count = len(session.exec(select(Prompt).where(Prompt.idea_id == idea_id)).all())
-        if prompt_count < 20:
+        # Verify valid video prompts exist for all 10 levels
+        prompts = session.exec(select(Prompt).where(Prompt.idea_id == idea_id)).all()
+        valid_video_levels = {
+            p.level for p in prompts
+            if p.generation_type == "video" and p.level and 1 <= p.level <= 10
+            and p.prompt_text and len(p.prompt_text.strip()) > 50
+        }
+        if len(valid_video_levels) < 10:
             return False
 
         # 1. Check for folder matching the sanitized idea title (collapsing multiple underscores)
@@ -1271,11 +1307,19 @@ def get_or_create_next_production_ready_prompt(skip_browser: bool = False, fill_
                     Prompt.generation_type == "image"
                 )).first()
 
-                filled_prompts = [p for p in prompts if p.prompt_text and len(p.prompt_text.strip()) > 50]
-                has_all_20_filled = len(filled_prompts) >= 20 and lvl10_vid and lvl10_vid.prompt_text and len(lvl10_vid.prompt_text.strip()) > 50
+                valid_video_levels = {
+                    p.level for p in prompts
+                    if p.generation_type == "video" and p.level and 1 <= p.level <= 10
+                    and p.prompt_text and len(p.prompt_text.strip()) > 50
+                }
+                has_complete_escalation = (
+                    len(valid_video_levels) == 10
+                    and lvl10_vid is not None
+                    and bool(lvl10_vid.prompt_text and len(lvl10_vid.prompt_text.strip()) > 50)
+                )
 
-                # If idea already has 20 valid, filled prompts:
-                if has_all_20_filled:
+                # If idea already has valid, filled 10-level video escalation:
+                if has_complete_escalation:
                     if not fill_unfilled_only:
                         # Video generation packaging mode: pick this ready idea
                         print(f"\n[Hierarchy: Found Ready Prompt for Element #{elem.id} '{elem.name}']")
@@ -1295,8 +1339,8 @@ def get_or_create_next_production_ready_prompt(skip_browser: bool = False, fill_
                         continue
 
                 # Idea has blank/missing prompts -> Generate 1-10 escalation prompts!
-                print(f"\n[Hierarchy: Element #{elem.id} '{elem.name}' -> Idea #{idea.id} '{idea.title}' has {len(filled_prompts)}/20 filled prompts]")
-                print(f"  -> Auto-generating 10-level escalation prompts (10 Image + 10 Video)...")
+                print(f"\n[Hierarchy: Element #{elem.id} '{elem.name}' -> Idea #{idea.id} '{idea.title}' has {len(valid_video_levels)}/10 valid video levels]")
+                print(f"  -> Auto-generating 10-level escalation prompts (10 Video, Direct Visual Absorption)...")
                 generate_escalation_for_idea(idea, skip_browser=skip_browser)
 
                 lvl10_vid = session.exec(select(Prompt).where(

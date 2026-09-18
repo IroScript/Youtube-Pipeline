@@ -20,7 +20,7 @@ from database.models import Prompt, PromptingStyleMaster
 from repositories.base_repository import BaseRepository
 
 MIN_PROMPT_CHARS = 50
-REQUIRED_PROMPTS_PER_IDEA = 20
+REQUIRED_PROMPTS_PER_IDEA = 10
 
 
 class PromptRepository(BaseRepository[Prompt]):
@@ -56,16 +56,35 @@ class PromptRepository(BaseRepository[Prompt]):
         return sum(1 for p in prompts if p.prompt_text and len(p.prompt_text.strip()) > MIN_PROMPT_CHARS)
 
     def has_complete_escalation(self, idea_id: int) -> bool:
-        """Predicate checking if all 20 prompts and level 10 video prompt exist."""
+        """Predicate checking if all 10 video levels (1-10) and level 10 video prompt exist."""
         lvl10_vid = self.get_level10_video_prompt(idea_id)
         if not lvl10_vid or not (lvl10_vid.prompt_text or "").strip():
             return False
-        return self.count_filled_prompts(idea_id) >= REQUIRED_PROMPTS_PER_IDEA
+        prompts = self.get_prompts_for_idea(idea_id)
+        valid_video_levels = {
+            p.level for p in prompts
+            if p.generation_type == "video" and p.level and 1 <= p.level <= 10
+            and p.prompt_text and len(p.prompt_text.strip()) > MIN_PROMPT_CHARS
+        }
+        return len(valid_video_levels) == 10
 
     def get_style_template(self, stage_name: str) -> Optional[PromptingStyleMaster]:
-        """Fetch prompting style instructions from master template table."""
+        """Fetch prompting style instructions from master template table.
+        Fails closed on ambiguity (multiple active styles).
+        """
         statement = select(PromptingStyleMaster).where(
             PromptingStyleMaster.stage_name == stage_name,
             PromptingStyleMaster.is_active == 1
         )
-        return self.session.exec(statement).first()
+        styles = self.session.exec(statement).all()
+        if len(styles) == 0:
+            return None
+        if len(styles) > 1:
+            active_ids = [s.id for s in styles]
+            active_versions = [s.version for s in styles]
+            raise RuntimeError(
+                f"[Critical Failure] Ambiguous active styles detected in repository for stage '{stage_name}': "
+                f"Found {len(styles)} active rows (IDs: {active_ids}, Versions: {active_versions}). "
+                f"System fails closed. Exactly 1 active style required."
+            )
+        return styles[0]

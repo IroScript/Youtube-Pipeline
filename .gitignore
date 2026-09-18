@@ -105,6 +105,7 @@ archive/CWINDOWSsystem32cmd.exe*.txt
 client_secrets.json
 client_secrets*.json
 token.json
+oauth_state.json
 YoutubeAPI.txt
 chatgpt_com_cookies.json
 *cookies*.json
@@ -128,3 +129,7 @@ youtube-uploader-eval/uploaded/
 youtube-uploader-eval/logs/
 youtube-uploader-eval/uv.lock
 youtube-uploader-eval/test.mp4
+
+# Accidental 0-byte root database files (real DB is in PromptDatabase/database/)
+PromptDatabase/youtube_pipeline.db
+video/1Video10Sec/youtube_pipeline.db

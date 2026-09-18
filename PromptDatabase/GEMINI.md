@@ -38,6 +38,13 @@
 11. **ABSOLUTE PROHIBITION ON AUTONOMOUS DELETION, REPLACEMENT OR WIPING OF DATABASE DATA:**
     - Any information, records, rows, or tables inside the SQLite database (`youtube_pipeline.db`), associated tables (`prompts`, `ideas`, `youtube_metadata`, `publishing`, `pipeline_row_state`, etc.), or related state/registry files (`upload_registry.txt`, `output_packaged/` files) must NEVER be deleted, replaced, wiped, or modified autonomously by AGY CLI.
     - All manual deletion, record replacement, schema alteration, or data purging decisions MUST strictly originate from Iraq bhai. AGY CLI will never independently decide to delete or overwrite database data.
+12. **GOOGLE VEO 3.1 ZERO-CREDIT LOWER PRIORITY MANDATE:**
+    - Google Flow / Veo 3.1 এ Lower Priority মোডে ভিডিও তৈরিতে কোনো এআই ক্রেডিট (credits) খরচ হয় না (Zero AI Credits Required in Lower Priority / Relaxed Queue)।
+    - পেজে "You're running low on Google Flow credits" জাতীয় সতর্কবার্তা বা ব্যানার দেখালেও লোয়ার প্রায়োরিটিতে আনলিমিটেড ভিডিও তৈরি সম্পূর্ণ অব্যাহত থাকে। এটিকে কখনোই ক্রেডিট শেষ বা ফুরিয়ে যাওয়ার সমস্যা মনে করা সম্পূর্ণ নিষিদ্ধ।
+13. **BOT DETECTION VS SUBMIT BUTTON BEHAVIOR IN VEO INTERFACE:**
+    - Google Flow / Veo ইন্টারফেসে সাবমিট বাটন (`button[aria-label='Start generation']`) কাজ না করা, ক্লিক না হওয়া, বাটন গায়েব হওয়া বা বাটনে অরেঞ্জ/সতর্কতা আইকন (`[!]`) প্রতিস্থাপিত হওয়া খাঁটি **বট ডিটেকশন (Bot Detection) সংক্রান্ত এরর**।
+    - অটোমেটেড স্ক্রিপ্টের দ্রুত ইন্টারঅ্যাকশন বা প্যাটার্ন শনাক্ত হলে গুগল ইন্টারফেস সাময়িকভাবে সাবমিট বাটন অবরুদ্ধ (disable/block) করে রাখে।
+    - একে কখনোই ক্রেডিট শেষ হওয়া বা DOM নিখোঁজ হওয়া বলে ভুল ব্যাখ্যা করা যাবে না। এটি সম্পূর্ণরূপে Bot Detection এর কারণে ঘটে। এর সমাধান হলো ডায়নামিক অ্যান্টি-বট ইন্টারভ্যাল ও পর্যাপ্ত কুলডাউন মেনে চলা এবং হিউম্যান-লাইক ব্রাউজার ইন্টারঅ্যাকশন নিশ্চিত করা।
 
 ---
 

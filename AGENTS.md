@@ -14,6 +14,15 @@
    - এই অ্যাকাউন্টের সাথে যুক্ত কোনো ইউটিউব চ্যানেল (যেমন `Gaming Dot Bangla` / `@gamingdotbangla249`)-এ পাইপলাইনের কোনো ভিডিও আপলোড করা সম্পূর্ণ নিষিদ্ধ।
    - পাইপলাইনের সমস্ত ভিডিওর একমাত্র বৈধ টার্গেট চ্যানেল হলো **`@AstroSparksAI`** (Astro Sparks AI)। `Gaming Dot Bangla` বা অন্য কোনো জেনারেশন প্রোফাইল চ্যানেলে আপলোড করার কোনো প্রস্তাব বা প্রচেষ্টা চালানো যাবে না।
 
+2. **GOOGLE VEO 3.1 ZERO-CREDIT LOWER PRIORITY MANDATE:**
+   - Google Flow / Veo 3.1 এ Lower Priority মোডে ভিডিও তৈরিতে কোনো এআই ক্রেডিট খরচ হয় না (Zero Credits in Lower Priority / Relaxed Queue)।
+   - ইন্টারফেসে "You're running low on Google Flow credits" জাতীয় সতর্কবার্তা আসলেও লোয়ার প্রায়োরিটিতে আনলিমিটেড ভিডিও তৈরি সম্পূর্ণ অব্যাহত থাকে। এটিকে কখনোই ক্রেডিট শেষ হওয়া বা কাজ বন্ধের কারণ হিসেবে গণ্য করা সম্পূর্ণ নিষিদ্ধ।
+
+3. **BOT DETECTION VS SUBMIT BUTTON BEHAVIOR IN VEO INTERFACE:**
+   - Google Flow / Veo ইন্টারফেসে সাবমিট বাটন (`button[aria-label='Start generation']`) কাজ না করা, ক্লিক না হওয়া বা বাটনের জায়গায় সতর্কতা আইকন (`[!]`) আসা সম্পূর্ণ **বট ডিটেকশন (Bot Detection) সংক্রান্ত এরর**।
+   - অটোমেশন দ্রুত বা অসাবধানভাবে রিকোয়েস্ট পাঠালে গুগল ফ্লো সাময়িকভাবে সাবমিট বাটন অবরুদ্ধ (disable/block) করে রাখে। একে কখনোই "ক্রেডিট শেষ" বলে ভুল ব্যাখ্যা করা যাবে না।
+   - এর প্রকৃত সমাধান হলো ডায়নামিক অ্যান্টি-বট ইন্টারভ্যাল ও পর্যাপ্ত কুলডাউন রক্ষা করা এবং হিউম্যান-লাইক ব্রাউজার ইন্টারঅ্যাকশন নিশ্চিত করা।
+
 ## Absolute Prohibition on Autonomous Deletion & Modification (YouTube Videos & Database)
 
 1. **NO AUTONOMOUS DELETION OR MODIFICATION OF YOUTUBE UPLOADED VIDEOS:**

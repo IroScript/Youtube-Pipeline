@@ -1,0 +1,18 @@
+{
+  "idea_id": 11,
+  "idea_title": "Colossal Wheat Combine Titan",
+  "idea_topic": "Wheat Field",
+  "element_id": 1,
+  "idea_index_in_element": 11,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "Level 10 - Alien Level / Maximum",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: AWAKEN THE TITAN\" — The alien agricultural intelligence activates, illuminating countless sensor halos and planetary-scale harvesting systems across Colossal Wheat Combine Titan.\n\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: HARVEST REALITY\" — Innumerable colossal arms reach through folded space and gather Wheat Field from multiple worlds simultaneously.\n\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TRANSDIMENSIONAL THRESH\" — Entire crop streams enter wormholes and emerge inside the titan's impossible belly factory.\n\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: QUANTUM PURIFICATION\" — Individual Wheat Field particles float through miniature artificial suns, gravitational separators, magnetic fields, and alien drying reactors.\n\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: STORE THE HARVEST UNIVERSE\" — Finished yield cascades into an infinite-dimensional storage chamber containing vast glowing reserves of Wheat Field.\n\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; a continuous vertical ascent from ground level up along the structure's full height, and the sequence closes as the outer shell peels away in one continuous move to expose a working cross-section of the internal mechanism, every layer moving in synchronised order. The surrounding Wheat Field machinery settles into a continuous operating rhythm; lighting and atmosphere throughout: amber dust-laden atmosphere, heavy particulate haze, sun as a dim disc. No cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "Colossal Wheat Combine Titan - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "5-Layer Open Montage Structure\n\nLayer 1 — Subject: The ultimate god-tier alien Colossal Wheat Combine Titan megastructure, a transcendent cosmic intelligence commanding planetary-scale sensor halos, transdimensional harvesting arms reaching through folded reality, and an infinite-dimensional processing heart.\n\nLayer 2 — Environment: Multiple worlds and cosmic horizons converging beneath the titan's presence, billions of hectares of Wheat Field across infinite realities illuminated in ethereal cosmic dawn light.\n\nLayer 3 — Architecture: Alien hyper-matter chassis, transparent hyper-dimensional processing cathedrals, wormhole intake conduits, infinite-dimensional storage spheres glowing with limitless yield.\n\nLayer 4 — Energy/Physics: Ethereal multi-spectrum cosmic radiance, dimensional gravity waves, tachyon quantum loops, and reality-stabilizing field geometries.\n\nLayer 5 — Cinematic Presentation: Supreme cinematic masterpiece, 9:16 vertical framing, IMAX cosmic angle, photorealistic hyper-detailed alien textures, breathtaking lighting and reflections, 16K render. Overall silhouette reads as a low continuous-track crawler chassis, immensely wide and slow; camera language: a continuous vertical ascent from ground level up along the structure's full height; atmosphere: amber dust-laden atmosphere, heavy particulate haze, sun as a dim disc.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-17T09:28:15.186947+00:00"
+}

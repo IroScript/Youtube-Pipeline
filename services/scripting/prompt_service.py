@@ -39,7 +39,7 @@ class PromptService:
             "idea_id": idea_id,
             "total_prompts": len(prompts),
             "filled_prompts": filled,
-            "required_prompts": 20,
+            "required_prompts": 10,
             "has_level_10_video": lvl10_vid is not None,
             "is_complete": complete,
         }

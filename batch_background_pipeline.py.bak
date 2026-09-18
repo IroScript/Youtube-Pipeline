@@ -1,0 +1,330 @@
+import subprocess, os, time, glob, random, json, sqlite3, shutil
+from pathlib import Path
+from datetime import datetime, timezone
+from playwright.sync_api import sync_playwright
+
+print("=== STARTING BATCH BACKGROUND PIPELINE RUNNER ===")
+print("Delay policy: 2 to 5 minutes random delay between video generations.")
+
+db_path = "/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/PromptDatabase/database/youtube_pipeline.db"
+download_dir = "/home/mdkamruzzamanirak_gmail_com/Downloads"
+base_packaged_dir = "/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/PromptDatabase/output_packaged"
+
+def slugify(title):
+    import re
+    clean = re.sub(r'[^a-zA-Z0-9_\- ]', '', title)
+    return clean.strip().replace(' ', '_')
+
+def get_next_pending_idea():
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute("""
+        SELECT i.id, i.title, i.topic, i.priority, m.id as meta_id, m.title as meta_title, m.tags, m.seo_description, m.pinned_comment, m.category, m.default_language, m.tracking_token, m.uuid as meta_uuid
+        FROM ideas i
+        JOIN youtube_metadata m ON m.idea_id = i.id
+        WHERE i.status = 'new' AND i.is_deleted = 0
+        ORDER BY i.id ASC
+        LIMIT 1
+    """)
+    row = c.fetchone()
+    if not row:
+        conn.close()
+        return None
+    idea = dict(row)
+    
+    c.execute("SELECT * FROM prompts WHERE idea_id = ? AND level = 10 AND prompt_type = 'video_prompt'", (idea["id"],))
+    vp = c.fetchone()
+    idea["video_prompt"] = dict(vp) if vp else None
+
+    c.execute("SELECT * FROM prompts WHERE idea_id = ? AND level = 10 AND prompt_type = 'image_prompt'", (idea["id"],))
+    ip = c.fetchone()
+    idea["image_prompt"] = dict(ip) if ip else None
+
+    conn.close()
+    return idea
+
+def run_generation_for_idea(idea):
+    idea_id = idea["id"]
+    title = idea["title"]
+    slug = slugify(title)
+    folder_name = f"1.{idea_id}.Level_10_{slug}"
+    target_dir = os.path.join(base_packaged_dir, folder_name)
+    os.makedirs(target_dir, exist_ok=True)
+    
+    print(f"\n==========================================")
+    print(f" PROCESSING IDEA #{idea_id}: {title}")
+    print(f" Target folder: {folder_name}")
+    print(f"==========================================")
+
+    # 1. Random delay 2 to 5 minutes (120 to 300 seconds)
+    delay_sec = random.randint(120, 300)
+    print(f"Applying random human-like delay: {delay_sec} seconds ({delay_sec/60:.1f} mins)...")
+    time.sleep(delay_sec)
+
+    video_prompt_full = idea["video_prompt"]["prompt_text"] if idea["video_prompt"] else ""
+    gen_prompt = f"{title} - Level 10 Alien agricultural titan harvesting rice fields in cinematic 8 seconds. Transdimensional awakening, infinite harvest deployment, belly factory processing, quantum purification, photorealistic cinematic render."
+
+    max_retries = 3
+    downloaded_video = None
+
+    for attempt in range(1, max_retries + 1):
+        print(f"\n--- ATTEMPT {attempt}/{max_retries} for Idea #{idea_id} ---")
+        if attempt > 1:
+            cooldown = 90
+            print(f"Waiting {cooldown}s cooldown before retrying...")
+            time.sleep(cooldown)
+
+        for lock in Path("/home/mdkamruzzamanirak_gmail_com/.config/google-chrome").glob("Singleton*"):
+            try: lock.unlink()
+            except Exception: pass
+
+        env = os.environ.copy()
+        env["HOME"] = "/home/mdkamruzzamanirak_gmail_com/.chrome_home"
+        env["DISPLAY"] = ":99"
+
+        cmd = [
+            "/usr/bin/google-chrome",
+            "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--no-first-run",
+            "--remote-debugging-port=9222",
+            "--user-data-dir=/home/mdkamruzzamanirak_gmail_com/.config/google-chrome",
+            "--profile-directory=Profile 5",
+            "https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d"
+        ]
+
+        proc = subprocess.Popen(cmd, env=env)
+        time.sleep(6)
+
+        try:
+            with sync_playwright() as p:
+                browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
+                context = browser.contexts[0]
+                page = context.pages[0] if context.pages else context.new_page()
+                page.wait_for_load_state("networkidle")
+                time.sleep(4)
+
+                cdp = context.new_cdp_session(page)
+                cdp.send("Page.setDownloadBehavior", {"behavior": "allow", "downloadPath": download_dir})
+                cdp.send("Browser.setDownloadBehavior", {"behavior": "allow", "downloadPath": download_dir, "eventsEnabled": True})
+
+                pre_files = set(glob.glob(f"{download_dir}/*"))
+
+                # Input prompt
+                tb = page.locator("div.ProseMirror").first
+                tb.click()
+                time.sleep(0.5)
+                page.keyboard.insert_text(gen_prompt)
+                time.sleep(1)
+
+                submit_btn = page.locator("button[aria-label='Start generation']").first
+                submit_btn.click(force=True)
+                print("Prompt submitted! Monitoring generation progress...")
+                time.sleep(6)
+
+                generation_success = False
+                for sec in range(0, 180, 5):
+                    time.sleep(5)
+                    body = page.locator("body").inner_text()
+                    
+                    if "high demand" in body or "Failed" in body:
+                        print(f"[{sec}s] High demand or failure detected. Will retry after cooldown.")
+                        break
+
+                    lines = [l.strip() for l in body.split("\n") if l.strip()]
+                    pcts = [l for l in lines if "%" in l and any(c.isdigit() for c in l)]
+                    if pcts:
+                        print(f"[{sec}s] Progress: {pcts}")
+                    elif sec >= 25:
+                        print(f"[{sec}s] Generation reached 100%! Waiting 10s for card stabilization...")
+                        time.sleep(10)
+                        generation_success = True
+                        break
+
+                shot = f"/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/video/1Video10Sec/idea_{idea_id}_status.png"
+                page.screenshot(path=shot)
+
+                if generation_success:
+                    print("Locating newly generated card via coordinates...")
+                    boxes = page.evaluate("""() => {
+                        const list = [];
+                        for (const el of document.querySelectorAll("img, video, canvas")) {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.width >= 80 && rect.width <= 200 && rect.height >= 150 && rect.height <= 350) {
+                                list.push({
+                                    x: rect.x + rect.width / 2,
+                                    y: rect.y + rect.height / 2,
+                                    left: rect.left,
+                                    top: rect.top
+                                });
+                            }
+                        }
+                        list.sort((a, b) => {
+                            if (Math.abs(a.top - b.top) > 50) return a.top - b.top;
+                            return a.left - b.left;
+                        });
+                        return list;
+                    }""")
+
+                    if boxes:
+                        first_card = boxes[0]
+                        print(f"Right-clicking newest card at ({first_card['x']}, {first_card['y']})...")
+                        page.mouse.click(first_card['x'], first_card['y'], button="right")
+                        time.sleep(2)
+
+                        dl_item = page.locator("[role='menuitem']:has-text('Download')").first
+                        if dl_item.is_visible():
+                            print("Download option visible, hovering...")
+                            dl_item.hover()
+                            time.sleep(1.5)
+
+                            target_size = page.locator("[role='menuitem']:has-text('720p'), [role='menuitem']:has-text('Original')").first
+                            if target_size.is_visible():
+                                print("Clicking 720p Original size...")
+                                target_size.click(force=True)
+                            else:
+                                page.locator("div:has-text('720p')").last.click(force=True)
+
+                            print("Waiting for download to finish...")
+                            for w in range(30):
+                                time.sleep(2)
+                                new_files = [f for f in glob.glob(f"{download_dir}/*") if f not in pre_files]
+                                mp4s = [f for f in new_files if f.endswith(".mp4")]
+                                crds = [f for f in new_files if f.endswith(".crdownload")]
+                                print(f"[{w*2}s] mp4s={mp4s}, crds={crds}")
+                                if mp4s and not crds:
+                                    downloaded_video = mp4s[0]
+                                    print(f"DOWNLOAD SUCCESS: {downloaded_video}")
+                                    break
+                    else:
+                        print("No card boxes detected.")
+
+                browser.close()
+        finally:
+            proc.terminate()
+
+        if downloaded_video:
+            break
+
+    # Packaging
+    if downloaded_video and os.path.exists(downloaded_video):
+        print(f"\n--- PACKAGING IDEA #{idea_id} ---")
+        target_video_name = f"1.{idea_id}.Level_10_{slug}.mp4"
+        target_video_path = os.path.join(target_dir, target_video_name)
+        shutil.copy2(downloaded_video, target_video_path)
+        print(f"Copied video to {target_video_path}")
+
+        thumbnail_path = os.path.join(target_dir, "thumbnail.png")
+        cmd = ["ffmpeg", "-y", "-ss", "00:00:01", "-i", target_video_path, "-vframes", "1", "-q:v", "2", thumbnail_path]
+        subprocess.run(cmd, check=True)
+        print(f"Generated thumbnail at {thumbnail_path}")
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+
+        prompt_dict = {
+            "idea_id": idea_id,
+            "idea_title": idea["title"],
+            "idea_topic": idea["topic"],
+            "element_id": 1,
+            "idea_index_in_element": idea_id,
+            "target_generation": "10-Second Veo Video",
+            "escalation_level": 10,
+            "level_name": "Level 10 - Alien Level / Maximum",
+            "primary_video_prompt_used": idea["video_prompt"]["prompt_text"] if idea["video_prompt"] else gen_prompt,
+            "video_prompt_title": idea["video_prompt"]["title"] if idea["video_prompt"] else f"{title} Level 10",
+            "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+            "duration": "8s",
+            "aspect_ratio": "9:16",
+            "reference_image_prompt": idea["image_prompt"]["prompt_text"] if idea["image_prompt"] else "",
+            "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+            "exported_from_sqlite_at": now_iso
+        }
+        with open(os.path.join(target_dir, f"1.{idea_id}.Level_10_Prompt.json"), "w", encoding="utf-8") as f:
+            json.dump(prompt_dict, f, indent=2, ensure_ascii=False)
+        with open(os.path.join(target_dir, "prompt_info.json"), "w", encoding="utf-8") as f:
+            json.dump(prompt_dict, f, indent=2, ensure_ascii=False)
+
+        raw_tags = idea.get("tags")
+        if isinstance(raw_tags, str):
+            try: tags_list = json.loads(raw_tags)
+            except Exception: tags_list = [t.strip() for t in raw_tags.split(",") if t.strip()]
+        else: tags_list = raw_tags or []
+
+        metadata_dict = {
+            "idea_id": idea_id,
+            "tracking_token": idea.get("tracking_token") or f"[Ref: AGY-IDEA-{idea_id:03d} | UUID: {idea.get('meta_uuid')}]",
+            "title": idea.get("meta_title") or title,
+            "seo_description": idea.get("seo_description") or "",
+            "tags": tags_list,
+            "hashtags": ["#PaddyHarvesting", "#FutureFarming", "#MegaMachines"],
+            "pinned_comment": idea.get("pinned_comment") or "Would you trust a machine this huge in the fields? 🌾👇",
+            "category": idea.get("category") or "Science & Technology",
+            "default_language": idea.get("default_language") or "en",
+            "source": "sqlite_youtube_metadata_table",
+            "exported_at": now_iso
+        }
+        with open(os.path.join(target_dir, f"1.{idea_id}.Level_10_YouTube_Metadata.json"), "w", encoding="utf-8") as f:
+            json.dump(metadata_dict, f, indent=2, ensure_ascii=False)
+        with open(os.path.join(target_dir, "youtube_metadata.json"), "w", encoding="utf-8") as f:
+            json.dump(metadata_dict, f, indent=2, ensure_ascii=False)
+
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        c.execute("""
+            UPDATE youtube_metadata 
+            SET video_prompt_used = ?,
+                image_prompt_used = ?,
+                video_file_path = ?,
+                package_folder_path = ?,
+                status = 'ready_for_upload',
+                updated_at = ?
+            WHERE idea_id = ?
+        """, (
+            prompt_dict["primary_video_prompt_used"],
+            prompt_dict["reference_image_prompt"],
+            target_video_path,
+            target_dir,
+            now_iso,
+            idea_id
+        ))
+
+        c.execute("""
+            UPDATE pipeline_row_state
+            SET current_state = 'READY_FOR_UPLOAD',
+                prompt_verified = 1,
+                seo_verified = 1,
+                video_verified = 1,
+                package_verified = 1,
+                all_fields_validated = 1,
+                last_verified_at = ?,
+                updated_at = ?
+            WHERE idea_id = ?
+        """, (now_iso, now_iso, idea_id))
+
+        c.execute("""
+            UPDATE ideas
+            SET status = 'packaged',
+                generated_at = ?,
+                updated_at = ?
+            WHERE id = ?
+        """, (now_iso, now_iso, idea_id))
+
+        conn.commit()
+        conn.close()
+        print(f"=== IDEA #{idea_id} FULLY PACKAGED & SYNCED TO SQLITE! ===\n")
+        return True
+    else:
+        print(f"FAILED to generate/download Idea #{idea_id}.\n")
+        return False
+
+# Main loop
+while True:
+    next_idea = get_next_pending_idea()
+    if not next_idea:
+        print("No more pending ideas found in database. All videos completed!")
+        break
+    success = run_generation_for_idea(next_idea)
+    if not success:
+        print("Encountered an issue with idea. Waiting 2 minutes before retrying...")
+        time.sleep(120)

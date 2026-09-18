@@ -299,7 +299,7 @@ def update_db_status(conn: sqlite3.Connection, folder_path: str, youtube_id: str
                                video_id, platform, channel_name, platform_video_id,
                                title, url, status, published_at, views, likes, comments,
                                watch_time, retention_pct, ctr_pct, subscribers_gained, created_at
-                           ) VALUES (?, 'youtube', '@AstroSparksAI', ?, ?, ?, 'published', ?, 0, 0, 0, 0.0, 0.0, 0, ?)""",
+                            ) VALUES (?, 'youtube', '@AstroSparksAI', ?, ?, ?, 'published', ?, 0, 0, 0, 0.0, 0.0, 0.0, 0, ?)""",
                         (video_id, youtube_id, folder_name, yt_url, now, now),
                     )
         # Update pipeline_row_state

@@ -180,21 +180,25 @@ class BrowserLLM:
         except Exception as e:
             config.log(f"[BrowserLLM] CloakBrowser unavailable ({e}); using stock Playwright.")
             from playwright.sync_api import sync_playwright
-            self._playwright = sync_playwright().start()
-            if self.persistent:
-                config.BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-                self._context = self._playwright.chromium.launch_persistent_context(
-                    user_data_dir=str(config.BROWSER_PROFILE_DIR),
-                    headless=self.headless,
-                    no_viewport=True,
-                    args=["--disable-blink-features=AutomationControlled", "--start-maximized"],
-                )
-            else:
-                self._browser = self._playwright.chromium.launch(
-                    headless=self.headless,
-                    args=["--disable-blink-features=AutomationControlled", "--start-maximized"],
-                )
-                self._context = self._browser.new_context(no_viewport=True)
+            try:
+                self._playwright = sync_playwright().start()
+                if self.persistent:
+                    config.BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+                    self._context = self._playwright.chromium.launch_persistent_context(
+                        user_data_dir=str(config.BROWSER_PROFILE_DIR),
+                        headless=self.headless,
+                        no_viewport=True,
+                        args=["--disable-blink-features=AutomationControlled", "--start-maximized"],
+                    )
+                else:
+                    self._browser = self._playwright.chromium.launch(
+                        headless=self.headless,
+                        args=["--disable-blink-features=AutomationControlled", "--start-maximized"],
+                    )
+                    self._context = self._browser.new_context(no_viewport=True)
+            except Exception as pw_err:
+                self.close()
+                raise pw_err
 
     def close(self):
         for closer in (self._context, self._browser, self._playwright):
