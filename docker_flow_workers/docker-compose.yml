@@ -1,0 +1,179 @@
+version: '3.8'
+
+networks:
+  veo_flow_cluster_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16
+
+services:
+  flow-worker-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flow_worker_1
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "8101:8000"
+    environment:
+      - WORKER_ID=flow_worker_1
+      - PORT=8000
+      - DISPLAY=:99
+      - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./profiles/worker_1:/app/profile:rw
+      - ./cookies/worker_1:/app/cookies:rw
+      - ./downloads/worker_1:/app/downloads:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+      - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+    networks:
+      - veo_flow_cluster_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  flow-worker-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flow_worker_2
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "8102:8000"
+    environment:
+      - WORKER_ID=flow_worker_2
+      - PORT=8000
+      - DISPLAY=:99
+      - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./profiles/worker_2:/app/profile:rw
+      - ./cookies/worker_2:/app/cookies:rw
+      - ./downloads/worker_2:/app/downloads:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+      - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+    networks:
+      - veo_flow_cluster_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  flow-worker-3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flow_worker_3
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "8103:8000"
+    environment:
+      - WORKER_ID=flow_worker_3
+      - PORT=8000
+      - DISPLAY=:99
+      - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./profiles/worker_3:/app/profile:rw
+      - ./cookies/worker_3:/app/cookies:rw
+      - ./downloads/worker_3:/app/downloads:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+      - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+    networks:
+      - veo_flow_cluster_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  flow-worker-4:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flow_worker_4
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "8104:8000"
+    environment:
+      - WORKER_ID=flow_worker_4
+      - PORT=8000
+      - DISPLAY=:99
+      - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./profiles/worker_4:/app/profile:rw
+      - ./cookies/worker_4:/app/cookies:rw
+      - ./downloads/worker_4:/app/downloads:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+      - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+    networks:
+      - veo_flow_cluster_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  flow-worker-5:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flow_worker_5
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "8105:8000"
+    environment:
+      - WORKER_ID=flow_worker_5
+      - PORT=8000
+      - DISPLAY=:99
+      - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./profiles/worker_5:/app/profile:rw
+      - ./cookies/worker_5:/app/cookies:rw
+      - ./downloads/worker_5:/app/downloads:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+      - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+    networks:
+      - veo_flow_cluster_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
