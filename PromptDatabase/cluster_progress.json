@@ -1,6 +1,6 @@
 {
   "started_at": "2026-09-25T07:51:18.952470+00:00",
-  "last_updated": "2026-10-01T09:53:31.206121+00:00",
+  "last_updated": "2026-10-01T09:58:34.408619+00:00",
   "total_elements_target": 273,
   "total_ideas_target": 2730,
   "total_prompts_target": 27300,
@@ -28,10 +28,10 @@
       "macro_rest_hours": 1.57
     },
     "worker_2": {
-      "status": "generating_prompts",
+      "status": "cycle_resting",
       "current_element_id": 146,
       "current_element_name": "Aerogel",
-      "completed_processes": 66,
+      "completed_processes": 68,
       "completed_elements": [
         42,
         42,
@@ -44,9 +44,9 @@
       ],
       "stagger_seconds": 240.0,
       "current_cycle": 8,
-      "cycle_processes": 3,
-      "cooldown_seconds": 40.5,
-      "rest_seconds": 896.3,
+      "cycle_processes": 0,
+      "cooldown_seconds": 60.5,
+      "rest_seconds": 185.9,
       "macro_rest_hours": 1.11
     },
     "worker_3": {
