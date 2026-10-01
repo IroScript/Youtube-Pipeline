@@ -1,13 +1,13 @@
 {
   "started_at": "2026-09-25T07:51:18.952470+00:00",
-  "last_updated": "2026-10-01T13:15:36.118533+00:00",
+  "last_updated": "2026-10-01T13:19:02.410644+00:00",
   "total_elements_target": 273,
   "total_ideas_target": 2730,
   "total_prompts_target": 27300,
   "total_seo_target": 2730,
   "workers": {
     "worker_1": {
-      "status": "generating_prompts",
+      "status": "cycle_resting",
       "current_element_id": 104,
       "current_element_name": "Cosmic Ray",
       "completed_processes": 98,
@@ -22,9 +22,9 @@
       ],
       "stagger_seconds": 180.0,
       "current_cycle": 13,
-      "cycle_processes": 5,
+      "cycle_processes": 0,
       "cooldown_seconds": 61.4,
-      "rest_seconds": 484.9,
+      "rest_seconds": 502.0,
       "macro_rest_hours": 1.59
     },
     "worker_2": {
