@@ -1,6 +1,6 @@
 {
   "started_at": "2026-09-25T07:51:18.952470+00:00",
-  "last_updated": "2026-10-01T10:23:02.826336+00:00",
+  "last_updated": "2026-10-01T10:32:36.616028+00:00",
   "total_elements_target": 273,
   "total_ideas_target": 2730,
   "total_prompts_target": 27300,
@@ -10,7 +10,7 @@
       "status": "generating_prompts",
       "current_element_id": 102,
       "current_element_name": "Topological Insulator",
-      "completed_processes": 74,
+      "completed_processes": 79,
       "completed_elements": [
         22,
         22,
@@ -22,16 +22,16 @@
       ],
       "stagger_seconds": 180.0,
       "current_cycle": 11,
-      "cycle_processes": 1,
-      "cooldown_seconds": 21.9,
+      "cycle_processes": 6,
+      "cooldown_seconds": 70.4,
       "rest_seconds": 348.2,
       "macro_rest_hours": 1.57
     },
     "worker_2": {
-      "status": "cycle_resting",
+      "status": "generating_prompts",
       "current_element_id": 146,
       "current_element_name": "Aerogel",
-      "completed_processes": 73,
+      "completed_processes": 78,
       "completed_elements": [
         42,
         42,
@@ -43,9 +43,9 @@
         48
       ],
       "stagger_seconds": 240.0,
-      "current_cycle": 9,
-      "cycle_processes": 0,
-      "cooldown_seconds": 60.3,
+      "current_cycle": 10,
+      "cycle_processes": 5,
+      "cooldown_seconds": 60.2,
       "rest_seconds": 403.6,
       "macro_rest_hours": 1.11
     },
