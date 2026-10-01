@@ -20,23 +20,31 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     ports:
-      - "8101:8000"
+      - "8101:8102"
     environment:
       - WORKER_ID=flow_worker_1
-      - PORT=8000
+      - PORT=8102
       - DISPLAY=:99
       - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
       - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - DOWNLOADS_DIR=/app/downloads
+      - TEMP_DIR=/app/temp
+      - PROFILE_DIR=/app/profile
     volumes:
       - ./profiles/worker_1:/app/profile:rw
       - ./cookies/worker_1:/app/cookies:rw
       - ./downloads/worker_1:/app/downloads:rw
+      - ./temp/worker_1:/app/temp:rw
+      - ../PromptDatabase/database:/app/database:rw
       - ./10SecNewExtension:/app/10SecNewExtension:ro
       - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+      - ./flow_queue_manager.py:/app/flow_queue_manager.py:rw
+      - ./browser_supervisor.py:/app/browser_supervisor.py:rw
     networks:
       - veo_flow_cluster_net
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8102/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -54,23 +62,31 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     ports:
-      - "8102:8000"
+      - "8102:8102"
     environment:
       - WORKER_ID=flow_worker_2
-      - PORT=8000
+      - PORT=8102
       - DISPLAY=:99
       - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
       - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - DOWNLOADS_DIR=/app/downloads
+      - TEMP_DIR=/app/temp
+      - PROFILE_DIR=/app/profile
     volumes:
       - ./profiles/worker_2:/app/profile:rw
       - ./cookies/worker_2:/app/cookies:rw
       - ./downloads/worker_2:/app/downloads:rw
+      - ./temp/worker_2:/app/temp:rw
+      - ../PromptDatabase/database:/app/database:rw
       - ./10SecNewExtension:/app/10SecNewExtension:ro
       - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+      - ./flow_queue_manager.py:/app/flow_queue_manager.py:rw
+      - ./browser_supervisor.py:/app/browser_supervisor.py:rw
     networks:
       - veo_flow_cluster_net
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8102/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -88,23 +104,31 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     ports:
-      - "8103:8000"
+      - "8103:8102"
     environment:
       - WORKER_ID=flow_worker_3
-      - PORT=8000
+      - PORT=8102
       - DISPLAY=:99
       - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
       - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - DOWNLOADS_DIR=/app/downloads
+      - TEMP_DIR=/app/temp
+      - PROFILE_DIR=/app/profile
     volumes:
       - ./profiles/worker_3:/app/profile:rw
       - ./cookies/worker_3:/app/cookies:rw
       - ./downloads/worker_3:/app/downloads:rw
+      - ./temp/worker_3:/app/temp:rw
+      - ../PromptDatabase/database:/app/database:rw
       - ./10SecNewExtension:/app/10SecNewExtension:ro
       - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+      - ./flow_queue_manager.py:/app/flow_queue_manager.py:rw
+      - ./browser_supervisor.py:/app/browser_supervisor.py:rw
     networks:
       - veo_flow_cluster_net
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8102/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -122,23 +146,31 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     ports:
-      - "8104:8000"
+      - "8104:8102"
     environment:
       - WORKER_ID=flow_worker_4
-      - PORT=8000
+      - PORT=8102
       - DISPLAY=:99
       - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
       - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - DOWNLOADS_DIR=/app/downloads
+      - TEMP_DIR=/app/temp
+      - PROFILE_DIR=/app/profile
     volumes:
       - ./profiles/worker_4:/app/profile:rw
       - ./cookies/worker_4:/app/cookies:rw
       - ./downloads/worker_4:/app/downloads:rw
+      - ./temp/worker_4:/app/temp:rw
+      - ../PromptDatabase/database:/app/database:rw
       - ./10SecNewExtension:/app/10SecNewExtension:ro
       - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+      - ./flow_queue_manager.py:/app/flow_queue_manager.py:rw
+      - ./browser_supervisor.py:/app/browser_supervisor.py:rw
     networks:
       - veo_flow_cluster_net
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8102/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -156,23 +188,31 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     ports:
-      - "8105:8000"
+      - "8105:8102"
     environment:
       - WORKER_ID=flow_worker_5
-      - PORT=8000
+      - PORT=8102
       - DISPLAY=:99
       - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
       - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - DOWNLOADS_DIR=/app/downloads
+      - TEMP_DIR=/app/temp
+      - PROFILE_DIR=/app/profile
     volumes:
       - ./profiles/worker_5:/app/profile:rw
       - ./cookies/worker_5:/app/cookies:rw
       - ./downloads/worker_5:/app/downloads:rw
+      - ./temp/worker_5:/app/temp:rw
+      - ../PromptDatabase/database:/app/database:rw
       - ./10SecNewExtension:/app/10SecNewExtension:ro
       - ./flow_worker_server.py:/app/flow_worker_server.py:rw
+      - ./flow_queue_manager.py:/app/flow_queue_manager.py:rw
+      - ./browser_supervisor.py:/app/browser_supervisor.py:rw
     networks:
       - veo_flow_cluster_net
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8102/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
