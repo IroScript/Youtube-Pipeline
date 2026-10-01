@@ -1,16 +1,16 @@
 {
   "started_at": "2026-09-25T07:51:18.952470+00:00",
-  "last_updated": "2026-10-01T14:12:19.521955+00:00",
+  "last_updated": "2026-10-01T14:47:36.551898+00:00",
   "total_elements_target": 273,
   "total_ideas_target": 2730,
   "total_prompts_target": 27300,
   "total_seo_target": 2730,
   "workers": {
     "worker_1": {
-      "status": "cycle_resting",
-      "current_element_id": 105,
-      "current_element_name": "Neutrino",
-      "completed_processes": 113,
+      "status": "generating_prompts",
+      "current_element_id": 106,
+      "current_element_name": "Laser",
+      "completed_processes": 123,
       "completed_elements": [
         22,
         22,
@@ -21,9 +21,9 @@
         27
       ],
       "stagger_seconds": 180.0,
-      "current_cycle": 15,
-      "cycle_processes": 0,
-      "cooldown_seconds": 110.5,
+      "current_cycle": 16,
+      "cycle_processes": 10,
+      "cooldown_seconds": 111.7,
       "rest_seconds": 1124.4,
       "macro_rest_hours": 1.59
     },
@@ -31,7 +31,7 @@
       "status": "generating_prompts",
       "current_element_id": 148,
       "current_element_name": "Auxetic Structure",
-      "completed_processes": 111,
+      "completed_processes": 116,
       "completed_elements": [
         42,
         42,
@@ -44,16 +44,16 @@
       ],
       "stagger_seconds": 240.0,
       "current_cycle": 13,
-      "cycle_processes": 4,
-      "cooldown_seconds": 51.8,
+      "cycle_processes": 9,
+      "cooldown_seconds": 100.8,
       "rest_seconds": 6263.8,
       "macro_rest_hours": 1.74
     },
     "worker_3": {
-      "status": "macro_resting",
+      "status": "generating_prompts",
       "current_element_id": 189,
       "current_element_name": "Dielectrophoresis",
-      "completed_processes": 66,
+      "completed_processes": 67,
       "completed_elements": [
         62,
         62,
@@ -65,8 +65,8 @@
       ],
       "stagger_seconds": 300.0,
       "current_cycle": 9,
-      "cycle_processes": 4,
-      "cooldown_seconds": 51.2,
+      "cycle_processes": 1,
+      "cooldown_seconds": 20.9,
       "rest_seconds": 6915.0,
       "macro_rest_hours": 1.92
     },
