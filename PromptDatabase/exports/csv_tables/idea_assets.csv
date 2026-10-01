@@ -1,4 +1,4 @@
-﻿id,uuid,idea_id,video_id,asset_type,file_path,file_name,mime_type,file_size_bytes,duration_seconds,checksum,source,model,version,created_at
+id,uuid,idea_id,video_id,asset_type,file_path,file_name,mime_type,file_size_bytes,duration_seconds,checksum,source,model,version,created_at
 1,6f5b3f1d-cb70-4086-b6fd-a1724d4a80e9,1,,image,C:\Users\Irak\Desktop\AntiBotBrowser\flowboard\storage\assets\idea_1_lvl10.png,,,,,,,,,2026-08-11 17:40:44.548423
 2,3422d6b5-fd66-4e9a-b4f1-5b4224a87b4b,2,,image,C:\Users\Irak\Desktop\AntiBotBrowser\flowboard\storage\assets\idea_2_lvl10.png,,,,,,,,,2026-08-11 17:40:58.434612
 3,97b5060b-74a1-44ff-a992-aee8056b6656,1,,image,C:\Users\Irak\Desktop\AntiBotBrowser\flowboard\storage\rendered_images\idea_1_lvl10_concept.png,,,,,,,,,2026-08-11 17:48:18.444270

@@ -1,4 +1,4 @@
-﻿id,uuid,channel_id,idea_id,current_stage_number,overall_status,created_at,updated_at
+id,uuid,channel_id,idea_id,current_stage_number,overall_status,created_at,updated_at
 1,fe992638-8372-4834-9281-0936bd9f970b,1,1,1,IN_PROGRESS,2026-08-11 17:18:32.493037,2026-08-11 17:18:32.493037
 2,b27cb520-e818-497e-a72d-35bb40f23b23,2,1,11,IN_PROGRESS,2026-08-11 17:18:32.570996,2026-08-11 17:18:32.570996
 3,f883093d-37ca-4f49-bfd0-35dd136d3ed4,1,1,20,TICK,2026-08-11 17:40:44.548423,2026-08-11 17:40:44.548423

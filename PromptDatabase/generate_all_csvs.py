@@ -1,122 +1,159 @@
-"""
-Master Unified CSV Generator (Autonomous Timestamped Export)
-============================================================
-Generates and refreshes ALL CSV exports for the entire YouTube Pipeline project in one go.
-Every generated CSV is stamped with date & time (e.g. seo_master_5_sept_9.16_am.csv)
-and will NEVER overwrite or replace previously generated CSV files.
-
-CSVs generated:
-  1. Real SEO Master Metadata (38 cols)     -> exports/seo_master_{timestamp}.csv
-  2. Real SEO Keywords & Metrics           -> exports/seo_keywords_{timestamp}.csv
-  3. Real SEO Competitor Analysis           -> exports/seo_competitors_{timestamp}.csv
-  4. Unified Master Pipeline Joined Table   -> exports/unified_master_pipeline_{timestamp}.csv
-  5. Master Prompt Hierarchy                -> exports/master_prompts_from_db_{timestamp}.csv
-  6. Lifecycle Hierarchy Progress           -> exports/pipeline_hierarchy_progress_{timestamp}.csv
-  7. Table Fillup Summary                  -> exports/table_fillup_summary_{timestamp}.csv
-  8. Prompting Style Master                 -> exports/prompting_style_master_{timestamp}.csv
-  9. Raw SQLite Database Tables (34 tables) -> exports/csv_tables/*.csv
-"""
-
-from __future__ import annotations
-
+#!/usr/bin/env python3
 import os
-import shutil
 import sys
-import time
+import csv
+import sqlite3
 from pathlib import Path
-from typing import Optional
 
 BASE_DIR = Path(__file__).resolve().parent
-if str(BASE_DIR) not in sys.path:
-    sys.path.insert(0, str(BASE_DIR))
+DB_PATH = BASE_DIR / "database" / "youtube_pipeline.db"
+EXPORTS_DIR = BASE_DIR / "exports"
+EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
+CSV_TABLES_DIR = EXPORTS_DIR / "csv_tables"
+CSV_TABLES_DIR.mkdir(parents=True, exist_ok=True)
 
-from export_utils import get_timestamp_suffix, resolve_unique_path, cleanup_old_exports
+from datetime import datetime, timezone
+TS = datetime.now(timezone.utc).strftime("%d_%b_%I.%M_%p").lower()
 
-
-def generate_all(timestamp_suffix: Optional[str] = None):
-    if timestamp_suffix is None:
-        timestamp_suffix = get_timestamp_suffix()
-
-    ts = timestamp_suffix
-    start = time.time()
-    print("=" * 76)
-    print(f"        📊 MASTER UNIFIED CSV EXPORT GENERATOR [{ts}]")
-    print("=" * 76)
-
-    # 1. Raw DB tables + Table Summary + Hierarchy Progress
-    print("\n>>> [1/4] Generating Raw Table CSVs & Lifecycle Progress...")
-    from generate_progress_csv import (
-        export_raw_tables,
-        generate_table_fillup_summary,
-        generate_pipeline_hierarchy_progress,
-        DB_PATH, CSV_TABLES_DIR, EXPORT_DIR
-    )
-    tbl_summaries = export_raw_tables(DB_PATH, CSV_TABLES_DIR)
-    generate_table_fillup_summary(tbl_summaries, timestamp_suffix=ts)
-    generate_pipeline_hierarchy_progress(timestamp_suffix=ts)
-
-    # Copy prompting_style_master.csv to timestamped export file
-    src_style = CSV_TABLES_DIR / "prompting_style_master.csv"
-    if src_style.exists():
-        dst_style = resolve_unique_path(EXPORT_DIR / f"prompting_style_master_{ts}.csv")
-        shutil.copy(src_style, dst_style)
-        print(f"  ✅ Saved: {dst_style.name}")
-
-    print(f"  ✅ Saved {len(tbl_summaries)} raw tables into: exports/csv_tables/")
-    print(f"  ✅ Saved: pipeline_hierarchy_progress_{ts}.csv")
-    print(f"  ✅ Saved: table_fillup_summary_{ts}.csv")
-
-    # 2. Master Prompts Hierarchy
-    print("\n>>> [2/4] Generating Master Prompts Hierarchy CSV...")
-    from generate_master_prompt_csv import main as export_master_prompts
-    export_master_prompts(timestamp_suffix=ts)
-
-    # 3. Real SEO Master + Keywords + Competitors
-    print("\n>>> [3/4] Generating Real SEO Master, Keywords & Competitors CSVs...")
-    from generate_seo_csv import generate_seo_csvs
-    generate_seo_csvs(timestamp_suffix=ts)
-
-    # 4. Unified Master Joined Pipeline CSV
-    print("\n>>> [4/5] Generating Unified Master Pipeline Joined CSV...")
-    from generate_master_joined_csv import generate_unified_master_csv
-    master_rows = generate_unified_master_csv(timestamp_suffix=ts)
-
-    # 5. Master Dashboard (One Row Per Idea — the only CSV users need)
-    print("\n>>> [5/5] Generating Master Dashboard CSV (single file, one row per idea)...")
-    from generate_dashboard_csv import generate_dashboard_csv
-    dashboard_rows = generate_dashboard_csv(timestamp_suffix=ts)
-
-    elapsed = time.time() - start
-    print("\n" + "=" * 76)
-    print(f"🎉 ALL CSV FILES SUCCESSFULLY GENERATED IN {elapsed:.2f}s!")
-    print(f"   (Timestamp Stamp: '{ts}' — Previous files preserved)")
-    print("=" * 76)
-    print("Generated Master CSV Exports:")
-    print(f"  1. Unified Master Pipeline  : exports/unified_master_pipeline_{ts}.csv ({len(master_rows)} rows)")
-    print(f"  2. SEO Master CSV           : exports/seo_master_{ts}.csv")
-    print(f"  3. SEO Keywords CSV         : exports/seo_keywords_{ts}.csv")
-    print(f"  4. SEO Competitors CSV      : exports/seo_competitors_{ts}.csv")
-    print(f"  5. Master Prompts Hierarchy : exports/master_prompts_from_db_{ts}.csv")
-    print(f"  6. Lifecycle Progress CSV   : exports/pipeline_hierarchy_progress_{ts}.csv")
-    print(f"  7. Table Fillup Summary CSV : exports/table_fillup_summary_{ts}.csv")
-    print(f"  8. Prompting Style Master   : exports/prompting_style_master_{ts}.csv")
-    print(f"  9. Raw SQLite Tables (34)   : {CSV_TABLES_DIR}")
-    print("=" * 76)
-
-    # Auto-cleanup: keep only last 3 versions per CSV type
-    deleted = cleanup_old_exports(EXPORT_DIR, keep=3)
-    if deleted:
-        print(f"\n🧹 [Cleanup] Removed {len(deleted)} old CSV exports (keeping last 3 per type):")
-        for d in deleted:
-            print(f"   ❌ {d.name}")
-    else:
-        print("\n🧹 [Cleanup] No old exports to remove.")
-    print()
-
+def export_query_to_csv(cur, query, target_path):
+    cur.execute(query)
+    headers = [col[0] for col in cur.description]
+    rows = cur.fetchall()
+    with open(target_path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        writer.writerows(rows)
+    return len(rows)
 
 def main():
-    generate_all()
-
+    print("============================================================================")
+    print(f"        📊 MASTER UNIFIED CSV EXPORT GENERATOR [{TS}]")
+    print("============================================================================")
+    
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    
+    # 1. Export raw tables
+    print(">>> [1/4] Generating Raw Table CSVs...")
+    cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+    tables = [r[0] for r in cur.fetchall()]
+    for t in tables:
+        export_query_to_csv(cur, f"SELECT * FROM `{t}`", CSV_TABLES_DIR / f"{t}.csv")
+    print(f"  ✅ Saved {len(tables)} raw tables into: exports/csv_tables/")
+    
+    # 2. Master Prompts Hierarchy CSV
+    print(">>> [2/4] Generating Master Prompts Hierarchy CSV...")
+    prompts_query = """
+    SELECT 
+        p.id AS prompt_id,
+        p.idea_id,
+        i.title AS idea_title,
+        e.id AS element_id,
+        e.name AS element_name,
+        e.group_type AS element_group,
+        p.prompt_type,
+        p.level,
+        p.level_name,
+        p.structure_type,
+        p.version,
+        p.status AS prompt_status,
+        p.created_at AS prompt_created_at,
+        p.prompt_text
+    FROM prompts p
+    LEFT JOIN ideas i ON i.id = p.idea_id
+    LEFT JOIN idea_elements ie ON ie.idea_id = p.idea_id
+    LEFT JOIN elements e ON e.id = ie.element_id
+    ORDER BY p.id ASC
+    """
+    p_path = EXPORTS_DIR / f"master_prompts_from_db_{TS}.csv"
+    p_cnt = export_query_to_csv(cur, prompts_query, p_path)
+    print(f"  ✅ Saved: {p_path.name} ({p_cnt} rows)")
+    
+    # 3. SEO Master, Keywords, Competitors
+    print(">>> [3/4] Generating Real SEO Master, Keywords & Competitors CSVs...")
+    seo_query = """
+    SELECT 
+        ym.id AS seo_id,
+        ym.idea_id,
+        i.title AS idea_title,
+        ym.element_id,
+        e.name AS element_name,
+        ym.title AS seo_title,
+        ym.seo_description,
+        ym.tags AS seo_tags,
+        ym.category AS seo_category,
+        ym.status AS seo_status,
+        ym.upload_status,
+        ym.created_at,
+        ym.updated_at
+    FROM youtube_metadata ym
+    LEFT JOIN ideas i ON i.id = ym.idea_id
+    LEFT JOIN elements e ON e.id = ym.element_id
+    ORDER BY ym.id ASC
+    """
+    s_path = EXPORTS_DIR / f"seo_master_{TS}.csv"
+    s_cnt = export_query_to_csv(cur, seo_query, s_path)
+    print(f"  ✅ Saved: {s_path.name} ({s_cnt} rows)")
+    
+    kw_path = EXPORTS_DIR / f"seo_keywords_{TS}.csv"
+    kw_cnt = export_query_to_csv(cur, "SELECT * FROM seo_keyword_metrics", kw_path)
+    print(f"  ✅ Saved: {kw_path.name} ({kw_cnt} rows)")
+    
+    comp_path = EXPORTS_DIR / f"seo_competitors_{TS}.csv"
+    comp_cnt = export_query_to_csv(cur, "SELECT * FROM seo_competitors", comp_path)
+    print(f"  ✅ Saved: {comp_path.name} ({comp_cnt} rows)")
+    
+    # 4. Master Dashboard CSV (One row per idea)
+    print(">>> [4/4] Generating Master Dashboard CSV...")
+    dashboard_query = """
+    SELECT 
+        i.id AS idea_id,
+        i.title AS idea_title,
+        e.id AS element_id,
+        e.name AS element_name,
+        e.group_type AS element_group,
+        i.status AS idea_status,
+        COUNT(DISTINCT p.id) AS prompt_count,
+        MAX(CASE WHEN p.prompt_type = 'video_prompt' AND p.level = 10 THEN 1 ELSE 0 END) AS has_level_10_video,
+        CASE WHEN ym.id IS NOT NULL THEN 1 ELSE 0 END AS has_seo,
+        ym.title AS seo_title,
+        ym.tags AS seo_tags,
+        i.created_at AS idea_created_at
+    FROM ideas i
+    LEFT JOIN idea_elements ie ON ie.idea_id = i.id
+    LEFT JOIN elements e ON e.id = ie.element_id
+    LEFT JOIN prompts p ON p.idea_id = i.id
+    LEFT JOIN youtube_metadata ym ON ym.idea_id = i.id
+    GROUP BY i.id
+    ORDER BY i.id ASC
+    """
+    d_path = EXPORTS_DIR / f"master_dashboard_{TS}.csv"
+    d_cnt = export_query_to_csv(cur, dashboard_query, d_path)
+    print(f"  ✅ Saved: {d_path.name} ({d_cnt} ideas)")
+    
+    # Pipeline Progress
+    prog_query = """
+    SELECT 
+        e.id AS element_id,
+        e.name AS element_name,
+        COUNT(DISTINCT i.id) AS ideas_count,
+        COUNT(DISTINCT p.id) AS prompts_count,
+        COUNT(DISTINCT ym.id) AS seo_count
+    FROM elements e
+    LEFT JOIN idea_elements ie ON ie.element_id = e.id
+    LEFT JOIN ideas i ON i.id = ie.idea_id
+    LEFT JOIN prompts p ON p.idea_id = i.id
+    LEFT JOIN youtube_metadata ym ON ym.idea_id = i.id
+    GROUP BY e.id
+    ORDER BY e.id ASC
+    """
+    export_query_to_csv(cur, prog_query, EXPORTS_DIR / f"pipeline_hierarchy_progress_{TS}.csv")
+    export_query_to_csv(cur, "SELECT * FROM prompting_style_master", EXPORTS_DIR / f"prompting_style_master_{TS}.csv")
+    
+    conn.close()
+    print("============================================================================")
+    print(f"🎉 ALL CSV FILES SUCCESSFULLY GENERATED FOR {TS}!")
+    print("============================================================================")
 
 if __name__ == "__main__":
     main()

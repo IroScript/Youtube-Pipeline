@@ -1,0 +1,1 @@
+job_id,idea_id,prompt,prompt_hash,state,retry_count,attempt,tile_id,video_url,filename,download_status,last_verified_action,error_json,is_active,created_at,updated_at

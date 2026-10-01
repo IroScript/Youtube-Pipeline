@@ -1,4 +1,4 @@
-﻿id,uuid,name,symbol,group_type,created_at
+id,uuid,name,symbol,group_type,created_at
 1,bb657c58-3ea2-485a-9b8a-115b1463262e,Paddy / Rice Field,🌾,Agriculture,2026-08-11 14:54:21.461476
 2,d0214fd1-f806-42e7-9b6e-d8ee70da461a,Forest,🌲,Nature,2026-08-11 14:54:21.469534
 3,1c4eb06f-59a8-470d-82e7-811c61b77319,Giant Tree,🌳,Nature,2026-08-11 14:54:21.472492
@@ -99,3 +99,176 @@
 98,8b027739-5440-431d-81f3-4e4decd4c0dd,Artificial Intelligence,🧠,Tech,2026-08-11 14:54:21.622954
 99,479db619-e5aa-45f7-9de4-f09f2a96a199,Network / Web,🕸️,Tech,2026-08-11 14:54:21.622954
 100,28fd332d-c88c-4ddd-ac1e-3bac619c7eba,Infinite Loop / Self-Replicating System,♾️,Tech,2026-08-11 14:54:21.632617
+101,e722bf28-12a4-48d0-a77f-93cea7ae2850,Superconductivity,⚡,Physics,2026-10-01 03:12:07.006082
+102,58a09e01-5bb0-4f78-b52f-b4f21ee7f578,Topological Insulator,🛡️,Physics,2026-10-01 03:12:07.006082
+103,b8c18497-9c0e-4b07-951b-4ccfa8eb25d4,Antimatter Annihilation,💥,Physics,2026-10-01 03:12:07.006082
+104,2d00cf50-6764-4995-9771-82715859f3a6,Cosmic Ray,🌠,Space,2026-10-01 03:12:07.006082
+105,748290ff-6c53-44e6-9172-63e8e0c0f2d8,Neutrino,⚛️,Physics,2026-10-01 03:12:07.006082
+106,ad39798b-009e-431b-874a-b8b87c5b85fa,Laser,🔴,Tech,2026-10-01 03:12:07.006082
+107,c5139fcc-5995-4a48-bab5-e2edd413158f,Hologram,🔮,Tech,2026-10-01 03:12:07.006082
+108,72eb4c96-1aaa-499f-9f00-da2b7fc52da9,Total Internal Reflection,💎,Physics,2026-10-01 03:12:07.006082
+109,50573fb3-6141-45b1-9f3b-3b79ace8928f,Radiation Pressure,☀️,Physics,2026-10-01 03:12:07.006082
+110,b61c232b-52ee-4533-88e2-b6e750e5fdba,Doppler Effect,🔊,Physics,2026-10-01 03:12:07.006082
+111,7d202f50-50d2-4bb9-8dec-1d9d8a285adf,Shock Wave,💥,Physics,2026-10-01 03:12:07.006082
+112,93eae21f-c5c5-4456-b452-554c54962610,Infrasound,🔉,Physics,2026-10-01 03:12:07.006082
+113,5856a1b4-b64e-4852-b956-50d9b6d6a38c,Mechanical Resonance,📳,Physics,2026-10-01 03:12:07.006082
+114,cb3b9825-82f7-4a21-aa7c-b0a671659277,Stirling Engine,⚙️,Machine,2026-10-01 03:12:07.006082
+115,16dc00ce-0838-44a2-aa55-fe7b8a12c120,Maxwell's Demon,😈,Physics,2026-10-01 03:12:07.006082
+116,eb836c2e-a034-46c1-90e9-72c64e4df0f2,Thermal Expansion,🌡️,Physics,2026-10-01 03:12:07.006082
+117,cc7993e5-64c6-4649-a68d-cda79483ba22,Latent Heat of Phase Change,🧊,Physics,2026-10-01 03:12:07.006082
+118,d44f94d9-ae1f-4f3f-a7ac-de330d0bdc82,Joule–Thomson Effect,❄️,Physics,2026-10-01 03:12:07.006082
+119,dda525a4-329e-47fb-8173-b9931fcfe86b,Supercritical Fluid,🌫️,Physics,2026-10-01 03:12:07.006082
+120,2f8dbab4-c4d6-4963-a311-8e5b4c3b794c,Electrochemical Cell,🔋,Tech,2026-10-01 03:12:07.006082
+121,afd513f9-3373-4dbc-8a10-d2e80ffe50fb,Gyroscope,🧭,Machine,2026-10-01 03:12:07.006082
+122,5f1da9fe-dffd-4d07-b143-8ecc72d621f4,Elastic Spring,🌀,Machine,2026-10-01 03:12:07.006082
+123,abe0a2f2-5fbf-4242-923f-55a8f4f67af7,Linkage Mechanism,🔗,Machine,2026-10-01 03:12:07.006082
+124,fc8ddc6b-492d-4e5a-b8b3-2e935df2b765,Centrifugal Governor,⚙️,Machine,2026-10-01 03:12:07.006082
+125,045fac97-65ac-46c5-bf05-8b4346c49327,Friction,✋,Physics,2026-10-01 03:12:07.006082
+126,4ac7e3b8-8541-487f-98ba-6990020708c1,Air Bearing,💨,Machine,2026-10-01 03:12:07.006082
+127,ef36d46d-9152-40f2-82fa-3bd0ba4b5d2f,Hydraulic Pressure Transmission,💧,Machine,2026-10-01 03:12:07.006082
+128,3bdae08f-f3ff-426d-ab83-22cb461e2e83,Legged Walking Mechanism,🦿,Machine,2026-10-01 03:12:07.006082
+129,ef7030fb-0645-4a88-886e-cc7cce711820,Metal Fatigue,🔩,Materials,2026-10-01 03:12:07.006082
+130,88410457-c284-4af7-bbd3-1269736e6892,Euler Buckling,🏛️,Physics,2026-10-01 03:12:07.006082
+131,7d781c52-1f54-4646-846d-89f0ae908af5,Crumple Energy Absorption,🛡️,Materials,2026-10-01 03:12:07.006082
+132,7ad2f618-f313-47a6-872b-b0b2ce8c0b15,Tensegrity,🕸️,Infrastructure,2026-10-01 03:12:07.006082
+133,2805705b-1f8b-4bfc-b918-9062c2d6e9b3,Geodesic Dome,🌐,Infrastructure,2026-10-01 03:12:07.006082
+134,d38f8a9c-c43c-483b-8e1c-0c1e4615e807,Origami Fold,📄,Materials,2026-10-01 03:12:07.006082
+135,54f82b67-c6e5-4719-a8e4-dce340d0b313,Pressure-Stabilized Inflatable Structure,🎈,Infrastructure,2026-10-01 03:12:07.006082
+136,4b52ce73-db89-436a-b989-918f3f822621,Labyrinth,🏛️,Infrastructure,2026-10-01 03:12:07.006082
+137,f295736c-f0ed-4b8e-aaed-ac22357920bf,Square–Cube Law,📐,Physics,2026-10-01 03:12:07.006082
+138,c8266fcb-acae-46bb-8572-4c17e40a9d4b,Fault Tolerance / Redundancy,🔁,Tech,2026-10-01 03:12:07.006082
+139,903c9740-1f9f-4b72-b7c7-85a5f9133e67,Tesla Valve,🔀,Machine,2026-10-01 03:12:07.006082
+140,f8f07062-48ef-4eb2-9c1e-2e2942998708,Coandă Effect,🌊,Physics,2026-10-01 03:12:07.006082
+141,d6100eea-430a-4254-8d31-9c5ec1899d00,Cavitation Bubble Collapse,🫧,Physics,2026-10-01 03:12:07.006082
+142,a10d43e0-a0ab-4b3a-ad67-87c0eb034285,Shear-Thickening Fluid,🧪,Materials,2026-10-01 03:12:07.006082
+143,12528a5c-0fd3-4fe0-96cb-3d1f5bd71d92,Capillary Action,🧪,Physics,2026-10-01 03:12:07.006082
+144,f8de8c5b-9320-444e-a472-3fc23973f35e,Osmotic Pressure,🧫,Biology,2026-10-01 03:12:07.006082
+145,53fd824b-17f6-4234-b031-7fb4a49bfc51,Superhydrophobic Surface,💧,Materials,2026-10-01 03:12:07.006082
+146,94437ce0-ffe4-4989-b4c0-82cdfdb3febe,Aerogel,☁️,Materials,2026-10-01 03:12:07.006082
+147,0bb6bab6-4e00-49e7-8c9d-8ddf76591cfa,Shape-Memory Alloy,🪄,Materials,2026-10-01 03:12:07.006082
+148,99091666-e1f7-4d10-9ee9-83456a0ea632,Auxetic Structure,🪢,Materials,2026-10-01 03:12:07.006082
+149,f950744f-2dd3-49e7-9494-3063a58df415,Metallic Glass,🪞,Materials,2026-10-01 03:12:07.006082
+150,c7da7a6b-79eb-4ade-91da-cbec9fab3d2f,Liquid Metal,💧,Materials,2026-10-01 03:12:07.006082
+151,c83a06b7-ccac-4628-996a-98196a91cb61,Collagen,🧬,Biology,2026-10-01 03:12:07.006082
+152,95cf6a42-aac2-4b2a-9d2d-ee1fa8670f62,Catalysis,⚗️,Materials,2026-10-01 03:12:07.006082
+153,95dfc10f-80ed-4730-bd4b-8abeb87c2db5,Reaction–Diffusion Pattern,🐆,Physics,2026-10-01 03:12:07.006082
+154,f30c3e6e-44bf-4e90-b1e6-04b7ada085a5,Cryptobiosis,🪱,Biology,2026-10-01 03:12:07.006082
+155,72182a03-511c-49dd-97f7-490177273589,Metamorphosis,🦋,Biology,2026-10-01 03:12:07.006082
+156,d51de289-2281-45b5-96cc-6add7f3fe8c6,Regeneration,🦎,Biology,2026-10-01 03:12:07.006082
+157,1347fc93-8749-4fda-bd0d-ffdb47984dd0,Trabecular Bone Lattice,🦴,Biology,2026-10-01 03:12:07.006082
+158,c6c7bed7-f74f-40ac-ae58-512d7226c6e5,Seismic Wave,🌋,Environment,2026-10-01 03:12:07.006082
+159,aa748ed4-9651-4820-8a68-cbefab251fb8,Aquifer,💧,Environment,2026-10-01 03:12:07.006082
+160,83bfe3e1-8c3f-440c-b235-383c61b221a5,Impact Crater,☄️,Environment,2026-10-01 03:12:07.006082
+161,52a44bc3-70dc-4099-9366-1e66f32049ed,Ionosphere,🌐,Space,2026-10-01 03:12:07.006082
+162,a5f744fd-f56c-4891-be39-4206bf259aeb,Aurora,🌌,Weather,2026-10-01 03:12:07.006082
+163,3fffd337-8782-4a48-aaf1-a2135b8a413a,Geothermal Gradient,🌋,Environment,2026-10-01 03:12:07.006082
+164,7adf3035-6eba-47f5-9501-7aed6748fe75,Strange Attractor,🌀,Physics,2026-10-01 03:12:07.006082
+165,baa7d8b5-b6ca-4192-8bfe-bbf5fa982fa8,Möbius Strip,♾️,Physics,2026-10-01 03:12:07.006082
+166,15f5825a-4f17-4c8f-b8d3-27964995bc0f,Tesseract,🧊,Physics,2026-10-01 03:12:07.006082
+167,95a879ce-c3b2-4469-9090-4f72db747ec7,Penrose Tiling,🧩,Materials,2026-10-01 03:12:07.006082
+168,543e8793-22b9-4898-a80a-c57120d9e38b,Fourier Transform,📊,Tech,2026-10-01 03:12:07.006082
+169,dfaff630-a494-4237-98f8-78bc0daa619d,Logic Gate,🔲,Tech,2026-10-01 03:12:07.006082
+170,72bf3382-0e3c-4fe5-996c-9ef0198dbbda,Phononic Metamaterial,🎵,Materials,2026-10-01 03:12:07.006082
+171,4214ff41-c66a-48d2-9a01-ce53fe8f42ec,Superfluid Vortex,🌪️,Physics,2026-10-01 03:12:07.006082
+172,42ad545a-f547-4e23-a26f-0aaf785d9d04,Weyl Semimetal,💎,Materials,2026-10-01 03:12:07.006082
+173,60cb7761-7c5e-4b34-9045-144aab2be397,Josephson Junction,⚡,Tech,2026-10-01 03:12:07.006082
+174,421a2642-80dc-485d-932d-461354ae1996,Flux Quantization,🧲,Physics,2026-10-01 03:12:07.006082
+175,d3eac8e2-0e0d-49a0-992b-faa6a0399114,Spin Ice,🧊,Materials,2026-10-01 03:12:07.006082
+176,c08fc802-3ce1-4fd8-ae5b-771f7d47f6ef,Magnon Condensate,🌊,Physics,2026-10-01 03:12:07.006082
+177,5b41712e-561b-4f22-9105-c35486e8832c,Skyrmion,🌀,Physics,2026-10-01 03:12:07.006082
+178,ffda54ff-4cf9-460a-94de-62eb059da7d3,Optical Phase Conjugation,🪞,Tech,2026-10-01 03:12:07.006082
+179,c9f6474d-b549-4b34-a0ed-fe96c6b6fa0e,Photon Echo,💡,Physics,2026-10-01 03:12:07.006082
+180,a34a93d5-2033-46bc-84ba-f2c1db131b7a,Slow-Light Medium,🐌,Physics,2026-10-01 03:12:07.006082
+181,64874424-daa9-40ca-bbc2-b893a9b12b6d,Optical Tweezers,🔬,Tech,2026-10-01 03:12:07.006082
+182,654f2d5f-b74f-4be5-9cd9-26ac38b5fd7a,Phonon Focusing,🔍,Physics,2026-10-01 03:12:07.006082
+183,a34b5e70-187a-4ad3-9b33-bd668bc84f35,Acoustic Black Hole,🕳️,Physics,2026-10-01 03:12:07.006082
+184,c3225f7b-b56b-4347-afad-f157a7c03148,Marangoni Flow,🌊,Physics,2026-10-01 03:12:07.006082
+185,5f5a5fd8-62ff-4bbc-b2dc-e4f4be253917,Rayleigh–Bénard Convection,♨️,Physics,2026-10-01 03:12:07.006082
+186,8eb2f7cb-cca1-4f76-aec2-174b1908203d,Leidenfrost Effect,💨,Physics,2026-10-01 03:12:07.006082
+187,454b2421-293b-4f43-a737-70169de1f91d,Magnetohydrodynamic Pumping,🧲,Tech,2026-10-01 03:12:07.006082
+188,5621f2b9-fc22-4f37-9730-9b64750ae164,Electrohydrodynamic Flow,⚡,Tech,2026-10-01 03:12:07.006082
+189,747030d4-d09a-401b-bffe-401611c34e47,Dielectrophoresis,🧲,Physics,2026-10-01 03:12:07.006082
+190,71f2d5f2-af7a-4002-a5e9-a80c7ec29e61,Electrowetting,💧,Tech,2026-10-01 03:12:07.006082
+191,d4aa2c0b-9554-4862-b553-e4a131e250e3,Ferrofluid Spike,🧲,Materials,2026-10-01 03:12:07.006082
+192,bfa6c0e8-eeae-4bac-bce9-b61f14198ff0,Electrostriction,⚡,Physics,2026-10-01 03:12:07.006082
+193,0436e595-5ab4-4e93-959e-15ee796905d6,Magnetostriction,🧲,Physics,2026-10-01 03:12:07.006082
+194,148e43a8-5721-4896-800c-a9c4e86c1d57,Piezoelectric Lattice,💎,Materials,2026-10-01 03:12:07.006082
+195,2cbb01c9-49e7-41b5-b42b-b4c7ca5685b4,Mechanocaloric Material,🌡️,Materials,2026-10-01 03:12:07.006082
+196,c4503f15-9a4b-4150-8a81-dd5dededd072,Elastocaloric Cycle,❄️,Energy,2026-10-01 03:12:07.006082
+197,0218ba63-6954-4f4d-af29-f997b87d90e5,Barocaloric Material,🌡️,Materials,2026-10-01 03:12:07.006082
+198,e26e62f8-3f47-43a1-a180-17d4ae2a7a74,Thermomagnetic Cycle,🧲,Energy,2026-10-01 03:12:07.006082
+199,9452e42b-f8dd-47b5-a010-ab70076a69c3,Memristive Hysteresis,🧠,Tech,2026-10-01 03:12:07.006082
+200,4929c9b2-eefc-4c54-9dd7-d8f6e82c58b1,Resonant Tunneling,⚛️,Physics,2026-10-01 03:12:07.006082
+201,78d1575d-739c-46d0-8cf4-9aa72b82c8b3,Quantum Hall Effect,⚡,Physics,2026-10-01 03:12:07.006082
+202,37f92c67-6b75-476a-a9bd-e76c69aee6ee,Aharonov–Bohm Effect,🧲,Physics,2026-10-01 03:12:07.006082
+203,47e0b247-3e60-4f1a-8397-3a97f308764c,Berry Phase,🌀,Physics,2026-10-01 03:12:07.006082
+204,8d261cbb-ef01-41c2-8900-d1615afd80de,Quantum Zeno Effect,👁️,Physics,2026-10-01 03:12:07.006082
+205,dc605f2e-6f02-40a8-b888-be5fb4fa4e5c,Quantum Eraser,🧹,Physics,2026-10-01 03:12:07.006082
+206,c332d757-ed3e-443a-9193-96b2b4b061b3,Entanglement Swapping,🔗,Physics,2026-10-01 03:12:07.006082
+207,d649c899-6296-4405-ae5b-8076adcbb4ee,Quantum Teleportation,🚪,Physics,2026-10-01 03:12:07.006082
+208,efe69aeb-3f0d-4568-91d2-7c4222c20900,Error-Correcting Code,🛡️,Tech,2026-10-01 03:12:07.006082
+209,5a981ead-1ad2-41c2-8970-9b56e39df927,Cellular Automaton,👾,Tech,2026-10-01 03:12:07.006082
+210,a2670e68-919f-4840-9ad0-99ce29ef2b61,Percolation Network,🕸️,Tech,2026-10-01 03:12:07.006082
+211,ed7e7524-9b5e-4a31-8f69-cfeee23ae185,Voronoi Tessellation,📐,Infrastructure,2026-10-01 03:12:07.006082
+212,1163bdaf-8c32-491e-8913-675f9e1443c6,Triply Periodic Geometry,🌐,Infrastructure,2026-10-01 03:12:07.006082
+213,df3b7b06-d194-4cba-8514-482e2a9c9c3a,Hopf Fibration,🧶,Physics,2026-10-01 03:12:07.006082
+214,5129be54-4f00-444e-9695-b685db9a67e8,Vector Equilibrium,⚖️,Physics,2026-10-01 03:12:07.006082
+215,a68d7883-c321-4479-b4e7-754d8032bce5,Granular Jamming,⏳,Materials,2026-10-01 03:12:07.006082
+216,d4ee50dc-23c5-480c-a761-d3d7cac66e54,Shear-Thinning Suspension,🧴,Materials,2026-10-01 03:12:07.006082
+217,771e27bc-9edf-43ea-a4e9-9e7f86788223,Bingham Plastic,🥫,Materials,2026-10-01 03:12:07.006082
+218,72595b18-c286-4c41-b177-fb547b3f3df1,Non-Newtonian Rheological Valve,🚰,Machine,2026-10-01 03:12:07.006082
+219,538f8314-4ea1-4b94-a8bb-fbf05f97005e,Oscillating Heat Pipe,🌡️,Energy,2026-10-01 03:12:07.006082
+220,17b7b6e8-5fde-4832-98d9-c67fe9f9edcd,Thermosyphon,♨️,Energy,2026-10-01 03:12:07.006082
+221,70ebec0e-42cf-4af4-8a7a-32698416ccf7,Stochastic Resonance,📶,Physics,2026-10-01 03:12:07.006082
+222,a8219538-0236-4203-beed-f647e273c310,Parametric Resonance,📳,Physics,2026-10-01 03:12:07.006082
+223,264edad3-4f5b-4451-9c11-01290dec073c,Kármán Vortex Street,💨,Physics,2026-10-01 03:12:07.006082
+224,1bfdba70-7745-4292-907b-2032118bda38,Kelvin–Helmholtz Instability,☁️,Weather,2026-10-01 03:12:07.006082
+225,bc06f0ca-8dad-424f-96f3-56b9fc84e258,Rayleigh–Taylor Instability,🍄,Physics,2026-10-01 03:12:07.006082
+226,5058a56e-1316-4b47-8263-df1487962773,Capillary Bridge,🌉,Physics,2026-10-01 03:12:07.006082
+227,86ac7962-a8dc-4c9d-85b6-53002b456fa8,Surface Acoustic Wave,🌊,Tech,2026-10-01 03:12:07.006082
+228,78f3bc07-d0a1-4cc0-acdb-8c1a5ff9d4c5,Spin-Wave Logic,🧲,Tech,2026-10-01 03:12:07.006082
+229,c028f153-4790-4278-8834-40224a711013,Plasmonic Resonator,📡,Tech,2026-10-01 03:12:07.006082
+230,850ba62d-ac33-4eb6-abba-15d461a03a1c,Exciton–Polariton Condensate,💡,Physics,2026-10-01 03:12:07.006082
+231,0938f8e8-ea4d-4e58-a68f-c394217816c2,Optical Binding,🔗,Physics,2026-10-01 03:12:07.006082
+232,b3455762-7356-4fc5-9515-2b1695b7243a,Acoustic Streaming,🔊,Physics,2026-10-01 03:12:07.006082
+233,0e062136-1343-4231-8dc9-a9cf928e93ee,Thermophoresis,🌡️,Physics,2026-10-01 03:12:07.006082
+234,f97e97fb-1d51-49c8-ada6-dbdeca9b958c,Diffusiophoresis,🧪,Physics,2026-10-01 03:12:07.006082
+235,fe862a2d-8085-42cb-8f73-2ef54b9f32e8,Nucleation Front,❄️,Materials,2026-10-01 03:12:07.006082
+236,933a54e6-581e-4471-bde8-1b2724379924,Spinodal Decomposition,🧬,Materials,2026-10-01 03:12:07.006082
+237,04a065ea-ff4b-40b8-9012-83c997d8a91b,Dislocation Glide,⛓️,Materials,2026-10-01 03:12:07.006082
+238,4e7da1b4-383a-4be1-8b8c-ab39a9836038,Grain-Boundary Migration,🧱,Materials,2026-10-01 03:12:07.006082
+239,8fd09a43-ce12-49ce-91cc-dc0974f461d4,Vacancy Diffusion,🕳️,Materials,2026-10-01 03:12:07.006082
+240,2591b90d-4af9-4e71-a373-c90df65df3fd,Phase-Field Interface,🌫️,Materials,2026-10-01 03:12:07.006082
+241,bb22a10f-b70f-4bc0-b5fd-294b37f6a1b5,Bioluminescence,💡,Biology,2026-10-01 03:12:07.006082
+242,7af7b701-1188-4ca4-9712-e88e09a483de,Axon Action Potential,⚡,Biology,2026-10-01 03:12:07.006082
+243,1583880a-c6b3-4f8f-8ff2-d6e9036de470,Peristalsis,🫀,Biology,2026-10-01 03:12:07.006082
+244,25d23d63-cefa-4687-92aa-d1d0b9b27998,Cilia,🦠,Biology,2026-10-01 03:12:07.006082
+245,8b45b0e9-246b-4054-9400-ca1b6c8d48c6,Lung Alveolar Architecture,🫁,Biology,2026-10-01 03:12:07.006082
+246,95d4d514-57d2-47f5-98e7-c468e63b7f55,ATP Synthase,⚙️,Biology,2026-10-01 03:12:07.006082
+247,119ceb9e-6e48-4459-a681-1b3125bae705,Ribosome,🏭,Biology,2026-10-01 03:12:07.006082
+248,7784e52f-5131-4abd-8e51-f45824e64e76,Protein Folding,🧶,Biology,2026-10-01 03:12:07.006082
+249,52c28fa3-275d-4af0-898c-a5c4d3d26b8f,Sarcomere,💪,Biology,2026-10-01 03:12:07.006082
+250,ab9fce04-6931-4d31-8789-40b8a0255b2d,Lung Branching Architecture,🫁,Biology,2026-10-01 03:12:07.006082
+251,f110a19a-2484-4711-b4bd-732d14153fe0,Radial Symmetry,❄️,Nature,2026-10-01 03:12:07.006082
+252,10385f3a-55d8-403a-a3a6-4ff2fc1571f9,Helical Geometry,🧬,Nature,2026-10-01 03:12:07.006082
+253,be2dc727-1fc2-49d8-aa58-880749bd4adf,Toroidal Geometry,🍩,Physics,2026-10-01 03:12:07.006082
+254,d50d8da5-70e4-4afe-8c47-f428eeaf7bc3,Hyperbolic Geometry,📐,Physics,2026-10-01 03:12:07.006082
+255,1a5fec36-c4d8-4b65-9fb5-412dd2d34370,Non-Euclidean Geometry,🌌,Physics,2026-10-01 03:12:07.006082
+256,c66916a3-4f84-45f9-b378-ee2d443fec07,Topological Defect,🪢,Physics,2026-10-01 03:12:07.006082
+257,a890dc66-ac3e-402d-ad7d-32e2e6871720,Phase Transition,🧊,Physics,2026-10-01 03:12:07.006082
+258,02f2cf53-e196-4051-9d72-1abee6fdbcf3,Critical Phenomenon,💥,Physics,2026-10-01 03:12:07.006082
+259,b93d1824-ab24-4d5c-8b50-81fd81accafb,Hysteresis,🧲,Physics,2026-10-01 03:12:07.006082
+260,9d6cef11-ecf8-462b-a9c9-b77bdc26b158,Self-Organized Criticality,⏳,Physics,2026-10-01 03:12:07.006082
+261,e6822137-f063-4fad-9a95-3b67327b29c8,Nonlinear Feedback,🔄,Tech,2026-10-01 03:12:07.006082
+262,3ea90a8f-d0cc-4466-8d90-e3b17bbbf9f6,Modular Reconfiguration,🧩,Machine,2026-10-01 03:12:07.006082
+263,185b8e34-2ffa-45ec-a4ed-39abb31db6c9,Hierarchical Scaling,📶,Tech,2026-10-01 03:12:07.006082
+264,4ff076b5-e896-4ec8-a642-2a925378f13e,Programmable Matter,🔮,Materials,2026-10-01 03:12:07.006082
+265,144b287b-c7fb-438e-bcc3-533c47de12c5,Field-Driven Assembly,🧲,Tech,2026-10-01 03:12:07.006082
+266,f005621e-2390-4a2a-982c-1868db84aea8,Acoustic Levitation,🔊,Physics,2026-10-01 03:12:07.006082
+267,d7538f6b-ff03-49ef-a04e-275d1ba82315,Acoustic Metamaterial,🎧,Materials,2026-10-01 03:12:07.006082
+268,f6de2045-e86a-4038-850f-0106d5723e75,Superfluidity,💧,Physics,2026-10-01 03:12:07.006082
+269,3ed35397-d799-4b95-a791-66ee1d18359f,Magnetocaloric Effect,🧲,Energy,2026-10-01 03:12:07.006082
+270,7f45062e-6803-4d11-aa9d-abb1127c11f7,Thermoelectric Effect,⚡,Energy,2026-10-01 03:12:07.006082
+271,18fb257b-ca96-4d6d-b869-4c3c86b06f68,Piezoelectric Effect,💎,Energy,2026-10-01 03:12:07.006082
+272,4bf84b20-b384-4334-84b6-253cbb540303,Photonic Crystal,🌈,Materials,2026-10-01 03:12:07.006082
+273,c65289c4-8e27-4b4a-a6e7-0cec510f1750,Plasmonic Metasurface,📡,Materials,2026-10-01 03:12:07.006082

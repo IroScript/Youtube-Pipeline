@@ -10,6 +10,8 @@ import socketserver
 import threading
 import urllib.request
 import urllib.error
+import urllib.parse
+import sqlite3
 import random
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -18,6 +20,7 @@ class BridgeHTTPHandler(http.server.BaseHTTPRequestHandler):
     """
     HTTP Request Handler for background communication between Python & Chrome Extension.
     Enforces live heartbeat pings, prompt delivery, and direct video URL downloading.
+    Includes failure-proof checkpoint persistence, pause/resume coordination, and failure telemetry.
     """
     active_job = None
     job_history = {}
@@ -30,6 +33,13 @@ class BridgeHTTPHandler(http.server.BaseHTTPRequestHandler):
     direct_video_filename = None
     last_tab_ping = 0
     tab_info = {}
+    db_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "PromptDatabase", "database", "youtube_pipeline.db"))
+    checkpoints = {}
+    is_paused = False
+    pause_info = {}
+
+    def _get_db(self):
+        return sqlite3.connect(self.db_path)
 
     def log_message(self, format, *args):
         pass
@@ -46,20 +56,87 @@ class BridgeHTTPHandler(http.server.BaseHTTPRequestHandler):
         self._set_headers(200)
 
     def do_GET(self):
-        if self.path == "/api/pending_prompt":
+        parsed = urllib.parse.urlparse(self.path)
+        path = parsed.path
+        query = urllib.parse.parse_qs(parsed.query)
+
+        if path == "/api/pending_prompt":
             self._set_headers(200)
             if BridgeHTTPHandler.active_job and BridgeHTTPHandler.active_job.get("status") == "pending":
                 self.wfile.write(json.dumps(BridgeHTTPHandler.active_job).encode('utf-8'))
             else:
                 self.wfile.write(json.dumps({"status": "idle"}).encode('utf-8'))
-        elif self.path == "/api/health":
+        elif path == "/api/health":
             self._set_headers(200)
             is_tab_alive = (time.time() - BridgeHTTPHandler.last_tab_ping) < 8
             self.wfile.write(json.dumps({
                 "status": "ok",
                 "service": "1Video10Sec Bridge",
                 "tab_connected": is_tab_alive,
-                "tab_info": BridgeHTTPHandler.tab_info
+                "tab_info": BridgeHTTPHandler.tab_info,
+                "is_paused": BridgeHTTPHandler.is_paused
+            }).encode('utf-8'))
+        elif path == "/api/checkpoint/active":
+            self._set_headers(200)
+            try:
+                conn = self._get_db()
+                cur = conn.cursor()
+                row = cur.execute("""
+                    SELECT job_id, idea_id, prompt, prompt_hash, state, retry_count,
+                           attempt, tile_id, video_url, filename, download_status,
+                           last_verified_action, error_json
+                    FROM pipeline_checkpoints
+                    WHERE is_active = 1 AND state NOT IN ('COMPLETED', 'CANCELLED')
+                    ORDER BY updated_at DESC LIMIT 1
+                """).fetchone()
+                conn.close()
+                if row:
+                    cp = {
+                        "job_id": row[0], "idea_id": row[1], "prompt": row[2],
+                        "prompt_hash": row[3], "state": row[4], "retry_count": row[5],
+                        "attempt": row[6], "tile_id": row[7], "video_url": row[8],
+                        "filename": row[9], "download_status": row[10],
+                        "last_verified_action": row[11],
+                        "error": json.loads(row[12]) if row[12] else None
+                    }
+                    self.wfile.write(json.dumps({"checkpoint": cp}).encode('utf-8'))
+                    return
+            except Exception:
+                pass
+            self.wfile.write(json.dumps({"checkpoint": None}).encode('utf-8'))
+        elif path == "/api/checkpoint":
+            job_id = query.get("job_id", [None])[0]
+            self._set_headers(200)
+            if job_id:
+                try:
+                    conn = self._get_db()
+                    cur = conn.cursor()
+                    row = cur.execute("""
+                        SELECT job_id, idea_id, prompt, prompt_hash, state, retry_count,
+                               attempt, tile_id, video_url, filename, download_status,
+                               last_verified_action, error_json
+                        FROM pipeline_checkpoints WHERE job_id = ?
+                    """, (job_id,)).fetchone()
+                    conn.close()
+                    if row:
+                        cp = {
+                            "job_id": row[0], "idea_id": row[1], "prompt": row[2],
+                            "prompt_hash": row[3], "state": row[4], "retry_count": row[5],
+                            "attempt": row[6], "tile_id": row[7], "video_url": row[8],
+                            "filename": row[9], "download_status": row[10],
+                            "last_verified_action": row[11],
+                            "error": json.loads(row[12]) if row[12] else None
+                        }
+                        self.wfile.write(json.dumps({"checkpoint": cp}).encode('utf-8'))
+                        return
+                except Exception:
+                    pass
+            self.wfile.write(json.dumps({"checkpoint": None}).encode('utf-8'))
+        elif path == "/api/pause_status":
+            self._set_headers(200)
+            self.wfile.write(json.dumps({
+                "is_paused": BridgeHTTPHandler.is_paused,
+                "pause_info": BridgeHTTPHandler.pause_info
             }).encode('utf-8'))
         else:
             self._set_headers(404)
@@ -106,6 +183,88 @@ class BridgeHTTPHandler(http.server.BaseHTTPRequestHandler):
                 BridgeHTTPHandler.job_history[job_id] = {"status": "completed", **data}
             if BridgeHTTPHandler.active_job and BridgeHTTPHandler.active_job.get("job_id") == job_id:
                 BridgeHTTPHandler.active_job["status"] = "completed"
+            self._set_headers(200)
+            self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+        elif self.path == "/api/checkpoint":
+            job_id = data.get("job_id")
+            if job_id:
+                BridgeHTTPHandler.checkpoints[job_id] = data
+                try:
+                    conn = self._get_db()
+                    cur = conn.cursor()
+                    cur.execute("""
+                        INSERT INTO pipeline_checkpoints (
+                            job_id, idea_id, prompt, prompt_hash, state, retry_count, attempt,
+                            tile_id, video_url, filename, download_status, last_verified_action,
+                            error_json, is_active, updated_at
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, CURRENT_TIMESTAMP)
+                        ON CONFLICT(job_id) DO UPDATE SET
+                            idea_id = excluded.idea_id,
+                            prompt = excluded.prompt,
+                            prompt_hash = excluded.prompt_hash,
+                            state = excluded.state,
+                            retry_count = excluded.retry_count,
+                            attempt = excluded.attempt,
+                            tile_id = excluded.tile_id,
+                            video_url = excluded.video_url,
+                            filename = excluded.filename,
+                            download_status = excluded.download_status,
+                            last_verified_action = excluded.last_verified_action,
+                            error_json = excluded.error_json,
+                            updated_at = CURRENT_TIMESTAMP;
+                    """, (
+                        job_id, data.get("idea_id"), data.get("prompt"), data.get("prompt_hash"),
+                        data.get("state"), data.get("retry_count", 0), data.get("attempt", 1),
+                        data.get("tile_id"), data.get("video_url"), data.get("filename"),
+                        data.get("download_status"), data.get("last_verified_action"),
+                        json.dumps(data.get("error")) if data.get("error") else None
+                    ))
+                    conn.commit()
+                    conn.close()
+                except Exception as e:
+                    logging.warning(f"Error persisting checkpoint to DB: {e}")
+            self._set_headers(200)
+            self.wfile.write(json.dumps({"success": True, "job_id": job_id}).encode('utf-8'))
+        elif self.path == "/api/checkpoint/archive":
+            job_id = data.get("job_id")
+            if job_id:
+                try:
+                    conn = self._get_db()
+                    cur = conn.cursor()
+                    cur.execute("UPDATE pipeline_checkpoints SET is_active = 0, updated_at = CURRENT_TIMESTAMP WHERE job_id = ?", (job_id,))
+                    conn.commit()
+                    conn.close()
+                except Exception:
+                    pass
+            self._set_headers(200)
+            self.wfile.write(json.dumps({"success": True, "archived": job_id}).encode('utf-8'))
+        elif self.path == "/api/pause":
+            BridgeHTTPHandler.is_paused = True
+            BridgeHTTPHandler.pause_info = data
+            self._set_headers(200)
+            self.wfile.write(json.dumps({"success": True, "is_paused": True}).encode('utf-8'))
+        elif self.path == "/api/resume":
+            BridgeHTTPHandler.is_paused = False
+            BridgeHTTPHandler.pause_info = {}
+            self._set_headers(200)
+            self.wfile.write(json.dumps({"success": True, "is_paused": False}).encode('utf-8'))
+        elif self.path == "/api/failure_report":
+            try:
+                conn = self._get_db()
+                cur = conn.cursor()
+                cur.execute("""
+                    INSERT INTO pipeline_failure_logs (
+                        job_id, category, reason, attempt, policy, url, timestamp
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    data.get("job_id"), data.get("category"), data.get("reason"),
+                    data.get("attempt", 1), data.get("policy"), data.get("url"),
+                    data.get("timestamp", int(time.time() * 1000))
+                ))
+                conn.commit()
+                conn.close()
+            except Exception as e:
+                logging.warning(f"Error logging failure: {e}")
             self._set_headers(200)
             self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
         else:

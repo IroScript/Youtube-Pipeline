@@ -4,6 +4,10 @@
 import { ACTIONS } from '../utils/constants.js';
 import { ExecutionEngine } from './execution-engine.js';
 import { Logger } from '../utils/logger.js';
+import { BatchController } from './batch-controller.js';
+import { recoverySupervisor } from './recovery-supervisor.js';
+import { pauseManager, PAUSE_REASONS } from '../utils/pause-manager.js';
+import { CheckpointManager } from '../utils/checkpoint-manager.js';
 
 let activeBatchTask = null;
 
@@ -155,7 +159,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
       chrome.runtime.sendMessage({ type: ACTIONS.GET_CONFIG }).then((config) => {
         const selectors = config?.selectors ?? {};
-        activeBatchTask = new BatchRunner(message.groupData);
+        activeBatchTask = new BatchController(message.groupData);
         activeBatchTask.run(selectors);
         sendResponse({ success: true, taskId: activeBatchTask.id });
       });
@@ -164,6 +168,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     case 'PAUSE_BATCH_RUN': {
       if (activeBatchTask) {
+        pauseManager.requestPause(PAUSE_REASONS.PAUSE_MANUAL, activeBatchTask.id, 'PAUSED');
         activeBatchTask.isPaused = true;
         sendResponse({ success: true });
       } else {
@@ -174,6 +179,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     case 'RESUME_BATCH_RUN': {
       if (activeBatchTask) {
+        pauseManager.clearPause('manual_resume');
         activeBatchTask.isPaused = false;
         sendResponse({ success: true });
       } else {
@@ -270,7 +276,7 @@ async function checkPythonBridge() {
         payloads: [payload]
       };
 
-      activeBatchTask = new BatchRunner(groupData);
+      activeBatchTask = new BatchController(groupData);
       activeBatchTask.run(selectors).then(() => {
         const isSuccess = activeBatchTask.status === 'completed';
         Logger.info(`🎉 [Python Bridge] Job ${data.job_id} finished execution with status: ${activeBatchTask.status}`);
@@ -304,4 +310,7 @@ async function checkPythonBridge() {
 // Start background poller for Python bridge
 setInterval(checkPythonBridge, 2000);
 
-Logger.info('FlowCraft content script initialized on Google Labs with Python Bridge and Heartbeat active');
+// Initialize Recovery Supervisor watchdogs, network listeners & startup self-healing
+recoverySupervisor.init().catch(err => Logger.warn('RecoverySupervisor init notice:', err));
+
+Logger.info('FlowCraft content script initialized on Google Labs with Failure-Proof Recovery Supervisor and Python Bridge active');

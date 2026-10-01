@@ -9,6 +9,11 @@ import { StatusTracker } from './status-tracker.js';
 import { InputHandler } from './input-handler.js';
 import { Logger } from '../utils/logger.js';
 import { ACTIONS } from '../utils/constants.js';
+import { CheckpointManager } from '../utils/checkpoint-manager.js';
+import { JOB_STATES } from '../utils/state-machine.js';
+import { Reconciler } from './reconciler.js';
+import { DownloadRecoveryEngine } from './download-recovery.js';
+import { recoverySupervisor } from './recovery-supervisor.js';
 
 export class ExecutionEngine {
   static sanitizeFilename(str) {
@@ -896,6 +901,78 @@ export class ExecutionEngine {
     try {
       await this.autoDismissBanners();
 
+      // ═══════════════════════════════════════════════════════════════════
+      // RECONCILIATION & CHECKPOINT INITIALIZATION GATE
+      // ═══════════════════════════════════════════════════════════════════
+      const jobId = item.job_id || `job_${item.promptIndex || Date.now()}`;
+      item.job_id = jobId;
+      let cp = await CheckpointManager.loadCheckpoint(jobId);
+      if (!cp) {
+        cp = await CheckpointManager.saveCheckpoint({
+          job_id: jobId,
+          prompt: item.prompt,
+          state: JOB_STATES.PREPARING,
+          attempt: 1,
+          last_verified_action: 'Starting executePromptItem'
+        });
+      }
+      recoverySupervisor.activeCheckpoint = cp;
+
+      // Check Reconciler before doing any work
+      const reconcileVerdict = await Reconciler.reconcile(item, cp);
+
+      if (reconcileVerdict.action === 'ALREADY_COMPLETED') {
+        Logger.info(`🏆 [Reconciler] Video already downloaded and verified!`);
+        steps[0].status = 'completed';
+        steps[1].status = 'completed';
+        steps[2].status = 'completed';
+        steps[3].status = 'completed';
+        return {
+          success: true,
+          steps,
+          downloadedCount: 1,
+          videoUrl: reconcileVerdict.videoUrl,
+          filename: reconcileVerdict.filename
+        };
+      }
+
+      if (reconcileVerdict.action === 'SKIP_TO_DOWNLOAD') {
+        Logger.info(`🏆 [Reconciler] Target tile already rendered (${reconcileVerdict.tileId}) — Skipping submit/render, downloading directly!`);
+        steps[0].status = 'completed';
+        steps[1].status = 'completed';
+        steps[2].status = 'completed';
+        steps[3].status = 'running';
+        const dlRes = await DownloadRecoveryEngine.recoverAndDownload(reconcileVerdict.element, item, cp, isCancelled);
+        steps[3].status = dlRes.success ? 'completed' : 'error';
+        return {
+          success: dlRes.success,
+          steps,
+          downloadedCount: dlRes.success ? 1 : 0,
+          videoUrl: dlRes.videoUrl,
+          filename: dlRes.filename
+        };
+      }
+
+      if (reconcileVerdict.action === 'ATTACH_GENERATION_MONITOR') {
+        Logger.info(`⏳ [Reconciler] Target tile actively rendering (${reconcileVerdict.tileId}) — Attaching monitor without re-submitting!`);
+        steps[0].status = 'completed';
+        steps[1].status = 'completed';
+        steps[2].status = 'completed';
+        steps[3].status = 'running';
+        const genRes = await this.pollGenerationStatus([reconcileVerdict.tileId], item, selectors, isCancelled, isPaused);
+        if (genRes.success) {
+          const dlRes = await DownloadRecoveryEngine.recoverAndDownload(reconcileVerdict.element, item, cp, isCancelled);
+          steps[3].status = dlRes.success ? 'completed' : 'error';
+          return {
+            success: dlRes.success,
+            steps,
+            downloadedCount: dlRes.success ? 1 : 0,
+            videoUrl: dlRes.videoUrl,
+            filename: dlRes.filename
+          };
+        }
+      }
+
       // Step 1: Project creation
       steps[0].status = 'running';
       this.reportProgress({ promptIndex: item.promptIndex, prompt: item.prompt, status: 'configuring', percentage: 0 });
@@ -916,6 +993,11 @@ export class ExecutionEngine {
       steps[1].status = 'completed';
 
       if (isCancelled()) return { success: false, cancelled: true, steps };
+
+      // Checkpoint: READY
+      cp.state = JOB_STATES.READY;
+      cp.last_verified_action = 'Settings configured, ready to inject';
+      await CheckpointManager.saveCheckpoint(cp);
 
       // Step 3: Capture existing tile IDs BEFORE submitting prompt
       const existingTileIds = this.getExistingTileIds(selectors);
@@ -953,6 +1035,11 @@ export class ExecutionEngine {
         await InputHandler.typePromptText(textarea, item._finalPrompt);
         await new Promise(r => setTimeout(r, 400));
       }
+
+      // Checkpoint: SUBMITTING
+      cp.state = JOB_STATES.SUBMITTING;
+      cp.last_verified_action = 'Submitting prompt';
+      await CheckpointManager.saveCheckpoint(cp);
 
       // Locate Submit Button strictly using robust multi-layer finder
       let submitBtn = InputHandler.findSubmitButton(textarea);
@@ -1039,6 +1126,11 @@ export class ExecutionEngine {
       const postSubmitPacing = 3000 + Math.floor(Math.random() * 2001);
       await new Promise(r => setTimeout(r, postSubmitPacing));
 
+      // Checkpoint: SUBMITTED
+      cp.state = JOB_STATES.SUBMITTED;
+      cp.last_verified_action = 'Prompt submitted to Google Flow';
+      await CheckpointManager.saveCheckpoint(cp);
+
       steps[2].status = 'completed';
 
       if (isCancelled()) return { success: false, cancelled: true, steps };
@@ -1053,6 +1145,12 @@ export class ExecutionEngine {
         return { success: false, steps, error: 'Output tiles not located after submit', shouldRetry: false };
       }
 
+      // Checkpoint: GENERATING
+      cp.state = JOB_STATES.GENERATING;
+      cp.tile_id = tileRes.tileIds?.[0] || null;
+      cp.last_verified_action = `Rendering tile located: ${cp.tile_id}`;
+      await CheckpointManager.saveCheckpoint(cp);
+
       // Step 6: Poll video generation completion until 100% ready
       const genRes = await this.pollGenerationStatus(tileRes.tileIds, item, selectors, isCancelled, isPaused);
       if (!genRes.success) {
@@ -1060,8 +1158,30 @@ export class ExecutionEngine {
         return { success: false, steps, error: 'Generation failed or timed out', shouldRetry: false };
       }
 
+      // Checkpoint: GENERATED
+      cp.state = JOB_STATES.GENERATED;
+      cp.last_verified_action = 'Video tile rendering completed';
+      await CheckpointManager.saveCheckpoint(cp);
+
       // Step 7: Extract end frame for Video Chainer & download media
-      const downloadRes = await this.downloadTileMedia(tileRes.tileIds, item, genRes, selectors, isCancelled, isPaused);
+      let downloadRes = await this.downloadTileMedia(tileRes.tileIds, item, genRes, selectors, isCancelled, isPaused);
+      if (!downloadRes.success) {
+        // Fallback to DownloadRecoveryEngine for 4-layer download
+        const tileEl = document.querySelector(`[data-tile-id="${tileRes.tileIds[0]}"]`);
+        if (tileEl) {
+          const recDl = await DownloadRecoveryEngine.recoverAndDownload(tileEl, item, cp, isCancelled);
+          if (recDl.success) {
+            downloadRes = { success: true, downloadedCount: 1, ...recDl };
+          }
+        }
+      }
+
+      // Checkpoint: COMPLETED
+      cp.state = JOB_STATES.COMPLETED;
+      cp.download_status = 'completed';
+      cp.last_verified_action = 'Job completed successfully';
+      await CheckpointManager.saveCheckpoint(cp);
+
       steps[3].status = 'completed';
 
       return {
@@ -1072,6 +1192,9 @@ export class ExecutionEngine {
       };
     } catch (err) {
       Logger.error('Automation error in executePromptItem:', err);
+      if (recoverySupervisor) {
+        await recoverySupervisor.handleFailure(err);
+      }
       return { success: false, steps, error: err.message, shouldRetry: false };
     }
   }

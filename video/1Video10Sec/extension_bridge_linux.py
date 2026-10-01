@@ -59,7 +59,8 @@ class ExtensionVideoBridgeLinux(ExtensionVideoBridge):
         super().__init__(config_path=config_path, extension_path=extension_path, max_retries=max_retries, output_dir=output_dir, **kwargs)
 
         # Linux-specific runtime parameters
-        self.chrome_exe = self.config.get("chrome_exe", "/home/mdkamruzzamanirak_gmail_com/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome")
+        self.chrome_exe = self.config.get("chrome_exe", "/usr/bin/google-chrome-stable")
+        self.google_flow_url = self.config.get("google_flow_url", "https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d")
         self.display = os.environ.get("DISPLAY", ":99")
         self.user_data_dir = self.config.get("chrome_user_data_dir", os.path.expanduser("~/.config/google-chrome"))
         self.downloads_dirs = self.config.get("downloads_dirs", [
@@ -281,4 +282,4 @@ if __name__ == "__main__":
         "full_combined_prompt": "0-8s: Impossible perpetual machine rotating with glowing brass gears."
     }
     video_path = bridge.generate_single_video(sample_prompt)
-    print("Detected Real Video File Path:", video_path)
+    print("Generated video path:", video_path)
