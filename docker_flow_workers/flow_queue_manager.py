@@ -173,6 +173,17 @@ class FlowQueueManager:
 
             INSERT OR IGNORE INTO flow_circuit_breaker (id, state, failure_count) VALUES (1, 'CLOSED', 0);
 
+            CREATE TABLE IF NOT EXISTS flow_system_alerts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                alert_type TEXT NOT NULL,
+                worker_id TEXT,
+                job_id INTEGER,
+                message TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'active',
+                created_at REAL NOT NULL,
+                resolved_at REAL
+            );
+
             CREATE TABLE IF NOT EXISTS generated_videos (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 uuid TEXT,
@@ -622,12 +633,13 @@ class FlowQueueManager:
         job_id: int,
         temp_file_path: str,
         final_file_path: str,
-        video_url: Optional[str] = None
+        video_url: Optional[str] = None,
+        stability_check_sec: float = 1.0
     ) -> Tuple[bool, str, Dict[str, Any]]:
         """
         4-Tier Verification on Temp File -> Atomic Rename -> DB Commit.
         1. File existence & size > 100 KB
-        2. Stable byte size check across 1 second
+        2. Stable byte size check across stability_check_sec (default: 1.0s)
         3. MP4 FTYP Magic Bytes Header validation
         4. Atomic rename (os.replace) to final path & SHA256 computation
         """
@@ -640,20 +652,18 @@ class FlowQueueManager:
             return False, f"File size too small ({size_1} bytes < 100000 bytes)", {}
 
         # Tier 2: Size stability (not actively being written by browser download)
-        time.sleep(1.0)
-        size_2 = os.path.getsize(temp_file_path)
-        if size_1 != size_2:
-            return False, f"File is still actively being written ({size_1} -> {size_2} bytes)", {}
+        if stability_check_sec > 0:
+            time.sleep(stability_check_sec)
+            size_2 = os.path.getsize(temp_file_path)
+            if size_1 != size_2:
+                return False, f"File is still actively being written ({size_1} -> {size_2} bytes)", {}
+        else:
+            size_2 = size_1
 
-        # Tier 3: Magic Bytes Header check
-        try:
-            with open(temp_file_path, "rb") as f:
-                header = f.read(16)
-            is_valid_mp4 = any(sig in header for sig in MP4_FTYP_SIGNATURES)
-            if not is_valid_mp4:
-                return False, f"Corrupted or invalid MP4 header signature: {header[:12]}", {}
-        except Exception as e:
-            return False, f"Could not read file header: {e}", {}
+        # Tier 3: Comprehensive MP4 Box & Atom Structural Validation (moov atom, box sizes, content length)
+        is_valid_mp4, val_msg, val_meta = self.validate_mp4_box_structure(temp_file_path)
+        if not is_valid_mp4:
+            return False, f"MP4 Integrity Validation Failed: {val_msg}", val_meta
 
         # Compute SHA-256 on verified temp file
         hasher = hashlib.sha256()
@@ -712,3 +722,190 @@ class FlowQueueManager:
             "file_size_bytes": size_2,
             "file_sha256": file_sha256
         }
+
+    # ------------------------------------------------------------------------
+    # MP4 Atom / Box Structural Integrity Validator
+    # ------------------------------------------------------------------------
+    @staticmethod
+    def validate_mp4_box_structure(file_path: str, expected_content_length: Optional[int] = None) -> Tuple[bool, str, Dict[str, Any]]:
+        """
+        Validates ISO/IEC 14496-12 MP4 Box structure:
+        - Confirms Content-Length matches expected_content_length (if provided)
+        - Confirms ftyp box is present at root
+        - Confirms moov box (movie metadata atom) is present and structurally intact
+        - Detects truncated downloads where box headers exceed file boundaries
+        """
+        import struct
+
+        if not os.path.exists(file_path):
+            return False, f"File {file_path} does not exist", {}
+
+        file_size = os.path.getsize(file_path)
+        if file_size < 100000:
+            return False, f"File size too small ({file_size} bytes < 100KB minimum threshold)", {}
+
+        if expected_content_length is not None and expected_content_length > 0:
+            if file_size != expected_content_length:
+                return False, f"Content-Length mismatch: expected {expected_content_length} bytes, got {file_size} bytes", {
+                    "expected": expected_content_length,
+                    "actual": file_size
+                }
+
+        boxes = []
+        has_ftyp = False
+        has_moov = False
+        moov_size = 0
+
+        try:
+            with open(file_path, "rb") as f:
+                pos = 0
+                while pos < file_size:
+                    header = f.read(8)
+                    if len(header) < 8:
+                        if not has_moov:
+                            return False, f"Corrupted or truncated MP4: unexpected EOF before finding 'moov' atom at offset {pos}", {}
+                        break
+
+                    size, btype = struct.unpack(">I4s", header)
+                    btype_str = btype.decode("latin-1", errors="replace")
+                    boxes.append((btype_str, size, pos))
+
+                    if btype_str == "ftyp":
+                        has_ftyp = True
+                    elif btype_str == "moov":
+                        has_moov = True
+                        moov_size = size
+
+                    if size == 1:
+                        # 64-bit extended box size
+                        ext_header = f.read(8)
+                        if len(ext_header) < 8:
+                            return False, f"Corrupted MP4: truncated 64-bit box header for '{btype_str}' at {pos}", {}
+                        size = struct.unpack(">Q", ext_header)[0]
+                        if pos + size > file_size and size != 0:
+                            return False, f"Truncated MP4 box: '{btype_str}' box claims {size} bytes but file ends at {file_size}", {}
+                        pos += size
+                        f.seek(pos)
+                    elif size == 0:
+                        # Box extends to EOF
+                        pos = file_size
+                        break
+                    else:
+                        if size < 8:
+                            return False, f"Corrupted MP4: invalid box size {size} for '{btype_str}' at {pos}", {}
+                        if pos + size > file_size:
+                            return False, f"Truncated MP4 box: '{btype_str}' box claims {size} bytes at {pos} (exceeds file size {file_size})", {}
+                        pos += size
+                        f.seek(pos)
+
+        except Exception as e:
+            return False, f"Exception while parsing MP4 box structure: {e}", {}
+
+        if not has_ftyp:
+            return False, "Invalid MP4: missing 'ftyp' box", {"boxes": [b[0] for b in boxes]}
+
+        if not has_moov:
+            return False, "Incomplete or truncated MP4: missing 'moov' atom (video cannot be decoded or played)", {
+                "boxes": [b[0] for b in boxes],
+                "file_size": file_size
+            }
+
+        return True, "VALID_MP4_STRUCTURE", {
+            "boxes": [b[0] for b in boxes],
+            "file_size": file_size,
+            "moov_size": moov_size
+        }
+
+    # ------------------------------------------------------------------------
+    # Session Recovery & Security Alert Management
+    # ------------------------------------------------------------------------
+    def pause_for_unauthenticated_session(self, worker_id: str, job_id: Optional[int], message: str) -> None:
+        """
+        Pauses worker submissions upon auth failure and writes an actionable alert to DB.
+        """
+        now = time.time()
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute("""
+                INSERT INTO flow_worker_registry (worker_id, status, updated_at)
+                VALUES (?, 'paused_auth_required', ?)
+                ON CONFLICT(worker_id) DO UPDATE SET status = 'paused_auth_required', updated_at = excluded.updated_at
+            """, (worker_id, now))
+            conn.execute("""
+                INSERT INTO flow_system_alerts (alert_type, worker_id, job_id, message, status, created_at)
+                VALUES ('SESSION_UNAUTHENTICATED', ?, ?, ?, 'active', ?)
+            """, (worker_id, job_id, message, now))
+            self.log_audit("AUTH_FAILURE_PAUSE", job_id=job_id, details={"worker_id": worker_id, "message": message}, conn=conn)
+            conn.commit()
+
+    def resume_after_auth_restoration(self, worker_id: str) -> bool:
+        """
+        Resumes worker submissions once session/cookie credentials are restored.
+        """
+        now = time.time()
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute("""
+                INSERT INTO flow_worker_registry (worker_id, status, consecutive_failures, quarantine_until, updated_at)
+                VALUES (?, 'active', 0, 0, ?)
+                ON CONFLICT(worker_id) DO UPDATE SET status = 'active', consecutive_failures = 0, quarantine_until = 0, updated_at = excluded.updated_at
+            """, (worker_id, now))
+            conn.execute("""
+                UPDATE flow_system_alerts
+                SET status = 'resolved', resolved_at = ?
+                WHERE worker_id = ? AND alert_type = 'SESSION_UNAUTHENTICATED' AND status = 'active'
+            """, (now, worker_id))
+            self.log_audit("AUTH_RESTORED_RESUME", details={"worker_id": worker_id, "status": "active"}, conn=conn)
+            conn.commit()
+            return True
+
+    # ------------------------------------------------------------------------
+    # Bot Detection: Detect-and-Halt Architecture
+    # ------------------------------------------------------------------------
+    def halt_for_bot_detection(self, worker_id: str, reason: str) -> None:
+        """
+        Enforces DETECT-AND-HALT protocol when bot detection or CAPTCHA challenge is encountered:
+        - Halts all cluster submissions immediately
+        - Trips global circuit breaker to OPEN with 600s cooldown
+        - Writes actionable high-severity alert to DB
+        """
+        now = time.time()
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute("""
+                INSERT OR REPLACE INTO flow_cluster_locks (lock_name, locked_by, lease_until, updated_at)
+                VALUES ('BOT_DETECT_HALT', ?, ?, ?)
+            """, (worker_id, now + 3600.0, now)) # Halt cluster for up to 1 hour pending manual resume
+            conn.execute("""
+                UPDATE flow_circuit_breaker
+                SET state = 'OPEN', failure_count = failure_count + 1, tripped_at = ?, cooldown_sec = 600.0, updated_at = ?
+                WHERE id = 1
+            """, (now, now))
+            conn.execute("""
+                INSERT INTO flow_system_alerts (alert_type, worker_id, message, status, created_at)
+                VALUES ('BOT_DETECTED_HALT', ?, ?, 'active', ?)
+            """, (worker_id, f"DETECT_AND_HALT: {reason}", now))
+            self.log_audit("BOT_DETECT_HALT_TRIGGERED", details={"worker_id": worker_id, "reason": reason}, conn=conn)
+            conn.commit()
+
+    def resume_from_bot_halt(self, admin_token: str) -> bool:
+        """
+        Resumes cluster submissions after manual review and verified cooldown.
+        """
+        now = time.time()
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute("DELETE FROM flow_cluster_locks WHERE lock_name = 'BOT_DETECT_HALT'")
+            conn.execute("""
+                UPDATE flow_circuit_breaker
+                SET state = 'CLOSED', failure_count = 0, updated_at = ?
+                WHERE id = 1
+            """, (now,))
+            conn.execute("""
+                UPDATE flow_system_alerts
+                SET status = 'resolved', resolved_at = ?
+                WHERE alert_type = 'BOT_DETECTED_HALT' AND status = 'active'
+            """, (now,))
+            self.log_audit("BOT_HALT_RESOLVED", details={"token": admin_token}, conn=conn)
+            conn.commit()
+            return True

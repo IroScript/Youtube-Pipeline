@@ -1,0 +1,39 @@
+version: '3.8'
+
+networks:
+  youtube_worker_net:
+    driver: bridge
+
+services:
+  db-fillup-worker-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docker_workers-worker-1:latest
+    container_name: db_fillup_worker_1
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8001:8000"
+    environment:
+      - WORKER_ID=db_worker_1
+      - PORT=8000
+      - DISPLAY=:99
+      - PYTHONUNBUFFERED=1
+      - COOKIE_FILE=/app/cookies/cookie.json
+      - PROXY_FILE=/app/cookies/proxy.txt
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./cookies:/app/cookies:rw
+      - ./profile:/app/profile:rw
+      - ../PromptDatabase/database:/app/database:rw
+      - ./worker_server.py:/app/worker_server.py:rw
+    networks:
+      - youtube_worker_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/docs || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

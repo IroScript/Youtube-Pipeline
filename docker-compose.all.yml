@@ -1,0 +1,92 @@
+version: '3.8'
+
+networks:
+  youtube_pipeline_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+
+services:
+  # -------------------------------------------------------------
+  # 1. Database Fillup Worker (ChatGPT Automation)
+  # -------------------------------------------------------------
+  db-fillup-worker-1:
+    build:
+      context: ./docker_workers
+      dockerfile: Dockerfile
+    image: docker_workers-worker-1:latest
+    container_name: db_fillup_worker_1
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8001:8000"
+    environment:
+      - WORKER_ID=db_worker_1
+      - PORT=8000
+      - DISPLAY=:99
+      - PYTHONUNBUFFERED=1
+      - COOKIE_FILE=/app/cookies/cookie.json
+      - PROXY_FILE=/app/cookies/proxy.txt
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./docker_workers/cookies:/app/cookies:rw
+      - ./docker_workers/profile:/app/profile:rw
+      - ./PromptDatabase/database:/app/database:rw
+      - ./docker_workers/worker_server.py:/app/worker_server.py:rw
+    networks:
+      - youtube_pipeline_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/docs || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # -------------------------------------------------------------
+  # 2. Veo 3.1 Video Generation Worker (Google Flow Automation)
+  # -------------------------------------------------------------
+  flow-worker-1:
+    build:
+      context: ./docker_flow_workers
+      dockerfile: Dockerfile
+    container_name: flow_worker_1
+    restart: unless-stopped
+    depends_on:
+      - db-fillup-worker-1
+    mem_limit: 1536m
+    shm_size: 1g
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "8101:8102"
+    environment:
+      - WORKER_ID=flow_worker_1
+      - PORT=8102
+      - DISPLAY=:99
+      - FLOW_URL=https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d
+      - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - DOWNLOADS_DIR=/app/downloads
+      - TEMP_DIR=/app/temp
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./docker_flow_workers/profiles/worker_1:/app/profile:rw
+      - ./docker_flow_workers/cookies/worker_1:/app/cookies:rw
+      - ./docker_flow_workers/downloads/worker_1:/app/downloads:rw
+      - ./docker_flow_workers/temp/worker_1:/app/temp:rw
+      - ./PromptDatabase/database:/app/database:rw
+      - ./docker_flow_workers/10SecNewExtension:/app/10SecNewExtension:ro
+      - ./docker_flow_workers/flow_worker_server.py:/app/flow_worker_server.py:rw
+      - ./docker_flow_workers/flow_queue_manager.py:/app/flow_queue_manager.py:rw
+      - ./docker_flow_workers/browser_supervisor.py:/app/browser_supervisor.py:rw
+    networks:
+      - youtube_pipeline_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8102/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

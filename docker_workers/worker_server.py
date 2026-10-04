@@ -6,13 +6,25 @@ import random
 import asyncio
 import logging
 from pathlib import Path
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Tuple
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from playwright.async_api import async_playwright, BrowserContext, Page
-from playwright_stealth.stealth import Stealth
+try:
+    from fastapi import FastAPI, HTTPException
+    from pydantic import BaseModel
+except ImportError:
+    FastAPI = None
+    HTTPException = None
+    BaseModel = object
+
+try:
+    from playwright.async_api import async_playwright, BrowserContext, Page
+    from playwright_stealth.stealth import Stealth
+except ImportError:
+    async_playwright = None
+    BrowserContext = Any
+    Page = Any
+    Stealth = None
 
 # Setup Logging
 logging.basicConfig(
@@ -40,13 +52,21 @@ is_busy = False
 action_counter = 0
 last_session_refresh = 0.0
 
-# Realistic modern desktop user agents
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
-]
+def get_dynamic_user_agent_and_client_hints(browser_version: Optional[str] = None) -> Tuple[str, Dict[str, str]]:
+    """
+    Dynamically generates matching User-Agent and sec-ch-ua client hint headers
+    derived from the actual runtime Chromium version, eliminating UA/sec-ch-ua mismatch bot detection.
+    """
+    major_ver = browser_version.split(".")[0] if browser_version else "130"
+    full_ver = browser_version if browser_version else f"{major_ver}.0.0.0"
+
+    user_agent = f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{full_ver} Safari/537.36"
+    client_hints = {
+        "sec-ch-ua": f'"Chromium";v="{major_ver}", "Not?A_Brand";v="99", "Google Chrome";v="{major_ver}"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"'
+    }
+    return user_agent, client_hints
 
 def get_proxy_config() -> Optional[Dict[str, str]]:
     """Determine proxy configuration from environment or file."""
@@ -264,7 +284,7 @@ async def initialize_browser():
             except Exception as e:
                 logger.warning(f"Could not remove {lock_name}: {e}")
 
-    selected_ua = random.choice(USER_AGENTS)
+    selected_ua, dynamic_client_hints = get_dynamic_user_agent_and_client_hints()
     proxy_config = get_proxy_config()
 
     # 1. Primary: Official CloakBrowser Stealth Engine
@@ -373,7 +393,15 @@ async def lifespan(app: FastAPI):
         await playwright_instance.stop()
     logger.info(f"Shutdown {WORKER_ID} complete.")
 
-app = FastAPI(title=f"ChatGPT Worker - {WORKER_ID}", lifespan=lifespan)
+if FastAPI:
+    app = FastAPI(title=f"ChatGPT Worker - {WORKER_ID}", lifespan=lifespan)
+else:
+    class DummyApp:
+        def get(self, *args, **kwargs):
+            return lambda fn: fn
+        def post(self, *args, **kwargs):
+            return lambda fn: fn
+    app = DummyApp()
 
 class PromptRequest(BaseModel):
     prompt: str
