@@ -133,3 +133,9 @@ youtube-uploader-eval/test.mp4
 # Accidental 0-byte root database files (real DB is in PromptDatabase/database/)
 PromptDatabase/youtube_pipeline.db
 video/1Video10Sec/youtube_pipeline.db
+
+# Mutation testing artifacts
+mutants/
+.mutmut-cache/
+**/mutants/
+

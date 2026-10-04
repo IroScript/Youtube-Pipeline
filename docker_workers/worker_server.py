@@ -52,19 +52,39 @@ is_busy = False
 action_counter = 0
 last_session_refresh = 0.0
 
-def get_dynamic_user_agent_and_client_hints(browser_version: Optional[str] = None) -> Tuple[str, Dict[str, str]]:
+def get_dynamic_user_agent_and_client_hints(browser_version: Optional[str] = None, force_override: bool = False) -> Tuple[Optional[str], Optional[Dict[str, str]]]:
     """
-    Dynamically generates matching User-Agent and sec-ch-ua client hint headers
-    derived from the actual runtime Chromium version, eliminating UA/sec-ch-ua mismatch bot detection.
+    Default behavior: returns (None, None) so that the browser's own native headers,
+    navigator.platform, and sec-ch-ua headers flow untouched, avoiding synthetic fingerprint mismatches.
+
+    If force_override=True:
+    Derives OS platform dynamically using platform.system() and aligns:
+    - User-Agent OS token ('X11; Linux x86_64' vs 'Windows NT 10.0; Win64; x64')
+    - sec-ch-ua-platform ('"Linux"' vs '"Windows"')
+    - navigator.platform ('Linux x86_64' vs 'Win32')
     """
-    major_ver = browser_version.split(".")[0] if browser_version else "130"
+    if not force_override:
+        return None, None
+
+    import platform
+    sys_os = platform.system()
+    major_ver = browser_version.split(".")[0] if browser_version else "131"
     full_ver = browser_version if browser_version else f"{major_ver}.0.0.0"
 
-    user_agent = f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{full_ver} Safari/537.36"
+    if sys_os == "Linux":
+        user_agent = f"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{full_ver} Safari/537.36"
+        sec_platform = '"Linux"'
+    elif sys_os == "Darwin":
+        user_agent = f"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{full_ver} Safari/537.36"
+        sec_platform = '"macOS"'
+    else:
+        user_agent = f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{full_ver} Safari/537.36"
+        sec_platform = '"Windows"'
+
     client_hints = {
         "sec-ch-ua": f'"Chromium";v="{major_ver}", "Not?A_Brand";v="99", "Google Chrome";v="{major_ver}"',
         "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"'
+        "sec-ch-ua-platform": sec_platform
     }
     return user_agent, client_hints
 

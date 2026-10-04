@@ -25,6 +25,15 @@ from typing import Optional, Dict, Any, Tuple, List
 from pathlib import Path
 from contextlib import contextmanager
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from flow_guards import (
+    format_bytes_human,
+    check_preflight_resources as guard_check_preflight,
+    evaluate_circuit_breaker,
+    evaluate_worker_quarantine,
+    validate_mp4_box_structure as guard_validate_mp4
+)
+
 logger = logging.getLogger("FlowQueueManager")
 
 # State Machine Constants (Lock 10)
@@ -229,34 +238,11 @@ class FlowQueueManager:
     # ------------------------------------------------------------------------
     def check_preflight_resources(self, download_dir: str) -> Tuple[bool, str]:
         """Validates RAM, shm, and disk space before claiming or processing a job."""
-        # 1. Disk space check (Lock 27)
-        try:
-            total, used, free = shutil.disk_usage(download_dir)
-            if free < self.min_disk_free_bytes:
-                msg = f"Insufficient disk space in {download_dir}: {free / (1024*1024):.1f}MB free (required: {self.min_disk_free_bytes / (1024*1024)}MB)"
-                self.log_audit("RESOURCE_CHECK_FAILED", details={"reason": "disk_space", "free_bytes": free})
-                return False, msg
-        except Exception as e:
-            return False, f"Could not determine disk usage: {e}"
-
-        # 2. RAM check (Lock 26)
-        try:
-            with open("/proc/meminfo", "r") as f:
-                meminfo = f.read()
-            mem_avail_kb = 0
-            for line in meminfo.splitlines():
-                if line.startswith("MemAvailable:"):
-                    mem_avail_kb = int(line.split()[1])
-                    break
-            mem_avail_mb = mem_avail_kb / 1024
-            if mem_avail_mb < self.min_ram_free_mb:
-                msg = f"Insufficient available RAM: {mem_avail_mb:.1f}MB available (required: {self.min_ram_free_mb}MB)"
-                self.log_audit("RESOURCE_CHECK_FAILED", details={"reason": "ram_exhaustion", "avail_mb": mem_avail_mb})
-                return False, msg
-        except Exception:
-            pass # fallback if not accessible
-
-        return True, "OK"
+        ok, msg = guard_check_preflight(download_dir, self.min_disk_free_bytes, self.min_ram_free_mb)
+        if not ok:
+            reason = "disk_space" if "disk space" in msg else "ram_exhaustion"
+            self.log_audit("RESOURCE_CHECK_FAILED", details={"reason": reason, "message": msg})
+        return ok, msg
 
     # ------------------------------------------------------------------------
     # Lock 17 & 29: Circuit Breaker & Safety Stop
@@ -267,16 +253,11 @@ class FlowQueueManager:
             row = conn.execute("SELECT state, failure_count, tripped_at, cooldown_sec FROM flow_circuit_breaker WHERE id = 1").fetchone()
             if not row:
                 return True, "CLOSED"
-            state = row["state"]
-            if state == "OPEN":
-                elapsed = time.time() - row["tripped_at"]
-                if elapsed > row["cooldown_sec"]:
-                    # Transition to HALF_OPEN
-                    conn.execute("UPDATE flow_circuit_breaker SET state = 'HALF_OPEN', updated_at = ? WHERE id = 1", (time.time(),))
-                    self.log_audit("CIRCUIT_BREAKER_HALF_OPEN", details={"cooldown_elapsed": elapsed})
-                    return True, "HALF_OPEN"
-                return False, f"Circuit breaker OPEN. Cool down remaining: {int(row['cooldown_sec'] - elapsed)}s"
-        return True, state
+            ok, next_state = evaluate_circuit_breaker(row["state"], row["tripped_at"], row["cooldown_sec"], time.time())
+            if next_state == "HALF_OPEN" and row["state"] != "HALF_OPEN":
+                conn.execute("UPDATE flow_circuit_breaker SET state = 'HALF_OPEN', updated_at = ? WHERE id = 1", (time.time(),))
+                self.log_audit("CIRCUIT_BREAKER_HALF_OPEN", details={"cooldown_elapsed": time.time() - row["tripped_at"]})
+            return ok, next_state
 
     def record_circuit_failure(self):
         """Records a systemic failure; trips breaker if threshold exceeded."""
@@ -312,11 +293,11 @@ class FlowQueueManager:
     def is_worker_quarantined(self) -> Tuple[bool, float]:
         with self.get_connection() as conn:
             row = conn.execute("SELECT status, quarantine_until FROM flow_worker_registry WHERE worker_id = ?", (self.worker_id,)).fetchone()
-            if row and row["status"] == "quarantined":
-                remaining = row["quarantine_until"] - time.time()
-                if remaining > 0:
-                    return True, remaining
-                else:
+            if row:
+                is_q, rem = evaluate_worker_quarantine(row["status"], row["quarantine_until"], time.time())
+                if is_q:
+                    return True, rem
+                elif row["status"] == "quarantined" and not is_q:
                     conn.execute("UPDATE flow_worker_registry SET status = 'active', consecutive_failures = 0, quarantine_until = 0, updated_at = ? WHERE worker_id = ?", (time.time(), self.worker_id))
         return False, 0.0
 
@@ -729,92 +710,13 @@ class FlowQueueManager:
     @staticmethod
     def validate_mp4_box_structure(file_path: str, expected_content_length: Optional[int] = None) -> Tuple[bool, str, Dict[str, Any]]:
         """
-        Validates ISO/IEC 14496-12 MP4 Box structure:
+        Validates ISO/IEC 14496-12 MP4 Box structure via authoritative flow_guards module:
         - Confirms Content-Length matches expected_content_length (if provided)
         - Confirms ftyp box is present at root
         - Confirms moov box (movie metadata atom) is present and structurally intact
         - Detects truncated downloads where box headers exceed file boundaries
         """
-        import struct
-
-        if not os.path.exists(file_path):
-            return False, f"File {file_path} does not exist", {}
-
-        file_size = os.path.getsize(file_path)
-        if file_size < 100000:
-            return False, f"File size too small ({file_size} bytes < 100KB minimum threshold)", {}
-
-        if expected_content_length is not None and expected_content_length > 0:
-            if file_size != expected_content_length:
-                return False, f"Content-Length mismatch: expected {expected_content_length} bytes, got {file_size} bytes", {
-                    "expected": expected_content_length,
-                    "actual": file_size
-                }
-
-        boxes = []
-        has_ftyp = False
-        has_moov = False
-        moov_size = 0
-
-        try:
-            with open(file_path, "rb") as f:
-                pos = 0
-                while pos < file_size:
-                    header = f.read(8)
-                    if len(header) < 8:
-                        if not has_moov:
-                            return False, f"Corrupted or truncated MP4: unexpected EOF before finding 'moov' atom at offset {pos}", {}
-                        break
-
-                    size, btype = struct.unpack(">I4s", header)
-                    btype_str = btype.decode("latin-1", errors="replace")
-                    boxes.append((btype_str, size, pos))
-
-                    if btype_str == "ftyp":
-                        has_ftyp = True
-                    elif btype_str == "moov":
-                        has_moov = True
-                        moov_size = size
-
-                    if size == 1:
-                        # 64-bit extended box size
-                        ext_header = f.read(8)
-                        if len(ext_header) < 8:
-                            return False, f"Corrupted MP4: truncated 64-bit box header for '{btype_str}' at {pos}", {}
-                        size = struct.unpack(">Q", ext_header)[0]
-                        if pos + size > file_size and size != 0:
-                            return False, f"Truncated MP4 box: '{btype_str}' box claims {size} bytes but file ends at {file_size}", {}
-                        pos += size
-                        f.seek(pos)
-                    elif size == 0:
-                        # Box extends to EOF
-                        pos = file_size
-                        break
-                    else:
-                        if size < 8:
-                            return False, f"Corrupted MP4: invalid box size {size} for '{btype_str}' at {pos}", {}
-                        if pos + size > file_size:
-                            return False, f"Truncated MP4 box: '{btype_str}' box claims {size} bytes at {pos} (exceeds file size {file_size})", {}
-                        pos += size
-                        f.seek(pos)
-
-        except Exception as e:
-            return False, f"Exception while parsing MP4 box structure: {e}", {}
-
-        if not has_ftyp:
-            return False, "Invalid MP4: missing 'ftyp' box", {"boxes": [b[0] for b in boxes]}
-
-        if not has_moov:
-            return False, "Incomplete or truncated MP4: missing 'moov' atom (video cannot be decoded or played)", {
-                "boxes": [b[0] for b in boxes],
-                "file_size": file_size
-            }
-
-        return True, "VALID_MP4_STRUCTURE", {
-            "boxes": [b[0] for b in boxes],
-            "file_size": file_size,
-            "moov_size": moov_size
-        }
+        return guard_validate_mp4(file_path, expected_content_length)
 
     # ------------------------------------------------------------------------
     # Session Recovery & Security Alert Management
