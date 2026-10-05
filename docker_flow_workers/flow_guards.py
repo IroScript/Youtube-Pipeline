@@ -42,18 +42,19 @@ def check_preflight_resources(
         return False, f"Could not determine disk usage: {e}"
 
     # 2. RAM check
-    try:
-        mem_avail_kb = 0
-        with open("/proc/meminfo", "r") as f:
-            for line in f:
-                if line.startswith("MemAvailable:"):
-                    mem_avail_kb = int(line.split()[1])
-                    break
-        mem_avail_mb = mem_avail_kb / 1024
-        if mem_avail_mb < min_ram_free_mb:
-            return False, f"Insufficient available RAM: {mem_avail_mb:.1f} MB available (required: {min_ram_free_mb} MB)"
-    except Exception:
-        pass # fallback if /proc/meminfo is not accessible
+    if min_ram_free_mb > 0:
+        try:
+            mem_avail_kb = 0
+            with open("/proc/meminfo", "r") as f:
+                for line in f:
+                    if line.startswith("MemAvailable:"):
+                        mem_avail_kb = int(line.split()[1])
+                        break
+            mem_avail_mb = mem_avail_kb / 1024
+            if mem_avail_mb < min_ram_free_mb:
+                return False, f"Insufficient available RAM: {mem_avail_mb:.1f} MB available (required: {min_ram_free_mb} MB)"
+        except Exception as e:
+            return False, f"Could not determine available RAM: {e}"
 
     return True, "OK"
 

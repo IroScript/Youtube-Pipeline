@@ -100,6 +100,13 @@ class FlowQueueManager:
         conn.row_factory = sqlite3.Row
         try:
             yield conn
+            conn.commit()
+        except Exception:
+            try:
+                conn.rollback()
+            except Exception:
+                pass
+            raise
         finally:
             conn.close()
 

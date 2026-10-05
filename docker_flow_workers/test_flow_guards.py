@@ -12,6 +12,7 @@ from flow_guards import (
     detect_security_challenge_and_halt,
     evaluate_lease_reclaim
 )
+from flow_queue_manager import FlowQueueManager, JobState
 
 def test_format_bytes_human():
     assert format_bytes_human(0) == "0 B"
@@ -22,9 +23,10 @@ def test_format_bytes_human():
     assert format_bytes_human(1048575) == "1024.0 KB"
     assert format_bytes_human(1048576) == "1.0 MB"
     assert format_bytes_human(15728640) == "15.0 MB"
-    assert format_bytes_human(1073741823) == "1024.0 MB"
     assert format_bytes_human(1073741824) == "1.00 GB"
     assert format_bytes_human(2147483648) == "2.00 GB"
+    assert format_bytes_human(10 * 1024 * 1024 * 1024) == "10.00 GB"
+    assert format_bytes_human(15 * 1024 * 1024 * 1024) == "15.00 GB"
 
 def test_check_preflight_resources_disk_pass():
     ok, msg = check_preflight_resources("/tmp", min_disk_free_bytes=1000, min_ram_free_mb=1)
@@ -490,4 +492,131 @@ def test_validate_mp4_unexpected_eof_before_moov(tmp_path):
     assert ok is False
     assert "unexpected EOF before finding 'moov' atom" in msg
     assert meta == {}
+
+def test_check_preflight_resources_meminfo_failure_fails_closed(monkeypatch):
+    import builtins
+    real_open = builtins.open
+    def broken_meminfo(fname, *args, **kwargs):
+        if "meminfo" in str(fname):
+            raise FileNotFoundError("Mock /proc/meminfo missing")
+        return real_open(fname, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "open", broken_meminfo)
+    ok, msg = check_preflight_resources("/tmp", min_disk_free_bytes=1000, min_ram_free_mb=200)
+    assert ok is False
+    assert "Could not determine available RAM: Mock /proc/meminfo missing" == msg
+
+def test_validate_mp4_box_size_over_2gb(tmp_path):
+    f = tmp_path / "large_32bit.mp4"
+    ftyp_payload = b"isom\x00\x00\x02\x00isomiso2mp41"
+    ftyp = struct.pack(">I4s", len(ftyp_payload) + 8, b"ftyp") + ftyp_payload
+    # 32-bit unsigned size exceeding 2GB: 2,500,000,000 (0x9502F900)
+    large_box = struct.pack(">I4s", 2500000000, b"mdat") + b"\x00" * 105000
+    f.write_bytes(ftyp + large_box)
+    ok, msg, meta = validate_mp4_box_structure(str(f))
+    assert ok is False
+    assert "claims 2500000000 bytes" in msg
+    assert "invalid box size" not in msg
+
+def test_validate_mp4_64bit_box_exact_eof_boundary(tmp_path):
+    f = tmp_path / "exact_64bit_eof.mp4"
+    ftyp_payload = b"isom\x00\x00\x02\x00isomiso2mp41"
+    ftyp = struct.pack(">I4s", len(ftyp_payload) + 8, b"ftyp") + ftyp_payload
+    moov_payload = struct.pack(">I4s", 16, b"mvhd") + b"\x00" * 8
+    moov = struct.pack(">I4s", len(moov_payload) + 8, b"moov") + moov_payload
+    # 64-bit box where pos + size exactly equals total file size
+    payload = b"\x00" * 110000
+    header_64 = struct.pack(">I4sQ", 1, b"mdat", len(payload) + 16) + payload
+    f.write_bytes(ftyp + moov + header_64)
+    ok, msg, meta = validate_mp4_box_structure(str(f))
+    assert ok is True
+    assert msg == "VALID_MP4_STRUCTURE"
+
+def test_flow_queue_claim_and_reclaim(tmp_path):
+    import time
+    db_path = str(tmp_path / "queue_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="test_worker_1", lease_duration_sec=0.2)
+    job, created = mgr.enqueue_job("Prompt 1", idea_id=1, prompt_id=1)
+    assert created is True
+    assert job["id"] == 1
+    assert job["status"] == "pending"
+
+    claimed = mgr.claim_next_job()
+    assert claimed is not None
+    assert claimed["id"] == 1
+    assert claimed["status"] == "claimed"
+    assert claimed["worker_id"] == "test_worker_1"
+
+    # Active lease cannot be claimed by another worker
+    mgr2 = FlowQueueManager(db_path=db_path, worker_id="test_worker_2", lease_duration_sec=0.2)
+    claimed2 = mgr2.claim_next_job()
+    assert claimed2 is None
+
+    # Wait for lease expiration
+    time.sleep(0.3)
+    reclaimed_count = mgr.reclaim_orphaned_jobs()
+    assert reclaimed_count == 1
+
+    with mgr.get_connection() as conn:
+        row = conn.execute("SELECT status, worker_id FROM flow_video_jobs WHERE id = 1").fetchone()
+        assert row["status"] == "pending"
+        assert row["worker_id"] is None
+
+def test_flow_queue_circuit_breaker(tmp_path):
+    import time
+    db_path = str(tmp_path / "cb_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="cb_worker")
+    with mgr.get_connection() as conn:
+        conn.execute("UPDATE flow_circuit_breaker SET cooldown_sec = 0.2 WHERE id = 1")
+
+    ok, state = mgr.check_circuit_breaker()
+    assert ok is True
+    assert state == "CLOSED"
+
+    # Record failure 1 & 2
+    mgr.record_circuit_failure()
+    mgr.record_circuit_failure()
+    ok, state = mgr.check_circuit_breaker()
+    assert ok is True
+
+    # Record failure 3 -> trips to OPEN
+    mgr.record_circuit_failure()
+    ok, msg = mgr.check_circuit_breaker()
+    assert ok is False
+    assert "OPEN" in msg
+
+    # Cooldown
+    time.sleep(0.25)
+    ok, state = mgr.check_circuit_breaker()
+    assert ok is True
+    assert state == "HALF_OPEN"
+
+    # Success resets to CLOSED
+    mgr.record_circuit_success()
+    ok, state = mgr.check_circuit_breaker()
+    assert ok is True
+    assert state == "CLOSED"
+
+def test_flow_queue_bot_halt_and_resume(tmp_path):
+    db_path = str(tmp_path / "halt_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="halt_worker")
+
+    # Trigger halt
+    mgr.halt_for_bot_detection("halt_worker", "Turnstile challenge detected")
+    with mgr.get_connection() as conn:
+        lock = conn.execute("SELECT lock_name, locked_by FROM flow_cluster_locks WHERE lock_name = 'BOT_DETECT_HALT'").fetchone()
+        assert lock is not None
+        assert lock["locked_by"] == "halt_worker"
+        cb = conn.execute("SELECT state FROM flow_circuit_breaker WHERE id = 1").fetchone()
+        assert cb["state"] == "OPEN"
+
+    # Resume with valid token
+    resumed = mgr.resume_from_bot_halt("admin_verified_unhalt_token")
+    assert resumed is True
+    with mgr.get_connection() as conn:
+        lock_after = conn.execute("SELECT lock_name FROM flow_cluster_locks WHERE lock_name = 'BOT_DETECT_HALT'").fetchone()
+        assert lock_after is None
+        cb_after = conn.execute("SELECT state FROM flow_circuit_breaker WHERE id = 1").fetchone()
+        assert cb_after["state"] == "CLOSED"
+
 
