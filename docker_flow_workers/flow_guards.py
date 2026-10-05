@@ -216,3 +216,13 @@ def detect_security_challenge_and_halt(
 
     return False, "CLEAN"
 
+def evaluate_lease_reclaim(status: str, lease_until: Optional[float], now: float) -> Tuple[bool, str]:
+    """
+    Evaluates whether a claimed job lease has expired and must be reclaimed.
+    Boundary rule: lease_until < now triggers reclaim.
+    """
+    if status in ("claimed", "submitting", "generating", "downloading", "verifying"):
+        if lease_until is not None and lease_until < now:
+            return True, "LEASE_EXPIRED"
+    return False, "LEASE_ACTIVE"
+

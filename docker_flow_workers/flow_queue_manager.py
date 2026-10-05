@@ -31,7 +31,8 @@ from flow_guards import (
     check_preflight_resources as guard_check_preflight,
     evaluate_circuit_breaker,
     evaluate_worker_quarantine,
-    validate_mp4_box_structure as guard_validate_mp4
+    validate_mp4_box_structure as guard_validate_mp4,
+    evaluate_lease_reclaim
 )
 
 logger = logging.getLogger("FlowQueueManager")

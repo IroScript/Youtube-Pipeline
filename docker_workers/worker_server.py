@@ -26,6 +26,12 @@ except ImportError:
     Page = Any
     Stealth = None
 
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "docker_flow_workers"))
+    from flow_guards import detect_security_challenge_and_halt
+except ImportError:
+    detect_security_challenge_and_halt = None
+
 # Setup Logging
 logging.basicConfig(
     level=logging.INFO,
@@ -138,8 +144,29 @@ async def setup_route_interception(ctx: BrowserContext):
 
     await ctx.route("**/*", route_handler)
 
-async def handle_turnstile_if_present(page: Page):
-    """Detects Cloudflare Turnstile challenge and clicks verification checkbox."""
+async def check_page_for_security_challenges_and_halt(page: Page, queue_mgr=None, worker_id="worker_server") -> Tuple[bool, str]:
+    """
+    Production security challenge check path in worker_server.py:
+    Inspects page content and title for Cloudflare Turnstile or Google Flow warnings.
+    If detected, autonomously halts submission on the queue manager.
+    """
+    if detect_security_challenge_and_halt is None or page is None:
+        return False, "DETECTOR_UNAVAILABLE"
+    try:
+        content = await page.content()
+        return detect_security_challenge_and_halt(content, 200, queue_mgr, worker_id)
+    except Exception as e:
+        logger.warning(f"Error checking page security challenge: {e}")
+        return False, str(e)
+
+async def handle_turnstile_if_present(page: Page, queue_mgr=None, worker_id="worker_server") -> bool:
+    """Detects Cloudflare Turnstile challenge, triggers autonomous halt, or attempts solve."""
+    # First invoke authoritative security challenge detector
+    halted, reason = await check_page_for_security_challenges_and_halt(page, queue_mgr, worker_id)
+    if halted:
+        logger.warning(f"Production path halted worker {worker_id}: {reason}")
+        return True
+
     try:
         title = await page.title()
         if "moment" in title.lower() or "challenge" in title.lower():
