@@ -185,3 +185,34 @@ def validate_mp4_box_structure(
         "file_size": file_size,
         "moov_size": moov_size
     }
+
+def detect_security_challenge_and_halt(
+    html_content: str,
+    status_code: int,
+    queue_mgr: Any,
+    worker_id: str
+) -> Tuple[bool, str]:
+    """
+    Evaluates response content and headers. Triggers queue manager halts autonomously
+    if Cloudflare Turnstile, Google Flow bot warning, or HTTP 401 unauthenticated session is detected.
+    """
+    if status_code == 401:
+        if queue_mgr:
+            queue_mgr.pause_for_unauthenticated_session(worker_id=worker_id, job_id=None, message="HTTP 401 Unauthorized / Cookies expired")
+        return True, "AUTH_PAUSE_TRIGGERED"
+
+    lower = html_content.lower()
+    if "challenge-stage" in html_content or "ctp-checkbox" in html_content or "just a moment..." in lower:
+        reason = "Cloudflare Turnstile security challenge detected on page"
+        if queue_mgr:
+            queue_mgr.halt_for_bot_detection(worker_id=worker_id, reason=reason)
+        return True, reason
+
+    if "unusual activity" in lower or "bot-warning-banner" in html_content:
+        reason = "Google Flow automated traffic warning detected on page"
+        if queue_mgr:
+            queue_mgr.halt_for_bot_detection(worker_id=worker_id, reason=reason)
+        return True, reason
+
+    return False, "CLEAN"
+

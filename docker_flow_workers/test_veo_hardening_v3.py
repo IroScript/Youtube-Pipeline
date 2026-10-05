@@ -40,7 +40,8 @@ from flow_guards import (
     check_preflight_resources,
     evaluate_circuit_breaker,
     evaluate_worker_quarantine,
-    validate_mp4_box_structure
+    validate_mp4_box_structure,
+    detect_security_challenge_and_halt
 )
 from flow_queue_manager import FlowQueueManager, JobState
 from docker_workers.worker_server import get_dynamic_user_agent_and_client_hints
@@ -417,16 +418,14 @@ def run_detector_tests():
     with urllib.request.urlopen(req) as resp:
         html = resp.read().decode("utf-8")
 
-    # Authoritative detection logic (mirrors worker_server.py)
-    is_challenge = ("moment" in html.lower() or "challenge-stage" in html)
-    if is_challenge:
-        mgr.halt_for_bot_detection(worker_id="flow_detector_worker", reason="Cloudflare Turnstile challenge detected on page")
+    # Authoritative detection logic: pure guard module autonomously parses HTML and triggers halt
+    halt_triggered, halt_reason = detect_security_challenge_and_halt(html, resp.status, mgr, "flow_detector_worker")
 
     with mgr.get_connection() as conn:
         cluster_lock = conn.execute("SELECT lock_name, locked_by FROM flow_cluster_locks WHERE lock_name = 'BOT_DETECT_HALT'").fetchone()
         cb_state = conn.execute("SELECT state FROM flow_circuit_breaker WHERE id = 1").fetchone()["state"]
 
-    halt_ok = (cluster_lock is not None) and (cb_state == "OPEN")
+    halt_ok = halt_triggered and (cluster_lock is not None) and (cb_state == "OPEN")
     record(
         "Detector Path: Mock Cloudflare Turnstile -> Automatic Detect-and-Halt",
         halt_ok,
