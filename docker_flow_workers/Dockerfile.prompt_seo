@@ -1,0 +1,39 @@
+# Dockerfile for Prompt & SEO Automation Worker (Non-Root, Hardened)
+FROM python:3.13-slim
+
+# System dependencies (minimal, no build-essential or secrets)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    sqlite3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Non-root user setup (UID/GID 1000)
+RUN groupadd -g 1000 appuser && \
+    useradd -u 1000 -g appuser -m -s /bin/bash appuser
+
+WORKDIR /app
+
+# Setup directories with appuser ownership
+RUN mkdir -p /app/database /app/exports /app/logs && \
+    chown -R appuser:appuser /app
+
+# Copy dependency specifications
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Copy worker modules
+COPY flow_queue_manager.py /app/flow_queue_manager.py
+COPY flow_guards.py /app/flow_guards.py
+
+# Switch to unprivileged non-root user
+USER appuser
+
+ENV PYTHONUNBUFFERED=1 \
+    DB_PATH="/app/database/youtube_pipeline.db"
+
+# Default healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=15s \
+    CMD python3 -c 'import sqlite3, os; path=os.environ.get("DB_PATH", "/app/database/youtube_pipeline.db"); conn=sqlite3.connect(path); conn.execute("PRAGMA schema_version;"); conn.close()' || exit 1
+
+CMD ["python3", "-c", "import time; print('Prompt/SEO worker started. Waiting for jobs...'); time.sleep(3600)"]

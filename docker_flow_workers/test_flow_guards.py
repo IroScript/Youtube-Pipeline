@@ -2,6 +2,8 @@ import os
 import shutil
 import struct
 import tempfile
+import time
+from unittest.mock import patch, MagicMock
 import pytest
 from flow_guards import (
     format_bytes_human,
@@ -618,5 +620,303 @@ def test_flow_queue_bot_halt_and_resume(tmp_path):
         assert lock_after is None
         cb_after = conn.execute("SELECT state FROM flow_circuit_breaker WHERE id = 1").fetchone()
         assert cb_after["state"] == "CLOSED"
+
+def test_check_preflight_resources_cgroup_v2_sufficient_ram(tmp_path):
+    cgroup_dir = tmp_path / "cgroup"
+    cgroup_dir.mkdir()
+    max_file = cgroup_dir / "memory.max"
+    cur_file = cgroup_dir / "memory.current"
+    # 2GB limit, 500MB used -> ~1500MB available (> 200MB threshold)
+    max_file.write_text("2147483648\n")
+    cur_file.write_text("524288000\n")
+
+    ok, msg = check_preflight_resources(
+        str(tmp_path),
+        min_disk_free_bytes=1000,
+        min_ram_free_mb=200,
+        cgroup_memory_max_path=str(max_file),
+        cgroup_memory_current_path=str(cur_file)
+    )
+    assert ok is True
+    assert msg == "OK"
+
+def test_check_preflight_resources_cgroup_v2_insufficient_ram(tmp_path):
+    cgroup_dir = tmp_path / "cgroup"
+    cgroup_dir.mkdir()
+    max_file = cgroup_dir / "memory.max"
+    cur_file = cgroup_dir / "memory.current"
+    # 1GB limit, 950MB used -> ~50MB available (< 200MB threshold)
+    max_file.write_text("1073741824\n")
+    cur_file.write_text("996147200\n")
+
+    ok, msg = check_preflight_resources(
+        str(tmp_path),
+        min_disk_free_bytes=1000,
+        min_ram_free_mb=200,
+        cgroup_memory_max_path=str(max_file),
+        cgroup_memory_current_path=str(cur_file)
+    )
+    assert ok is False
+    assert "Insufficient available cgroup memory" in msg
+
+def test_check_preflight_resources_cgroup_v2_unlimited_falls_back_to_meminfo(tmp_path):
+    cgroup_dir = tmp_path / "cgroup"
+    cgroup_dir.mkdir()
+    max_file = cgroup_dir / "memory.max"
+    cur_file = cgroup_dir / "memory.current"
+    max_file.write_text("max\n")
+    cur_file.write_text("1000000\n")
+
+    ok, msg = check_preflight_resources(
+        str(tmp_path),
+        min_disk_free_bytes=1000,
+        min_ram_free_mb=10,
+        cgroup_memory_max_path=str(max_file),
+        cgroup_memory_current_path=str(cur_file)
+    )
+    assert ok is True
+    assert msg == "OK"
+
+def test_check_preflight_resources_cgroup_v2_missing_current_fails_closed(tmp_path):
+    cgroup_dir = tmp_path / "cgroup"
+    cgroup_dir.mkdir()
+    max_file = cgroup_dir / "memory.max"
+    cur_file = cgroup_dir / "memory.current" # Not created
+    max_file.write_text("2147483648\n")
+
+    ok, msg = check_preflight_resources(
+        str(tmp_path),
+        min_disk_free_bytes=1000,
+        min_ram_free_mb=200,
+        cgroup_memory_max_path=str(max_file),
+        cgroup_memory_current_path=str(cur_file)
+    )
+    assert ok is False
+    assert "memory.current missing" in msg
+
+def test_check_preflight_resources_cgroup_v2_corrupted_int_fails_closed(tmp_path):
+    cgroup_dir = tmp_path / "cgroup"
+    cgroup_dir.mkdir()
+    max_file = cgroup_dir / "memory.max"
+    cur_file = cgroup_dir / "memory.current"
+    max_file.write_text("not_a_valid_number\n")
+    cur_file.write_text("500000\n")
+
+    ok, msg = check_preflight_resources(
+        str(tmp_path),
+        min_disk_free_bytes=1000,
+        min_ram_free_mb=200,
+        cgroup_memory_max_path=str(max_file),
+        cgroup_memory_current_path=str(cur_file)
+    )
+    assert ok is False
+    assert "Could not determine cgroup memory" in msg
+
+def test_flow_queue_state_transitions(tmp_path):
+    db_path = str(tmp_path / "trans_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_trans")
+    job, _ = mgr.enqueue_job("State transition prompt", idea_id=10, prompt_id=20)
+    job_id = job["id"]
+
+    # Illegal transition: pending -> completed
+    assert mgr.transition_state(job_id, JobState.COMPLETED) is False
+
+    # Valid transitions: pending -> claimed -> submitting -> generating -> downloading -> verifying -> completed
+    claimed = mgr.claim_next_job()
+    assert claimed["id"] == job_id
+    assert mgr.transition_state(job_id, JobState.SUBMITTING) is True
+    assert mgr.transition_state(job_id, JobState.GENERATING, extra_fields={"video_url": "https://flow.google.com/v/1"}) is True
+    assert mgr.transition_state(job_id, JobState.DOWNLOADING) is True
+    assert mgr.transition_state(job_id, JobState.VERIFYING) is True
+    assert mgr.transition_state(job_id, JobState.COMPLETED) is True
+
+    # Transition non-existent job
+    assert mgr.transition_state(99999, JobState.FAILED) is False
+
+def test_flow_queue_fail_job_retry_and_exhaustion(tmp_path):
+    db_path = str(tmp_path / "fail_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_fail", max_attempts=2)
+    job, _ = mgr.enqueue_job("Retry prompt", idea_id=1, prompt_id=1)
+    job_id = job["id"]
+
+    # Claim job (attempt 1)
+    claimed = mgr.claim_next_job()
+    assert claimed["attempt_count"] == 1
+
+    # Attempt 1 failure -> retry backoff -> reset to pending
+    st1 = mgr.fail_job(job_id, "NETWORK_ERR", "Transient drop")
+    assert st1 == "pending"
+    with mgr.get_connection() as conn:
+        row1 = conn.execute("SELECT status, attempt_count, lease_until FROM flow_video_jobs WHERE id = ?", (job_id,)).fetchone()
+        assert row1["status"] == "pending"
+        assert row1["lease_until"] > time.time()
+        # Reset lease_until for immediate re-claim in test
+        conn.execute("UPDATE flow_video_jobs SET lease_until = 0 WHERE id = ?", (job_id,))
+
+    # Claim job (attempt 2)
+    claimed2 = mgr.claim_next_job()
+    assert claimed2["attempt_count"] == 2
+
+    # Attempt 2 failure -> budget exhausted -> mark failed
+    st2 = mgr.fail_job(job_id, "PERMANENT_ERR", "Exceeded max attempts")
+    assert st2 == "failed"
+    with mgr.get_connection() as conn:
+        row2 = conn.execute("SELECT status, error_category FROM flow_video_jobs WHERE id = ?", (job_id,)).fetchone()
+        assert row2["status"] == "failed"
+        assert row2["error_category"] == "RETRY_BUDGET_EXHAUSTED"
+
+    # Fail non-existent job
+    assert mgr.fail_job(88888, "ERR", "None") == "failed"
+
+def test_flow_queue_heartbeat(tmp_path):
+    db_path = str(tmp_path / "hb_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_hb")
+    job, _ = mgr.enqueue_job("HB prompt")
+    job_id = job["id"]
+
+    # Heartbeat before claim returns False
+    assert mgr.send_heartbeat(job_id) is False
+
+    mgr.claim_next_job()
+    assert mgr.send_heartbeat(job_id) is True
+
+    with mgr.get_connection() as conn:
+        row = conn.execute("SELECT lease_until FROM flow_video_jobs WHERE id = ?", (job_id,)).fetchone()
+        assert row["lease_until"] > time.time()
+
+def test_flow_queue_worker_quarantine_and_recovery(tmp_path):
+    db_path = str(tmp_path / "q_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_q")
+
+    # Record 2 failures -> worker still active
+    mgr.record_worker_failure()
+    mgr.record_worker_failure()
+    is_q, _ = mgr.is_worker_quarantined()
+    assert is_q is False
+
+    # 3rd failure -> quarantined
+    mgr.record_worker_failure()
+    is_q2, rem = mgr.is_worker_quarantined()
+    assert is_q2 is True
+    assert rem > 0
+
+    # Worker success resets status
+    mgr.record_worker_success()
+    is_q3, _ = mgr.is_worker_quarantined()
+    assert is_q3 is False
+
+def test_flow_queue_enforce_rate_control(tmp_path):
+    db_path = str(tmp_path / "rate_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_rate", min_submission_interval_sec=5.0)
+
+    # First call permits submission
+    ok1, wait1 = mgr.enforce_rate_control()
+    assert ok1 is True
+    assert wait1 == 0.0
+
+    # Immediate second call throttles
+    ok2, wait2 = mgr.enforce_rate_control()
+    assert ok2 is False
+    assert wait2 > 0.0
+
+def test_flow_queue_auth_pause_and_resume(tmp_path):
+    db_path = str(tmp_path / "auth_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_auth")
+
+    # Pause worker due to auth error
+    mgr.pause_for_unauthenticated_session("w_auth", job_id=5, message="Missing auth cookie")
+    with mgr.get_connection() as conn:
+        reg = conn.execute("SELECT status FROM flow_worker_registry WHERE worker_id = 'w_auth'").fetchone()
+        assert reg["status"] == "paused_auth_required"
+        alert = conn.execute("SELECT alert_type, message FROM flow_system_alerts WHERE worker_id = 'w_auth'").fetchone()
+        assert alert["alert_type"] == "SESSION_UNAUTHENTICATED"
+        assert "auth cookie" in alert["message"]
+
+    # Resume worker after auth restored
+    assert mgr.resume_after_auth_restoration("w_auth") is True
+    with mgr.get_connection() as conn:
+        reg_after = conn.execute("SELECT status FROM flow_worker_registry WHERE worker_id = 'w_auth'").fetchone()
+        assert reg_after["status"] == "active"
+
+def test_flow_queue_verify_and_commit_video(tmp_path):
+    db_path = str(tmp_path / "commit_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="w_commit")
+    job, _ = mgr.enqueue_job("Video commit prompt", idea_id=42, prompt_id=99)
+    job_id = job["id"]
+    mgr.claim_next_job()
+    mgr.transition_state(job_id, JobState.SUBMITTING)
+    mgr.transition_state(job_id, JobState.GENERATING)
+    mgr.transition_state(job_id, JobState.DOWNLOADING)
+    mgr.transition_state(job_id, JobState.VERIFYING)
+
+    # Create valid synthetic MP4 file
+    temp_dir = tmp_path / "temp"
+    temp_dir.mkdir()
+    temp_file = temp_dir / "downloaded.mp4"
+
+    ftyp_payload = b"isom\x00\x00\x02\x00isomiso2mp41"
+    ftyp = struct.pack(">I4s", len(ftyp_payload) + 8, b"ftyp") + ftyp_payload
+    moov_payload = struct.pack(">I4s", 16, b"mvhd") + b"\x00" * 8
+    moov = struct.pack(">I4s", len(moov_payload) + 8, b"moov") + moov_payload
+    mdat_payload = b"\x00" * 110000
+    mdat = struct.pack(">I4s", len(mdat_payload) + 8, b"mdat") + mdat_payload
+    temp_file.write_bytes(ftyp + moov + mdat)
+
+    final_dir = tmp_path / "final"
+    final_path = str(final_dir / "output.mp4")
+
+    # Commit video
+    ok, msg, meta = mgr.verify_and_commit_video(
+        job_id=job_id,
+        temp_file_path=str(temp_file),
+        final_file_path=final_path,
+        video_url="https://flow.google.com/video/42",
+        stability_check_sec=0.0
+    )
+    assert ok is True
+    assert msg == "SUCCESS"
+    assert meta["job_id"] == job_id
+
+    # Verify DB records
+    with mgr.get_connection() as conn:
+        job_row = conn.execute("SELECT status, video_url, file_sha256 FROM flow_video_jobs WHERE id = ?", (job_id,)).fetchone()
+        assert job_row["status"] == "completed"
+        assert job_row["video_url"] == "https://flow.google.com/video/42"
+        assert len(job_row["file_sha256"]) == 64
+
+        vid_row = conn.execute("SELECT idea_id, generation_job_id, format, status FROM generated_videos WHERE generation_job_id = ?", (job_id,)).fetchone()
+        assert vid_row is not None
+        assert vid_row["idea_id"] == 42
+        assert vid_row["format"] == "mp4"
+        assert vid_row["status"] == "ready"
+
+def test_flow_queue_check_preflight_resources(tmp_path):
+    db_path = str(tmp_path / "preflight_test.db")
+    mgr = FlowQueueManager(db_path=db_path, worker_id="preflight_worker", min_disk_free_bytes=1000, min_ram_free_mb=10)
+    
+    # Passing preflight
+    ok, msg = mgr.check_preflight_resources(str(tmp_path))
+    assert ok is True
+    assert msg == "OK"
+
+    # Failing preflight on disk
+    with patch("flow_queue_manager.guard_check_preflight", return_value=(False, "Insufficient disk space in /tmp")):
+        ok_fail, msg_fail = mgr.check_preflight_resources(str(tmp_path))
+        assert ok_fail is False
+        assert "disk space" in msg_fail
+        with mgr.get_connection() as conn:
+            row = conn.execute("SELECT event_type, details FROM flow_audit_events WHERE event_type = 'RESOURCE_CHECK_FAILED' ORDER BY id DESC LIMIT 1").fetchone()
+            assert row is not None
+            assert "disk_space" in row["details"]
+
+    # Failing preflight on RAM
+    with patch("flow_queue_manager.guard_check_preflight", return_value=(False, "Insufficient available RAM")):
+        ok_ram_fail, msg_ram_fail = mgr.check_preflight_resources(str(tmp_path))
+        assert ok_ram_fail is False
+        with mgr.get_connection() as conn:
+            row = conn.execute("SELECT event_type, details FROM flow_audit_events WHERE event_type = 'RESOURCE_CHECK_FAILED' ORDER BY id DESC LIMIT 1").fetchone()
+            assert row is not None
+            assert "ram_exhaustion" in row["details"]
+
 
 

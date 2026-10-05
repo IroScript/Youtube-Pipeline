@@ -26,7 +26,9 @@ def format_bytes_human(num_bytes: int) -> str:
 def check_preflight_resources(
     download_dir: str,
     min_disk_free_bytes: int = 1024 * 1024 * 1024, # 1 GB default
-    min_ram_free_mb: int = 200
+    min_ram_free_mb: int = 200,
+    cgroup_memory_max_path: str = "/sys/fs/cgroup/memory.max",
+    cgroup_memory_current_path: str = "/sys/fs/cgroup/memory.current"
 ) -> Tuple[bool, str]:
     """Validates RAM and disk space before claiming or processing a job."""
     import shutil
@@ -41,20 +43,40 @@ def check_preflight_resources(
     except Exception as e:
         return False, f"Could not determine disk usage: {e}"
 
-    # 2. RAM check
+    # 2. RAM check (cgroup v2 container limit with fallback to /proc/meminfo)
     if min_ram_free_mb > 0:
-        try:
-            mem_avail_kb = 0
-            with open("/proc/meminfo", "r") as f:
-                for line in f:
-                    if line.startswith("MemAvailable:"):
-                        mem_avail_kb = int(line.split()[1])
-                        break
-            mem_avail_mb = mem_avail_kb / 1024
-            if mem_avail_mb < min_ram_free_mb:
-                return False, f"Insufficient available RAM: {mem_avail_mb:.1f} MB available (required: {min_ram_free_mb} MB)"
-        except Exception as e:
-            return False, f"Could not determine available RAM: {e}"
+        cgroup_checked = False
+        if os.path.exists(cgroup_memory_max_path):
+            try:
+                with open(cgroup_memory_max_path, "r") as f:
+                    max_raw = f.read().strip()
+                if max_raw and max_raw != "max":
+                    max_bytes = int(max_raw)
+                    if not os.path.exists(cgroup_memory_current_path):
+                        return False, f"cgroup v2 memory.current missing at {cgroup_memory_current_path} despite memory.max being set"
+                    with open(cgroup_memory_current_path, "r") as f:
+                        cur_raw = f.read().strip()
+                    cur_bytes = int(cur_raw)
+                    avail_mb = max(0.0, (max_bytes - cur_bytes) / (1024 * 1024))
+                    if avail_mb < min_ram_free_mb:
+                        return False, f"Insufficient available cgroup memory: {avail_mb:.1f} MB available (limit: {max_bytes / (1024*1024):.1f} MB, used: {cur_bytes / (1024*1024):.1f} MB, required: {min_ram_free_mb} MB)"
+                    cgroup_checked = True
+            except Exception as e:
+                return False, f"Could not determine cgroup memory: {e}"
+
+        if not cgroup_checked:
+            try:
+                mem_avail_kb = 0
+                with open("/proc/meminfo", "r") as f:
+                    for line in f:
+                        if line.startswith("MemAvailable:"):
+                            mem_avail_kb = int(line.split()[1])
+                            break
+                mem_avail_mb = mem_avail_kb / 1024
+                if mem_avail_mb < min_ram_free_mb:
+                    return False, f"Insufficient available RAM: {mem_avail_mb:.1f} MB available (required: {min_ram_free_mb} MB)"
+            except Exception as e:
+                return False, f"Could not determine available RAM: {e}"
 
     return True, "OK"
 

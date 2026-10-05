@@ -217,3 +217,28 @@ services:
       timeout: 10s
       retries: 3
       start_period: 20s
+
+  prompt-seo-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.prompt_seo
+    container_name: prompt_seo_worker
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    user: "1000:1000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/database/youtube_pipeline.db
+    volumes:
+      - ../PromptDatabase/database:/app/database:rw
+      - ./flow_queue_manager.py:/app/flow_queue_manager.py:ro
+      - ./flow_guards.py:/app/flow_guards.py:ro
+    networks:
+      - veo_flow_cluster_net
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c 'import sqlite3, os; conn=sqlite3.connect(os.environ[\"DB_PATH\"]); conn.execute(\"PRAGMA schema_version;\"); conn.close()' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
