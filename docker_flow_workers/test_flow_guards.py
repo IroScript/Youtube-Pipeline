@@ -440,3 +440,54 @@ def test_validate_mp4_parsing_exception(monkeypatch):
         assert ok is False
         assert "Exception while parsing MP4 box structure: Access denied by mock" == msg
         assert meta == {}
+
+def test_evaluate_worker_quarantine_fractional_remaining():
+    # Test remaining between 0.0 and 1.0 (e.g. 0.5s) to kill remaining > 1.0 mutant
+    is_q, rem = evaluate_worker_quarantine("quarantined", 100.5, 100.0)
+    assert is_q is True
+    assert rem == 0.5
+
+def test_check_preflight_resources_ram_exact_boundary(monkeypatch):
+    import io, shutil
+    monkeypatch.setattr(shutil, "disk_usage", lambda path: (10**9, 10**8, 10**9))
+    # Exactly 200 MB available with min_ram_free_mb=200 -> should PASS (ok is True)
+    mem_exact = "MemTotal:       16000000 kB\nMemAvailable:     204800 kB\n"
+    monkeypatch.setattr("builtins.open", lambda fname, *args, **kwargs: io.StringIO(mem_exact) if "meminfo" in str(fname) else open(fname, *args, **kwargs))
+    ok, msg = check_preflight_resources("/tmp", min_disk_free_bytes=1000, min_ram_free_mb=200)
+    assert ok is True
+    assert msg == "OK"
+
+def test_validate_mp4_box_size_exact_8_and_16(tmp_path):
+    f = tmp_path / "exact_sizes.mp4"
+    ftyp_payload = b"isom\x00\x00\x02\x00isomiso2mp41"
+    ftyp = struct.pack(">I4s", len(ftyp_payload) + 8, b"ftyp") + ftyp_payload
+    # Box with size exactly 8 (just header, 0 payload bytes)
+    free_8 = struct.pack(">I4s", 8, b"free")
+    # 64-bit box with size exactly 16 (just 16-byte header, 0 payload bytes)
+    free_16 = struct.pack(">I4sQ", 1, b"free", 16)
+    # moov box
+    moov_payload = struct.pack(">I4s", 16, b"mvhd") + b"\x00" * 8
+    moov = struct.pack(">I4s", len(moov_payload) + 8, b"moov") + moov_payload
+    # Padding box to exceed 100KB
+    padding = b"\x00" * 110000
+    mdat = struct.pack(">I4s", len(padding) + 8, b"mdat") + padding
+    f.write_bytes(ftyp + free_8 + free_16 + moov + mdat)
+    ok, msg, meta = validate_mp4_box_structure(str(f))
+    assert ok is True
+    assert msg == "VALID_MP4_STRUCTURE"
+    assert "free" in meta["boxes"]
+
+def test_validate_mp4_unexpected_eof_before_moov(tmp_path):
+    f = tmp_path / "eof_before_moov.mp4"
+    ftyp_payload = b"isom\x00\x00\x02\x00isomiso2mp41"
+    ftyp = struct.pack(">I4s", len(ftyp_payload) + 8, b"ftyp") + ftyp_payload
+    padding = b"\x00" * 105000
+    mdat = struct.pack(">I4s", len(padding) + 8, b"mdat") + padding
+    # Truncated trailing header: 4 bytes instead of 8 bytes, without having encountered moov
+    truncated_tail = b"\x00\x00\x00\x20"
+    f.write_bytes(ftyp + mdat + truncated_tail)
+    ok, msg, meta = validate_mp4_box_structure(str(f))
+    assert ok is False
+    assert "unexpected EOF before finding 'moov' atom" in msg
+    assert meta == {}
+
