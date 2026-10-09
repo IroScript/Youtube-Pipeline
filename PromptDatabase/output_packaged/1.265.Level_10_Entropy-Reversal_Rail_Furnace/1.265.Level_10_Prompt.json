@@ -1,0 +1,18 @@
+{
+  "idea_id": 265,
+  "idea_title": "Entropy-Reversal Rail Furnace",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 265,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe ultimate Entropy-Reversal Rail Furnace surrounds Earth with colossal rotating furnace halos thousands of kilometers across, generating visible planetary-scale inversion currents. Entire global subway networks glow beneath the surface as impossible mechanical restoration processes rewrite destruction everywhere simultaneously.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: OMEGA FURNACE IGNITION\" — Ultimate inversion engines achieve full synchronized activation.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TECTONIC TORQUE SATURATION\" — Planet-spanning mechanical systems reach maximum rotational output.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GLOBAL ENTROPY REVERSAL\" — Decay processes visibly reverse across interconnected infrastructure.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: EARTH-SCALE REFORMATION\" — Restoration waves propagate through every subway corridor worldwide.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY RESTORATION ASCENDANCY\" — Complete worldwide transit reconstruction manifests simultaneously.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera pulls far beyond orbit revealing Earth wrapped in rotating furnace halos and luminous restoration networks, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Entropy-Reversal Rail Furnace - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

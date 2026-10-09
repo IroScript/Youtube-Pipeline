@@ -1,0 +1,18 @@
+{
+  "idea_id": 249,
+  "idea_title": "Hydrospine Tidal Injector",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 249,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final manifestation of the Hydrospine Tidal Injector fills an enormous continental landscape, its kilometer-scale armored spine intertwined with mountains and its subterranean pressure network extending across the visible world. The waterfall is no longer merely captured but becomes the central pulse of an impossible planetary hydraulic machine, while the terrain continuously rises, folds, fractures, and redirects water beneath the machine's command.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: AWAKEN PLANETARY INJECTOR\" — Every visible segment of the Hydrospine activates simultaneously as colossal intake structures lock onto the waterfall and thousands of underground pistons deploy.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC TORQUE\" — The entire machine flexes as impossible rotating drums generate a monumental torque pulse that propagates through the continental pressure network.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: MANIPULATE PLANETARY WATERFLOW\" — The waterfall is compressed into synchronized hydraulic pulses that race beneath mountains, redirecting subterranean water and forcing geological layers apart.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: MOVE THE LANDSCAPE FROM BELOW\" — Vast terrain slabs heave upward in a traveling planetary-scale wave, creating ridges and troughs as forests tilt, cliffs split, boulders tumble, and mud fountains erupt across the surface.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: REWRITE THE CONTINENT\" — The ultimate hydraulic geology event unfolds as the waterfall is diverted into a completely manufactured river system spanning mountains and valleys, with new channels cascading outward from the machine.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins extremely close to the waterfall intake, races smoothly along the glowing pressure conduits and crawling armored spine, then executes a breathtaking continuous orbital pull-back revealing the immense reshaped landscape, multiple new watersheds, rising ridges, erupting vents, and the Hydrospine operating as an impossible planetary-scale hydraulic organism, unbroken cinematic camera motion, dramatic scale reveal, continuous extreme aerial pull-back, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Hydrospine Tidal Injector - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 293,
+  "idea_title": "Fen Gravity Reversal Engine",
+  "idea_topic": "Swamp",
+  "element_id": 23,
+  "idea_index_in_element": 293,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Fen Gravity Reversal Engine reaches its absolute impossible maximum, becoming the mechanical center of a vast planetary-scale swamp anomaly where kilometers of wetland repeatedly rise, invert, rotate, and collapse through alternating gravitational states. The colossal machine is surrounded by airborne forests, inverted rivers, rotating sediment continents, vertical waterfalls flowing toward the sky, and immense vapor clouds illuminated by the mechanical crown.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACTIVATE TOTAL TORQUE ARRAY\" — Every buried counter-rotating mass, gear train, anchor, shaft, and torque arm engages simultaneously, producing unimaginable tectonic mechanical rotation.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: SYNCHRONIZE GLOBAL REVERSAL\" — The machine synchronizes its impossible angular momentum with a field spanning the entire visible wetland, forcing every suspended mass into coordinated motion.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REVERSE PLANETARY GRAVITY\" — Water, peat, trees, sediment, and entire floating islands surge upward as if the sky has become the new ground, while rivers flow vertically toward the central crown.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: OSCILLATE CONTINENTAL SWAMP\" — Kilometer-scale terrain masses slam downward and rebound upward in synchronized waves, rotating through impossible orientations while remaining mechanically coherent.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: UNLEASH ABSOLUTE SWAMP REVERSAL\" — The entire visible wetland becomes an airborne oscillating landscape of floating continents, inverted forests, rotating rivers, sediment rings, and gigantic upward-flowing waterfalls.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one uninterrupted monumental pull-back from a close view of a sideways floating forest through immense spiraling water columns and vapor clouds, continuing upward until the entire Fen Gravity Reversal Engine and its planetary-scale airborne swamp system fill the vertical frame, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Fen Gravity Reversal Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

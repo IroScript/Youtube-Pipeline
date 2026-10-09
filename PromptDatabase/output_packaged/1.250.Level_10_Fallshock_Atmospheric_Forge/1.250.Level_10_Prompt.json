@@ -1,0 +1,18 @@
+{
+  "idea_id": 250,
+  "idea_title": "Fallshock Atmospheric Forge",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 250,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nAt maximum escalation, the Fallshock Atmospheric Forge becomes a breathtaking planetary-scale engine: kilometer-scale rings, pressure drums, rails, conductors, and articulated structures form a colossal mechanical lattice around a mountain-scale waterfall while a vast rotating atmospheric system extends across the curvature of the horizon. Water rises, condenses, migrates, and falls in engineered planetary circulation as electrical pulses, cloud spirals, pressure fronts, and impossible tectonic torque operate simultaneously in one continuous machine.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SEAL THE PLANETARY FORGE\" — Colossal induction rings close into synchronized orbital-scale geometry around the active hydrological system.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC TORQUE\" — The entire mechanical lattice accelerates with impossible rotational force, transmitting gigantic pulses through mountains and atmospheric structures.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REENGINEER WATERFALL WEATHER\" — The waterfall's water is converted into a continuously circulating mixture of rising spray, vapor, cloud, electrical discharge, and engineered precipitation.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: MOVE THE PLANETARY WATERSHED\" — The artificial weather boundary sweeps across an enormous portion of the visible world, transporting moisture and rainfall beyond natural geographic limits.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: FORGE A PLANETARY STORM\" — The complete Fallshock system manifests as a gigantic rotating weather engine, with the waterfall at its mechanical heart and lightning-like energy pulsing through the atmospheric architecture.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous extreme pull-back from the waterfall through the storm wall and above the cloud deck, revealing the colossal machine embedded across the landscape and the rotating artificial weather system stretching toward the planetary horizon, unbroken cinematic motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Fallshock Atmospheric Forge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

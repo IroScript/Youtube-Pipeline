@@ -1,0 +1,18 @@
+{
+  "idea_id": 297,
+  "idea_title": "Thunderbolt Tectonic Hammer",
+  "idea_topic": "Lightning",
+  "element_id": 44,
+  "idea_index_in_element": 297,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final escalation reveals the Thunderbolt Tectonic Hammer at its absolute impossible scale: a kilometer-scale mega-industrial architecture stretching across an entire mountain region and physically interfacing with multiple supercell storms. Twelve colossal hammer complexes, rotating foundation rings, superconductive lightning lattices, and gigantic conductive crowns operate as one planetary-scale mechanism while the once-solid mountain chain is transformed beneath it.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: UNFOLD PLANETARY CROWNS\" — Enormous conductive crowns rise from the machine and spread across the storm base, mechanically locking into clouds that cover the entire horizon.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC TORQUE\" — Vast counter-rotating foundation rings unleash accumulated mechanical torque through kilometer-long shafts, causing every hammer tower to twist into perfect alignment.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND PLANETARY LIGHTNING\" — Lightning from the interconnected storm system is drawn through the crowns and divided across a colossal superconductive lattice, charging all twelve acceleration chambers at once.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESTRUCTURE THE MOUNTAIN CHAIN\" — Twelve hammer heads descend in a precisely phased sequence, forcing ridges to fracture, terraces to collapse, and enormous valleys to open across the landscape.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: DELIVER THE ULTIMATE TECTONIC IMPACT\" — Every hammer strikes simultaneously at impossible acceleration, producing a colossal circular shockwave that races across the mountain system as entire cliff faces erupt into airborne debris.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme pull-back from a violently rebounding hammer piston to a high-altitude view of the entire transformed mountain region, revealing a gigantic stepped canyon network, newly opened passes, cascading rockfalls, stormwater racing through fresh channels, and lightning connecting the machine to the horizon-wide supercell, unbroken cinematic camera motion, dramatic scale reveal, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Thunderbolt Tectonic Hammer - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

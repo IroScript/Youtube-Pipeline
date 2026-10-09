@@ -1,0 +1,18 @@
+{
+  "idea_id": 254,
+  "idea_title": "Thunderfall Momentum Rail",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 254,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe ultimate Thunderfall Momentum Rail spans an entire planetary watershed, an impossible kilometer-scale mega-industrial architecture of rotating magnetic drums, continent-length rails, subterranean torque shafts, elevated water conduits, and colossal quarrying towers. At its center, the waterfall descends into a luminous planetary momentum core, while innumerable rock carriages, excavation claws, and artificial terraces operate across a landscape that has been physically reconfigured by the machine's continuous closed-loop force exchange.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: AWAKEN THE PLANETARY WATER ENGINE\" — The entire waterfall rises into a controlled spiral around the central magnetic core, captured by concentric rotating drums that draw additional torrents from distant watersheds into one immense synchronized flow.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC MEGA-TORQUE\" — The central machinery rotates with impossible planetary force, driving enormous counter-rotating shafts through mountain foundations and sending visible seismic-like waves across the engineered terrain as dust and fragments lift from the cliffs.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMPLETE THE IMPOSSIBLE MOMENTUM LOOP\" — Every launch rail transmits recoil into the magnetic network, which redirects the energy through rotating water drums and returns it to the waterfall, creating a brilliant circulating pulse that travels through the entire planetary-scale machine without interruption.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REWRITE THE PLANETARY WATERSHED\" — Vast excavation claws cut through mountain ranges while water jets carve and wash new channels, and thousands of adjustable launch platforms shift their angles to construct an immense arc of terraces, flood-diversion walls, and engineered erosion barriers across the continent.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: INITIATE PLANETARY BALLISTIC TRANSFORMATION\" — The entire system releases its synchronized projectile network; enormous granite blocks launch along hundreds of arcs, striking distant mountain slopes in cascading impacts that generate continent-spanning dust plumes and force the terrain into a vast geometric pattern.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes one uninterrupted monumental pull-back from the waterfall's rotating core, rises through the immense machinery, passes above the continent-length rails and cascading impact zones, and continues into a final planetary-scale aerial reveal where the central waterfall, glowing magnetic network, engineered terraces, and expanding dust clouds form one impossible continuous environmental machine, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Thunderfall Momentum Rail - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

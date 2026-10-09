@@ -1,0 +1,18 @@
+{
+  "idea_id": 263,
+  "idea_title": "Skyhook Metro Weaver",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 263,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nAt ultimate scale, the Skyhook Metro Weaver has transformed the planet into a layered world of airborne transit megastructures suspended beneath colossal atmospheric support rings. The original surface is scarred by immense sink basins and uplifted formations while a dynamic sky network spans the globe.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: FINAL SKYHOOK SYNCHRONIZATION\" — Every lifting system, ring, and flywheel operates in perfect unison.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM MOMENTUM CASCADE\" — Planetary-scale mechanical energy surges through the network.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GLOBAL SUBWAY ASCENSION\" — Remaining underground infrastructure rises into the atmosphere.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: WORLD RESTRUCTURING\" — Continents display permanent mechanical reshaping from extraction operations.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY AIRBORNE TRANSIT REALIZATION\" — A complete globe-spanning sky subway ecosystem is achieved.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera performs a continuous orbital pull-back revealing the entire planet wrapped in airborne rail megastructures beneath gigantic support rings, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Skyhook Metro Weaver - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

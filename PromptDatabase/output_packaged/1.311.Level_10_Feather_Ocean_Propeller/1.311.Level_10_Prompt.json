@@ -1,0 +1,18 @@
+{
+  "idea_id": 311,
+  "idea_title": "Feather Ocean Propeller",
+  "idea_topic": "Bird Feather",
+  "element_id": 64,
+  "idea_index_in_element": 311,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe ultimate Feather Ocean Propeller occupies an impossible planetary-scale oceanic installation, with a central mechanical core surrounded by countless nested kilometer-scale feather rotors whose combined span overwhelms the horizon. Entire ocean currents, seabed sediments, surface waves, pressure fronts, and enormous circulating water masses respond simultaneously as the machine performs one final synchronized acceleration.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACTIVATE PLANETARY FEATHER ENGINE\" — Every buried chamber, transmission shaft, radial arm, feather shaft, and articulated barb locks into one synchronized mechanical system.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC TORQUE\" — Multiple planetary-scale drive assemblies unleash unimaginable rotational force, accelerating the nested feather rotors while the surrounding ocean compresses into violent pressure fronts.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: OVERRIDE OCEANIC INERTIA\" — Millions of flexible feather membranes bend, store strain, and snap through new pitches in cascading sequences, forcing enormous water masses to change direction while retaining continuous rotational momentum.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RECONFIGURE OCEAN BASIN\" — The machine simultaneously drives seabed excavation, central water depression, outer water elevation, spiral currents, sediment plumes, and kilometer-scale wave fronts.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: TRIGGER PLANETARY OCEAN PROPULSION\" — The entire feather network reaches synchronized peak motion, generating a vast mechanically controlled circulation that radiates across the ocean like an artificial planetary-scale current system.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera continuously pulls from an extreme close-up of individual feather barbs flexing under impossible hydrodynamic pressure to an immense aerial and then horizon-scale reveal, showing the colossal machine centered within a gigantic rotating ocean system of whirlpools, swells, pressure waves, sediment spirals, and concentric currents extending beyond the visible world, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Feather Ocean Propeller - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

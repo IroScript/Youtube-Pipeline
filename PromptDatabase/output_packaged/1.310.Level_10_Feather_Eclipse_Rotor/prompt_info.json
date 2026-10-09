@@ -1,0 +1,18 @@
+{
+  "idea_id": 310,
+  "idea_title": "Feather Eclipse Rotor",
+  "idea_topic": "Bird Feather",
+  "element_id": 64,
+  "idea_index_in_element": 310,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final escalation reveals the Feather Eclipse Rotor as an absurdly immense planetary machine whose kilometer-to-horizon-scale feather canopy rotates around a colossal central shaft while mountains, clouds, dust systems, and atmospheric layers move in response. Every feather membrane independently changes pitch while enormous articulated arms flex under tectonic torque, creating a continuously transforming eclipse that mechanically reshapes illumination and airflow across the landscape.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL ROTOR IGNITION\" — Every buried torque assembly engages simultaneously, releasing unimaginable mechanical power into the central shaft and accelerating the entire feather crown.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TECTONIC MOMENTUM SURGE\" — The rotor reaches impossible angular momentum, forcing kilometer-long arms backward as their joints absorb and redirect the tremendous rotational load.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY FEATHER MANIPULATION\" — Millions of feather membranes independently twist, fold, overlap, and reverse pitch in synchronized waves, turning the entire canopy into a living mechanical aerodynamic surface.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL ATMOSPHERIC DISPLACEMENT\" — Air is dragged into enormous spiraling circulation systems while pressure fronts race outward across mountains, plains, clouds, and dust fields beneath the rotor.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ULTIMATE ECLIPSE CULMINATION\" — The complete machine reaches maximum operation as rotating feathers create sweeping planetary-scale shadow bands, brilliant light corridors, towering condensation walls, and concentric atmospheric shock-like ripples.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted vertical ascent from an extreme close-up of individual feather barbs flexing under impossible torque to a vast orbital pull-back revealing the complete rotating canopy, atmospheric vortices, cloud rings, dust waves, and moving eclipse pattern spreading across the curved horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Feather Eclipse Rotor - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

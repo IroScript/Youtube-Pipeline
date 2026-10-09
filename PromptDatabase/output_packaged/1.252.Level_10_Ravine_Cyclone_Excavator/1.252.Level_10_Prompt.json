@@ -1,0 +1,18 @@
+{
+  "idea_id": 252,
+  "idea_title": "Ravine Cyclone Excavator",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 252,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe final state reveals the Ravine Cyclone Excavator as a kilometer-scale megastructure wrapped around an immense waterfall and a vast spiral ravine system extending to the horizon. Its colossal counter-spinning rotors, articulated legs, excavation jaws, atmospheric vortex, debris elevators, and discharge vanes operate simultaneously, turning the waterfall into the visible engine of an impossible geological-scale machine.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: DEPLOY FULL MACHINE ARRAY\" — Every articulated frame, rotor, jaw, intake, support leg, and discharge mechanism unfolds to maximum operating configuration around the waterfall.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ENGAGE TOTAL TECTONIC TORQUE\" — Kilometer-scale counter-rotating assemblies accelerate together, generating an overwhelming mechanical force that drives the entire structure as one system.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND THE PLANETARY VORTEX\" — The waterfall becomes the mass-flow core of a colossal sustained cyclone that carries water, air, sediment, and rock through a continuous vertical and radial circulation.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: TRANSFORM THE LANDSCAPE\" — Ravines deepen, walls collapse, secondary waterfalls multiply, artificial ridges rise, and enormous debris streams redistribute excavated material across the surrounding terrain.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE IMPOSSIBLE EXCAVATION\" — The entire machine reaches peak operation, manufacturing a vast circular geological megastructure while the original waterfall continues feeding the central vortex.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous breathtaking orbital pull-back from the roaring cyclone to an extreme aerial panorama, revealing the complete Ravine Cyclone Excavator, its kilometer-scale mechanical architecture, the gigantic spiral ravine, artificial ridges, countless secondary waterfalls, and the towering vortex dominating the landscape, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Ravine Cyclone Excavator - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

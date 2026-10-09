@@ -1,0 +1,18 @@
+{
+  "idea_id": 264,
+  "idea_title": "Dimension-Crank Interchange Engine",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 264,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The original subway hub is now the core gear of an incomprehensibly vast reality-spanning machine, with rotating dimensional rings extending across visible space. Endless transit corridors connect innumerable realities while colossal mechanical structures continuously crank the boundaries of existence itself. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: FINAL SYNCHRONIZATION\" — Every crank assembly across the system locks into perfect phase. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ABSOLUTE TORQUE\" — Maximum mechanical output flows through all dimensional interfaces. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REALITY REENGINEERING\" — Spatial relationships are rewritten through continuous rotation. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: COSMIC INTERCHANGE EXPANSION\" — Dimensional transit corridors extend without visible limit. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: INFINITE NETWORK MANIFESTATION\" — The subway becomes a boundless junction linking countless realities. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera performs a continuous pull-back from the original station core to reveal the immeasurable machine stretching across layered realities, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Dimension-Crank Interchange Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 255,
+  "idea_title": "Eclipse Reservoir Crusher",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 255,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe final escalation reveals the Eclipse Reservoir Crusher at its absolute impossible limit: a colossal planetary-scale mechanical ring encircles the waterfall while countless rotating pressure assemblies, articulated legs, conduits, scoops, and discharge ports operate as one synchronized system. The landscape is continuously transformed beneath it as water becomes pressure, pressure becomes torque, torque becomes geological fracture, and fractured terrain is mechanically redistributed into vast new banks and terraces.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: CLOSE PLANETARY ECLIPSE RING\" — Kilometer-to-horizon-scale armored segments converge around the waterfall, forming a rotating mechanical eclipse that blocks the sky.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC TORQUE\" — Nested impellers, planetary gears, and gigantic pressure drums accelerate together, generating impossible torque that visibly flexes the surrounding mountains.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TRANSCEND HYDRAULIC CONSTRAINT\" — The machine compresses, spirals, redirects, and recycles the entire waterfall through an impossible pressure architecture that appears to contain an endless moving ocean.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESTRUCTURE THE PLANETARY BASIN\" — Multiple geological layers fracture simultaneously as cliffs collapse, channels migrate, boulders are captured, and enormous terraces form across the landscape.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: UNLEASH TOTAL ECLIPSE DISCHARGE\" — Every discharge port opens in sequence around the rotating ring, launching colossal water lances that converge across the mountains in a blinding storm of spray, vapor, debris, and shockwaves.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one continuous monumental pull-back from a close-up of the spinning pressure core through the vapor-filled basin and beyond the mountain range, revealing the Eclipse Reservoir Crusher as an impossibly vast planetary machine continuously transforming the waterfall and surrounding terrain, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Eclipse Reservoir Crusher - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 331,
+  "idea_title": "Magma Reversal Engine",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 331,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final escalation reveals the Magma Reversal Engine as a civilization-scale planetary machine, with kilometer-high furnace towers, mountain-spanning pressure rings, immense buried piston arrays, and glowing subterranean conduits operating as one impossible system across a vast tectonic region. The entire landscape becomes an active mechanical interface as the machine attempts the ultimate reversal of an enormous planetary magma circulation.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE THE PLANETARY ENGINE\" — Every visible furnace tower, pressure shaft, valve ring, and buried piston activates simultaneously, creating a colossal synchronized industrial pulse across the landscape.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC MEGA-TORQUE\" — Kilometer-scale mechanical assemblies rotate with unimaginable force as combustion expansion drives piston networks deep beneath the crust, sending enormous compression waves through the planetary machinery.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REVERSE THE MAGMA SYSTEM\" — A gigantic interconnected magma circulation reverses direction, with molten rock splitting, climbing, looping through impossible conduits, and accelerating against gravity through multiple layers of crust.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESTRUCTURE THE VOLCANIC PLANETSCAPE\" — Vast mountain belts rise into new ridges while trenches open across the terrain, glowing fractures race between distant volcanic systems, and controlled eruption lines ignite across the horizon.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACHIEVE PLANETARY MAGMA REVERSAL\" — The ultimate pressure stroke forces an immense molten mass through a colossal uphill conduit toward distant high terrain, then splits and recombines the flow across multiple gigantic volcanic regions in a single impossible mechanical cycle.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins inches from a violently vibrating pressure piston surrounded by molten reflections, then smoothly pulls backward at extreme scale through a fractured mountain, above the entire machine complex, and finally into a breathtaking high-altitude panorama where glowing magma networks, furnace towers, eruption plumes, uplifted mountain chains, and fiery crustal fractures form one continuous planetary-scale industrial system, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Magma Reversal Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 282,
+  "idea_title": "Shell Gravity Slinger",
+  "idea_topic": "Shell",
+  "element_id": 63,
+  "idea_index_in_element": 282,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nAt maximum escalation, Shell Gravity Slinger occupies a vast planetary landscape as a colossal system of concentric shell rings, kilometer-long articulated wings, counter-rotating launch arrays, and deep crustal anchors operating as one impossible machine. Mountains, valleys, clouds, rivers, and immense shell fields surround the structure, establishing that the mechanism is no longer merely operating within the landscape but mechanically reorganizing it at planetary scale.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ENGAGE PLANETARY SHELL MATRIX\" — Every major shell ring, wing, feed arm, and anchor activates simultaneously, forming a continent-spanning network of synchronized mechanical components.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: GENERATE TECTONIC TORQUE\" — Counter-rotating kilometer-scale structures accelerate against one another, transmitting impossible rotational forces through bedrock and visibly bending the enormous shell framework.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: MANIPULATE PLANETARY MASS\" — Shell plates, stone, and compressed geological material are captured, accelerated, redirected, and released through continuously changing three-dimensional launch geometries.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: TRANSFORM THE LANDSCAPE\" — Vast synchronized impacts excavate entire regions while other launch streams deposit immense material fields, producing simultaneous valleys, ridges, craters, and artificial mountain chains.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACHIEVE MAXIMUM GRAVITY SLINGER\" — The complete machine reaches its impossible peak cycle, hurling enormous shell-and-stone streams across the horizon as recoil waves, dust fronts, avalanches, and terrain deformation propagate outward in every direction.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera continuously pulls from an extreme close-up of a flexing shell rim to a breathtaking high-altitude planetary-scale reveal, exposing the entire rotating machine and the vast newly reshaped landscape around it while projectile streams arc across the horizon, dust systems expand below, and every mechanical ring continues moving without interruption, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Shell Gravity Slinger - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

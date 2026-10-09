@@ -1,0 +1,18 @@
+{
+  "idea_id": 267,
+  "idea_title": "Monsoon Torque Harvester",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 267,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The final stage reveals the Monsoon Torque Harvester operating at the absolute limit of its impossible design: a kilometer-scale mechanical continent of rotating rings, transmission towers, flywheels, rain vanes, and articulated arms driving a vast planetary rainfall circulation. The machine continuously absorbs the momentum of falling rain, amplifies it through tectonic mechanical torque, and returns that energy to the storm as a gigantic rotating atmospheric system that visibly transforms the landscape and horizon. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: DEPLOY THE FULL TORQUE NETWORK\" — Every major articulated vane, transmission arm, flywheel, gear ring, and atmospheric tower activates simultaneously across the colossal machine. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC ROTATION\" — Kilometer-scale mechanical assemblies accelerate with impossible torque, causing the entire floodplain to tremble while enormous circular waves race outward. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TRANSFORM THE RAINSTORM\" — The complete rainfall field bends into gigantic rotating walls and spiraling columns surrounding the machine, behaving like a mechanically controlled atmospheric ocean. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESTRUCTURE THE MONSOON BASIN\" — Floodwater, mud, stones, and debris are driven through newly carved concentric channels as the storm circulation reorganizes the visible terrain. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACTIVATE PLANETARY RAIN ENGINE\" — The machine reaches maximum output, generating a colossal rotating monsoon gyre that extends beyond the horizon and visually links the machine's mechanical rotation with the entire storm system. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one uninterrupted cinematic pull-back from a close-up of violently rotating rain vanes to an extreme aerial reveal, continuously ascending until the entire colossal machine, circular flood waves, spiraling rain walls, storm clouds, and horizon-scale atmospheric circulation are visible as one impossible planetary-scale mechanism, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Monsoon Torque Harvester - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

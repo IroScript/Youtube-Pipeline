@@ -1,0 +1,18 @@
+{
+  "idea_id": 259,
+  "idea_title": "Gravity-Hammer Station Forger",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 259,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe ultimate Gravity-Hammer Station Forger surrounds Earth with impossible kilometer-thick compression rings extending into space, while gravity anvils strike with forces capable of reshaping an entire planet in moments. Planetary geology flows like engineered material as the machine converts Earth's crust, mantle, and infrastructure into a single colossal transit construct.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY LOCKDOWN\" — All compression systems achieve full-world synchronization.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TECTONIC FORCE OVERDRIVE\" — Maximum gravitational torque engages planetary structure.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: WORLD REFORGING\" — Entire geological systems become construction material.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: PLANETARY ARCHITECTURE CONVERSION\" — Continents fold into engineered transportation geometry.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ULTIMATE STATION ASCENSION\" — Earth completes transformation into a world-scale subway nexus.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera continuously pulls back from the transformed planet as colossal rings rotate around the completed megastructure and atmospheric storms orbit its surface, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Gravity-Hammer Station Forger - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

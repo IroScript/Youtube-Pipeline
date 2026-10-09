@@ -1,0 +1,18 @@
+{
+  "idea_id": 332,
+  "idea_title": "Flame Cyclotron",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 332,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. At maximum operation, the Flame Cyclotron becomes an incomprehensibly large fire-manipulation engine embedded across a twelve-kilometer barren plain, with concentric mechanical rings rotating in opposite directions, telescoping towers tilted into a gigantic spiral, and countless furnace towers feeding a continuous incandescent vortex. The atmosphere itself appears mechanically captured and accelerated, while dust, clouds, smoke, stones, and terrain respond to the impossible transfer of angular momentum.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: IGNITE THE PLANETARY FURNACE ARRAY\" — Every major furnace tower erupts simultaneously, injecting synchronized streams of incandescent gas into the already rotating containment system.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ACTIVATE MAXIMUM TECTONIC TORQUE\" — Kilometer-scale drums and buried shafts accelerate together, transmitting unimaginable counter-torque through the entire circular foundation while outer rings rotate in the opposite direction.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMPRESS AND ACCELERATE THE FIRE HELIX\" — Gigantic shutters contract while articulated arcs tilt and rotate, impossibly compressing the blazing ring into a faster, denser, vertically climbing spiral.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: COMMAND THE ATMOSPHERIC VORTEX\" — The accelerated flame column drags the surrounding atmosphere into a gigantic cyclone, lifting dust and debris, bending distant trees, carving temporary terrain grooves, and pulling clouds into rotation.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: TRANSFER PLANETARY ANGULAR MOMENTUM\" — The complete machine reaches its ultimate state as mechanical rotation, incandescent fire, atmospheric motion, and landscape displacement synchronize into one impossible planetary-scale vortex engine.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins extremely close to a blazing containment arc, smoothly follows its impossible rotation upward along the fire helix, then continuously pulls far beyond the machine to reveal the entire twelve-kilometer complex beneath a colossal atmospheric cyclone reaching toward the horizon, every ring and furnace still rotating at extreme speed, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Flame Cyclotron - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

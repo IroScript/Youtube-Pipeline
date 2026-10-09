@@ -1,0 +1,18 @@
+{
+  "idea_id": 236,
+  "idea_title": "Tidal Web Loom",
+  "idea_topic": "Spider Web",
+  "element_id": 62,
+  "idea_index_in_element": 236,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final stage shows the Tidal Web Loom executing its ultimate synchronized release, with a kilometer-scale spider-web transmission stretched across the entire canyon and every anchor tower locked against mountains. The central machine rotates at extreme speed while a colossal storm vortex, compressed air column, rain, dust, and debris spiral around the web before the stored energy is released.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: LOCK MAXIMUM TENSION\" — Every mechanical claw clamps shut as all web strands reach peak extension, while anchor towers drive deeper into fractured cliffs.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ACCUMULATE TECTONIC MOMENTUM\" — Counter-rotating drums accelerate simultaneously, storing impossible angular momentum throughout the entire web transmission.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMPRESS THE PLANETARY VORTEX\" — The web contracts inward with enormous mechanical force, concentrating wind, rain, dust, and cloud mass into a violently rotating central column.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESTRUCTURE THE CANYON\" — Mountains shed rock, forests bend flat, rivers leap from their channels, and the valley floor fractures under the transmitted mechanical load.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: RELEASE THE TIDAL SHOCKWAVE\" — All clamps release in perfect synchronization, the web snaps outward through massive elastic recoil, and a continent-scale-looking atmospheric pressure wave races across the valley.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme orbital pull-back from the exploding central recoil to a vast aerial view, revealing the entire kilometer-scale spider-web basin, rotating storm column, expanding shockwave, displaced water, dust avalanches, fractured cliffs, and the machine continuing to rotate at the center, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Tidal Web Loom - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

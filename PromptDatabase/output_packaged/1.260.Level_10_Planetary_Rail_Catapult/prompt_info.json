@@ -1,0 +1,18 @@
+{
+  "idea_id": 260,
+  "idea_title": "Planetary Rail Catapult",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 260,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The ultimate Planetary Rail Catapult has transformed global subway infrastructure into a living mechanical nervous system spanning continents and oceans. Gigantic launch spirals rotate across hemispheres while atmospheric rails pulse with endless streams of trains transferring momentum between colossal energy reservoirs embedded deep within the planet. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL NETWORK ENGAGEMENT\" — Every launch station activates in perfect synchronization. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MOMENTUM SINGULARITY\" — Combined energy flows exceed all conventional engineering limits. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY SUBWAY CONTROL\" — The system mechanically governs transportation across the entire world. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL INFRASTRUCTURE ANIMATION\" — Rails move like colossal tendons continuously reshaping landscapes. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ULTIMATE BALLISTIC TRANSIT\" — Endless continent-spanning launches occur simultaneously across the planet. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera performs a continuous orbital pull-back from active rails to a full planetary view showing a world wrapped in moving launch arcs and rotating megastructures, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Planetary Rail Catapult - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

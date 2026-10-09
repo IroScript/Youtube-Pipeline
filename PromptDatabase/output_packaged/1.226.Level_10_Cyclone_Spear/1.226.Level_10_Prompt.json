@@ -1,0 +1,18 @@
+{
+  "idea_id": 226,
+  "idea_title": "Cyclone Spear",
+  "idea_topic": "Storm",
+  "element_id": 42,
+  "idea_index_in_element": 226,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe Cyclone Spear reaches its absolute final escalation, transforming from a kilometer-scale machine into a synchronized planetary-scale mechanical system whose twelve turbine rings, underground torque engines, propulsion arms, and atmospheric intakes operate simultaneously inside the supercell. The storm visibly bends around the machine while the surrounding terrain, rivers, clouds, rain, and debris respond to the enormous mechanical event.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: INITIATE TOTAL MECHANICAL SYNCHRONIZATION\" — Every turbine, gear train, piston, anchor, and propulsion assembly engages simultaneously, producing violent structural vibration and massive pressure displacement.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH PLANETARY TORQUE\" — The underground foundation releases impossible tectonic-scale rotational force while the upper rings accelerate beyond any realistic mechanical limit.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REWRITE STORM ROTATION\" — The machine physically captures, redirects, and reorganizes the supercell's rotational momentum, bending the entire storm circulation around its central axis.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESHAPE ENVIRONMENTAL MASS\" — Mountainside rock fractures, floodwater surges outward, debris becomes airborne, rain curtains tilt, and cloud layers shear into enormous spiraling structures.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACHIEVE CYCLONE SPEAR ASCENDANCY\" — All mechanical systems reach synchronized peak output, forcing the storm core into a completely new trajectory while the machine withstands impossible recoil.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes one continuous cinematic pull-back from extreme close-up gears and vibrating hydraulic pistons to a vast aerial panorama, revealing the colossal machine embedded in the landscape and the entire supercell bending, rotating, and redirecting around it, with lightning, rain, water displacement, debris, pressure waves, fractured terrain, and atmospheric turbulence visible simultaneously, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Cyclone Spear - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 253,
+  "idea_title": "Basalt Loom Waterbender",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 253,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nAt the final escalation, the Basalt Loom Waterbender has become an impossibly immense planetary-scale mechanism surrounding and extending far beyond the original waterfall, its rotating structures merging visually with mountains and volcanic horizons. A gigantic living lattice of freshly forged basalt redirects the waterfall through multiple monumental channels while molten rock, hydraulic force, steam, torque, and continuous mechanical motion reshape the landscape simultaneously.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: AWAKEN THE PLANETARY BASALT LOOM\" — Colossal feed claws, rotating drums, cooling channels, and articulated frames activate across the entire visible landscape.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH TECTONIC ROTATIONAL FORCE\" — Kilometer-scale machinery rotates in coordinated opposing directions, transmitting impossible torque through the newly formed geological lattice.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: WEAVE GEOLOGY IN REAL TIME\" — Molten basalt streams become gigantic articulated strands that are pulled, crossed, cooled, and locked into a continuously expanding structure.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REWRITE THE WATERFALL SYSTEM\" — The basalt lattice rises through the torrent and divides the waterfall into numerous colossal cascades flowing through engineered channels across the transformed basin.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: FORGE A NEW GEOLOGICAL LANDSCAPE\" — The entire machine reaches peak operation as steam erupts, basalt ribs lock into place, rivers bend around fresh structures, and the waterfall becomes part of a vast artificial geological system.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes a continuous monumental pull-back from a close view of boiling water striking incandescent basalt to an immense aerial reveal where the completed kilometer-scale lattice, branching waterfalls, volcanic feeds, rotating machinery, and transformed landscape dominate the horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Basalt Loom Waterbender - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

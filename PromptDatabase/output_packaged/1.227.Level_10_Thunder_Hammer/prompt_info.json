@@ -1,0 +1,18 @@
+{
+  "idea_id": 227,
+  "idea_title": "Thunder Hammer",
+  "idea_topic": "Storm",
+  "element_id": 42,
+  "idea_index_in_element": 227,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe Thunder Hammer reaches its ultimate impossible state: a kilometer-scale electromagnetic megastructure operating as one enormous kinetic engine, with lightning towers, superconducting rings, tectonic anchors, flywheels, hydraulic pistons, and the colossal hammer head moving simultaneously. The entire supercell appears mechanically coupled to the machine as mountains, floodwater, rain, debris, clouds, and lightning respond to the final energy transfer.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: INITIATE TOTAL STORM CHARGE\" — Every lightning tower captures simultaneous electrical discharges while superconducting rings and mechanical generators accelerate together.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH PLANETARY TORQUE\" — Underground torque engines, flywheels, pistons, and electromagnetic drives release impossible combined rotational and linear force.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CONVERT LIGHTNING TO PLANETARY MOTION\" — The machine transforms the storm's electrical energy into colossal hammer acceleration and transfers that momentum into the surrounding atmosphere.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESHAPE STORM AND TERRAIN\" — The impact system forces clouds to shear, rain to redirect, water to surge, mountainside rock to fracture, and debris to launch outward.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: DELIVER THE ULTIMATE THUNDER STRIKE\" — The hammer reaches maximum impossible velocity and strikes the central chamber, producing a gigantic synchronized electromagnetic and mechanical shockwave across the storm.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes one continuous cinematic pull-back from extreme close-up superconducting coils and vibrating gears to a vast aerial panorama, revealing the complete kilometer-scale Thunder Hammer surrounded by lightning, a radically displaced storm circulation, expanding pressure waves, fractured mountains, displaced floodwater, airborne debris, and enormous rotating cloud structures, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Thunder Hammer - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

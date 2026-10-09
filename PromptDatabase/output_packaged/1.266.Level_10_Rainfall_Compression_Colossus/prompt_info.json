@@ -1,0 +1,18 @@
+{
+  "idea_id": 266,
+  "idea_title": "Rainfall Compression Colossus",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 266,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final Rainfall Compression Colossus operates at impossible planetary scale, its gigantic ring architecture extending beyond the horizon while kilometer-high towers penetrate multiple cloud layers. Every mechanical subsystem rotates, compresses, and drives simultaneously, forcing enormous storm fields into a controlled planetary-scale spiral of redirected rainfall.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL MACHINE SYNCHRONIZATION\" — Every visible rotor, piston, compression arm, traction drum, and atmospheric shaft engages simultaneously with immense synchronized torque.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY TORQUE RELEASE\" — The complete machine releases a colossal rotational force pulse, causing pressure waves to expand through the storm and across the landscape.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY RAIN MANIPULATION\" — Vast atmospheric precipitation fields bend around the machine, with millions of rain trajectories curving into gigantic synchronized spirals.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL RAINFALL REDISTRIBUTION\" — Multiple artificial rain walls accelerate horizontally across enormous regions while adjacent storm sectors visibly clear as precipitation is transferred away.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY PRECIPITATION ENGINE\" — The entire storm complex becomes a gigantic mechanically driven rainfall system, with compressed precipitation columns orbiting and traveling across the landscape in enormous controlled arcs.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme orbital pull-back from the rotating central shaft through the cloud layer into a vast planetary-scale reveal, showing the impossible machine, curved storm systems, moving rain corridors, fractured terrain, and enormous atmospheric spirals operating as one continuous mechanical system, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Rainfall Compression Colossus - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

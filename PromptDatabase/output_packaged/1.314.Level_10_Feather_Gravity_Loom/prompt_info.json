@@ -1,0 +1,18 @@
+{
+  "idea_id": 314,
+  "idea_title": "Feather Gravity Loom",
+  "idea_topic": "Bird Feather",
+  "element_id": 64,
+  "idea_index_in_element": 314,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe ultimate Feather Gravity Loom surrounds an entire planet with kilometer-to-continental-scale rotating feather architecture, thousands of colossal rings interlocking into a gigantic mechanical sphere whose shafts and barbs flex continuously under impossible tectonic torque. Continents, mountains, oceans, atmospheric dust, and loose planetary debris respond to synchronized gravitational distortions as the machine redistributes its rotating mass and creates immense spiraling trajectories around the world.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: LOCK PLANETARY FEATHER SPHERE\" — Countless colossal feather rings rotate into final alignment, their shafts mechanically interlocking into a planet-spanning spherical lattice.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC TORQUE\" — Every rotating crown accelerates simultaneously, transmitting impossible torque through the global feather structure while millions of barbs flex under extreme tension.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: ACTIVATE PLANETARY GRAVITY WEAVE\" — The complete feather sphere generates synchronized impossible directional fields that alter trajectories across the entire planetary environment.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REDIRECT GLOBAL MATTER\" — Enormous streams of dust, rock fragments, ocean spray, and atmospheric particles curve around continents and oceans in continent-spanning spirals.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE PLANETARY TRAJECTORY CONTROL\" — The entire world becomes encircled by immense rotating feather lattices and luminous-looking streams of redirected matter, with the machine continuously shifting its mass to maintain the impossible global distortion.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one uninterrupted orbital pull-back from a single flexing feather barb to an immense planetary view, revealing the full Feather Gravity Loom wrapped around the world, colossal rings rotating in synchronized layers and vast streams of dust and debris spiraling across the globe, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Feather Gravity Loom - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

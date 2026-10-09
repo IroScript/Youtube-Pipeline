@@ -1,0 +1,18 @@
+{
+  "idea_id": 298,
+  "idea_title": "Lightning Vortex Forge",
+  "idea_topic": "Lightning",
+  "element_id": 44,
+  "idea_index_in_element": 298,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nAt the ultimate escalation, Lightning Vortex Forge operates as a kilometer-scale impossible storm engine, its hundreds of rotor towers, concentric rings, telescoping torque arms, conductive crowns, and buried transmission systems moving as one colossal mechanism. Above it, an immense rotating thunderhead forms a gigantic luminous vortex, with lightning continuously curving around the spiral while the ground is carved by the machine's counter-torque.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACTIVATE THE COMPLETE ROTOR NETWORK\" — Every rotor tower and concentric ring engages simultaneously, unleashing synchronized mechanical motion across the entire kilometer-scale structure.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC COUNTER-TORQUE\" — Opposing mechanical rings generate unimaginable rotational force, grinding deep circular trenches into the terrain as foundations strain violently.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: ROTATE THE PLANETARY LIGHTNING FIELD\" — Thousands of lightning channels are forced into enormous spiraling trajectories around the storm, forming a colossal luminous electrical cage.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: COLLAPSE THE STORM INTO THE CORE\" — Vast cloud bands, rain curtains, dust, and debris accelerate inward toward a deep central pressure depression above the machine.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: FORGE THE ULTIMATE LIGHTNING VORTEX\" — The entire impossible system reaches maximum acceleration, creating a gigantic rotating storm funnel whose lightning-wrapped structure towers across the horizon.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one continuous breathtaking vertical ascent from ground-level machinery through the luminous lightning cage and then an extreme orbital pull-back, revealing the complete kilometer-scale forge beneath the colossal rotating storm, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Lightning Vortex Forge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

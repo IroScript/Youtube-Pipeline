@@ -1,0 +1,18 @@
+{
+  "idea_id": 335,
+  "idea_title": "Phoenix Reentry Forge",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 335,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe complete Phoenix Reentry Forge enters its ultimate cycle with the immense impact crater glowing at its center and kilometer-scale furnace towers surrounding the devastated basin. Fire, plasma, rotating flywheels, sliding foundations, launch rails, guidance cages, and recoil structures synchronize into one impossible planetary-scale mechanical system, suggesting that the entire forge is preparing to repeat the cycle.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: GLOBAL FORGE RESET\" — Every furnace, rail, piston, flywheel, foundation, and guidance mechanism simultaneously returns toward launch configuration.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TECTONIC TORQUE SYNCHRONIZATION\" — Gigantic mechanical systems rotate in opposite directions, transferring colossal torque through the entire kilometer-scale architecture.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY FIRE MANIPULATION\" — Vast streams of fire and plasma spiral through interconnected industrial channels, forming a rotating artificial fire system around the crater.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: LANDSCAPE SCALE COUPLING\" — The surrounding terrain visibly responds as dust, fractured rock, atmospheric turbulence, and heat waves spiral toward the reactivating forge.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PHOENIX REENTRY CYCLE\" — The entire machine erupts into synchronized fire while a new colossal projectile rises from the crater-side loading system, signaling an impossible self-sustaining launch-and-reentry cycle.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes a continuous massive orbital pull-back from the glowing crater to an extreme aerial panorama, revealing the complete kilometer-scale Phoenix Reentry Forge, circular furnace belt, rotating flywheels, rising fire columns, reentry trails, dust spirals, and the immense landscape illuminated by the machine, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Phoenix Reentry Forge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

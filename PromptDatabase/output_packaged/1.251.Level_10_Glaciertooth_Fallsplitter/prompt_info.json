@@ -1,0 +1,18 @@
+{
+  "idea_id": 251,
+  "idea_title": "Glaciertooth Fallsplitter",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 251,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nAt maximum escalation, the Glaciertooth Fallsplitter encircles the waterfall with a colossal multi-kilometer mechanical architecture whose rotating rings, freezing towers, cutter jaws, pressure drums, ice anchors, and scoop arms operate as one impossible planetary-scale engine. The entire surrounding mountain has become a vast engineered fracture landscape, with the original waterfall still plunging through the center while rock plates rotate outward and immense water and debris systems continuously recycle through the machine.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SEAL PLANETARY TORQUE GRID\" — Kilometer-spanning anchor pylons lock into distant mountain masses and connect through enormous rotating torque shafts.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: SYNCHRONIZE TECTONIC JAWS\" — Multiple concentric mechanical jaws counter-rotate with impossible force, transferring synchronized torque through the entire fractured landscape.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TRANSFORM WATERFALL INTO LIVING WEDGE\" — The entire cascade is continuously frozen, shattered, redirected, melted, and refrozen into an endless planetary-scale sequence of expanding mechanical ice wedges.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ROTATE THE MOUNTAIN RING\" — Vast sections of the mountain pivot outward around the waterfall as enormous slabs descend into newly created channels and rivers surge through the openings.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE GLACIERSPLIT\" — Every mechanism reaches maximum synchronized torque and the colossal radial fracture opens into a gigantic circular canyon surrounding the cascade, revealing the full impossible capability of the machine.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme pull-back from the waterfall through layers of spray, vapor, debris, and cloud, continuously revealing the full kilometer-scale Fallsplitter architecture and the mountain split radiating outward in every direction, ending on an immense aerial vista where the waterfall remains a tiny bright core inside the moving mechanical ring, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Glaciertooth Fallsplitter - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

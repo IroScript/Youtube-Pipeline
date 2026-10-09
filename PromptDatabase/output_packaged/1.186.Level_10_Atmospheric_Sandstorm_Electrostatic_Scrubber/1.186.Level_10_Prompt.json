@@ -1,0 +1,18 @@
+{
+  "idea_id": 186,
+  "idea_title": "Atmospheric Sandstorm Electrostatic Scrubber",
+  "idea_topic": "Sand Dune",
+  "element_id": 18,
+  "idea_index_in_element": 186,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer living desert sandstorm scrubber god-engine permanently fused with Earth's atmosphere, transmuting blinding sandstorms into pure celestial starlight plasma. The entire desert continent has become an alien hyper-structure of pulsing obsidian intake spires, sapphire energy conduits, and radiant golden plasma vortexes. The engine breathes in harmony with Earth's mantle and solar wind, anchoring the planet's atmospheric purity directly to the galactic celestial grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM ATMOSPHERIC GOD-ENGINE AWAKENING\" — The 150-kilometer god-engine pulses with blinding emerald and golden tachyon brilliance, harmonizing with Earth's atmosphere.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY SANDSTORM TO STELLAR PLASMA TRANSMUTATION\" — Roaring dust storms across the hemisphere are drawn into giant crystalline vortexes, transmuting into rivers of liquid solar starlight.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING CRUSTAL DIAMOND FUSION\" — Millions of square miles of desert sand fuse into an unbreakable hyper-dimensional crystalline diamond lattice.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INTERSTELLAR CELESTIAL COMMERCE GATEWAY\" — Colossal pillars of coherent stellar plasma erupt into deep space, channeling refined planetary minerals into galactic shipyards.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY LIFE IMMORTALITY\" — The god-engine permanently secures Earth's atmospheric purity, climate equilibrium, and biosphere immortality forever.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous dive from high orbital space down through swirling golden desert auroras into the heart of the 150-kilometer golden plasma vacuum engine, skimming across glowing liquid starlight oceans, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Atmospheric Sandstorm Electrostatic Scrubber - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

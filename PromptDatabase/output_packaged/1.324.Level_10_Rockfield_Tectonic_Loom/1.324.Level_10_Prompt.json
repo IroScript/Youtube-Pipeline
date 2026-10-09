@@ -1,0 +1,18 @@
+{
+  "idea_id": 324,
+  "idea_title": "Rockfield Tectonic Loom",
+  "idea_topic": "Rock Field",
+  "element_id": 24,
+  "idea_index_in_element": 324,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final manifestation of the Rockfield Tectonic Loom fills the planetary horizon with colossal mechanical architecture, its traction frames, pressure towers, lifting columns, anchor fields, and counter-rotating drums functioning as one impossible geological machine. Entire mountain ranges, basins, ridges, slabs, and boulder fields participate in a synchronized weave as the planet's visible rock surface shifts through immense interlocking corridors.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: LOCK THE PLANETARY LOOM\" — Every major traction frame drives its anchors into deep geological layers, mechanically coupling the entire operating network.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC MEGA-TORQUE\" — Counter-rotating drums unleash synchronized rotational force through the connected machine, causing enormous structures to flex and accelerate.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: WEAVE THE PLANETARY ROCK FIELD\" — Vast terrain bands slide, twist, lift, and cross through one another as though the entire rocky surface were a woven industrial material.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RECONFIGURE GEOLOGICAL SCALE\" — Mountain chains shift into new alignments while basins open, arches rise, channels widen, and immense stone masses exchange positions across the landscape.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACHIEVE TOTAL TECTONIC INTERLACE\" — The entire Loom performs one final synchronized crossing stroke, producing a planet-spanning woven architecture of rock, dust, ridges, channels, and colossal mechanical structures.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera pulls continuously upward from a microscopic-looking close-up of grinding stone and machinery to an enormous orbital-scale reveal of the woven planetary surface, with rotating drums, moving ridges, dust systems, and interlocking geological corridors still in motion as the planet fills the vertical frame, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Rockfield Tectonic Loom - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

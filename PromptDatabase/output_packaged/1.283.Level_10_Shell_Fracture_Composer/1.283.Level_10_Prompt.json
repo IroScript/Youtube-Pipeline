@@ -1,0 +1,18 @@
+{
+  "idea_id": 283,
+  "idea_title": "Shell Fracture Composer",
+  "idea_topic": "Shell",
+  "element_id": 63,
+  "idea_index_in_element": 283,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe final escalation reveals an impossibly gigantic planetary fracture composer whose mechanical rings, walking anchors, tension bridges, and articulated arms span an entire shell-covered world. Continents of shell behave like hinged industrial plates, opening into colossal cavities while mountains rotate, fracture networks race across the surface, and the machine continuously rewrites the planet's terrain through impossible tectonic mechanical torque.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SEIZE THE PLANETARY SHELL\" — Kilometer-to-continental-scale clamps lock onto countless shell regions while colossal anchor legs brace against bedrock across the horizon.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE PLANETARY TORSIONAL FORCE\" — Multiple concentric mechanical rings counter-rotate with impossible momentum, loading vast shell regions with synchronized tectonic torque.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMPOSE PLANETARY FRACTURE NETWORK\" — Branching fractures race across immense distances, curve around clamps, merge into new paths, and terminate with impossible precision.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REORIENT CONTINENTAL SHELL\" — Vast shell continents lift, hinge, rotate, and slide, exposing enormous cavities while other plates fold into newly formed terrain corridors.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: REWRITE THE PLANETARY LANDSCAPE\" — The entire shell surface becomes a coordinated moving mechanism of opening plates, rotating mountains, shifting ramps, and controlled fracture fields driven by the colossal machine.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins inches from a vibrating fracture filled with dust and fragments, pulls backward across moving shell plates and rotating mountain-scale structures, then accelerates into an immense orbital reveal of the planetary machine continuously reconfiguring the shell-covered world, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Shell Fracture Composer - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

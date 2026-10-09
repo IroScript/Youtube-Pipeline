@@ -1,0 +1,18 @@
+{
+  "idea_id": 213,
+  "idea_title": "Ocean Current Braid Engine",
+  "idea_topic": "Ocean",
+  "element_id": 20,
+  "idea_index_in_element": 213,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Ocean Current Braid Engine reaches its ultimate impossible state: a planetary-scale mechanical ocean loom spanning vast interconnected regions of Earth, with kilometer-scale toroidal frames, submerged rotating machinery, and articulated hydrofoils manipulating immense current systems simultaneously across the globe. Warm and cold ocean masses form luminous braided ribbons around the planet, while gigantic wave trains, sediment plumes, and turbulent vortices reveal the continuous transfer of impossible mechanical momentum.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: DEPLOY GLOBAL CURRENT FRAMEWORK\" — Planetary-scale toroidal structures activate across distant ocean regions, their hydrofoil arrays unfolding into the moving seas as one synchronized machine.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE PLANETARY TORQUE\" — Every rotating frame accelerates simultaneously, transferring unimaginable mechanical torque into the moving oceans and generating enormous concentric pressure waves.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: WEAVE GLOBAL OCEAN MASSES\" — Major warm, cold, surface, intermediate, and abyssal currents are split, crossed, folded, and recombined into a continuously moving three-dimensional planetary braid.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REDIRECT PLANETARY CIRCULATION\" — The braided current architecture migrates across vast ocean regions, physically dragging thermal boundaries, sediment systems, wave trains, and deep-water circulation into new trajectories.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE PLANETARY OCEAN BRAID\" — The entire impossible system reaches maximum operation as immense braided current ribbons wrap around the curved Earth, colliding into towering wave structures while gigantic rotating frames maintain control.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one continuous extreme pull-back from a violently rotating hydrofoil, through clouds and atmosphere, into near-orbital space, revealing Earth turning beneath an impossible network of braided ocean currents and faint colossal mechanical rings distributed across the planet, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Ocean Current Braid Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

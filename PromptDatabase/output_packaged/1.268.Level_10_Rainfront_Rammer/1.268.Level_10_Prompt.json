@@ -1,0 +1,18 @@
+{
+  "idea_id": 268,
+  "idea_title": "Rainfront Rammer",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 268,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final escalation reveals the Rainfront Rammer operating as an impossible planetary weather-moving engine, its 8-kilometer articulated body surrounded by thousands of moving fins and traction assemblies while the storm system stretches beyond the curvature of the visible horizon. Every mechanical component reaches synchronized peak motion as the machine prepares one final tectonic surge that physically forces the rainfront across an immense portion of the landscape.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY ENGINE SYNCHRONIZATION\" — All underground torque engines, traction drums, articulated joints, and atmospheric fins activate simultaneously in a single coordinated mechanical cycle.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TECTONIC TORQUE DETONATION\" — The machine releases its accumulated rotational energy, generating gigantic seismic recoil waves while the entire structure accelerates forward as one impossible mechanism.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GLOBAL RAINFRONT CONTROL\" — Kilometer-long pressure fins sweep through the atmosphere and mechanically compress, bend, and redirect the rain-bearing storm boundary across the horizon.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: PLANETARY HYDROLOGIC DISPLACEMENT\" — Enormous volumes of rainfall are forced sideways and forward across mountains, valleys, plains, and river basins, visibly rewriting the storm's geographic footprint.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY RAINFRONT RAM\" — The entire machine launches into its ultimate forward surge, carrying the atmospheric boundary with it as clouds flatten, rainfall sheets explode outward, and the wet-dry divide races across the landscape.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes a continuous extreme pull-back from the machine's vibrating armor to a vast orbital perspective, revealing the full Rainfront Rammer moving beneath the storm, immense rainfall bands bending around its trajectory, newly flooded regions spreading outward, and a colossal displaced weather boundary extending toward the planetary horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Rainfront Rammer - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

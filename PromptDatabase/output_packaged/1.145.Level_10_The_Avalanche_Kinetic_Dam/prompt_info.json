@@ -1,0 +1,18 @@
+{
+  "idea_id": 145,
+  "idea_title": "The Avalanche Kinetic Dam",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 145,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 140+ kilometer alien planetary kinetic megastructure that permanently controls the mechanical and cryospheric dynamics of an entire mountain range, turning mountain gravitational collapses into infinite clean planetary energy. Gravitationally suspended singularity dams capture the momentum of falling mountains in eternal zero-point equilibrium.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY GRAVITATIONAL COLLAPSE TAP\" — Micro-singularities along the 140km barrier activate, establishing a permanent gravitational gradient across the continent.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: INFINITE KINETIC EXTRACTION ARRAY\" — Entire mountain peaks fracture into controlled avalanches of incandescent rock and ice, falling into quantum containment fields.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: SINGULARITY MOMENTUM CONVERSION\" — The kinetic energy of collapsing mountain ranges is absorbed by non-Euclidean spacetime compression chambers.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ZERO-POINT RE-CREATION MATRIX\" — Crushed rock and ice are reconstructed at the quantum level, feeding infinite matter and energy loops.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: CELESTIAL POWER SYNCHRONIZATION\" — The kinetic barrier pulses with blinding stellar energy, broadcasting infinite power across the planetary civilization.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from low planetary orbit into the central vortex of the kinetic dam, diving through glowing plasma flumes and alien engineering chambers down to a maximum close-up of a single suspended granite crystal beside a colossal quantum mechanism, with the surrounding mountain machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "The Avalanche Kinetic Dam - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

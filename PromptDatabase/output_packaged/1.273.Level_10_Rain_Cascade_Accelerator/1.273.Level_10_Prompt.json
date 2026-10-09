@@ -1,0 +1,18 @@
+{
+  "idea_id": 273,
+  "idea_title": "Rain Cascade Accelerator",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 273,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nTen colossal acceleration stages now form a kilometer-scale planetary rain engine extending from the heart of a vast storm cloud deep into the earth, with enormous concentric rings rotating around a central shaft and hundreds of gigantic recoil pistons operating in synchronized cycles. The entire valley has become a dynamic landscape of craters, temporary trenches, mud torrents, fractured rock, mist, and roaring accelerated water as the machine reaches its absolute impossible operating limit.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TENTH STAGE ACTIVATES\" — The final acceleration ring unfolds completely and locks into alignment, deploying thousands of enormous pressure vanes around the central water shaft.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY TORQUE MAXIMUM\" — All ten stages synchronize their counter-rotating machinery, generating impossible tectonic mechanical torque that shakes the entire landscape and sends enormous vibration waves through the ground.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GLOBAL RAINFALL CASCADE\" — Rainfall from the massive storm is continuously captured and forced through ten accelerating stages, becoming a colossal concentrated water column whose velocity and density defy conventional physics.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: CONTINENTAL TERRAIN DISPLACEMENT\" — The underground discharge mechanism sweeps across the valley and redirects the high-speed water across enormous distances, carving trenches through soil and exposed rock while torrents flood the surrounding basin.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ABSOLUTE CASCADE CULMINATION\" — All ten stages discharge simultaneously, producing a gigantic vertical impact column that erupts into a rapidly expanding crater while multiple redirected streams sweep outward like liquid shock fronts.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme pull-back from microscopic droplets and vibrating machinery to the entire colossal accelerator, revealing the ten-stage structure piercing the storm cloud, the immense crater and branching trenches below, vast rain curtains feeding the system, and the machine dominating the landscape at impossible planetary scale, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Rain Cascade Accelerator - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

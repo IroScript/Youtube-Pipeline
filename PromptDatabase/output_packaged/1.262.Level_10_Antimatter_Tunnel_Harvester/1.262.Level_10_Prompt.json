@@ -1,0 +1,18 @@
+{
+  "idea_id": 262,
+  "idea_title": "Antimatter Tunnel Harvester",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 262,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The Antimatter Tunnel Harvester has evolved into a planet-encircling excavation engine, with continent-sized momentum structures redirecting annihilation energy through an immense global subway lattice. Vast ionized storm bands surround the world while luminous tunnel corridors pulse beneath every major landmass. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY ENGINE ACTIVATION\" — The complete excavation network engages as a unified machine. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM TECTONIC TORQUE\" — Global-scale mechanical leverage propagates through the crust. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TOTAL SUBWAY RECONFIGURATION\" — Existing transit systems are rewritten into a single integrated structure. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: WORLDWIDE GEOLOGICAL TRANSFORMATION\" — Landscapes shift around the expanding infrastructure network. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY INFRASTRUCTURE ASCENDANCY\" — The impossible subway lattice reaches full global extent. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera pulls from the glowing surface into orbital perspective, revealing a planet wrapped in luminous excavation pathways and storm-lit engineering structures, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Antimatter Tunnel Harvester - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

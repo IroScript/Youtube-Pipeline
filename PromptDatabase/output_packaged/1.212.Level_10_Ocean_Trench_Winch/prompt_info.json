@@ -1,0 +1,18 @@
+{
+  "idea_id": 212,
+  "idea_title": "Ocean Trench Winch",
+  "idea_topic": "Ocean",
+  "element_id": 20,
+  "idea_index_in_element": 212,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. Ocean Trench Winch reaches maximum impossible scale as a planetary geological apparatus surrounding and mechanically relocating a gigantic ocean trench system, with kilometer-scale winch towers, continent-spanning armored cables, deep-crust anchors, and crawler networks operating as one continuous machine. The entire oceanic landscape appears to respond to the pull: trench walls migrate, seabed rises behind the machine, a new abyss opens ahead, enormous water masses surge through the altered basin, and distant ocean swells radiate from the moving crust.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: DEPLOY THE PLANETARY ANCHOR GRID\" — An immense network of drilling towers simultaneously penetrates the seafloor across the trench system, locking thousands of mechanical anchors into bedrock.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: SYNCHRONIZE CONTINENTAL TORQUE\" — Colossal cable drums spanning the horizon rotate together, transferring impossible continuous torque through armored cables thicker than skyscrapers.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: RELOCATE THE OCEAN TRENCH\" — The entire trench-scale geological formation begins sliding laterally under direct mechanical traction, with deep fractures racing through the seabed and enormous rock masses grinding past one another.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REWRITE THE OCEAN FLOOR\" — The old trench geometry rises and closes behind the machine while a new abyssal depression opens ahead, forcing vast volumes of seawater to surge violently into the changing landscape.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: MOVE THE GEOLOGICAL BOUNDARY\" — The Ocean Trench Winch executes its ultimate continuous pull, mechanically migrating an immense ocean trench across the basin as landslides, pressure waves, sediment plumes, and surface swells propagate outward.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a breathtaking uninterrupted vertical ascent from beneath the grinding trench walls through the water column and toward an extreme planetary-scale perspective, revealing the Ocean Trench Winch as a colossal mechanical arc stretching across the ocean while the entire trench visibly continues migrating beneath it, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Ocean Trench Winch - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

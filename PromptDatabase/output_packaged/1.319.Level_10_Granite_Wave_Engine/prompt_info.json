@@ -1,0 +1,18 @@
+{
+  "idea_id": 319,
+  "idea_title": "Granite Wave Engine",
+  "idea_topic": "Rock Field",
+  "element_id": 24,
+  "idea_index_in_element": 319,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Granite Wave Engine reaches its ultimate impossible state: a planetary-scale mechanical architecture of colossal piston fields, rotating drive rings, buried anchors, counterweights, reaction towers, and synchronized shafts operating as one continuous machine. The rock field is no longer merely disturbed; kilometer-scale waves of solid terrain propagate across the horizon in intersecting patterns, demonstrating total fictional mechanical control over tectonic-scale stone displacement.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ENGAGE THE PLANETARY MACHINE\" — Every buried anchor and surface mechanism locks simultaneously as immense drive rings begin rotating around the operational zone.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE MAXIMUM TECTONIC TORQUE\" — Counter-rotating masses and gigantic piston banks discharge their full impossible mechanical force, sending synchronized pressure pulses through deep bedrock.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND THE PLANETARY WAVE\" — A colossal wavefront rises across the rock field, its advancing ridge extending beyond the horizon while successive piston banks fire in perfect sequence.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: COLLIDE THE GLOBAL STONE FRONTS\" — Opposing waves converge from multiple directions, lifting, tilting, sliding, and compressing enormous geological formations into temporary mountain-scale walls.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACHIEVE TOTAL GRANITE WAVE PROPAGATION\" — The entire visible rock field surges in a synchronized mechanical pulse as colossal ridges rise, fracture, collapse, and propagate outward in every direction.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted vertical ascent from a close-up of a violently cycling piston to an immense orbital-style pull-back, revealing the Granite Wave Engine and its impossible network of traveling stone waves spanning the entire visible terrain, dust columns marking the moving fronts beneath the immense cinematic sky, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Granite Wave Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 257,
+  "idea_title": "Temporal Rail Accelerator",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 257,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The fully realized Temporal Rail Accelerator surrounds Earth as a colossal chronology engine, kilometer-scale turbines extending into space while impossible energy rivers circulate between continents. Entire eras appear layered across the planet simultaneously, with active subway networks functioning as conduits between different epochs. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: FINAL SYNCHRONIZATION\" — Every accelerator module reaches perfect operational alignment. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM TEMPORAL TORQUE\" — Planetary chronology loads reach unprecedented intensity. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: ERA CONVEYOR ACTIVATION\" — Subway systems become mechanically driven pathways between ages. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: WORLD RESTRUCTURING\" — Global landscapes transform under synchronized temporal engineering. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY ERA TRANSIT\" — Earth functions as a continuous conveyor linking multiple timelines. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera pulls from orbit to reveal the entire planet wrapped in rotating chronology machinery and luminous temporal storms, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Temporal Rail Accelerator - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

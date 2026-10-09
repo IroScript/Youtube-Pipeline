@@ -1,0 +1,18 @@
+{
+  "idea_id": 147,
+  "idea_title": "The Tectonic Strata Sifter",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 147,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 130-kilometer living tectonic god-machine walking along continental plate boundaries, digesting and rebuilding mountain peaks into hyper-dimensional cosmic antennas. Its colossal limbs are made of compressed dark matter and liquid stellar crystal, stepping over oceans and mountain chains while harmonizing the planet's lithosphere with the galactic core.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: GOD-MACHINE STRIDE INITIATION\" — A monolithic dark-matter limb kilometers wide descends from the clouds, planting upon a continental mountain divide and sending harmonic gravity waves ringing through the earth's mantle.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TOTAL LITHOSPHERIC DIGESTION\" — Entire mountain peaks dissolve into rivers of glowing iridescent stardust, flowing upward into the god-machine's colossal central singularity maw.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COSMIC SUB-ATOMIC RECONSTRUCTION\" — Within the singularity core, planetary elements are transfigured into higher-dimensional matter, glowing with colors beyond the human visible spectrum.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: HYPER-DIMENSIONAL SPIRE EMISSION\" — The machine excretes newly formed hyper-spires of indestructible metamaterial along the mountain crests, turning the mountain range into an interstellar tuning fork.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: GALACTIC CORE COMMUNION\" — The newly tuned mountain range resonates with the supermassive black hole at the center of the Milky Way, bathing the planet in a radiant cosmic aurora of peace and infinite power.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a dizzying continuous descent from the blackness of deep space, diving past the celestial head of the 130-kilometer god-machine, sweeping between its colossal crystalline legs, and rushing over the newly formed glowing mountain crests stretching to the horizon, seamless continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Tectonic Strata Sifter - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

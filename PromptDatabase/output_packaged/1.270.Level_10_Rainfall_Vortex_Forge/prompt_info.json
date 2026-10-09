@@ -1,0 +1,18 @@
+{
+  "idea_id": 270,
+  "idea_title": "Rainfall Vortex Forge",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 270,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Rainfall Vortex Forge reaches its ultimate impossible operating state, with sixteen kilometer-scale towers, subterranean torque rings, articulated rotors, and the central atmospheric shaft functioning as one gigantic planetary weather engine. A towering rain vortex fills the sky while the surrounding storm, floodwater, clouds, soil, and vegetation all rotate in a synchronized system centered on the machine.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL TORQUE SYNCHRONIZATION\" — Every rotor, flywheel, traction drum, and underground torque ring reaches synchronized maximum rotation, transferring tectonic-scale mechanical force into the atmospheric system.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY MOMENTUM AMPLIFICATION\" — The machine dramatically amplifies the vortex's angular momentum, accelerating multiple kilometer-wide rainwalls and cloud spirals around the central axis.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GLOBAL RAINFALL REORGANIZATION\" — Vast precipitation fields across the visible storm system bend into enormous synchronized circular trajectories, creating a planet-scale engineered rainfall pattern.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: LANDSCAPE VORTEX COUPLING\" — Floodwater, soil, vegetation, and atmospheric debris move in coordinated concentric bands across the terrain as the artificial circulation reshapes the entire storm basin.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY VORTEX FORGE\" — The machine releases its accumulated torque into a colossal rotating atmospheric column that expands outward into a gigantic spiral storm system beyond the visible horizon.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme aerial pull-back from the spinning mechanical core to a vast high-altitude view, revealing the Rainfall Vortex Forge at the center of an immense planetary-scale spiral of rain and cloud, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Rainfall Vortex Forge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

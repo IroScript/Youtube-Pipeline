@@ -1,0 +1,18 @@
+{
+  "idea_id": 256,
+  "idea_title": "Mantle-Ram Subway Rewriter",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 256,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The ultimate Mantle-Ram Subway Rewriter encompasses the entire planet, with colossal mechanical structures emerging through oceans, continents, and mountain ranges as Earth itself functions as a transportable subway payload. Planet-wide excavation halos blaze around the globe while every subway line, station, tunnel, and geological layer moves in synchronized motion. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL PLANETARY LOCK\" — Global clamp systems secure the entire crust. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM TECTONIC DRIVE\" — Unimaginable torque accelerates through the planet. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: EARTH-SCALE SUBWAY TRANSPORT\" — The complete subway network becomes a planetary payload. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL GEOLOGY RECONFIGURATION\" — Continents, oceans, and mountain systems reorganize simultaneously. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY REWRITE COMPLETE\" — Earth emerges with entirely restructured transit geography. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera performs a majestic orbital pull-back revealing the fully transformed planet rotating beneath colossal mechanical structures, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Mantle-Ram Subway Rewriter - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

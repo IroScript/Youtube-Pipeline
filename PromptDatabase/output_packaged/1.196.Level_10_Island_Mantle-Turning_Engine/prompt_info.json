@@ -1,0 +1,18 @@
+{
+  "idea_id": 196,
+  "idea_title": "Island Mantle-Turning Engine",
+  "idea_topic": "Island",
+  "element_id": 19,
+  "idea_index_in_element": 196,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Island Mantle-Turning Engine reaches its absolute impossible maximum: a kilometer-scale planetary gearbox fully surrounds, penetrates, and mechanically reorients an entire island as if a geological epoch were compressed into seconds. Mountains rotate around a temporary subterranean axis, gigantic counterweights eclipse portions of the sky, deep strata emerge from newly opened terraces, and the surrounding ocean forms vast circular walls as the landmass is forced through its final transformation.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SEAL THE PLANETARY BEARING\" — Colossal anchor pylons lock into a complete subterranean ring while deep cylinders plunge into the geological foundation and every transmission assembly engages simultaneously.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE MAXIMUM GEOLOGICAL TORQUE\" — Hundreds of distributed drive banks fire in perfect sequence, transmitting unimaginable rotational force through the entire island-scale mechanical system.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TURN THE ISLAND AS A GEOLOGICAL ROTOR\" — The entire landmass rotates through a dramatic arc while mountain chains lean, plateaus rise, valleys pivot, and enormous rock slabs shift into completely new positions.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REWRITE THE TERRAIN AND OCEAN\" — Rivers are forced into new channels, waterfalls sweep sideways, buried strata emerge across fresh terraces, and the displaced ocean erupts into gigantic concentric walls of water.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE EPOCH-SCALE REORIENTATION\" — The machine executes its ultimate synchronized torque cycle as kilometer-wide counterweights sweep overhead, deep anchors recoil, seismic waves race outward, and the entire island settles into a radically reoriented geological configuration.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one uninterrupted monumental pull-back from a close-up of a rotating mountain face, rising above dust clouds and sweeping counterweights until the entire Island Mantle-Turning Engine and the transformed island fill the frame, surrounded by expanding ocean walls and seismic ripples, ending on an immense vertical aerial reveal of the impossible geological machine in continuous operation, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Island Mantle-Turning Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

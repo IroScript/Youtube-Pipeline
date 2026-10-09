@@ -1,0 +1,18 @@
+{
+  "idea_id": 271,
+  "idea_title": "Atmospheric Rain Plow",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 271,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nAt its ultimate escalation, the Atmospheric Rain Plow becomes a kilometer-scale planetary engineering machine moving through an immense storm, its wedge, rotating discs, subterranean torque rings, and traction systems operating simultaneously across a landscape-scale footprint. The entire environment reacts to its advance as rainfall is divided into colossal corridors, clouds are forced upward, floodwater is redirected, and the terrain is carved into a temporary mechanical geometry extending far beyond the frame.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: AWAKEN PLANETARY TORQUE\" — Vast underground flywheels, torque rings, shafts, and traction wheels activate together beneath the landscape, producing synchronized tectonic-scale rotation.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE COLOSSAL ACCELERATION\" — The accumulated rotational energy transfers forward in one impossible surge, driving the mountain-sized wedge through the storm with tremendous momentum.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: DIVIDE THE PLANETARY RAINFRONT\" — The leading discs and wedge simultaneously force enormous rainfall masses sideways and upward, splitting the storm into multiple gigantic flowing corridors.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REENGINEER THE LANDSCAPE\" — Traction assemblies carve vast parallel trenches while floodwater, mud banks, temporary rivers, and displaced debris reorganize continuously along the machine's path.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: FORGE THE ULTIMATE STORM CORRIDOR\" — A colossal clear passage opens through the heart of the storm as twin rain walls rise to cloud level and continue stretching toward the horizon, demonstrating impossible planetary-scale rainfall manipulation.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous cinematic pull-back from the spinning leading discs to an extreme high-altitude orbital-style perspective, revealing the full machine advancing through the storm, enormous rain corridors branching outward, clouds displaced into towering ridges, floodwater racing through newly carved channels, and the temporary landscape transformation continuing far into the distance, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Atmospheric Rain Plow - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

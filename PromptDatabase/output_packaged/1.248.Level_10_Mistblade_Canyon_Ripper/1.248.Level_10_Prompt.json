@@ -1,0 +1,18 @@
+{
+  "idea_id": 248,
+  "idea_title": "Mistblade Canyon Ripper",
+  "idea_topic": "Waterfall",
+  "element_id": 22,
+  "idea_index_in_element": 248,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final Mistblade Canyon Ripper configuration spans an entire waterfall valley, combining its colossal rotating cutter ring, kilometer-long flexible spine, secondary cutting heads, abrasive acceleration channels, crusher limbs, anchor claws, and debris conveyors into one continuously moving geological engine. The waterfall is no longer merely passing through the machine; every drop becomes part of a gigantic mechanical system actively redrawing the mountain, river, and canyon in real time.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACTIVATE THE CANYON RIPPER\" — Every cutter, hydraulic joint, intake slot, crusher limb, and anchor assembly engages simultaneously around the waterfall.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH MAXIMUM TECTONIC TORQUE\" — Counter-rotating blade rings accelerate through impossible loads while the kilometer-scale spine flexes and absorbs the reaction forces.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CONVERT THE WATERFALL INTO CUTTING FORCE\" — The entire falling torrent is captured, accelerated, divided into abrasive streams, and directed across multiple geological surfaces at once.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REBUILD THE CANYON\" — Rock walls fracture, slabs collapse, crusher limbs pulverize debris, and mechanical conveyors redeposit material into new retaining ridges and channels.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE PLANETARY-SCALE WATERFALL RESTRUCTURE\" — The machine redirects the waterfall through a newly excavated canyon network while the surrounding landscape visibly changes shape under continuous cutting and hydraulic force.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera starts inches from a rotating blade cutting through wet bedrock and executes one uninterrupted accelerating ascent and orbital pull-back, revealing the complete kilometer-scale Mistblade Canyon Ripper spanning the transformed valley, the waterfall divided into countless cutting streams, cliffs collapsing, debris conveyors operating, new ridges forming, and multiple cascades racing through freshly carved channels, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Mistblade Canyon Ripper - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

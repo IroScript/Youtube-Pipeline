@@ -1,0 +1,18 @@
+{
+  "idea_id": 258,
+  "idea_title": "Ocean-Piercing Subway Leviathan",
+  "idea_topic": "Subway",
+  "element_id": 82,
+  "idea_index_in_element": 258,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The fully unleashed Ocean-Piercing Subway Leviathan spans the horizon from edge to edge, maintaining a continent-scale dry trench across the ocean while endless trains traverse freshly built routes. Orbit-visible vapor plumes, storm systems, displaced seas, exposed seabed, and active construction all operate simultaneously in one overwhelming display of environmental restructuring. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: FULL-SYSTEM SYNCHRONIZATION\" — Every propulsion, stabilization, and construction subsystem reaches maximum output. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: TECTONIC TORQUE TRANSFER\" — Planetary-scale mechanical leverage flows through anchored crustal structures. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: OCEAN RESTRAINT EXECUTION\" — Entire sections of sea remain mechanically displaced against natural forces. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL LANDSCAPE RESTRUCTURING\" — Coastlines, seabeds, and transit networks transform simultaneously. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY SUBWAY ASCENDANCY\" — The ultimate ocean-spanning transit megastructure achieves full operational dominance. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera performs a continuous orbital pull-back from train scale to near-space scale revealing the entire ocean corridor and active Leviathan below, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Ocean-Piercing Subway Leviathan - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

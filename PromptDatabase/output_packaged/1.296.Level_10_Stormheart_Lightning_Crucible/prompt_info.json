@@ -1,0 +1,18 @@
+{
+  "idea_id": 296,
+  "idea_title": "Stormheart Lightning Crucible",
+  "idea_topic": "Lightning",
+  "element_id": 44,
+  "idea_index_in_element": 296,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe final Stormheart Lightning Crucible reaches its ultimate impossible state: a kilometer-scale mechanical engine embedded across an immense landscape, surrounded by gigantic circular trenches and rotating geological formations while twelve colossal crowns control a supercell stretching beyond the horizon. Lightning forms a continuous luminous network around the machine, and every mechanical ring, flywheel, arm, shaft, and crown rotates in synchronized opposition as the storm itself appears dragged around the planet-scale axis.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: FINAL DISCHARGE SATURATION\" — Hundreds of lightning channels simultaneously strike the crowns and flood the magnetic rail network with impossible electrical energy.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM TECTONIC TORQUE\" — All flywheels and rotating rings reach extreme angular velocity, transmitting catastrophic torque through kilometer-deep foundations and across the surrounding bedrock.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY STORM ROTATION\" — The entire visible supercell bends into a gigantic circular trajectory around the Crucible, with cloud layers, lightning, and rain rotating as though mechanically geared to the machine.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL TERRAIN DISPLACEMENT\" — Concentric trenches and buckled ridges propagate outward across the landscape while enormous slabs of terrain are forced laterally by the expanding rotational impulse.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: STORMHEART TECTONIC IMPULSE\" — The central hub releases its accumulated rotational impulse through buried shafts, producing a colossal circular shockwave that races across the landscape and visibly twists the storm system around its axis.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes a continuous extreme pull-back from the glowing central hub through the rotating crowns and storm wall into an enormous aerial-to-stratospheric reveal, showing the entire machine, circular terrain deformation, lightning lattice, and planetary-scale storm rotation in one uninterrupted cinematic movement, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Stormheart Lightning Crucible - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

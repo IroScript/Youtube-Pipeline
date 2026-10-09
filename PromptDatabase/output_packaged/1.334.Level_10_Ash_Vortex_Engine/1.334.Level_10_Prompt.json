@@ -1,0 +1,18 @@
+{
+  "idea_id": 334,
+  "idea_title": "Ash Vortex Engine",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 334,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final configuration reveals the Ash Vortex Engine operating at impossible planetary scale: a colossal circular industrial architecture spans the landscape beneath a towering rotating fire-and-ash column that reaches into the upper atmosphere, while thousands of furnace modules, gimbals, shutters, intake towers, and telescoping structures operate in perfect mechanical synchronization. The machine cycles compression, vertical lifting, acceleration, and reversal simultaneously, visibly transferring unimaginable momentum between fire, atmosphere, debris, and terrain.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE PLANETARY ARRAY\" — Every visible furnace sector, intake tower, shutter, gimbal, and telescoping assembly activates in one enormous coordinated sequence.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC TORQUE\" — Kilometer-scale mechanical assemblies rotate against one another, producing an impossible concentration of angular momentum.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CONTROL FIRE VORTEX\" — The central column simultaneously twists, compresses, rises, and expands while remaining mechanically linked to the rotating furnace ring.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: DISPLACE ATMOSPHERE\" — Massive inflow winds spiral across the landscape as ash, smoke, clouds, and loose terrain material are pulled into gigantic orbital streams.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: UNLEASH PLANETARY FIRE ENGINE\" — Selected sectors reverse and the entire vortex rapidly expands, launching a colossal circular ash-and-pressure wave across the surrounding terrain.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme orbital pull-back from the fire column into a breathtaking high-altitude view, revealing the full kilometer-scale furnace ring, the towering spiral of fire and ash, expanding circular debris waves, atmospheric inflow, and the machine's continuous synchronized rotation across the landscape, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Ash Vortex Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

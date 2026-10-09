@@ -1,0 +1,18 @@
+{
+  "idea_id": 242,
+  "idea_title": "Atmospheric Web Rotor",
+  "idea_topic": "Spider Web",
+  "element_id": 62,
+  "idea_index_in_element": 242,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe ultimate Atmospheric Web Rotor dominates an entire mountain region, its kilometer-scale spider-web membrane rotating between colossal cliffs while multiple cloud systems spiral through its layered geometry. The machine simultaneously controls tension, airflow, condensation, water collection, atmospheric circulation, and elastic recoil until the entire landscape appears connected to one impossible planetary-scale mechanical system.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE THE PLANETARY WEB\" — Every rotor ring, hook, tension arm, and cliff anchor locks into one synchronized mechanical network spanning the entire visible mountain basin.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH TECTONIC ROTATION\" — The complete structure accelerates with impossible torque, rotating the multi-kilometer membrane while enormous atmospheric currents spiral around it.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REDISTRIBUTE ATMOSPHERIC MOISTURE\" — Vast cloud masses are pulled through compressed silk corridors, condensed into water, redirected across the membrane, and discharged into concentrated vertical streams.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REORGANIZE THE MOUNTAIN WEATHER\" — Downdrafts, rain columns, vapor spirals, and cloud walls reorganize across the landscape as the machine walks its anchors along the cliffs.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: RELEASE THE PLANETARY RECOIL\" — Thousands of release points disengage at once, launching a gigantic circular pressure wave through the clouds while the saturated web recoils across the mountains.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted vertical pull-back from the roaring rotor to an extreme aerial view, revealing the entire mountain range, migrating web, cascading water, spiraling cloud systems, and expanding atmospheric pressure ring as one continuous impossible machine event, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Atmospheric Web Rotor - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

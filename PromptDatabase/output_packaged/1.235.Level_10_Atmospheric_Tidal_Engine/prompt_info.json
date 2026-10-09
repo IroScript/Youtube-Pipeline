@@ -1,0 +1,18 @@
+{
+  "idea_id": 235,
+  "idea_title": "Atmospheric Tidal Engine",
+  "idea_topic": "Storm",
+  "element_id": 42,
+  "idea_index_in_element": 235,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nAt maximum output, the Atmospheric Tidal Engine spans the visible landscape like a colossal mechanical organism, its two-kilometer towers piercing the supercell while enormous pressure plates, rotating shafts, telescoping vanes, traction drums, and underground chambers operate as one synchronized system. The storm has become a gigantic mechanically distorted environment, with cloud layers shearing, rain curtains bending, wind columns redirecting, surface water surging, and fractured terrain radiating outward from the machine.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: INITIATE FINAL SYNCHRONIZATION\" — Every major gear, piston, pressure plate, vane, traction drum, and subterranean chamber locks into a single synchronized cycle.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ACCELERATE TOTAL MECHANICAL TORQUE\" — The entire structure accelerates as enormous rotating assemblies transmit unprecedented torque through the ground and atmospheric pressure system.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND PLANETARY STORM TIDE\" — Kilometer-scale pressure plates compress and release the atmosphere in one final impossible tidal cycle, forcing the supercell into a massive redirected circulation.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: TRANSFORM TERRAIN AND WATER\" — Recoil travels through the foundations as terrain fractures, water surges outward, and loose material is displaced in enormous concentric waves.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: RELEASE THE ULTIMATE TIDAL SURGE\" — Every mechanism reverses simultaneously, producing the final colossal pressure surge that expands through clouds, wind, rain, water, debris, and terrain.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera executes a continuous breathtaking orbital pull-back from the violently rotating central machinery to an immense high-altitude view, revealing the entire Atmospheric Tidal Engine beneath a reorganized supercell with altered cloud geometry, displaced water, fractured terrain, and lingering atmospheric waves, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Atmospheric Tidal Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

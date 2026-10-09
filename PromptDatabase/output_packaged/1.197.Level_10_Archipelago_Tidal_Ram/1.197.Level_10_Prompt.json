@@ -1,0 +1,18 @@
+{
+  "idea_id": 197,
+  "idea_title": "Archipelago Tidal Ram",
+  "idea_topic": "Island",
+  "element_id": 19,
+  "idea_index_in_element": 197,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nAt maximum impossible scale, Archipelago Tidal Ram is revealed as a planetary hydraulic mechanism in which an entire island chain functions as a gigantic reciprocating piston assembly, with mountain-sized pressure cylinders, kilometer-high recoil towers, and seabed anchors extending beyond the visible horizon. The camera starts beneath the crashing coastal impact and continuously rockets upward through mist, clouds, and atmospheric haze until the island chain, redirected currents, sediment scars, and expanding ocean pressure waves form one colossal mechanical pattern across the planet's surface.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY RAM CHARGES\" — Every buried pressure chamber, ocean intake, counter-piston, and anchor system reaches synchronized maximum pressure throughout the island chain.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: CONTINENTAL TORQUE RELEASES\" — The interconnected machines discharge impossible torque simultaneously, accelerating entire geological masses against their natural inertia.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: ARCHIPELAGO BECOMES PISTON\" — Multiple islands shift as one colossal reciprocating mechanism, driving coastlines, seabeds, and submarine shelves through a synchronized planetary-scale stroke.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: OCEAN BASIN DISPLACEMENT\" — Gigantic pressure fronts race outward across the ocean, bending currents, opening temporary channels, lifting immense water walls, and transporting sediment across newly formed submarine terrain.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY HYDRAULIC IMPULSE\" — The final synchronized impact transforms the surrounding ocean into a vast moving pressure field, with wave fronts and current spirals propagating far beyond the archipelago.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera rockets continuously from shoreline scale through cloud level into an extreme orbital reveal, showing the entire archipelago embedded inside enormous concentric ocean disturbances and redirected current systems as the colossal hydraulic machine continues its impossible stroke, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Archipelago Tidal Ram - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

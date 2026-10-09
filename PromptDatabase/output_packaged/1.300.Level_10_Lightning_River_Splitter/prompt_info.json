@@ -1,0 +1,18 @@
+{
+  "idea_id": 300,
+  "idea_title": "Lightning River Splitter",
+  "idea_topic": "Lightning",
+  "element_id": 44,
+  "idea_index_in_element": 300,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The final impossible operation reveals Lightning River Splitter at planetary-industrial scale, a colossal mechanical network stretching across the horizon beneath a supercell whose lightning-filled clouds appear to feed directly into the machine. The original floodplain has become a vast braided river landscape with immense cliffs, waterfalls, engineered channels, and roaring currents, while every remaining mechanical system performs one synchronized final cycle. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACTIVATE FINAL CONDUCTIVE ARRAY\" — Every colossal tower rises to maximum height and unfolds enormous conductive crowns into the storm cloud base, forming a continuous chain across the horizon. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: CONCENTRATE TECTONIC TORQUE\" — Hundreds of lightning strikes arrive almost simultaneously, driving gigantic underground rotors and surface mechanisms with unimaginable synchronized rotational force. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND PLANETARY LIGHTNING\" — The entire electrical storm appears mechanically coordinated as branching discharges travel between towers and trigger every remaining cutter, gate, ram, and pressure system at once. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REDRAW THE RIVER LANDSCAPE\" — Final trench drums plunge through the last untouched banks while enormous gates swing open, redirecting the storm's water into a vast interconnected river network and sending cliffs collapsing into the currents. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE PLANETARY-SCALE RIVER SPLIT\" — The ultimate synchronized pulse forces the remaining floodwater into multiple enormous river corridors, producing spectacular waterfalls, rapids, and braided channels across the transformed landscape. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins beside a roaring waterfall, rises continuously above the river network, passes the glowing conductive towers, and executes a dramatic orbital pull-back until the full kilometer-scale machine and its newly created river landscape dominate the frame beneath a colossal lightning-filled storm, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Lightning River Splitter - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

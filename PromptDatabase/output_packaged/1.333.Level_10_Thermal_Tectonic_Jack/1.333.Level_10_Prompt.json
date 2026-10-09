@@ -1,0 +1,18 @@
+{
+  "idea_id": 333,
+  "idea_title": "Thermal Tectonic Jack",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 333,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final Thermal Tectonic Jack configuration operates at an absurd planetary scale, forming a colossal artificial crustal mechanism across an entire continental region, with kilometer-wide lifting plates, mountain-sized pistons, rotating balance rings, and furnace networks disappearing beyond the horizon. The machine enters its ultimate synchronized cycle, transforming fire-driven expansion into a massive controlled wave of tectonic uplift and mechanical recoil.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACTIVATE ULTIMATE FIRE PRESSURE\" — Every visible furnace shaft erupts simultaneously as underground combustion chambers flood with incandescent expanding gases across the entire machine network.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ENGAGE PLANETARY TORQUE\" — Mountain-sized balance arms rotate inward and then accelerate outward, transferring impossible torque through enormous mechanical drive rings.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: JACK THE ARTIFICIAL CRUST\" — Thousands upon thousands of gigantic pistons fire together, lifting enormous crustal slabs as though the landscape itself were a single engineered machine component.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: DISPLACE CONTINENTAL TERRAIN\" — Mountain ranges rise and shift laterally, rivers are forced into new paths, valleys buckle, and continent-scale fracture lines spread through the terrain.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: RELEASE PLANETARY UPLIFT CASCADE\" — The complete system unleashes a gigantic synchronized uplift wave, creating successive terraces, broken ridges, dust shockwaves, and towering fire columns across the entire operational region.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera begins inches above a vibrating mechanical plate, accelerates upward through fire, dust, and collapsing fracture debris, then executes a continuous extreme orbital pull-back revealing the impossible Thermal Tectonic Jack spanning an immense portion of the planet's visible surface, with synchronized uplift waves propagating toward the horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Thermal Tectonic Jack - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

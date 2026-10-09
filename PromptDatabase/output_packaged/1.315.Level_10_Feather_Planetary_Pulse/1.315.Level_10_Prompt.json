@@ -1,0 +1,18 @@
+{
+  "idea_id": 315,
+  "idea_title": "Feather Planetary Pulse",
+  "idea_topic": "Bird Feather",
+  "element_id": 64,
+  "idea_index_in_element": 315,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The ultimate Feather Planetary Pulse is a kilometer-scale global machine whose gigantic feather crowns, buried shafts, rotating hubs, and intercontinental conduits form one impossible mechanical organism wrapped around the planet. Every component remains physically tangible—feather shafts bend, barbs compress, joints lock, hubs rotate, and stored deformation releases—while the combined operation produces a breathtaking planet-wide sequence of mechanically driven terrain waves.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: GLOBAL FEATHER CROWN COLLAPSE\" — Thousands of planetary-scale feather crowns simultaneously compress toward their centers, folding colossal shafts and millions of barbs into impossibly dense mechanical assemblies.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY TECTONIC TORQUE\" — Every rotating hub accelerates in synchronization, forcing unimaginable torsional deformation through the global feather transmission lattice.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: WORLD-SCALE STRAIN RELEASE\" — Global locking joints disengage at once, releasing physically stored feather deformation into a continuous planet-spanning chain of mechanical pulses.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: PLANETARY SURFACE DISPLACEMENT\" — Massive wave fronts sweep around the curved world, lifting and settling terrain while oceans, lakes, dust fields, forests, and loose rock respond to the passing mechanical motion.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: FEATHER PLANETARY PULSE\" — The entire global machine reaches maximum release, sending synchronized concentric mechanical waves across the planet until the surface appears to breathe as one colossal feather-driven structure.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins beside individual feather barbs vibrating under impossible strain, smoothly accelerates upward through the kilometer-scale crown, transitions into a continuous orbital pull-back revealing continental wave fronts, then reaches an extreme planetary view where synchronized feather-machine pulses travel across the curved world, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Feather Planetary Pulse - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
