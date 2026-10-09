@@ -1,0 +1,18 @@
+{
+  "idea_id": 78,
+  "idea_title": "Colossus Leaf Sorting Wheel",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 78,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Colossus Leaf Sorting Wheel commands a locked low-angle push-in shot from a Tea Garden beneath an alien-scale agricultural canopy, with its vertical wheel filling the entire sky. 9:16 vertical, exactly 8 seconds, one continuous shot, no cuts. 0-1s HUD: CALIBRATE, infinite scanners awaken. 1-2s HUD: ENGAGE, gravity systems align the wheel. 2-3s HUD: CONVEY, planetary tea channels activate. 3-4s HUD: SEPARATE, impossible grading networks divide harvests. 4-8s the camera pushes through amber haze beneath the colossal structure as the Colossus Leaf Sorting Wheel becomes a stark silhouette against the vast sky, then running lights ignite one after another around every ring until the entire machine glows.",
+  "video_prompt_title": "Colossus Leaf Sorting Wheel - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Colossus Leaf Sorting Wheel reaches alien scale above a Tea Garden world, becoming a colossal vertical agricultural moon standing upright over mountains and oceans of tea terraces. Its broad flat overhead canopy spans the horizon, suspended by impossible thin masts, while infinite concentric armored rings rotate with billions of magnetic inspection pods. The machine remains dedicated to tea leaf sorting through gigantic intake galleries, quantum scanners, robotic inspection chambers, magnetic conveyors, and atmospheric drying systems. Energy flows as visible plasma rivers, gravity manipulation fields, and radiant thermal exhaust columns. The scene uses the locked low-angle ground view, amber dust-laden atmosphere, heavy particulate haze, dim sun disc, and a final vision of the Colossus Leaf Sorting Wheel as an impossible luminous agricultural clock.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
