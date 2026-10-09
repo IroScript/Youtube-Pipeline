@@ -1,0 +1,18 @@
+{
+  "idea_id": 162,
+  "idea_title": "Aurora Borealis Polar Resonator",
+  "idea_topic": "Snowfield",
+  "element_id": 16,
+  "idea_index_in_element": 162,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 160-kilometer living polar resonance god-engine permanently fused with the arctic snowfield bedrock, transmuting cosmic stellar radiation into pure planetary consciousness. The endless white snowfield has become a radiant alien circuit board of glowing crystalline obelisks, sapphire energy conduits, and pulsing golden plasma rivers. The resonator breathes in unison with the Sun and galactic core, establishing a permanent hyper-spatial link between Earth's cryosphere and the galactic stellar grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: GALACTIC STELLAR RESONANCE AWAKENING\" — The 160-kilometer god-engine pulses with blinding white tachyon brilliance, synchronizing Earth's magnetic core with the galactic center.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: SKY-WIDE LIVING AURORAL SINGULARITY\" — The entire polar sky erupts into an unbroken cosmic ocean of swirling violet, gold, and emerald plasma that illuminates the hemisphere.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: HYPER-CRYSTALLINE SNOWFIELD VITRIFICATION\" — Millions of square miles of snowpack crystallize into an indestructible living quantum storage matrix that preserves the planet's memories.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INTERSTELLAR COMMUNICATION BEAM\" — A colossal 10-kilometer-wide pillar of coherent solar light erupts from the apex into deep space, joining the galactic network.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY IMMORTALITY\" — The god-engine secures Earth's planetary shield, atmospheric integrity, and life-support equilibrium for the next billion years.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an impossible continuous dive from high lunar orbit down through the swirling cosmic aurora ribbons, plunging into the heart of the 160-kilometer golden plasma spire, skimming across glowing liquid starlight oceans, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Aurora Borealis Polar Resonator - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

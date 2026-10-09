@@ -1,0 +1,18 @@
+{
+  "idea_id": 136,
+  "idea_title": "The Titan Stalk Shredder",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 136,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Titan Stalk Shredder begins with an extreme close view of an alien-scale stalk shredding mechanism crushing dry corn stalks inside a planetary Corn Field, then the camera executes a relentless pull-back revealing the impossible articulated walking chassis. At 1s HUD popup: CALIBRATE. At 2s HUD popup: ENGAGE. At 3s HUD popup: CONVEY. The final five seconds expand across the dark planet as floodlights reveal the full machine, ending with a straight top-down orthographic view where the Titan Stalk Shredder becomes a vast geometric structure written across the landscape. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "The Titan Stalk Shredder - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. The Titan Stalk Shredder reaches alien maximum scale as an impossible articulated multi-legged walking chassis covering vast planetary Corn Field ecosystems, yet its identity remains a colossal machine built to shred dry corn stalks and recycle them into organic nutrient-rich soil beds. Its countless mechanical legs reposition across continents while gigantic rotating stalk processing drums and biomass conversion structures dominate the landscape. The Corn Field environment extends across planetary surfaces with civilizations and natural features appearing miniature beneath it. The mechanism includes unimaginable mulching corridors, planetary nutrient engines, and enormous soil regeneration systems. Alien-derived power reactors illuminate the machine with visible energy pathways and endless floodlights. Deep night, severe contrast, hard artificial lighting, and a monumental vertical composition portray the final evolution of the Titan Stalk Shredder.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

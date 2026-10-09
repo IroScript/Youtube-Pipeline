@@ -1,0 +1,18 @@
+{
+  "idea_id": 165,
+  "idea_title": "The Polar Whiteout Laser Beacon Spire",
+  "idea_topic": "Snowfield",
+  "element_id": 16,
+  "idea_index_in_element": 165,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer living polar beacon god-engine permanently fused with Earth's snowfields, transmuting arctic blizzards into a blazing cosmic lighthouse of stellar plasma. The entire snowfield is an alien hyper-structure of pulsing cryo-crystal obelisks, dark obsidian monoliths, and radiant golden laser veins. The spire breathes in unison with planetary rotation and galactic solar wind, anchoring Earth's polar coordinates directly to the galactic navigation network.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM STELLAR BEACON AWAKENING\" — The 150-kilometer god-engine ignites with blinding golden tachyon fire, awakening Earth's polar cryosphere into a living cosmic beacon.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: INTERSTELLAR COHERENT PLASMA BEAM\" — A colossal 20-kilometer-wide pillar of concentrated solar plasma erupts from the apex, slicing through the galaxy to mark Earth's position.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING CRUSTAL DIAMOND FUSION\" — Millions of square miles of snowpack and permafrost fuse into an unbreakable hyper-dimensional crystalline diamond lattice.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GALACTIC NAVIGATION GRID COUPLING\" — Real-time tachyon links connect Earth directly to interstellar spaceports across the galaxy.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY IMMORTALITY\" — The god-engine secures Earth's orbital stability, rotational axis, and planetary life-support equilibrium forever.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera conducts an impossible continuous dive from high orbit down through glowing auroral fire, plunging into the heart of the 150-kilometer golden plasma beacon spire, skimming across glowing liquid starlight oceans, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Polar Whiteout Laser Beacon Spire - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 163,
+  "idea_title": "The Tundra Snow-Compacting Leviathan",
+  "idea_topic": "Snowfield",
+  "element_id": 16,
+  "idea_index_in_element": 163,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 140-kilometer living planetary compaction god-engine permanently merged with Earth's polar snowfields, transforming the arctic wastes into an eternal crystalline super-highway of the cosmos. The entire snowfield is an alien hyper-structure of pulsing diamond-ice conduits, dark obsidian monoliths, and blazing golden plasma veins. The machine breathes with the planet's core, connecting Earth's polar permafrost directly to the galactic energy grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM PLANETARY COMPACTION AWAKENING\" — The 140-kilometer god-engine pulses with blinding golden tachyon fire, locking Earth's polar crust into an indestructible living diamond matrix.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: HYPER-DIMENSIONAL CRYSTAL TRANSMUTATION\" — Millions of square miles of snowpack flash into solid translucent diamond-ice, capable of supporting interstellar spacecraft landings.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING CRUSTAL TECTONIC LOCK\" — The polar plate fuses permanently with Earth's mantle, eliminating all tectonic instability for hundreds of millions of years.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GALACTIC STELLAR HIGHWAY ANCHOR\" — Gigantic pillars of coherent stellar plasma erupt into the upper atmosphere, guiding interstellar transport fleets to Earth's polar spaceport.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY IMMORTALITY\" — The god-engine secures Earth's rotation axis, cryosphere balance, and planetary life-support forever.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera conducts an impossible continuous dive from high orbit above glowing auroral ribbons down into the heart of the 140-kilometer golden plasma compaction engine, skimming across glowing liquid starlight highways, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Tundra Snow-Compacting Leviathan - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 143,
+  "idea_title": "The Granite Mantle Bore",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 143,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 120+ kilometer alien tectonic megastructure tapping the liquid outer core beneath the mountain range. Gravitationally suspended drilling singularities draw infinite geothermal energy, turning the mountain range into an eternal planetary power reactor that controls continental climate and tectonic balance.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY SINGULARITY IGNITION\" — Controlled micro-singularities ignite at the base of the bore, warping space to draw unlimited thermal energy from the Earth's core.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: INFINITE MANTLE CORE BORE\" — Trans-dimensional drilling fields penetrate beyond physical geological limits, channeling core plasma into infinite crystalline loops.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: HYPER-DIMENSIONAL PLASMA LOOP\" — Liquid planetary energy flows upward through impossible non-Euclidean conduits that defy gravity and conventional geometry.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ZERO-POINT GRAVITATIONAL TAP\" — Gravitational pressure at the planetary core is converted into pure, coherent zero-point energy streams.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY POWER RESONANCE\" — The entire mountain range resonates with golden stellar light, broadcasting infinite clean power to the planetary civilization.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from low planetary orbit into the central caldera of the mountain bore, diving through glowing plasma flumes and alien engineering chambers down to a maximum close-up of a single suspended granite crystal beside a colossal quantum mechanism, with the surrounding mountain machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "The Granite Mantle Bore - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
