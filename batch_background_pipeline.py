@@ -6,10 +6,11 @@ from playwright.sync_api import sync_playwright
 print("=== STARTING BATCH BACKGROUND PIPELINE RUNNER ===")
 print("Delay policy: Dynamic Adaptive Anti-Bot Scaling (Every 30m: +20s min, +60s max).")
 
-db_path = "/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/PromptDatabase/database/youtube_pipeline.db"
-download_dir = "/home/mdkamruzzamanirak_gmail_com/Downloads"
-base_packaged_dir = "/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/PromptDatabase/output_packaged"
-state_file = "/home/mdkamruzzamanirak_gmail_com/.openclaw/workspace/IROSCRIPT-CEO/social-media/youtube/Youtube Automation/pipeline_antibot_state.json"
+SCRIPT_DIR = Path(__file__).resolve().parent
+db_path = str(SCRIPT_DIR / "PromptDatabase/database/youtube_pipeline.db")
+download_dir = str(Path.home() / "Downloads")
+base_packaged_dir = str(SCRIPT_DIR / "PromptDatabase/output_packaged")
+state_file = str(SCRIPT_DIR / "pipeline_antibot_state.json")
 
 def get_dynamic_delay():
     base_min = 120    # 2 minutes (120s)
