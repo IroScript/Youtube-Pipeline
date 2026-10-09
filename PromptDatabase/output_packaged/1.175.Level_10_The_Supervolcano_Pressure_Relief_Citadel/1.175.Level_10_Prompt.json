@@ -1,0 +1,18 @@
+{
+  "idea_id": 175,
+  "idea_title": "The Supervolcano Pressure Relief Citadel",
+  "idea_topic": "Volcano",
+  "element_id": 17,
+  "idea_index_in_element": 175,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer living volcanic pressure-relief god-engine permanently fused with Earth's mantle, transmuting supervolcanic fury into an immortal planetary fountain of golden stellar plasma. The entire caldera plateau is an alien hyper-structure of pulsing obsidian spires, liquid sapphire hydrothermal lakes, and radiant golden energy rivers. The engine breathes in unison with Earth's molten core and solar coronal cycles, anchoring the planet's internal heat directly to the galactic stellar grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM GEOTHERMAL GOD-ENGINE AWAKENING\" — The 150-kilometer god-engine pulses with blinding emerald and golden tachyon brilliance, igniting Earth's core heat into cosmic harmony.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY MAGMA TO LIVING PLASMA FOUNTAIN\" — Millions of tons of molten magma dissolve into shimmering waterways of pure liquid stellar plasma, flowing through continent-wide obsidian aqueducts.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING CRUSTAL DIAMOND FUSION\" — The caldera bedrock fuses into an unbreakable hyper-dimensional living crystalline foundation.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INTERSTELLAR STELLAR POWER CHANNEL\" — Colossal pillars of coherent thermal plasma erupt into deep space, connecting Earth's volcanic core directly to the galactic energy grid.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY IMMORTALITY\" — The god-engine guarantees permanent thermodynamic equilibrium, endless clean energy, and planetary immortality for the next billion years.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous dive from high orbital space down through swirling auroral fire into the heart of the 150-kilometer golden plasma relief engine, skimming across glowing liquid starlight oceans, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Supervolcano Pressure Relief Citadel - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

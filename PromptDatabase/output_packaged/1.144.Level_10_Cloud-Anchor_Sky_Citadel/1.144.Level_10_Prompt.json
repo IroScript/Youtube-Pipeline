@@ -1,0 +1,18 @@
+{
+  "idea_id": 144,
+  "idea_title": "Cloud-Anchor Sky Citadel",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 144,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150+ kilometer alien celestial sky citadel anchored to the planet's mountain spine. The megastructure hovers in perpetual gravitational equilibrium, condensing planetary atmospheric water and solar plasma into celestial rivers that circle the globe in glowing geometric orbits.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: CELESTIAL GRAVITATIONAL ANCHOR\" — Every mountain summit on the continent locks into a quantum gravitational cradle holding the impossible 150km citadel.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY CLOUD-RING ENGAGEMENT\" — Infinite atmospheric intake rings deploy, drawing planetary cloud decks into synchronized geometric vortexes.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: TRANS-DIMENSIONAL WATER FORGE\" — Atmospheric moisture cascades through folded non-Euclidean processing chambers that transcend conventional volume limits.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ORBITAL RIVER CIRCULATION\" — Millions of tons of glowing crystalline water flow upward into orbital sky-rivers encircling the planet.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: CELESTIAL CLIMATE EQUILIBRIUM\" — The citadel harmonizes global planetary atmospheres, transforming the planet into a lush, eternal paradise.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from low planetary orbit into the central water-cathedral of the sky citadel, diving through glowing plasma flumes and alien engineering chambers down to a maximum close-up of a single suspended water crystal beside a colossal quantum mechanism, with the surrounding mountain machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "Cloud-Anchor Sky Citadel - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

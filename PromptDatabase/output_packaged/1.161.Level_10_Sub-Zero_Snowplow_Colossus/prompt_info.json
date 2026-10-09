@@ -1,0 +1,18 @@
+{
+  "idea_id": 161,
+  "idea_title": "Sub-Zero Snowplow Colossus",
+  "idea_topic": "Snowfield",
+  "element_id": 16,
+  "idea_index_in_element": 161,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer living polar god-engine permanently merged with Earth's snowfield crust, cycling continental blizzards into pure cosmic stellar plasma. The entire arctic snowfield has evolved into an impossible alien hyper-structure of pulsing cryo-crystal monoliths, dark obsidian viaducts, and radiant golden plasma conduits. The machine breathes in harmony with polar auroras, anchoring the planet's cryosphere directly to the galactic energy grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: CONTINENTAL CRYO-RESONANCE AWAKENING\" — The 150-kilometer god-engine pulses with blinding emerald and golden tachyon energy, awakening polar snowfields into a sentient energy matrix.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ATMOSPHERIC BLIZZARD TO COSMIC PLASMA CONVERSION\" — Roaring whiteout blizzards across the polar hemisphere are drawn into colossal crystalline vortexes, transmuting into rivers of liquid solar fire.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: HYPER-SPATIAL BEDROCK FUSION\" — The underlying continental permafrost and tectonic plate fuse into an unbreakable hyper-dimensional crystalline diamond lattice.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: IONOSPHERIC AURORA POWER HARNESSING\" — Gigantic obelisks kilometers high channel the entire Aurora Borealis down into the planet's core, fueling a planetary defense grid.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY CLIMATE IMMORTALITY\" — The god-engine permanently locks Earth's polar albedo, stabilizing planetary temperatures and ensuring climate balance for the next hundred million years.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous dive from high orbital space looking down at the glowing emerald polar continent, plunging straight down through swirling auroral fire into the heart of the 150-kilometer golden plasma engine, skimming across glowing liquid starlight oceans, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Sub-Zero Snowplow Colossus - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

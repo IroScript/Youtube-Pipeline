@@ -1,0 +1,18 @@
+{
+  "idea_id": 169,
+  "idea_title": "Superconducting Snowfield Monorail Fortress",
+  "idea_topic": "Snowfield",
+  "element_id": 16,
+  "idea_index_in_element": 169,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer living polar monorail god-engine permanently fused with Earth's snowfield crust, transmuting the arctic wastes into an eternal celestial transit guideway of golden stellar plasma. The entire snowfield is an alien hyper-structure of pulsing diamond-ice rails, dark obsidian monoliths, and radiant golden energy conduits. The train breathes in unison with Earth's tectonic plates and solar wind, anchoring the planet's transit systems directly to the galactic hyper-lane network.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM STELLAR TRANSIT GOD-ENGINE AWAKENING\" — The 150-kilometer god-engine pulses with blinding emerald and golden tachyon brilliance, awakening the polar rail corridor into living starlight.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY SNOWFIELD TO LIVING PLASMA GUIDEWAY\" — Millions of square miles of snowpack crystallize into an indestructible diamond-ice plain supporting hyper-dimensional maglev tracks.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CONTINENTAL TECTONIC FUSION\" — The polar continent's bedrock fuses into an unbreakable living crystal lattice immune to earthquakes or continental drift.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INTERSTELLAR HYPER-LANE GATEWAY COUPLING\" — Colossal pillars of coherent stellar plasma erupt into deep space, linking Earth's monorail directly to interstellar transport corridors.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY MOBILITY IMMORTALITY\" — The god-engine guarantees permanent transport connectivity, climate equilibrium, and planetary prosperity for the next billion years.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous dive from high orbital space down through swirling auroral fire into the heart of the 150-kilometer golden plasma monorail engine, skimming across glowing liquid starlight tracks, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Superconducting Snowfield Monorail Fortress - Level 10",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
