@@ -1,0 +1,18 @@
+{
+  "idea_id": 137,
+  "idea_title": "Cornfield Solar Furnace",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 137,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Cornfield Solar Furnace begins a spiralling descent around its maximum alien-scale mirrored canopy above endless Corn Field continents, revealing the ultimate solar climate machine. 0-1s HUD: SPIN UP, horizon-wide mirrors rotate. 1-2s HUD: DEPLOY, impossible support structures activate. 2-3s HUD: CHANNEL, planetary solar pathways illuminate. 3-4s HUD: FILTER, global moisture systems synchronize. 4-5s HUD: DELIVER, balanced energy reaches every field. 5-8s the camera spirals around the colossal canopy until the Cornfield Solar Furnace becomes a monumental silhouette against the vast sky, with every running light igniting in sequence across the alien-scale structure.",
+  "video_prompt_title": "Cornfield Solar Furnace - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Cornfield Solar Furnace is an alien-scale impossible solar agriculture machine dominating an entire world, yet unmistakably built around its signature flat mirrored overhead canopy suspended by impossibly thin colossal masts. The structure stretches beyond the horizon above endless Corn Field continents, containing infinite solar trough mirrors, planetary moisture regulators, thermal balancing corridors, and atmospheric climate systems. The corn landscape below provides recognizable identity through golden geometric fields covering the planet. Solar energy appears as massive reflected streams moving through the canopy. Preserve the flat overcast diffusion, desaturated industrial palette, wet reflective surfaces, and mysterious engineered farming atmosphere.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
