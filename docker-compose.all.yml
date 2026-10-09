@@ -82,6 +82,7 @@ services:
       - ./docker_flow_workers/flow_worker_server.py:/app/flow_worker_server.py:rw
       - ./docker_flow_workers/flow_queue_manager.py:/app/flow_queue_manager.py:rw
       - ./docker_flow_workers/browser_supervisor.py:/app/browser_supervisor.py:rw
+      - ./docker_flow_workers/flow_guards.py:/app/flow_guards.py:rw
     networks:
       - youtube_pipeline_net
     healthcheck:

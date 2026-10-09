@@ -25,4 +25,4 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY worker_server.py /app/worker_server.py
 
 # Launch Xvfb virtual display and Uvicorn FastAPI server on internal port 8000
-CMD ["sh", "-c", "rm -f /tmp/.X99-lock && Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset & uvicorn worker_server.py:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "rm -f /tmp/.X99-lock && Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset & uvicorn worker_server:app --host 0.0.0.0 --port ${PORT:-8000}"]
