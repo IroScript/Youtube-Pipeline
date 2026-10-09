@@ -1,0 +1,18 @@
+{
+  "idea_id": 101,
+  "idea_title": "Planetary Pruning Spider",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 101,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Planetary Pruning Spider ascends vertically from an infinite Apple Orchard world in the final 8-second continuous shot with no cuts. The camera begins near the illuminated orchard floor and climbs the complete height of the alien honeycomb structure while planetary pruning systems operate everywhere. At 0.8 seconds HUD popup: SPIN UP; at 1.8 seconds HUD popup: DEPLOY; at 2.8 seconds HUD popup: CHANNEL. The final five seconds reveal the ultimate discharge architecture as perfected biological material flows continuously from the machine, and the camera follows the stream away through the endless darkness surrounding the colossal Planetary Pruning Spider.",
+  "video_prompt_title": "Planetary Pruning Spider - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Planetary Pruning Spider reaches maximum impossible scale as an alien honeycomb machine larger than planetary systems, towering above an infinite Apple Orchard universe. Its repeating cellular structure contains endless pruning factories, microscopic cutter swarms, root tomography systems, fertilizer reactors, genetic vaults, and autonomous repair networks. Eight unimaginable articulated legs reshape planetary terrain while maintaining perfect orchard balance through quantum gravity manipulation. Energy radiates from stellar harvest collectors, plasma arteries, and thermal towers embedded throughout the colossal structure. The deep night scene remains filled with brutal floodlights and intense shadows, presenting the ultimate agricultural machine as a moving artificial world.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

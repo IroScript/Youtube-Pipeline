@@ -1,0 +1,18 @@
+{
+  "idea_id": 103,
+  "idea_title": "Solar Titan Harvester",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 103,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Solar Titan Harvester occupies a locked low-angle push-in shot across an impossible world-sized Sunflower Field, its continuous-track crawler chassis filling the storm-dark vertical frame like a moving continent. At 0-1 seconds HUD popup: CALIBRATE, planetary intelligence maps every sunflower region. At 1-2 seconds HUD popup: ENGAGE, alien-scale harvesting frameworks activate. At 2-3 seconds HUD popup: CONVEY, endless agricultural transport systems flow. At 3 seconds HUD popup: SEPARATE, colossal refinery networks transform harvested material. At 3-4 seconds HUD popup: DISCHARGE, engineered landscapes emerge behind the crawler. From 4-8 seconds the camera rises into a perfectly straight top-down orthographic view, revealing the Solar Titan Harvester as a gigantic geometric pattern spanning the entire storm-covered sunflower world.",
+  "video_prompt_title": "Solar Titan Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Solar Titan Harvester reaches maximum impossible scale as an alien agricultural crawler covering an entire world-sized Sunflower Field. Its low continuous-track chassis becomes a moving continent while retaining its unique harvesting identity through colossal telescoping trusses, rotary cutter crowns, flexible gripping claws, micro-blade harvesting swarms, and endless conveyor systems feeding a planet-scale sunflower refinery. Solar collector surfaces cover the machine like artificial landscapes, powering glowing plasma conduits and superconducting magnetic buses. Quantum gravity systems visibly stabilize the impossible mass. Storm clouds envelop the structure and lightning traces the silhouette of this world-sized agricultural machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

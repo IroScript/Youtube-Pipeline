@@ -1,0 +1,18 @@
+{
+  "idea_id": 118,
+  "idea_title": "Prairie Memory Engine",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 118,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Prairie Memory Engine spiralling descent shot begins around the maximum alien-scale archival tower dominating the grassland planet, wrapping around stacked tiers that disappear into the storm-filled sky. The one continuous 8-second vertical shot reveals impossible biological restoration systems operating at planetary scale. At 1.0s HUD popup WAKE activates the ultimate archive; 2.0s HUD popup REACH links all ecological memories; 3.0s HUD popup COLLECT captures the history of life; 4.0s HUD popup PROCESS reconstructs forgotten ages; 5.0s HUD popup EMIT restores entire ecosystems; 6.0s HUD popup STABLE maintains the living archive. The final two seconds show massive weather systems turning around Prairie Memory Engine as lightning, rain, and wind reshape the grassland while the tower remains unmoved and continues working.",
+  "video_prompt_title": "Prairie Memory Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Prairie Memory Engine exists at maximum impossible scale as a single slender vertical tower whose stacked tiers rise beyond planetary atmosphere while its base covers a continent-sized grassland archive. The structure remains unmistakably a basalt-armored biological memory machine with articulated trusses, subterranean pressure corridors, molecular reconstruction laboratories, and immense genetic vaults. Botanical arms restore entire extinct ecosystems using quantum information matrices and cellular fabrication systems. Fusion energy flows through plasma conduits across the planet, creating visible networks beneath the prairie. Storm clouds wrap around the tower, lightning tears across its surface, and the entire atmosphere responds to the machine resurrecting ecological time.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 126,
+  "idea_title": "Sandstorm Kinetic Foundry",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 126,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Sandstorm Kinetic Foundry crane shot begins above a Desert planet, the alien-scale rotating torus emerging from cold blue haze as the camera sweeps downward toward the impossible ring. Planetary intake baffles capture global sandstorm motion and drive enormous kinetic energy converters. At 1s INITIALIZE, 2s ALIGN, 3s DRAW IN, 4s TRANSFORM, 5s OUTPUT, 6s ASCEND, HUD beats appear rapidly. The final two seconds rise into a perfectly straight top-down orthographic view, revealing the Sandstorm Kinetic Foundry as a vast geometric pattern covering the desert world.",
+  "video_prompt_title": "Sandstorm Kinetic Foundry - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. Sandstorm Kinetic Foundry reaches an impossible alien scale as a rotating torus fortress spanning an entire Desert planet, with a closed ring silhouette wrapping across the horizon and a central void revealing planetary curvature. The Desert environment stretches beneath it with endless dunes, mountains, and atmospheric storms. The mechanism remains a true Sandstorm Kinetic Foundry: unimaginable intake baffle arrays capture planetary sandstorm kinetic force, rotating conversion structures transform motion into energy, and colossal power networks illuminate the ring. Cold blue pre-dawn light, long shadows, and mist pooling beneath the structure complete the final vision.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

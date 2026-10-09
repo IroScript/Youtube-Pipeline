@@ -1,0 +1,18 @@
+{
+  "idea_id": 120,
+  "idea_title": "Cloudshadow Irrigator",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 120,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Cloudshadow Irrigator starts with the camera inches from an alien-scale underground traction engine beneath Grassland, then relentlessly pulls backward through a planet-sized storm. At 0-1 seconds HUD displays POWER UP as impossible fusion cores awaken. At 1-2 seconds HUD displays EXTEND as world-spanning shadow sails unfold. At 2-3 seconds HUD displays INTAKE as oceans and aquifers connect. At 3-4 seconds HUD displays REFINE as planetary climate streams stabilize. At 4-5 seconds HUD displays STORE as endless subterranean vaults activate. The final three seconds complete the extreme retreat, revealing Cloudshadow Irrigator as a world-dominating moving eclipse across the Grassland, with dozens of identical structures continuing in formation beyond the storm horizon.",
+  "video_prompt_title": "Cloudshadow Irrigator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. Cloudshadow Irrigator reaches maximum impossible scale as an alien-level buried climate machine operating on a Grassland planet, with its underground chassis extending beneath the entire world and only enormous intake structures, spoil formations, and shadow sails emerging above the prairie. The Grassland includes continents, oceans, mountain ranges, and atmospheric storms for scale. Its mechanisms include reality-defying aqueduct systems, quantum-gravity locomotion towers, planet-scale filtration chambers, autonomous underground machine ecosystems, fusion star cores, and atmospheric heat redistribution engines. Energy appears as glowing plasma roots beneath the surface and electromagnetic storms surrounding the sails. Lightning tears through massive clouds as Cloudshadow Irrigator becomes a migrating artificial climate that reshapes the boundary between drought and growth.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

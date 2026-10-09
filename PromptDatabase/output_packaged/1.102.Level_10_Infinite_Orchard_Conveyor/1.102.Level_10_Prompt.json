@@ -1,0 +1,18 @@
+{
+  "idea_id": 102,
+  "idea_title": "Infinite Orchard Conveyor",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 102,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Infinite Orchard Conveyor in a locked low-angle push-in shot, the alien-scale crawler surrounding an Apple Orchard as an impossible planetary machine continuously translates living landscapes through infinite agricultural cycles. The camera pushes beneath the colossal tracks while gravity engines, magnetic systems, and orchard preservation networks operate. At 1s HUD PRIME, 2s HUD LOCK ON, 3s HUD HARVEST, 4s HUD SORT, 5s HUD LOAD, and 6s HUD INFINITE LOOP, six intense HUD beats appear across the machine. The final two seconds show the outer shell peeling away in one continuous motion, revealing a vast working cross-section of synchronized machinery, living orchard infrastructure, and endless internal layers extending beyond perception.",
+  "video_prompt_title": "Infinite Orchard Conveyor - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Infinite Orchard Conveyor is an alien-scale low continuous-track crawler chassis operating on an Apple Orchard, a physically impossible circular machine organism surrounding an entire planet while continuously translating the orchard through endless agricultural stations. The silhouette is a colossal moving ring of segmented rails, planetary conveyor platforms, and towering support structures disappearing beyond the horizon. The Apple Orchard remains a living green world within the machine, with forests, mountains, rivers, and atmosphere preserved inside the loop. The mechanism includes reality-defying gravity engines, planet-wide magnetic propulsion systems, infinite soil transport platforms, autonomous orchard networks, climate reactors, and endless underground processing galleries. Energy shines through artificial suns, plasma arteries, and enormous reactor structures. The scene remains deep night with extreme floodlights, powerful shadows, and a locked low-angle push-in showing the impossible crawler filling the frame.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

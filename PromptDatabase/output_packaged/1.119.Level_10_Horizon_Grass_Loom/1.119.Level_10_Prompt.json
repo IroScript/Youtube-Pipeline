@@ -1,0 +1,18 @@
+{
+  "idea_id": 119,
+  "idea_title": "Horizon Grass Loom",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 119,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Horizon Grass Loom begins a continuous vertical ascent shot from a planetary Grassland plain, rising through endless articulated towers until the alien-scale horizontal weaving machine dominates the entire sky. At 0s HUD shows CALIBRATE as planetary life grids activate. At 1.3s ENGAGE appears as impossible support networks synchronize. At 2.6s CONVEY appears while living ecosystems flow through cosmic-scale weaving corridors. At 3.9s SEPARATE appears as planetary intelligence sorts every biological strand. At 5.2s DISCHARGE appears as gravity and plasma systems reach maximum intensity. The final two seconds show a single energy wave traveling along the entire Horizon Grass Loom, synchronizing every structure across the planet into complete maximum output.",
+  "video_prompt_title": "Horizon Grass Loom - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Horizon Grass Loom reaches alien maximum scale as a planetary-scale horizontal weaving organism-machine spanning entire worlds of Grassland, supported by endless articulated towers that merge mechanical engineering with impossible geometry. The Grassland environment stretches beneath floating living carpets, atmospheric ecosystems, and vast weather formations reshaped by the structure. Its mechanisms include planetary needle assemblies, infinite botanical scanning lattices, gravity-assisted weaving chambers, mycelial fabrication networks, and suspended ecological layers extending beyond the horizon. Energy is visible as planet-circling plasma conduits, superconducting rivers of light, and massive gravitational fields surrounding the Loom. The presentation remains flat overcast, desaturated, wet, industrial, and overwhelmingly vast.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

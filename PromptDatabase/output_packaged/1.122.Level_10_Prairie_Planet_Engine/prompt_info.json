@@ -1,0 +1,18 @@
+{
+  "idea_id": 122,
+  "idea_title": "Prairie Planet Engine",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 122,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Prairie Planet Engine, lateral tracking shot along an alien-scale Grassland honeycomb planetary surface, one continuous 8 seconds, 9:16 vertical. The camera moves beside impossible cellular structures stretching across the world as crust, atmosphere, and ecosystems are continuously corrected. At 1s HUD popup: SPIN UP. At 2s HUD popup: DEPLOY. At 3s HUD popup: CHANNEL. At 4s HUD popup: FILTER. At 5s HUD popup: DELIVER. The final five-second closing move travels across the unimaginable working face while the entire planet's grasslands shift through a complete accelerated day cycle of light, yet the Prairie Planet Engine continues its perfect mechanical rhythm without pause.",
+  "video_prompt_title": "Prairie Planet Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. The Prairie Planet Engine becomes an alien-scale Grassland planetary organism-machine hybrid, a hidden honeycomb chassis larger than worlds, with countless repeating cells forming a mechanical crust beneath endless prairies. Each cell contains impossible geological manipulators, rotating crust platforms, aquifer sculptors, climate control systems, and self-rebuilding industrial chambers. Tower clusters pierce the atmosphere while anchor limbs grip planetary layers across hemispheres. Fusion cores generate vast plasma networks flowing through the cellular structure like artificial planetary nerves. The image preserves the signature low golden-hour sun, warm rim lighting, drifting dust, and lateral perspective as the Engine transforms the entire grassland world into one synchronized machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

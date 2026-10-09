@@ -1,0 +1,18 @@
+{
+  "idea_id": 117,
+  "idea_title": "Thunderhoof Generator",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 117,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Thunderhoof Generator spiralling descent shot around a planet-dominating Grassland machine as invisible footsteps create planetary waves. At 0s HUD UNLOCK initiates complete world mapping. At 1s HUD UNFOLD reveals infinite subterranean architecture. At 2s HUD GATHER activates cosmic restoration chambers. At 3s HUD COMPRESS generates impossible planetary impacts. At 4s HUD RELEASE causes synchronized global blooming. From 5s to 8s the camera completes its spiral around Thunderhoof Generator while the outer shell peels away in one continuous movement, exposing the ultimate working cross-section of the machine where every piston, energy conduit, and ecological layer moves together in perfect synchronization.",
+  "video_prompt_title": "Thunderhoof Generator - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Thunderhoof Generator becomes an impossible cosmic-scale buried machine beneath an entire Grassland planet, with only atmospheric ventilation towers and gigantic anchor formations visible above the surface. The environment shows continents, oceans, storms, planetary curvature, and endless grasslands as scale references. The mechanism is the ultimate artificial herd engine: infinite subterranean piston assemblies march through the planet interior, articulated megaframes flex with gravitational forces, restoration factories recycle planetary matter, and quantum gravity systems amplify each impossible step. Blue plasma energy rivers illuminate the buried structure while magnetic fields distort the atmosphere above. The image presents Thunderhoof Generator under the same cold blue pre-dawn lighting with vast mist layers and monumental shadows, portraying the prairie as a living world powered by hidden footsteps.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

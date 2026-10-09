@@ -1,0 +1,18 @@
+{
+  "idea_id": 106,
+  "idea_title": "Titanic Sun Tracker",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 106,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Titanic Sun Tracker begins with a close shot of a massive solar calibration mechanism moving inside its buried planetary chamber beneath the Sunflower Field, then a relentless 8-second 9:16 vertical pull-back reveals the maximum-scale machine dominating the entire landscape. At 1s HUD popup: PRIME. At 2s HUD popup: LOCK ON. At 3s HUD popup: HARVEST. At 4s HUD popup: SORT. At 5s HUD popup: LOAD. The final 3 seconds settle beside one human silhouette at the Titanic Sun Tracker base, holding on the overwhelming size contrast as the colossal solar wings continue operating above the world. No cuts, harsh vertical noon sun.",
+  "video_prompt_title": "Titanic Sun Tracker - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Titanic Sun Tracker reaches maximum impossible scale as a planet-dominating buried solar array beneath the Sunflower Field. Its exposed structures form a new artificial horizon of photovoltaic wings, gravity-control towers, intake mountains, and glowing thermal radiator fields. The hidden chassis contains unimaginable networks of reflective panels, concentrated-light lenses, spectral filters, plasma conduits, superconducting reservoirs, and autonomous systems that regulate sunlight across entire regions. The sunflower field becomes a thin golden surface surrounding the colossal machine. Human observers stand near its base for scale. Harsh vertical noon sun, bleached highlights, sharp black shadows, ultimate alien agricultural engineering atmosphere.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

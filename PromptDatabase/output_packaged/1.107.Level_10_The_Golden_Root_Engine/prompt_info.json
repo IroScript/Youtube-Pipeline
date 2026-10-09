@@ -1,0 +1,18 @@
+{
+  "idea_id": 107,
+  "idea_title": "The Golden Root Engine",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 107,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Golden Root Engine performs the final slow orbital arc around its alien-scale segmented spine beneath an infinite Sunflower Field in one continuous 8-second 9:16 vertical shot. At 1 second CALIBRATE appears as the machine reads an entire planet's ecosystem. At 2 seconds ENGAGE appears as impossible excavation segments synchronize. At 3 seconds CONVEY appears as artificial root networks connect the world. At 4 seconds SEPARATE appears as planetary processing systems align. From seconds 5 to 8, the outer shell peels away in one continuous monumental movement, exposing the full working cross-section of the Golden Root Engine with every internal layer moving in synchronized order beneath the golden horizon.",
+  "video_prompt_title": "The Golden Root Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Golden Root Engine reaches impossible alien scale beneath an infinite Sunflower Field, becoming a planet-sized segmented mechanical organism whose flexible spine disappears beyond the horizon. Every articulated section contains colossal quantum gravity manipulators, continent-scale drills, floating refinery dimensions, artificial root circulation networks, and vast pressure vault ecosystems. Golden access towers rise like a second planetary forest while plasma energy streams through the buried backbone. The sunflower surface appears alive as synchronized crops grow above the hidden machine. Low golden-hour sunlight, warm rim light, drifting dust, and immense atmospheric scale create the final vision of an impossible agricultural organism.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

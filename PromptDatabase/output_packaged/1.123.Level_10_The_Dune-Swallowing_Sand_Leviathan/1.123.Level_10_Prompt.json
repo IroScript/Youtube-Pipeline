@@ -1,0 +1,18 @@
+{
+  "idea_id": 123,
+  "idea_title": "The Dune-Swallowing Sand Leviathan",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 123,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Dune-Swallowing Sand Leviathan enters a maximum-scale fly-through inside its impossible suspended aerial platform, with the camera threading between alien limbs and internal gantries above infinite Desert worlds. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. Planet-sized revolving bucket wheels continue extracting crystalline minerals beneath the structure. At 1s HUD IGNITE activates alien power networks; 2s HUD SWEEP scans endless deserts; 3s HUD LIFT follows impossible mineral pathways; 4s HUD DISTILL reveals cosmic refinement systems; 5s HUD EJECT displays star-scale mineral transfer; 6s HUD confirms eternal operation. The final two seconds show the Dune-Swallowing Sand Leviathan continuing its rhythm forever as light races through an accelerated full day cycle across its impossible desert domain.",
+  "video_prompt_title": "The Dune-Swallowing Sand Leviathan - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Dune-Swallowing Sand Leviathan reaches maximum alien scale as an impossible suspended aerial platform larger than a star system, held above endless Desert worlds by vast cable structures and incomprehensible mechanical supports. Its unmistakable form consists of gigantic revolving bucket wheels beneath the chassis, each one capable of swallowing entire dune oceans while extracting rare crystalline minerals through infinite processing networks. The Desert environment spans countless planets with artificial settlements and cosmic landscapes showing the machine's impossible magnitude. Mechanisms include reality-defying excavation rings, endless gantries, planetary mineral arteries, and alien energy frameworks. Power radiates from stellar harvesting systems and advanced fusion architectures visible across the structure. Flat overcast artificial skies, wet reflective surfaces, and desaturated industrial tones complete the final impossible vision.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
