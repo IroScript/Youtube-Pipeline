@@ -3,8 +3,10 @@ FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
 
 WORKDIR /app
 
-# Ensure directory structure
-RUN mkdir -p /app/cookies /app/profile /app/temp /app/database
+# Ensure directory structure and chrome executable symlink
+RUN mkdir -p /app/cookies /app/profile /app/temp /app/database \
+    && ln -sf /ms-playwright/chromium-1117/chrome-linux/chrome /usr/bin/google-chrome-stable \
+    && ln -sf /ms-playwright/chromium-1117/chrome-linux/chrome /usr/bin/google-chrome
 
 # Set environment defaults
 ENV PYTHONUNBUFFERED=1 \
