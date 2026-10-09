@@ -1,0 +1,18 @@
+{
+  "idea_id": 82,
+  "idea_title": "Orbital Tea Garden Caretaker",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 82,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Orbital Tea Garden Caretaker begins a fly-through shot inside an alien maximum-scale agricultural framework above a Tea Garden world. The camera threads between unimaginable support limbs and endless internal gantries while the machine controls planetary ecosystems. At 0-1s HUD displays POWER UP, at 1-2s EXTEND, at 2-3s INTAKE, and at 3-4s REFINE as the ultimate caretaker system activates. At 4-8s the camera reaches the enormous discharge point where finished tea output emerges as a continuous stream and follows that stream away from the Orbital Tea Garden Caretaker into the endless artificial night.",
+  "video_prompt_title": "Orbital Tea Garden Caretaker - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Orbital Tea Garden Caretaker reaches impossible alien maximum scale, becoming a horizontal universe-spanning agricultural organism-machine operating on Tea Garden worlds. Endless repeating support legs anchor the colossal structure while infinite underside gantries contain synchronized tea manipulators, atmospheric elevators, quantum environmental scanners, processing civilizations, and artificial gravity systems. Entire planetary Tea Gardens form a living circuit beneath the machine. Energy appears as alien plasma rivers, quantum fields, and cosmic power networks flowing through the chassis. Deep night with brutal artificial floodlights, vast darkness, and a final vision of impossible engineered agriculture.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

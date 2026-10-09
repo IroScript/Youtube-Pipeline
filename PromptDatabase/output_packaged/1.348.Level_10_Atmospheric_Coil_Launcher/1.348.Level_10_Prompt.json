@@ -1,0 +1,18 @@
+{
+  "idea_id": 348,
+  "idea_title": "Atmospheric Coil Launcher",
+  "idea_topic": "Snake",
+  "element_id": 65,
+  "idea_index_in_element": 348,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nAt the ultimate escalation, the Atmospheric Coil Launcher spans an immense section of the landscape, its 3-kilometer launch coil fully transformed into a colossal vertical serpent whose articulated body climbs through multiple atmospheric layers. The machine performs its final chain reaction as every remaining segment folds, contracts, rebounds, and transfers accumulated tectonic torque into one overwhelming upward snap while the ground below continues deforming under the reaction forces.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ARM THE FINAL VERTEBRAL CHAIN\" — Every remaining lock closes simultaneously as hydraulic chambers compress to their absolute mechanical limit.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE PLANETARY RECOIL\" — The entire terrestrial base unloads at once, sending an enormous recoil pulse upward through thousands of articulated segments.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CASCADE THE IMPOSSIBLE SNAP\" — Each vertebra contracts immediately after the previous one, creating a continent-scale traveling acceleration wave that drives the serpent skyward.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: FRACTURE THE LAUNCH BASIN\" — The accumulated reaction force tears open concentric trenches and fracture rings across the landscape while debris and dust surge outward.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE ATMOSPHERIC LAUNCH\" — The final contraction releases every remaining reserve of momentum, sending the serpent and its payload cradles into a violent vertical ascent through the atmosphere.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted extreme pull-back from the ascending head through turbulent cloud layers until the full kilometer-scale serpent, its enormous atmospheric pressure wake, the devastated circular launch basin, concentric fractures, dust rings, payload cradles, mountains, and horizon all become visible as one impossible planetary-scale kinetic event, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Atmospheric Coil Launcher - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

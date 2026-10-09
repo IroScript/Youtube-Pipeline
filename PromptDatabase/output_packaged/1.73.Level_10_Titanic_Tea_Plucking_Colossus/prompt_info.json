@@ -1,0 +1,18 @@
+{
+  "idea_id": 73,
+  "idea_title": "Titanic Tea Plucking Colossus",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 73,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Titanic Tea Plucking Colossus dominates a sweeping crane shot descending from an amber dust cloud layer, revealing an alien-scale buried harvesting world beneath the Tea Garden. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. 0-1s HUD UNLOCK, 1-2s HUD UNFOLD, 2-3s HUD GATHER, 3-4s HUD COMPRESS, 4-5s HUD RELEASE, 5-6s HUD TRANSCEND. Quantum systems pulse as planetary harvesting networks reshape the terrain. 6-8s the camera rises into a straight top-down orthographic view, where the Titanic Tea Plucking Colossus becomes a gigantic geometric pattern covering the landscape.",
+  "video_prompt_title": "Titanic Tea Plucking Colossus - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. Titanic Tea Plucking Colossus becomes an alien-scale buried agricultural machine beneath a world-spanning Tea Garden, with only gigantic intake mountains and spoil structures breaking through the amber dust-covered surface. Its hidden body contains infinite nested armored trusses, superconducting magnetic joints, quantum gravity manipulation systems, plasma energy veins, and endless robotic fingertip harvest networks. The machine reshapes valleys, winds, and atmospheric patterns while harvesting tea with impossible precision. The dim sun glows through thick particulate haze as the Colossus appears like a living mechanical continent integrated into the planet.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

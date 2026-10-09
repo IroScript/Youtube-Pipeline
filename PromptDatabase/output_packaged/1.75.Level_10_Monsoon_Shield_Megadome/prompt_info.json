@@ -1,0 +1,18 @@
+{
+  "idea_id": 75,
+  "idea_title": "Monsoon Shield Megadome",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 75,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Monsoon Shield Megadome begins an 8-second 9:16 vertical one continuous shot as the camera rises from the planetary surface along the alien-scale articulated walking chassis of the atmospheric dome protecting a world-sized Tea Garden. At 1s HUD popup: INITIALIZE, at 2s HUD popup: ALIGN, at 3s HUD popup: DRAW IN, at 4s HUD popup: TRANSFORM, at 6s HUD popup: OUTPUT, with rapid impossible weather calculations flashing between. The ascent reveals a manufactured sky covering the planet through quantum stabilization and colossal retractable ribs. The final two seconds show Monsoon Shield Megadome as a stark silhouette against a limitless sky as every running light across the planetary structure ignites in sequence.",
+  "video_prompt_title": "Monsoon Shield Megadome - Level 10 - ALIEN LEVEL (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. Monsoon Shield Megadome becomes an alien-scale atmospheric boundary spanning an entire planet of Tea Garden landscapes, supported by a physically impossible articulated multi-legged walking chassis crossing continents. The dome forms a manufactured sky of infinite overlapping transparent membranes containing quantum gravity stabilization, superconductive fibers, planetary weather apertures, solar energy layers, thermal radiators, and colossal mechanical flower ribs. Tea regions appear as tiny green textures beneath the structure. Energy is visible as planetary plasma rivers, magnetic fields, and radiant photovoltaic surfaces. Deep night remains dominant with intense floodlights, severe shadows, and a cosmic storm atmosphere.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

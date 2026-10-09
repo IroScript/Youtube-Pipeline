@@ -1,0 +1,18 @@
+{
+  "idea_id": 63,
+  "idea_title": "The Verdant Bamboo Sky-Loom",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 63,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Verdant Bamboo Sky-Loom is revealed in a locked low-angle push-in shot from the Bamboo Forest world, showing an alien-scale honeycomb structure moving bamboo fiber conduits through impossible cable creation systems. At 1 second, HUD popup: POWER UP. At 2 seconds, HUD popup: EXTEND. At 3 seconds, HUD popup: INTAKE. The final five seconds push into the ultimate control heart where infinite mechanisms, moving readouts, and structural systems surround the camera. Final beat at 8 seconds: the viewer remains inside the command core as the entire planet-scale Sky-Loom continues operating around them.",
+  "video_prompt_title": "The Verdant Bamboo Sky-Loom - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Verdant Bamboo Sky-Loom reaches maximum impossible scale as an alien-level honeycomb structure enveloping an entire Bamboo Forest planet and extending across space. Its dense repeating cells contain infinite bamboo fiber conduits, gigantic weaving chambers, autonomous cable-forming systems, and unimaginable tension networks transforming flexible bamboo fibers into ultra-lightweight structural cables beyond known physics. The Bamboo Forest remains visible as a living green world integrated beneath the colossal lattice. Energy flows through stellar-scale collectors, planetary power streams, and luminous artificial channels inside every cell. The presentation remains deep night with hard artificial floodlights, intense pools of illumination, vast darkness, and a locked low-angle frame showing the ultimate Sky-Loom.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

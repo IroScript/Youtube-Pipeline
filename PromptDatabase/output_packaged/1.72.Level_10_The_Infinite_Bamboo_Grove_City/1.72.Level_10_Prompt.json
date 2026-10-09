@@ -1,0 +1,18 @@
+{
+  "idea_id": 72,
+  "idea_title": "The Infinite Bamboo Grove City",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 72,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Infinite Bamboo Grove City begins with a relentless pull-back shot from a single alien-scale pneumatic elevator mechanism inside a bamboo suspension tower, expanding until the impossible metropolis fills the sky above the Bamboo Forest. At 0-1s HUD: SPIN UP. At 1-2s HUD: DEPLOY. At 2-3s HUD: CHANNEL. At 3-4s HUD: FILTER. At 4-5s HUD: DELIVER. At 5-6s HUD: ETERNAL, as infinite platforms activate beyond the horizon. The final 6-8s closing accent shows planetary weather systems twisting around the colossal suspended city while The Infinite Bamboo Grove City continues working, untouched by the environment reacting around it.",
+  "video_prompt_title": "The Infinite Bamboo Grove City - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Infinite Bamboo Grove City becomes an alien-scale suspended metropolis beyond planetary dimensions above an endless Bamboo Forest, with a colossal aerial platform civilization supported by unimaginable networks of flexible living bamboo culms and planetary tether cables. The silhouette includes infinite circular cities floating in the sky, enormous pneumatic elevator towers piercing cloud layers, and mechanical bamboo structures extending across the entire horizon. The mechanism uses impossible self-expansion engines, gigantic pressure-driven transportation systems, autonomous bamboo growth intelligence, and gravity-defying cable stabilization networks. Energy is visibly harvested from stellar radiation, atmospheric forces, and vast glowing biological circuits woven through the bamboo framework. Harsh vertical noon sunlight creates bleached highlights and razor-sharp shadows across the ultimate suspended city dominating the world below.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

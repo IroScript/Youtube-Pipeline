@@ -1,0 +1,18 @@
+{
+  "idea_id": 397,
+  "idea_title": "Metro Mantle Bore",
+  "idea_topic": "City",
+  "element_id": 26,
+  "idea_index_in_element": 397,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final manifestation of the Metro Mantle Bore becomes an impossible kilometer-scale planetary construction engine beneath an entire city, with countless rotating rings, armored shafts, tectonic braces, excavation teeth, compression chambers, and mechanical foundation manipulators operating as one synchronized machine. The entire metropolitan underground appears transformed into a vast moving lattice while the surface city rises, rotates, and settles across newly manufactured geological layers.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: DEPLOY TOTAL MANTLE ARRAY\" — Every major cutter ring, support rib, foundation clamp, gyroscope, and compression assembly extends simultaneously across the subterranean metropolis.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH TECTONIC ROTATION\" — Thousands of mechanical drive systems accelerate in synchronized counter-rotation, producing impossible cumulative torque that moves the entire buried urban layer.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REWRITE UNDERGROUND GEOLOGY\" — Soil, bedrock, foundations, tunnels, utilities, and transit corridors are mechanically rotated, translated, compressed, and reseated into a new continuous three-dimensional structure.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: LIFT AND REPOSITION METROPOLIS\" — Vast sections of the city rise on synchronized underground supports while roads, towers, bridges, and transit lines shift into a completely new layered configuration.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: FORGE PLANETARY TRANSIT LATTICE\" — The machine compresses the final displaced mass into gigantic reinforced vaults, locking an unprecedented multi-level transit geology beneath the entire metropolis.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins deep beneath the rotating cutter core and executes one continuous accelerating pull-back through transparent geological layers, revealing the kilometer-scale machine beneath the entire city as districts, towers, roads, bridges, railways, and foundations settle into a colossal newly engineered urban lattice, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Metro Mantle Bore - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

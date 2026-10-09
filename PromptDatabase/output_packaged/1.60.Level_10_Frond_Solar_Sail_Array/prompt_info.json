@@ -1,0 +1,18 @@
+{
+  "idea_id": 60,
+  "idea_title": "Frond Solar Sail Array",
+  "idea_topic": "Palm Tree",
+  "element_id": 4,
+  "idea_index_in_element": 60,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Frond Solar Sail Array begins with a sweeping crane shot descending from deep space toward a Palm Tree supporting an alien-scale flat solar canopy. The enormous structure resolves from atmospheric haze and dominates the planet below. At 1s HUD popup: WAKE. At 2s HUD popup: REACH. At 3s HUD popup: COLLECT. The camera spends the final movement traveling over the impossible reflective sail geometry as photon engines, gravity systems, and counterweights synchronize. At 8s the camera rises into a straight top-down orthographic view, showing the Frond Solar Sail Array as a universe-scale geometric pattern written across the landscape.",
+  "video_prompt_title": "Frond Solar Sail Array - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Frond Solar Sail Array operating on a Palm Tree reaches maximum alien scale, transforming the tree into the anchor of a universe-class photonic lifting engine. The broad flat overhead canopy stretches beyond continents with countless thin masts, gigantic frond-mounted articulated frames, superconducting hinges, quantum gravity manipulators, reflective metamaterial sails, and planetary counterweight systems. The environment shows an entire world beneath the Palm Tree, with oceans, storms, and cities reduced to scale markers. Stellar energy floods the structure, plasma conduits glow like rivers, and thermal exhaust beams radiate into space. The harsh vertical noon sun creates bleached highlights and sharp black shadows across the impossible geometric machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

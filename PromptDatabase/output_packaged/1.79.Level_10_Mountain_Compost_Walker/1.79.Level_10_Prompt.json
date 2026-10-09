@@ -1,0 +1,18 @@
+{
+  "idea_id": 79,
+  "idea_title": "Mountain Compost Walker",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 79,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Mountain Compost Walker moves across an entire Tea Garden planet in a legendary lateral tracking shot along its endless compost-processing face. 0-1s HUD: IGNITE activates maximum energy cores. 2-3s HUD: SWEEP commands planetary organic recovery. 3-4s HUD: LIFT feeds impossible digestion realms. 4-8s the camera races beside the colossal horizontal structure as clouds flow around its upper frame and compost systems reshape the landscape, ending with Mountain Compost Walker falling into stark silhouette against the vast sky while running lights ignite in a synchronized sequence across the horizon.",
+  "video_prompt_title": "Mountain Compost Walker - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Mountain Compost Walker reaches maximum impossible scale, becoming a landscape-dominating horizontal compost civilization machine operating across an entire Tea Garden planet. Its repeating support legs form moving bridges over mountain chains while its underside contains endless compost ecosystems of shredding corridors, microbial fermentation worlds, molecular balancing engines, moisture recovery structures, and nutrient distribution rivers. Tea gardens exist like tiny patterns beneath its footsteps. Plasma energy streams through the colossal chassis and quantum gravity manipulation creates visible distortions around the machine. The low golden-hour sun, warm rim light, suspended dust, and vast atmospheric mist transform the Walker into a migrating mountain feeding the living earth.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

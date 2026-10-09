@@ -1,0 +1,18 @@
+{
+  "idea_id": 77,
+  "idea_title": "Tea Garden Climate Engine",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 77,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Tea Garden Climate Engine begins a locked low-angle push-in shot as the maximum-scale alien walker rises above the Tea Garden world, its articulated legs moving across continents while atmospheric ducts command global wind and cloud systems. The enormous climate tower fills the frame with rotating energy rings. At 1 second HUD popup: POWER UP. At 2 seconds HUD popup: EXTEND. At 3 seconds HUD popup: INTAKE. At 4 seconds HUD popup: REFINE. At 5 seconds HUD popup: STORE. The final five seconds become an extreme wide retreat beyond the horizon, revealing an endless formation of identical Tea Garden Climate Engines spanning the planet in perfect alignment beneath the harsh vertical sun.",
+  "video_prompt_title": "Tea Garden Climate Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Tea Garden Climate Engine reaches maximum impossible scale, becoming an alien-level walking atmospheric civilization machine dominating the entire Tea Garden planet. Its articulated multi-legged chassis has legs larger than mountain ranges, a vertical climate tower piercing the atmosphere, rotating truss rings spanning continents, and atmospheric ducts branching across the world like mechanical rivers. The Tea Garden setting remains recognizable through endless tea terraces, valleys, and ecosystems beneath the machine. The mechanism includes impossible quantum weather engines, planetary cloud circulation turbines, atmospheric processing worlds, gravitational airflow manipulators, and infinite water recovery systems integrated into the chassis. Energy shines through gigantic plasma veins, magnetic fields, and superconducting structures visible from space. Harsh vertical noon sunlight creates the same bleached highlights and razor shadows across the alien machine. The locked low-angle view makes the Tea Garden Climate Engine appear as the ultimate walking artificial mountain controlling the planet's climate.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

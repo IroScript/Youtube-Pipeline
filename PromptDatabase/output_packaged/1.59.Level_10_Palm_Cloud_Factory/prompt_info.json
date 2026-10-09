@@ -1,0 +1,18 @@
+{
+  "idea_id": 59,
+  "idea_title": "Palm Cloud Factory",
+  "idea_topic": "Palm Tree",
+  "element_id": 4,
+  "idea_index_in_element": 59,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Palm Cloud Factory close-up shot begins on a gigantic discharge valve opening within the living cosmic palm crown, then the camera performs its relentless uninterrupted pull-back for exactly 8 seconds, revealing the valve as part of an impossible world-dominating suspended atmospheric factory, concentric magnetic-gravity rings, horizon-crossing cables and planetary intake vortices. 0.5s HUD: UNLOCK. 1.5s HUD: UNFOLD as the colossal weather canopy expands across the horizon. 2.5s HUD: GATHER as storms and cloud systems spiral inward. 3.5s HUD: COMPRESS as planetary reservoirs condense a new atmosphere. From 4.0s onward, 5.0s HUD: RELEASE appears while a continuous monumental stream of engineered rain, cloud and luminous vapor erupts from the Palm Cloud Factory discharge point; the camera follows that stream away from the machine across the curved world, ending exactly at 8 seconds as the output becomes a vast aurora-lit weather river flowing into the distance.",
+  "video_prompt_title": "Palm Cloud Factory - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic ultra-high-detail maximum-scale vision of the Palm Cloud Factory as a physically impossible world-dominating atmospheric machine suspended above a cosmic palm tree whose trunk rises from the planet like a geological axis and whose fronds spread into the factory itself. A mechanical continent larger than visible mountain ranges hovers through impossible magnetic-gravity fields, tethered by luminous cables crossing oceans and continents. Planet-sized intake vortices harvest clouds, storms and neighboring atmospheric layers into infinite cyclone chambers, quantum condensation vaults and programmable weather oceans. Plasma energy forms green-violet halos around the suspended chassis while artificial cloud architecture wraps the horizon. Cities vanish beneath its moving shadow, and controlled precipitation streams reshape the entire visible world in crisp cold aurora light.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 76,
+  "idea_title": "Rootwater Planetary Drill",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 76,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Rootwater Planetary Drill lateral tracking shot moving beside an alien maximum-scale working face beneath a Tea Garden planet, revealing a horizontal machine larger than landscapes with endless support structures. Second 1: Rootwater Planetary Drill impossible systems activate with HUD popup INITIALIZE. Second 2: planetary consciousness mapping aligns with HUD popup ALIGN. Second 3: world-spanning extraction tendrils emerge with HUD popup DRAW IN. Second 4: alien transformation factories rebuild the crust with HUD popup TRANSFORM. Second 5: planetary artificial aquifer output begins with HUD popup OUTPUT. Seconds 6-8: the camera settles beside a single human silhouette at the structure base and holds the final size comparison as the Rootwater Planetary Drill operates overhead in the darkness.",
+  "video_prompt_title": "Rootwater Planetary Drill - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Rootwater Planetary Drill operating on Tea Garden reaches alien maximum scale, becoming a landscape-dominating subterranean machine whose horizontal mechanical mountain stretches beneath an entire world of tea cultivation. Endless repeating support legs anchor the structure through planetary layers while unimaginable drill assemblies rotate beneath the surface. Quantum-gravity pulse engines map entire planetary water systems, branching mechanical tendrils form artificial aquifers beneath every tea field, and colossal internal factories transform rock, minerals, and water into a self-balancing planetary ecosystem. Plasma conduits, magnetic suspension fields, and geothermal reactors create visible energy storms across the chassis. Deep night, hard floodlights, steam columns, and vast darkness frame the ultimate Rootwater Planetary Drill.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 64,
+  "idea_title": "Jade Spire Harvesting Spider",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 64,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Jade Spire Harvesting Spider begins with a close shot of an alien-scale hydraulic limb locking onto a skyscraper bamboo stalk, then the camera relentlessly pulls back to reveal the impossible suspended aerial platform covering the entire Bamboo Forest world. At 0.5s HUD popup: IGNITE. At 1.5s HUD popup: SWEEP. At 2.5s HUD popup: LIFT. At 3.5s HUD popup: DISTILL. At 4.5s HUD popup: EJECT. At 5.5s HUD popup: ASCEND. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. Amber dust and thick haze surround the alien machine as its cables create planetary-scale geometry. The final two seconds rise into a straight top-down orthographic view showing the Jade Spire Harvesting Spider as a vast impossible pattern covering the landscape.",
+  "video_prompt_title": "Jade Spire Harvesting Spider - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Jade Spire Harvesting Spider reaches maximum alien scale as an impossible suspended aerial platform dominating an entire world of Bamboo Forest. Its silhouette is unmistakably an enormous hydraulic arachnid with planetary-length articulated limbs, suspended chassis sections, laser pruning towers, pneumatic sorting megastructures, and cable networks embedded across the landscape. The machine still performs bamboo harvesting and growth management through its specialized mechanisms. Energy is supplied by unimaginable solar membranes and glowing hydraulic channels spanning the structure like artificial rivers. The amber dust-laden atmosphere, heavy particulate haze, and dim sun disc remain unchanged as the machine becomes a landscape-sized geometric presence.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

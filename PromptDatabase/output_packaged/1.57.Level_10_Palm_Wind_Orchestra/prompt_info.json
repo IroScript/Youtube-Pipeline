@@ -1,0 +1,18 @@
+{
+  "idea_id": 57,
+  "idea_title": "Palm Wind Orchestra",
+  "idea_topic": "Palm Tree",
+  "element_id": 4,
+  "idea_index_in_element": 57,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Palm Wind Orchestra opens with a slow orbital arc circling the surface rim of its maximum-scale alien buried wind instrument, revealing continent-sized turbine ranges around a palm tree whose crown reaches the edge of space, one continuous 8-second 9:16 vertical shot with no cuts. At second 1 the planetary intake structures ignite into atmospheric motion, HUD: IGNITE. At second 2 horizon-spanning sensors trace global turbulence, HUD: SWEEP. At second 3 impossible robotic arms lift vanes larger than mountain chains toward the palm crown, HUD: LIFT. At second 4 quantum gravity chambers and condensation systems reshape entire weather currents, HUD: DISTILL. At second 5 enormous atmospheric outlets open, HUD: EJECT. For the final 3 seconds, the orbital arc never breaks as a single travelling wave of blue energy floods the full visible length of the Palm Wind Orchestra, every system reaches synchronized full output, and the entire palm, atmosphere and machine pulse together as one colossal mechanical symphony.",
+  "video_prompt_title": "Palm Wind Orchestra - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra-detailed and physically impossible in scale. The Palm Wind Orchestra is a maximum-scale alien atmospheric machine buried beneath a landscape-dominating ring so vast that continents function as its foundation, while only colossal intake spires, rotating turbine ranges, spoil continents, compression chasms and radiator arcs breach the surface around a palm tree whose crown extends into the edge of space. The hidden machine uses planet-sized magnetic rotors, plasma conduits, superconducting airflow regulators and quantum gravity manipulation chambers to redirect entire atmospheric circulation systems into precisely timed pulses through the palm fronds. Blue energy veins span the horizon. Cloud oceans spiral around the ring, long shadows cross continents, and cold pre-dawn mist pools in impossible valleys.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 351,
+  "idea_title": "Molten Serpent Forge",
+  "idea_topic": "Snake",
+  "element_id": 65,
+  "idea_index_in_element": 351,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nAt maximum operation, the Molten Serpent Forge has transformed an entire volcanic region into a gigantic artificial geological machine, with kilometer-scale coils buried beneath newly formed ridges and its armored head emerging through a sea of incandescent lava. Every mechanical system operates simultaneously as the serpent folds, compresses, redirects, and ejects molten material, creating an impossible engineered landscape that continues reshaping itself behind the advancing machine.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL COIL SYNCHRONIZATION\" — Every exposed and buried segment locks into a single coordinated mechanical sequence spanning the entire volcanic region.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM TECTONIC TORQUE\" — The complete serpent contracts with impossible rotational force, transmitting a colossal mechanical wave through the crust and molten interior.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY MAGMA FOLDING\" — Interlocking coils mechanically fold gigantic volumes of magma inward, sideways, downward, and upward through engineered channels.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL LANDSCAPE RESTRUCTURE\" — Artificial ridges surge upward while glowing channels split across the surface and newly displaced lava floods selected corridors.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: MOLten SERPENT FORGE ASCENSION\" — The machine performs one final synchronized contraction, forcing a colossal interconnected eruption network across the entire transformed volcanic landscape.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins beside the serpent's incandescent head, then continuously pulls backward and upward through towering lava plumes, revealing the full kilometer-scale machine wrapped around a vast network of artificial ridges, glowing magma channels, fractured crust, cooling black rock, and erupting pressure vents as the final contraction wave travels visibly through the landscape, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Molten Serpent Forge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

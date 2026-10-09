@@ -1,0 +1,18 @@
+{
+  "idea_id": 74,
+  "idea_title": "Skyloom Tea Pruning Ring",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 74,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Skyloom Tea Pruning Ring lateral tracking shot races beside the maximum-scale working face as the machine dominates an entire Tea Garden planet. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. 0-1s HUD popup IGNITE: impossible power architecture begins. 1-2s HUD popup SWEEP: planetary tea systems synchronize. 2-3s HUD popup LIFT: infinite pruning modules move. 3-4s HUD popup DISTILL: colossal processors transform biomass. 4-8s the camera remains alongside the endless ring as golden dust rises, clouds twist violently, and the surrounding weather changes around the Skyloom Tea Pruning Ring while it continues its planetary agricultural ritual.",
+  "video_prompt_title": "Skyloom Tea Pruning Ring - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Skyloom Tea Pruning Ring reaches maximum alien scale, becoming a horizon-spanning orbital agricultural circle above a planet-sized Tea Garden. Its horizontal chassis is supported by impossible repeating towers that pierce the atmosphere, carrying quantum gravity anchors and massive lift systems. The underside contains endless pruning modules with lidar forests, multispectral intelligence arrays, microscopic cutter arms, magnetic suspension fields, and vacuum biomass collectors. Superconductive girders and plasma conduits glow like artificial constellations. Golden-hour light surrounds the alien halo while dust, clouds, and planetary weather react around the colossal operating machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

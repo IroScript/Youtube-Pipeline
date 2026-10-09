@@ -1,0 +1,18 @@
+{
+  "idea_id": 80,
+  "idea_title": "Terrace-Shaping Earth Titan",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 80,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Terrace-Shaping Earth Titan performs the ultimate continuous fly-through shot across an impossible Tea Garden planet dominated by its continent-sized crawler chassis. At 1 second HUD popup: UNLOCK, planetary intelligence fully activates. At 2 seconds HUD popup: UNFOLD, alien-scale terrace systems expand across continents. At 3 seconds HUD popup: GATHER, mountains become raw material for the Titan factories. The final five seconds travel through city-sized internal gantries and processing chambers before the camera comes to rest inside the control heart of the Terrace-Shaping Earth Titan, surrounded by endless moving readouts and the mechanisms of a world-shaping machine.",
+  "video_prompt_title": "Terrace-Shaping Earth Titan - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Terrace-Shaping Earth Titan becomes an alien-level impossible crawler continent, yet its defining form remains the immense continuous-track chassis, excavation arms, and terrace-building systems designed for Tea Gardens. The machine stretches beyond horizons while reshaping entire planetary mountain ranges into engineered tea landscapes. Quantum geological probes, gravitic engines, plasma excavation systems, and gigantic soil synthesis factories operate throughout its structure. Tiny tea plantations surround its tracks like living patterns. Cold blue pre-dawn light, deep mist, and enormous shadows create the final image of a manufactured geological civilization.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

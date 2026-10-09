@@ -1,0 +1,18 @@
+{
+  "idea_id": 71,
+  "idea_title": "The Bamboo Ring Leviathan",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 71,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Bamboo Ring Leviathan begins a sweeping crane shot descending from cosmic darkness, resolving into the ultimate circular crawler dominating countless Bamboo Forest mountain worlds. At 0-1s HUD: POWER UP. At 1-2s HUD: EXTEND, as universe-scale honeycomb rings expand. At 2-3s HUD: INTAKE, as planetary forests move through the mechanism. At 3-4s HUD: REFINE, as infinite systems align. At 4-8s the final camera movement travels beside the impossible crawler while the outer shell peels away in one continuous motion, exposing the complete working cross-section where every internal layer moves in synchronized order.",
+  "video_prompt_title": "The Bamboo Ring Leviathan - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Bamboo Ring Leviathan reaches maximum impossible scale as a universe-spanning circular segmented crawler operating across countless Bamboo Forest mountain worlds. Its dense honeycomb mass of repeating cells carries bamboo material between infinite internal chambers while enormous ring mechanisms bend entire planetary forests into natural defensive archways. The machine remains a recognizable circular crawler with colossal segmented rings, bamboo shaping corridors, and synchronized cellular architecture. Galaxies, planets, and mountain ecosystems provide scale. Stellar fusion collectors and impossible energy networks illuminate pathways across the honeycomb shell. Deep night dominates the scene with powerful artificial floodlights creating immense contrasts between visible machinery and cosmic darkness.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

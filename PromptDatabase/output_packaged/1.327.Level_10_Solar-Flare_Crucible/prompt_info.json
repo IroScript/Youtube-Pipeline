@@ -1,0 +1,18 @@
+{
+  "idea_id": 327,
+  "idea_title": "Solar-Flare Crucible",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 327,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final state transforms the Solar-Flare Crucible into an impossible planetary-scale engine dominating an immense volcanic region, with kilometer-wide counter-rotating rings, towering recoil structures, and a colossal stellar-temperature fire vortex extending from the ground into the atmosphere. Every component operates in synchronized motion as the machine converts tectonic mechanical torque into a sustained rotating fire system that reshapes the surrounding atmosphere and landscape.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ENGAGE PLANETARY TORQUE CORE\" — The central shaft and all surrounding drive rings lock together and begin rotating with immense synchronized mechanical force, forcing the entire basin to tremble.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ACCELERATE TOTAL ROTATIONAL MASS\" — Thousands of tons of articulated machinery accelerate around multiple axes while recoil towers anchor the system against the fractured terrain.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: MANIPULATE STELLAR-TEMPERATURE FIRE\" — The machine compresses, spins, launches, bends, and returns a gigantic white-hot plasma column as one coherent mechanically controlled mass.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: DISPLACE PLANETARY ATMOSPHERE\" — A vast ring of clouds, dust, ash, and heated air is driven outward from the Crucible, exposing a glowing circular corridor across the landscape.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ACHIEVE INFERNAL MECHANICAL SINGULARITY\" — The entire fire system erupts into a colossal rotating spiral that rises above the cloud layer, bends across the sky, and feeds its incandescent energy back toward the machine.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an uninterrupted cinematic pull-back from the vibrating machinery to an immense aerial reveal, showing the full kilometer-scale Crucible, the towering spiral of white-hot fire, expanding atmospheric shock rings, displaced clouds, glowing volcanic terrain, and continuous tectonic-scale rotation, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Solar-Flare Crucible - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

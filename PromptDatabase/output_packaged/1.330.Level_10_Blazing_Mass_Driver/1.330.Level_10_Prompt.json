@@ -1,0 +1,18 @@
+{
+  "idea_id": 330,
+  "idea_title": "Blazing Mass Driver",
+  "idea_topic": "Fire",
+  "element_id": 45,
+  "idea_index_in_element": 330,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final Blazing Mass Driver operation spans a gigantic continental landscape beneath a turbulent atmosphere, with kilometer-scale machinery disappearing beyond the horizon and colossal fire systems embedded through mountains, valleys, and engineered corridors. At the center, the original rock mass is transformed into an incandescent momentum carrier while every furnace, rail, flywheel, anchor, counterweight, and guidance system reaches synchronized maximum operation.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: UNLEASH THE PLANETARY FIRE CASCADE\" — Every combustion vault across the colossal corridor opens and ignites in a perfectly timed sequence, producing a continuous chain of white-orange fire extending across the landscape.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: ENGAGE TECTONIC TORQUE NETWORK\" — Mountain-sized flywheels rotate at extreme speed while buried shafts twist through enormous mechanical arcs and counterweights swing backward, locking the entire machine against the planet.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CONVERT FIRE INTO IMPOSSIBLE MOMENTUM\" — The synchronized pressure front continuously pushes the incandescent slab forward, sustaining acceleration through thousands of sequential firing chambers as the rails flex under the load.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: DISPLACE THE CONTINENTAL ENVIRONMENT\" — The projectile's expanding pressure field drives enormous dust waves across valleys, strips loose material from mountain slopes, and pushes atmospheric clouds upward in a vast circular disturbance.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE PLANETARY-SCALE FIRE PROPULSION\" — The rock becomes a blazing near-instantaneous streak while the entire machine executes one final synchronized recoil cycle, transferring fire into pressure, pressure into acceleration, acceleration into momentum, and momentum into massive environmental displacement.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins directly behind the incandescent projectile, accelerates with it through a colossal tunnel of fire, then performs a continuous vertical orbital pull-back far above the atmosphere to reveal the full continental machine, its glowing acceleration corridor, expanding shockwave, disturbed cloud systems, and vast landscape responding to the impossible operation, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Blazing Mass Driver - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

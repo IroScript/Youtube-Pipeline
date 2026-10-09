@@ -1,0 +1,18 @@
+{
+  "idea_id": 69,
+  "idea_title": "The Titan Bamboo Splitter",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 69,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Titan Bamboo Splitter appears in a lateral tracking shot traveling along an alien-scale rotating torus above the endless Bamboo Forest dimension. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. At 0s-1s HUD popup: WAKE, showing the impossible ring consciousness starting. At 1s-2s HUD popup: REACH, showing dimension-wide bamboo pathways connecting. At 2s-3s HUD popup: COLLECT, showing endless composite streams entering the foundry. From 3s-8s the camera comes to rest inside the control heart of the Titan Bamboo Splitter, surrounded by moving PROCESS and EMIT readouts, alien mechanical interfaces, and the rotating circular machine core filling the chamber with golden-hour reflections.",
+  "video_prompt_title": "The Titan Bamboo Splitter - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. The Titan Bamboo Splitter reaches an alien impossible scale as a universe-spanning closed torus foundry built around a limitless Bamboo Forest dimension. The enormous circular structure dominates the landscape, with a central void larger than planets and rotating blade rings that split entire forests into microscopic composite sheets through impossible industrial precision. The mechanism combines infinite circular cutter arrays, reality-defying bamboo transport pathways, self-evolving composite processors, and endless rotating foundry layers. Energy is visible as a golden magnetic field and immense power channels flowing through the ring. The golden-hour mood remains consistent, with warm rim light, suspended dust, and the machine appearing as an ancient industrial wonder beyond civilization.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

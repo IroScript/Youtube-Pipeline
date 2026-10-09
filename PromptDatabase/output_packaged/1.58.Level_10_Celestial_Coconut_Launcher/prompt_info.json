@@ -1,0 +1,18 @@
+{
+  "idea_id": 58,
+  "idea_title": "Celestial Coconut Launcher",
+  "idea_topic": "Palm Tree",
+  "element_id": 4,
+  "idea_index_in_element": 58,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Celestial Coconut Launcher, sweeping crane shot descending from beyond the atmosphere as the maximum-scale articulated machine resolves from planetary haze around a living palm tree, sixteen impossible locomotive legs striding across continents, oceans and cloud layers, 9:16 vertical, exactly 8 seconds, one continuous shot, no cuts. At 0.3s HUD popup: INITIALIZE. At 1.0s: ALIGN as planet-encircling superconducting rings converge. At 1.7s: DRAW IN while robotic harvest structures gently transfer coconuts from the cosmic palm crown. At 2.5s: TRANSFORM as impossible processing galleries stabilize and balance each payload. At 3.3s: OUTPUT. At 4.2s: OUTPUT as quantum gravity folds the horizon around the discharge vector. From 6.0s to 8.0s, the launcher releases a continuous stream of luminous coconuts into an immense artificial magnetic net, and the camera follows the stream away from the machine as it becomes a glowing orbital river across the sky.",
+  "video_prompt_title": "Celestial Coconut Launcher - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic high-detail image of the Celestial Coconut Launcher at maximum physically impossible scale, a landscape-dominating articulated multi-legged machine operating directly around a single living palm tree that has become a cosmic monument. Sixteen incomprehensibly vast locomotive legs stride across continents, oceans and atmospheric layers, continuously repositioning circular fortress rings around the expanding trunk. Robotic harvest architectures still reach into the palm crown and gently transfer mature coconuts through magnetically suspended feed tubes into impossible stacked galleries of fiber separation, atmospheric stabilization, gyroscopic calibration and armored orbital storage. Superconducting acceleration rings surround the planet while quantum gravity manipulators visibly curve horizons toward the discharge path. Blue-white plasma auroras reflect on wet metallic continents under flat overcast diffusion, desaturated industrial palette, sweeping crane descent from beyond the atmosphere through immense haze.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 396,
+  "idea_title": "Skyline Torsion Loom",
+  "idea_topic": "City",
+  "element_id": 26,
+  "idea_index_in_element": 396,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe ultimate Skyline Torsion Loom dominates the entire visible metropolitan region, a colossal kilometer-scale industrial architecture of counter-rotating drums, torque towers, articulated clamps, tension cables, and moving structural rings. The city has become the machine's material, with skyscrapers, bridges, roads, railways, foundations, and subterranean systems continuously repositioning into one planetary-scale structural web.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SEIZE THE ENTIRE CITY\" — Thousands of colossal clamps simultaneously lock onto every major structural layer, from skyscraper cores and bridges to highways, rail networks, and deep foundations.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE MAXIMUM TECTONIC TORQUE\" — All counter-rotating drums accelerate together, transferring unimaginable rotational force through the entire urban grid as enormous torque arms sweep across the skyline.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REWEAVE PLANETARY INFRASTRUCTURE\" — Entire districts rotate through three-dimensional arcs while roads, bridges, towers, transit corridors, and buried networks dynamically reconnect into impossible continuous load paths.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESHAPE THE METROPOLITAN LANDSCAPE\" — Controlled ground deformation ripples for kilometers, city blocks slide into new alignments, bridges swing across vast gaps, and streets fold into enormous structural ramps.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE SKYLINE TORSION WEAVE\" — The entire metropolis locks into a colossal continuous load-bearing lattice, every major structure mechanically integrated into a unified rotating network spanning the horizon.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an unbroken monumental pull-back from a close-up of interlocking structural cores to a high-altitude orbital reveal, showing the entire transformed city rotating as one impossible planetary-scale machine while the final torque wave travels across the urban lattice, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Skyline Torsion Loom - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

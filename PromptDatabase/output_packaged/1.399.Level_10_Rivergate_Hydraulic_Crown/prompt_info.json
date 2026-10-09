@@ -1,0 +1,18 @@
+{
+  "idea_id": 399,
+  "idea_title": "Rivergate Hydraulic Crown",
+  "idea_topic": "City",
+  "element_id": 26,
+  "idea_index_in_element": 399,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe final escalation reveals the fully activated Rivergate Hydraulic Crown as a colossal metropolitan machine spanning the entire visible river district, with pressure towers, rotating torque shafts, articulated gates, underground pistons, and elevated channels operating simultaneously. The original river has been completely displaced into a new mechanically manufactured canyon while multiple hydraulic branches curve through the skyline, creating an impossible city-scale transformation powered by relentless synchronized motion.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE THE ENTIRE CROWN\" — Every piston, gate, rotor, transfer arm, and subterranean torque engine locks into one perfectly timed mechanical cycle across the metropolitan landscape.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE MAXIMUM TECTONIC TORQUE\" — The entire machine accelerates at once, colossal rotating assemblies driving hydraulic pressure through the riverbed while structures across the city visibly vibrate under the force.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REWRITE THE RIVER GEOMETRY\" — The complete waterway rises, splits, rotates, folds, and redirects through multiple impossible elevations, behaving like a gigantic mechanically controlled fluid structure.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: TRANSFORM THE METROPOLITAN BASIN\" — Roads, bridges, embankments, tunnels, foundations, and entire waterfront districts shift around the newly imposed river geometry as earth and infrastructure deform under pressure.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE RIVERGATE CROWN\" — The final hydraulic surge launches through the manufactured canyon and rises into an enormous crown-shaped network of cascading waterways above the city, surrounded by explosive mist and vibrating machinery.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes one continuous monumental pull-back from the cascading river canyon to an extreme aerial vista, revealing the complete kilometer-scale Rivergate Hydraulic Crown controlling the transformed metropolitan basin, every mechanical subsystem still moving in synchronized cycles as the redirected river dominates the cityscape, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Rivergate Hydraulic Crown - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

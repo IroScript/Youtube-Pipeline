@@ -1,0 +1,18 @@
+{
+  "idea_id": 67,
+  "idea_title": "The Emerald Stalk Harvester",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 67,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Emerald Stalk Harvester begins beneath an alien-scale Bamboo Forest canopy as the camera rises from the tracked foundation along the full vertical length of the suspended harvesting structure. At 0-2 seconds HUD popup: CALIBRATE. At 2-3 seconds HUD popup: ENGAGE. At 3-4 seconds HUD popup: CONVEY. The final five seconds carry the camera beyond the canopy and into the atmosphere before retreating to an extreme wide reveal where dozens of identical Emerald Stalk Harvesters stretch endlessly across the horizon in perfect golden-hour formation.",
+  "video_prompt_title": "The Emerald Stalk Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Emerald Stalk Harvester reaches maximum impossible scale as an alien-engineered tracked harvesting world moving through a Bamboo Forest larger than continents. The signature flat overhead canopy becomes a sky-like structure suspended on impossibly tall thin masts above endless bamboo cutting fields. The mechanism includes colossal bamboo slicing systems, infinite bundling conveyors, intelligent stalk alignment corridors, and automated harvesting networks covering the landscape. The machine is powered by a gigantic solar canopy and mysterious advanced energy cores visible throughout the mast structures. Low golden-hour sunlight, warm rim light, and floating dust remain unchanged, creating a familiar atmosphere around an impossible machine dominating the world.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
