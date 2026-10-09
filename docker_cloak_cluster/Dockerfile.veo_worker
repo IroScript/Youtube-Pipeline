@@ -1,0 +1,34 @@
+# CloakBrowser Google Veo 3.1 Flow Worker
+FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
+
+WORKDIR /app
+
+# Ensure directories
+RUN mkdir -p /app/profile /app/cookies /app/database /app/downloads /app/10SecNewExtension /app/logs
+
+# Set environment defaults
+ENV PYTHONUNBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    DISPLAY=:99 \
+    PORT=8102 \
+    WORKER_ID=worker_1 \
+    DB_PATH="/app/database/youtube_pipeline.db" \
+    PROFILE_DIR="/app/profile" \
+    DOWNLOADS_DIR="/app/downloads" \
+    EXTENSION_DIR="/app/10SecNewExtension" \
+    FLOW_URL="https://flow.google.com/project/b1798769-23be-4a97-9a59-4e6d979f6b3d"
+
+# Install requirements
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Pre-download and cache CloakBrowser binary
+RUN python3 -c "from cloakbrowser.download import ensure_binary; print('Caching CloakBrowser binary:', ensure_binary())"
+
+# Copy extension and worker code
+COPY 10SecNewExtension /app/10SecNewExtension
+COPY worker_config.py /app/worker_config.py
+COPY worker_veo_server.py /app/worker_veo_server.py
+
+# Launch Xvfb and Uvicorn
+CMD ["sh", "-c", "rm -f /tmp/.X99-lock && Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset & uvicorn worker_veo_server:app --host 0.0.0.0 --port ${PORT:-8102}"]

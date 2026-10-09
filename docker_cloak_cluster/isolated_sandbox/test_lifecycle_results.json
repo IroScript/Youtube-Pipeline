@@ -1,0 +1,73 @@
+{
+  "lifecycle_test": "sequential_worker_process_audit",
+  "timestamp_utc": "2026-10-09T15:32:59.739793Z",
+  "steps": {
+    "step_0_baseline": {
+      "baseline_rss_mb": 24.28,
+      "chromium_count": 0
+    },
+    "step_1_w1_active": {
+      "status": "ACTIVE",
+      "chromium_process_count": 10,
+      "chromium_pids": [
+        42,
+        44,
+        40,
+        47,
+        48,
+        81,
+        82,
+        111,
+        112,
+        68
+      ],
+      "active_rss_mb": 874.23,
+      "delta_mb": 849.95
+    },
+    "step_2_w1_closed": {
+      "status": "TERMINATED",
+      "chromium_process_count": 0,
+      "remaining_pids": [],
+      "post_rss_mb": 48.78,
+      "reclaimed_rss_mb": 825.45,
+      "zero_process_verified": true
+    },
+    "step_3_license_check": {
+      "license_state": "denied",
+      "verified_free_mode": true
+    },
+    "step_4_random_delay": {
+      "configured_range": "10s to 120s",
+      "selected_cooldown_seconds": 11.61,
+      "started_at": "2026-10-09T15:33:18.848608Z",
+      "completed_at": "2026-10-09T15:33:30.469762Z",
+      "elapsed_seconds": 11.62,
+      "delay_verified": true
+    },
+    "step_5_w2_active": {
+      "status": "ACTIVE",
+      "chromium_process_count": 10,
+      "chromium_pids": [
+        150,
+        152,
+        148,
+        155,
+        156,
+        179,
+        193,
+        219,
+        220,
+        177
+      ],
+      "active_rss_mb": 875.7,
+      "concurrency_collision": false
+    },
+    "step_6_w2_closed": {
+      "status": "TERMINATED",
+      "chromium_process_count": 0,
+      "final_rss_mb": 49.45,
+      "zero_process_verified": true
+    }
+  },
+  "verdict": "ALL_SEQUENTIAL_STEPS_EMPIRICALLY_VERIFIED"
+}

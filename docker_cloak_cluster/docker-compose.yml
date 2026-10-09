@@ -1,0 +1,231 @@
+version: '3.8'
+
+networks:
+  cloak_cluster_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  # =============================================================
+  # GROUP A: 5 CLOAKBROWSER PROMPT & SEO WORKERS (W1 to W5)
+  # =============================================================
+  prompt-seo-worker-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.prompt_worker
+    image: cloak_prompt_worker:latest
+    container_name: prompt_seo_worker_1
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8001:8000"
+    environment:
+      - WORKER_ID=worker_1
+      - PORT=8000
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./profiles_prompt/worker_1:/app/profile:rw
+      - ./cookies:/app/cookies:rw
+      - ../PromptDatabase/database:/app/database:rw
+    networks:
+      - cloak_cluster_net
+
+  prompt-seo-worker-2:
+    image: cloak_prompt_worker:latest
+    container_name: prompt_seo_worker_2
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8002:8000"
+    environment:
+      - WORKER_ID=worker_2
+      - PORT=8000
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./profiles_prompt/worker_2:/app/profile:rw
+      - ./cookies:/app/cookies:rw
+      - ../PromptDatabase/database:/app/database:rw
+    networks:
+      - cloak_cluster_net
+
+  prompt-seo-worker-3:
+    image: cloak_prompt_worker:latest
+    container_name: prompt_seo_worker_3
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8003:8000"
+    environment:
+      - WORKER_ID=worker_3
+      - PORT=8000
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./profiles_prompt/worker_3:/app/profile:rw
+      - ./cookies:/app/cookies:rw
+      - ../PromptDatabase/database:/app/database:rw
+    networks:
+      - cloak_cluster_net
+
+  prompt-seo-worker-4:
+    image: cloak_prompt_worker:latest
+    container_name: prompt_seo_worker_4
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8004:8000"
+    environment:
+      - WORKER_ID=worker_4
+      - PORT=8000
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./profiles_prompt/worker_4:/app/profile:rw
+      - ./cookies:/app/cookies:rw
+      - ../PromptDatabase/database:/app/database:rw
+    networks:
+      - cloak_cluster_net
+
+  prompt-seo-worker-5:
+    image: cloak_prompt_worker:latest
+    container_name: prompt_seo_worker_5
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8005:8000"
+    environment:
+      - WORKER_ID=worker_5
+      - PORT=8000
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+    volumes:
+      - ./profiles_prompt/worker_5:/app/profile:rw
+      - ./cookies:/app/cookies:rw
+      - ../PromptDatabase/database:/app/database:rw
+    networks:
+      - cloak_cluster_net
+
+  # =============================================================
+  # GROUP B: 5 CLOAKBROWSER VEO 3.1 FLOW WORKERS (W1 to W5)
+  # =============================================================
+  veo-flow-worker-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.veo_worker
+    image: cloak_veo_worker:latest
+    container_name: veo_flow_worker_1
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8101:8102"
+    environment:
+      - WORKER_ID=worker_1
+      - PORT=8102
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+      - DOWNLOADS_DIR=/app/downloads
+    volumes:
+      - ./profiles_veo/worker_1:/app/profile:rw
+      - ./downloads/worker_1:/app/downloads:rw
+      - ../PromptDatabase/database:/app/database:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+    networks:
+      - cloak_cluster_net
+
+  veo-flow-worker-2:
+    image: cloak_veo_worker:latest
+    container_name: veo_flow_worker_2
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8102:8102"
+    environment:
+      - WORKER_ID=worker_2
+      - PORT=8102
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+      - DOWNLOADS_DIR=/app/downloads
+    volumes:
+      - ./profiles_veo/worker_2:/app/profile:rw
+      - ./downloads/worker_2:/app/downloads:rw
+      - ../PromptDatabase/database:/app/database:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+    networks:
+      - cloak_cluster_net
+
+  veo-flow-worker-3:
+    image: cloak_veo_worker:latest
+    container_name: veo_flow_worker_3
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8103:8102"
+    environment:
+      - WORKER_ID=worker_3
+      - PORT=8102
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+      - DOWNLOADS_DIR=/app/downloads
+    volumes:
+      - ./profiles_veo/worker_3:/app/profile:rw
+      - ./downloads/worker_3:/app/downloads:rw
+      - ../PromptDatabase/database:/app/database:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+    networks:
+      - cloak_cluster_net
+
+  veo-flow-worker-4:
+    image: cloak_veo_worker:latest
+    container_name: veo_flow_worker_4
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8104:8102"
+    environment:
+      - WORKER_ID=worker_4
+      - PORT=8102
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+      - DOWNLOADS_DIR=/app/downloads
+    volumes:
+      - ./profiles_veo/worker_4:/app/profile:rw
+      - ./downloads/worker_4:/app/downloads:rw
+      - ../PromptDatabase/database:/app/database:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+    networks:
+      - cloak_cluster_net
+
+  veo-flow-worker-5:
+    image: cloak_veo_worker:latest
+    container_name: veo_flow_worker_5
+    restart: unless-stopped
+    mem_limit: 1536m
+    shm_size: 1g
+    ports:
+      - "8105:8102"
+    environment:
+      - WORKER_ID=worker_5
+      - PORT=8102
+      - DB_PATH=/app/database/youtube_pipeline.db
+      - PROFILE_DIR=/app/profile
+      - DOWNLOADS_DIR=/app/downloads
+    volumes:
+      - ./profiles_veo/worker_5:/app/profile:rw
+      - ./downloads/worker_5:/app/downloads:rw
+      - ../PromptDatabase/database:/app/database:rw
+      - ./10SecNewExtension:/app/10SecNewExtension:ro
+    networks:
+      - cloak_cluster_net

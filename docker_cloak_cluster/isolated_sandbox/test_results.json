@@ -1,0 +1,32 @@
+{
+  "mem_baseline_mb": 25.04,
+  "test_1_launch": {
+    "status": "PASS",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
+    "mem_active_mb": 885.42
+  },
+  "mem_reclaimed_mb": 835.82,
+  "test_2_isolation": {
+    "status": "PASS",
+    "leak_detected": false
+  },
+  "test_3_persistence": {
+    "status": "PASS",
+    "token_persisted": true
+  },
+  "test_4_handoff": {
+    "status": "PASS",
+    "jobs": [
+      {
+        "id": 9001,
+        "worker": "W1",
+        "state": "completed_by_w1"
+      },
+      {
+        "id": 9002,
+        "worker": "W2",
+        "state": "completed_by_w2"
+      }
+    ]
+  }
+}

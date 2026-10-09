@@ -139,3 +139,9 @@ mutants/
 .mutmut-cache/
 **/mutants/
 
+# Docker worker browser profiles & runtime state
+docker_flow_workers/profiles/
+docker_workers/profile/
+**/docker_flow_workers/profiles/
+**/docker_workers/profile/
+**/docker_cloak_cluster/**/profiles/

@@ -1,0 +1,30 @@
+# CloakBrowser Prompt & SEO Worker
+FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
+
+WORKDIR /app
+
+# Ensure directories
+RUN mkdir -p /app/profile /app/cookies /app/database /app/logs
+
+# Set environment defaults
+ENV PYTHONUNBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    DISPLAY=:99 \
+    PORT=8000 \
+    WORKER_ID=worker_1 \
+    DB_PATH="/app/database/youtube_pipeline.db" \
+    PROFILE_DIR="/app/profile"
+
+# Install requirements
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Pre-download and cache CloakBrowser binary
+RUN python3 -c "from cloakbrowser.download import ensure_binary; print('Caching CloakBrowser binary:', ensure_binary())"
+
+# Copy worker code
+COPY worker_config.py /app/worker_config.py
+COPY worker_prompt_server.py /app/worker_prompt_server.py
+
+# Launch Xvfb and Uvicorn
+CMD ["sh", "-c", "rm -f /tmp/.X99-lock && Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset & uvicorn worker_prompt_server:app --host 0.0.0.0 --port ${PORT:-8000}"]
