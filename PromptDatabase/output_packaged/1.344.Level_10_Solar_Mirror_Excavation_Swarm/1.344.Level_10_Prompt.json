@@ -1,0 +1,18 @@
+{
+  "idea_id": 344,
+  "idea_title": "Solar Mirror Excavation Swarm",
+  "idea_topic": "Mega Construction Site",
+  "element_id": 83,
+  "idea_index_in_element": 344,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Solar Mirror Excavation Swarm reaches its ultimate form as a near-planetary reflective lattice channels stellar energy with perfect precision. Continents are continuously reshaped into colossal engineered platforms while artificial weather, molten excavation fronts, and tectonic-scale construction systems operate as one machine.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL SWARM SYNCHRONIZATION\" — Every mirror unit enters flawless planetary coordination.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM STELLAR HARVESTING\" — The machine captures and redirects virtually all available solar energy striking its network.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY-SCALE TERRAFORM EXCAVATION\" — Impossible excavation systems reshape entire geological frameworks simultaneously.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL CRUSTAL RECONSTRUCTION\" — Landscapes reorganize into engineered structural geometries spanning continents.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: WORLD FORGE ACTIVATION\" — The entire planet functions as an integrated construction platform powered by controlled stellar energy.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera accelerates from a glowing excavation front into orbit, revealing the complete planetary mirror lattice and transformed world beneath, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Solar Mirror Excavation Swarm - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

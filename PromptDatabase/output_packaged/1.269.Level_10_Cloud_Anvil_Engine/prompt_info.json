@@ -1,0 +1,18 @@
+{
+  "idea_id": 269,
+  "idea_title": "Cloud Anvil Engine",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 269,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final Cloud Anvil Engine is an impossibly gigantic planetary megastructure, a colossal metallic spine surrounded by countless kilometer-scale hammer towers, rotating flywheel continents, and interlocking mechanical rings embedded across the terrain. A planet-spanning black rain system covers the visible world as every component reaches maximum rotational energy and prepares one final synchronized atmospheric impact.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL TORQUE ACTIVATION\" — Every subterranean flywheel and exposed rotational engine accelerates simultaneously, generating impossible tectonic torque through the entire planetary machine network.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY HAMMER SYNCHRONIZATION\" — Countless colossal impactors retract, align, and accelerate upward as one perfectly synchronized mechanical system, bending their supports under unimaginable force.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GLOBAL CLOUD IMPACT\" — The hammer network strikes the storm simultaneously across vast distances, producing interlocking circular pressure waves that compress and reshape enormous portions of the atmosphere.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: PLANETARY RAIN MANIPULATION\" — Gigantic rain curtains are displaced into sweeping spiral bands while dry atmospheric corridors expand between compressed cloud masses across the visible world.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY ANVIL CULMINATION\" — The entire storm erupts into a synchronized field of concentrated precipitation columns, rotating cloud rings, outward pressure waves, and mechanically patterned weather spanning the horizon.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs one continuous extreme pull-back from a vibrating hammer head through the storm and into near-orbital altitude, revealing the Cloud Anvil Engine as a colossal planetary mechanical system beneath a vast reorganized rain field, with countless pressure rings and precipitation bands still propagating across the curved horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Cloud Anvil Engine - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

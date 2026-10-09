@@ -1,0 +1,18 @@
+{
+  "idea_id": 294,
+  "idea_title": "Peatstorm Centrifuge",
+  "idea_topic": "Swamp",
+  "element_id": 23,
+  "idea_index_in_element": 294,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Peatstorm Centrifuge reaches its ultimate impossible state: a kilometer-scale mega-industrial ring surrounds a colossal rotating bowl of swamp whose water, peat, vegetation, sediment, and atmosphere move in precisely differentiated concentric layers. Massive towers disappear into storm clouds, artificial embankments form a continuous circular rim, and the machine's impossible torque makes the entire wetland appear like a living planetary-scale gyroscope.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE TOTAL CENTRIFUGE\" — All outer rings, inner drums, buried claws, flywheels, and traction towers engage simultaneously at maximum rotational synchronization.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC MEGA-TORQUE\" — The complete machine transfers unimaginable angular momentum through the swamp floor, forcing every environmental layer into accelerated circulation.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: ROTATE THE PLANETARY SWAMP\" — Entire islands, forests, water bodies, sediment beds, and atmospheric debris orbit the central axis as one colossal engineered system.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: STACK THE ENVIRONMENTAL RINGS\" — Water, peat, vegetation, sediment, mist, and airborne debris form distinct gigantic concentric belts spanning the entire visible landscape.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: UNLEASH THE PEATSTORM CENTRIFUGE\" — The ultimate rotating bowl surges into full operation, with enormous water curtains, sediment walls, spiral forests, and atmospheric rings moving simultaneously at impossible speed.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an uninterrupted vertical ascent and vast orbital pull-back through clouds and swirling debris, revealing the complete kilometer-scale centrifuge at the center of a colossal rotating swamp system before holding on the full impossible spectacle, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Peatstorm Centrifuge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

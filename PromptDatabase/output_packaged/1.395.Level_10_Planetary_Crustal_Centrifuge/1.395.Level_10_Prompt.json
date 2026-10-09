@@ -1,0 +1,18 @@
+{
+  "idea_id": 395,
+  "idea_title": "Planetary Crustal Centrifuge",
+  "idea_topic": "Earth",
+  "element_id": 47,
+  "idea_index_in_element": 395,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe final level depicts the impossible Planetary Crustal Centrifuge at absolute operational scale, with an orbital ring encircling Earth, hundreds of kilometer-scale arms locked across continents, and gigantic counter-rotating flywheels stabilizing the entire system. The machine synchronizes with Earth's spin and then deliberately alternates between opposing and reinforcing rotational phases, making the planet's crust appear to behave like a colossal mechanically articulated centrifuge.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ACHIEVE PLANETARY SYNCHRONIZATION\" — The orbital ring matches Earth's rotation while every radial arm simultaneously reaches its programmed mechanical phase.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE MAXIMUM TECTONIC TORQUE\" — Counter-rotating flywheels absorb immense reaction loads as the entire machine transfers colossal torque into hundreds of anchored crustal regions.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND GLOBAL CRUSTAL ROTATION\" — Continental blocks are driven through synchronized inward, outward, and tangential trajectories in an impossible planet-wide mechanical pattern.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: TRANSFORM CONTINENTAL LANDSCAPES\" — Massive ridges rise along compression zones while broad basins rebound and loose rock spirals outward through enormous dust corridors.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE PLANETARY CENTRIFUGE CYCLE\" — Every arm reaches peak extension and torque simultaneously before the entire crustal network enters one vast synchronized rotational deformation event.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; camera continuously races backward from a vibrating kilometer-scale clamp, through the atmosphere, beyond the orbital ring, and into a majestic full-Earth reveal where the entire planetary machine rotates around the glowing blue planet amid colossal dust spirals and mechanically driven terrain deformation, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Planetary Crustal Centrifuge - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

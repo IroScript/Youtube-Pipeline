@@ -1,0 +1,18 @@
+{
+  "idea_id": 349,
+  "idea_title": "Continental Burrower",
+  "idea_topic": "Snake",
+  "element_id": 65,
+  "idea_index_in_element": 349,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final escalation reveals the full impossible Continental Burrower operating as a planetary-scale subterranean engine, its 25-kilometer segmented body coiled beneath an immense continental landscape while its crushing skull drives through bedrock and redirects enormous geological masses. Surface ridges rise, sinkholes propagate, roads deform, dust erupts from fractures, and the moving tunnel leaves a vast unstable corridor stretching across the landscape.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: CHARGE THE PLANETARY BODY\" — Every articulated segment compresses simultaneously, thousands of hydraulic chambers storing unimaginable mechanical energy throughout the entire buried serpent.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TECTONIC MEGA-TORQUE\" — A colossal peristaltic wave travels through the 25-kilometer body, multiplying force through every locked vertebra and driving the skull forward.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: BORE THROUGH THE CONTINENT\" — The rotating skull pulverizes massive bedrock formations while rib-jaws grip, tear, and transport entire geological shelves through the moving excavation system.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RAISE AND FRACTURE THE CRUST\" — The arched body forces enormous slabs upward while the advancing void removes support beneath them, producing ridges, cavities, fractures, and cascading subsidence.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE CONTINENTAL BURROW\" — The machine reaches peak thrust, driving its skull downward while the entire buried body redirects geological mass and establishes a colossal moving subterranean corridor.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins inches from the rotating armored teeth, smoothly pulls backward through the immense tunnel, rises through fractured strata, and continues into a sweeping aerial orbital reveal of the landscape as the entire 25-kilometer Burrower moves beneath it, surface deformation and dust trails tracing its impossible path toward the horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Continental Burrower - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

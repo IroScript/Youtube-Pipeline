@@ -1,0 +1,18 @@
+{
+  "idea_id": 350,
+  "idea_title": "Snake Hydrodynamic Ram",
+  "idea_topic": "Snake",
+  "element_id": 65,
+  "idea_index_in_element": 350,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe ultimate form of the machine spans an immense continental-scale reservoir system, its kilometer-after-kilometer serpent body forming an impossible circular hydraulic engine whose armored coils disappear beyond the horizon and reappear around distant mountain ranges. Every vertebra, rib, anchor, and hydraulic actuator activates simultaneously in a perfectly coordinated contraction, producing a final pressure pulse so vast that outgoing waves, reflected waves, and returning currents become one continuous moving system across the landscape.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ENGAGE THE CONTINENTAL LOCK\" — The serpent's entire circular body anchors into the basin floor as countless mechanical locks activate in a synchronized cascade.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNLEASH TECTONIC TORQUE\" — Every segment contracts and twists simultaneously, generating impossible rotational momentum through the full continental-scale ring.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMPRESS A CONTINENTAL WATER MASS\" — Thousands of gigantic rib structures converge inward, mechanically squeezing an enormous volume of water and creating a rapidly expanding pressure front.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RESTRUCTURE THE ENTIRE BASIN\" — Shorelines retreat, surge, overflow, and rebound as water pours through low channels and massive currents race between distant landforms.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: EXECUTE THE ULTIMATE HYDRODYNAMIC RAM\" — The entire serpent ring contracts and releases at once, producing an immense traveling wall of water that collides with returning waves and transforms the basin into a vast field of intersecting turbulence.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera continuously pulls from a close view of vibrating armored ribs to an extreme aerial reveal of the full impossible serpent ring, mountain-scale waves, converging pressure fronts, overflowing channels, and basin-wide oscillation continuing after the contraction, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Snake Hydrodynamic Ram - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

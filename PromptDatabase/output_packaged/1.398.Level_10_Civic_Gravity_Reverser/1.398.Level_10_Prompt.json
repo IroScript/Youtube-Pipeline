@@ -1,0 +1,18 @@
+{
+  "idea_id": 398,
+  "idea_title": "Civic Gravity Reverser",
+  "idea_topic": "City",
+  "element_id": 26,
+  "idea_index_in_element": 398,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe Civic Gravity Reverser enters its ultimate escalation, becoming a kilometer-scale mechanical horizon engine wrapped around the entire visible urban core, with concentric rings, counterweights, foundation clamps, rotating towers, and subterranean shafts operating simultaneously. The camera starts extremely close to a skyscraper foundation and continuously pulls outward and upward until the full impossible machine and the transformed metropolis dominate the frame.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE ALL CIVIC ROTORS\" — Every visible ring, flywheel, anchor, gear train, and torsion shaft locks into one immense synchronized mechanical cycle.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE MAXIMUM TECTONIC TORQUE\" — Colossal rotating assemblies accelerate simultaneously, driving impossible rotational force through the city's entire subterranean foundation network.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: REVERSE PLANETARY-SCALE GRAVITY\" — The machine imposes a massive sideways effective gravity vector across the urban core, causing water, dust, debris, vehicles, and loose structures to stream horizontally in synchronized motion.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ROTATE THE METROPOLITAN LOAD FIELD\" — Entire districts flex and redistribute their structural weight as bridges, towers, roads, transit systems, and buried infrastructure move through radically altered mechanical load paths.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE CIVIC GRAVITY REVERSAL\" — The full city-scale mechanism produces a breathtaking final torsional wave, forcing the metropolitan landscape into a coherent sideways orientation while every rotating assembly reaches peak synchronized motion.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes one uninterrupted colossal pull-back from foundation scale to high above the city, revealing the entire kilometer-wide Civic Gravity Reverser rotating beneath a metropolis of sideways-loaded towers, bridges, transit lines, flowing water, fractured streets, and horizontal dust sheets, then continuing upward until the machine and transformed city fill the vertical frame, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Civic Gravity Reverser - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 272,
+  "idea_title": "Storm Pressure Pendulum",
+  "idea_topic": "Rain",
+  "element_id": 43,
+  "idea_index_in_element": 272,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. At the ultimate escalation, the Storm Pressure Pendulum is revealed as a mountain-sized atmospheric control complex spanning an immense rain basin, with its three-kilometer pendulum driving colossal rotating rings and pressure chambers while storm clouds stretch across the entire horizon. Every reversal creates synchronized atmospheric waves that visibly restructure rainfall across a planetary-scale storm system, transforming one impossible pendulum into a gigantic mechanical weather-control engine. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: ULTIMATE PENDULUM REVERSAL\" — The colossal arm reaches maximum velocity and reverses direction through impossible mechanical precision as every surrounding torque assembly activates simultaneously. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY TORQUE CASCADE\" — Millions of tons of rotational momentum cascade through nested flywheels, underground torque rings, hydraulic locks, and kilometer-scale mechanical structures. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY ATMOSPHERIC PULSE\" — The entire stored mechanical force erupts into an enormous pressure wave that expands through the storm clouds and rainfield like a moving atmospheric wall. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL PRECIPITATION RESTRUCTURE\" — Vast rain columns across mountains, valleys, plains, and distant storm fronts rise, fall, thin, and intensify in synchronized response to the traveling wave. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: PLANETARY WEATHER RESONANCE\" — Successive pressure waves merge into a continuous atmospheric resonance that visibly pushes the storm cloud base across the horizon while rainfall distribution reorganizes on an unimaginable scale. Seconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an extreme continuous pull-back from the vibrating machine through the storm clouds into a breathtaking near-orbital view, revealing immense atmospheric wavefronts traveling across the rain system while the pendulum continues reversing at the center of the phenomenon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Storm Pressure Pendulum - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

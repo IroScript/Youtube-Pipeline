@@ -1,0 +1,18 @@
+{
+  "idea_id": 347,
+  "idea_title": "Orographic Snake Flail",
+  "idea_topic": "Snake",
+  "element_id": 65,
+  "idea_index_in_element": 347,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nThe ultimate Orographic Snake Flail dominates an enormous mountain region, its 18-kilometer armored body distributed through valleys, over ridges, and around entire peaks as thousands of powered vertebrae operate as one impossible tectonic organism. Every previous wave now combines into a continuous planetary-scale flailing cycle, with the landscape visibly transformed into immense stepped scars, debris fans, fractured ridges, and dust-filled valleys.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SYNCHRONIZE THE ENTIRE SERPENT\" — Every powered vertebra locks into a precise sequence while deep anchors engage across the full network of coils.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC ANGULAR MOMENTUM\" — Thousands of contractions stack their torque into the 18-kilometer body, forcing enormous loops upward while bedrock compresses beneath them.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: RELEASE THE PLANETARY WHIP WAVE\" — A gigantic peristaltic pulse races from tail to head and simultaneously branches through multiple coils, creating intersecting waves of impossible mechanical acceleration.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: RECONTOUR THE MOUNTAIN SYSTEM\" — Dozens of elevated loops sweep across the terrain together, pulverizing cliffs, flattening forests, displacing rubble, and carving broad new stepped contours through the valleys.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: UNLEASH THE OROGRAPHIC MEGA-FLAIL\" — The entire serpent releases its stored angular motion at once, producing a cascading chain of landscape-scale impacts whose dust and debris fronts expand across the mountain region.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous monumental pull-back from a towering airborne serpent loop to an extreme aerial panorama, revealing the full 18-kilometer machine still moving in synchronized waves as impact fronts race across the transformed mountain system, dust walls merge between valleys, and the final stepped scars extend toward the horizon, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Orographic Snake Flail - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

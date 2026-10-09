@@ -1,0 +1,18 @@
+{
+  "idea_id": 312,
+  "idea_title": "Feather Glacier Shaper",
+  "idea_topic": "Bird Feather",
+  "element_id": 64,
+  "idea_index_in_element": 312,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The final escalation reveals the Feather Glacier Shaper as a surreal kilometer-to-horizon-scale mechanical system buried beneath an immense polar glacier, with colossal feather shafts, rotating hubs, anchor towers, and articulated barb lattices operating as one impossible machine. The entire frozen landscape actively responds as the machine completes a monumental deformation cycle, redirecting glacier flow, opening vast channels, lifting enormous ice masses, and sending meltwater through newly engineered fractures.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: DEPLOY THE COMPLETE FEATHER ARCHITECTURE\" — Thousands of gigantic feather assemblies erupt from beneath the glacier and unfold across the frozen expanse, locking into a continuous mechanical lattice.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMIZE TECTONIC TORQUE\" — Every hub engages simultaneously, counter-rotating with impossible leverage until the entire glacier visibly begins flexing under the accumulated mechanical load.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COMMAND PLANETARY-SCALE FEATHER MOTION\" — Countless shafts twist, membranes flex, and individual barbs independently articulate in a synchronized wave capable of mechanically manipulating the glacier as a coherent system.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: REWRITE GLACIER FLOW PATHS\" — Massive ice blocks rise and rotate while kilometer-long ridges and channels form continuously, forcing the moving glacier into an entirely new configuration.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE GLACIER SHAPING CYCLE\" — A final torsional pulse propagates across the frozen landscape, triggering immense fractures, explosive meltwater jets, collapsing snow shelves, and a synchronized settling of the newly shaped ice terrain.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins inches from a gigantic feather barb flexing under translucent ice, then performs one uninterrupted accelerating pull-back through the fractured glacier, above the kilometer-scale machine, and toward a vast aerial panorama where the newly redirected glacier flows through its engineered channels, unbroken cinematic motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Feather Glacier Shaper - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

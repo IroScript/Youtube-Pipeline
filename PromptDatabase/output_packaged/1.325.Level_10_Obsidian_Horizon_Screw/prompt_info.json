@@ -1,0 +1,18 @@
+{
+  "idea_id": 325,
+  "idea_title": "Obsidian Horizon Screw",
+  "idea_topic": "Rock Field",
+  "element_id": 24,
+  "idea_index_in_element": 325,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\nThe final operation reveals the Obsidian Horizon Screw spanning an almost planetary horizon, its colossal obsidian helix rotating through an immense field of mountains, shelves, boulders, and fractured plains while thousands of mechanical systems operate in perfect synchronization. The entire surrounding landscape has become a moving geological machine of trenches, ridges, collapsing formations, airborne stone, and expanding spiral dust clouds, with the screw advancing at the center of the impossible transformation.\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: SEAL THE PLANETARY TRACTION GRID\" — Kilometer-spanning traction claws lock into countless geological formations while the machine's rear architecture anchors against the transformed terrain.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELEASE TOTAL TECTONIC TORQUE\" — Every drive ring, propulsion drum, pressure shaft, and rotating coupling reaches synchronized maximum torque, causing immense waves of fractured stone to ripple across the machine's path.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: ROTATE THE GEOLOGICAL FIELD\" — Entire bands of terrain are lifted onto successive helical threads and carried upward in gigantic rotating streams, defying conventional mechanical scale and geological inertia.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: COLLAPSE AND REBUILD THE HORIZON\" — Trenches deepen while spiral ridges rise, distant shelves fold inward, and massive rock formations are redirected into a continuous moving landscape pattern.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COMPLETE THE OBSIDIAN HORIZON CYCLE\" — The machine reaches peak rotation and forward thrust, launching immense stone masses from its crest as the displaced ridges surge backward into the trench and collide with the original formation.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera begins inches above grinding obsidian and tumbling rock, rises along the full rotating helix, then performs an uninterrupted monumental pull-back into the upper atmosphere, revealing the horizon-spanning machine surrounded by concentric trenches, spiral ridges, airborne debris, collapsing mountains, and a colossal corkscrew dust plume, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Obsidian Horizon Screw - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
