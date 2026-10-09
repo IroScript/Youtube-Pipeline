@@ -444,12 +444,13 @@ def run_generation_for_idea(idea):
         return False
 
 # Main loop
-while True:
-    next_idea = get_next_pending_idea()
-    if not next_idea:
-        print("No more pending ideas found in database. All videos completed!")
-        break
-    success = run_generation_for_idea(next_idea)
-    if not success:
-        print("Encountered an issue with idea. Waiting 2 minutes before retrying...")
-        time.sleep(120)
+if __name__ == "__main__":
+    while True:
+        next_idea = get_next_pending_idea()
+        if not next_idea:
+            print("No more pending ideas found in database. All videos completed!")
+            break
+        success = run_generation_for_idea(next_idea)
+        if not success:
+            print("Encountered an issue with idea. Waiting 2 minutes before retrying...")
+            time.sleep(120)
