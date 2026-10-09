@@ -1,0 +1,18 @@
+{
+  "idea_id": 85,
+  "idea_title": "The Banana Canopy Leviathan",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 85,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Banana Canopy Leviathan begins a vertical ascent shot from a planetary Banana Plantation as the alien-scale articulated greenhouse walker dominates the entire world. The camera continuously rises along the impossible height of the machine, revealing endless glass habitats, mechanical walking systems, and climate-control architecture. At 0-1 seconds HUD shows CALIBRATE, at 1-2 seconds ENGAGE, at 2-3 seconds CONVEY, at 3-4 seconds SEPARATE, and at 4-5 seconds DISCHARGE. The final 5-8 seconds deliver the ultimate closing move as a single energy wave travels through the full length of The Banana Canopy Leviathan, causing every greenhouse dome, mobility system, and planetary agricultural network to reach synchronized maximum output.",
+  "video_prompt_title": "The Banana Canopy Leviathan - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Banana Canopy Leviathan itself is an alien-scale impossible articulated multi-legged greenhouse walker spanning entire worlds of Banana Plantation, with a landscape-dominating mechanical chassis carrying infinite layers of climate-controlled glass domes filled with tropical banana ecosystems. Its silhouette is a moving artificial planet with colossal tracked limbs, immense structural joints, endless greenhouse towers, atmospheric regulators, and mobile cultivation environments. The Banana Plantation below covers planetary surfaces with continents, storms, and ecosystems appearing tiny beside the machine. Every mechanism remains derived from its purpose: nurturing banana trees through impossible mobile greenhouse technology, climate control networks, water systems, and automated environmental management. Energy flows from stellar collectors, planetary power fields, and visible luminous channels throughout the structure. Flat overcast diffusion, desaturated industrial palette, and wet reflective surfaces preserve the established identity.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

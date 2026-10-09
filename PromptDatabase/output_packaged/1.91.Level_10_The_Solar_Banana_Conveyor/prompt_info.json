@@ -1,0 +1,18 @@
+{
+  "idea_id": 91,
+  "idea_title": "The Solar Banana Conveyor",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 91,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Solar Banana Conveyor begins a lateral tracking shot along its maximum-scale working face above planetary Banana Plantation regions, revealing the impossible suspended solar transport platform moving harvest across continents. At 0-1.5 seconds HUD popup: UNLOCK. At 1.5-3 seconds HUD popup: UNFOLD. At 3-4 seconds HUD popup: GATHER. The camera continues its five-second movement beside the colossal conveyor structure, passing endless solar surfaces, cable frameworks, and transport systems. The final beat comes to rest inside the control heart of The Solar Banana Conveyor, surrounded by giant moving readouts, active mechanisms, and the command systems controlling the impossible machine.",
+  "video_prompt_title": "The Solar Banana Conveyor - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Solar Banana Conveyor becomes a physically impossible landscape-dominating suspended platform encircling continents of Banana Plantation terrain. The machine's silhouette is an endless aerial conveyor bridge held above mountains by colossal cable systems, with solar surfaces extending like artificial skies. The mechanism includes infinite belt pathways, planetary energy collection arrays, massive banana cargo channels, and impossible stabilization structures designed only to transport fresh harvest from plantations to coastal ports. Continents, oceans, storms, and mountains establish the final scale. Flat overcast diffusion, desaturated industrial palette, wet reflective surfaces, and a futuristic engineering documentary mood remain unchanged.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -21,13 +21,15 @@
     "science technology"
   ],
   "hashtags": [
-    "#PaddyHarvesting",
-    "#FutureFarming",
-    "#MegaMachines"
+    "#paddyharvestingvideo",
+    "#paddycropharvesting",
+    "#paddyharvestingmachine",
+    "#futurefarmingtechnology",
+    "#giantharvestingmachine"
   ],
   "pinned_comment": "Would you trust a machine this huge to harvest an entire rice region? 🌾👇",
   "category": "Science & Technology",
   "default_language": "en",
-  "source": "sqlite_youtube_metadata_table",
-  "exported_at": "2026-09-17T08:55:14.874362+00:00"
+  "source": "YouTube Automation PromptDatabase",
+  "exported_at": "2026-09-25T11:40:36.565936+00:00"
 }

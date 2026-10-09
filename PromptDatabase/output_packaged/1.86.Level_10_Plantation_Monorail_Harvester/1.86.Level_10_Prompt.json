@@ -1,0 +1,18 @@
+{
+  "idea_id": 86,
+  "idea_title": "Plantation Monorail Harvester",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 86,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Plantation Monorail Harvester takes a slow orbital arc camera shot around its maximum-scale continuous-track crawler chassis spanning countless Banana Plantation worlds. At 0-1s HUD popup shows INITIALIZE as universe-scale magnetic systems activate. At 1-2s HUD popup shows ALIGN as infinite transport corridors synchronize. At 2-3s HUD popup shows DRAW IN as planetary banana deliveries merge. At 3-4s HUD popup shows TRANSFORM as impossible packaging networks evolve. From 4-8s the camera completes a vast orbital movement around the alien machine while stars, planets, and artificial sunlight race through a full day cycle and the Plantation Monorail Harvester continues its rhythm without pause.",
+  "video_prompt_title": "Plantation Monorail Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. Plantation Monorail Harvester itself reaches alien maximum scale as a universe-spanning automated suspended maglev system operating on Banana Plantation ecosystems across countless worlds. The low continuous-track crawler chassis becomes an impossible magnetic pathway connecting planetary jungles, artificial farms, and central packaging hubs while remaining recognizable as a banana transport machine. The Banana Plantation environment includes infinite tropical landscapes, planets, stars, and tiny civilizations showing unimaginable scale. The mechanism includes reality-defying maglev corridors, autonomous banana cargo networks, planetary transfer platforms, and enormous packaging structures integrated into the crawler. Energy comes from captured stellar radiation, cosmic magnetic fields, and glowing energy channels visible across the machine. The cold blue pre-dawn light, mist, and shadows remain consistent throughout this alien agricultural vision.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

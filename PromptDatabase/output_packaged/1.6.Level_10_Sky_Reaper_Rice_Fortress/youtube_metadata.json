@@ -19,13 +19,15 @@
     "rice farm automation"
   ],
   "hashtags": [
-    "#PaddyHarvesting",
-    "#FutureFarming",
-    "#MegaMachines"
+    "#ricepaddyharvestingmachine",
+    "#paddyharvestingmachine",
+    "#paddyharvestingvideo",
+    "#riceharvestingmachine",
+    "#riceharvestingandprocessing"
   ],
   "pinned_comment": "Would you trust this flying rice harvesting fortress to farm the future? 🌾👇",
   "category": "Science & Technology",
   "default_language": "en",
-  "source": "sqlite_youtube_metadata_table",
-  "exported_at": "2026-09-17T09:06:38.050426+00:00"
+  "source": "YouTube Automation PromptDatabase",
+  "exported_at": "2026-09-25T11:40:36.565936+00:00"
 }

@@ -1,0 +1,18 @@
+{
+  "idea_id": 84,
+  "idea_title": "Tropical Frond Solar Siphon",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 84,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Tropical Frond Solar Siphon is revealed in a spiralling descent shot around an impossible alien-scale segmented spine covering a banana plantation planet. At 0-1s the camera moves through clouds beside mountain-sized artificial fronds. HUD popup at 1s: IGNITE. At 2s HUD popup: SWEEP as planetary leaf arrays move together. At 3s HUD popup: LIFT as global storm energy rises through the spine. At 4s HUD popup: DISTILL as atmospheric conversion systems awaken. At 5s HUD popup: EJECT as planet-wide energy networks release stored power. The final camera movement circles the endless structure while the entire weather system transforms around it, storms bend along its path, oceans reflect its operation, and Tropical Frond Solar Siphon continues working untouched as the environment itself reacts to the alien-scale machine. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "Tropical Frond Solar Siphon - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. Tropical Frond Solar Siphon becomes an alien-scale impossible machine covering an entire tropical planet of banana plantations, formed from a gigantic segmented spine that flexes across continents and carries artificial banana fronds larger than mountain ranges. The environment shows planetary oceans, atmospheric layers, storms, and endless engineered plantations beneath the structure. The mechanism is derived from its true purpose: colossal artificial photosynthetic leaves capturing monsoon energy through hyper-advanced frond membranes, spine reactors, atmospheric distillation organs, and planetary energy storage networks. Power is visible as storm-colored illumination flowing through the entire structure. Maintain flat overcast diffusion, desaturated industrial palette, wet reflective surfaces, and a realistic documentary view of a machine beyond civilization scale.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

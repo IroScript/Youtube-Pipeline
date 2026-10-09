@@ -1,0 +1,18 @@
+{
+  "idea_id": 96,
+  "idea_title": "Apple Gravity Elevator",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 96,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Apple Gravity Elevator in a lateral tracking shot racing beside a universe-scale segmented spine above an alien Apple Orchard world. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. The camera travels along impossible articulated sections where gravity technology reshapes space itself. At 0s HUD: SPIN UP activates reality-scale energy cores. At 1.2s HUD: DEPLOY expands cosmic sensor fields. At 2.4s HUD: CHANNEL creates universal harvest pathways. At 3.6s HUD: FILTER processes unimaginable apple volumes. At 4.8s HUD: DELIVER completes the ultimate gravity harvest cycle. At 6s the storm-lit lower structure disappears beneath cosmic clouds and lightning. The final two seconds follow the endless discharge stream of harvested apples leaving the machine and moving away into a vast alien agricultural network.",
+  "video_prompt_title": "Apple Gravity Elevator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Apple Gravity Elevator exists as an alien-level maximum-scale structure beyond conventional physics, a universe-spanning segmented spine rising from an impossible Apple Orchard world into the cosmic environment. Its articulated mechanical body contains reality-bending gravity-field projectors, infinite magnetic transport channels, planetary storage vaults, quantum gravity cores, and enormous processing civilizations embedded within each segment. The orchard below covers worlds of apple forests, with the elevator standing as an artificial mountain range visible across space. Fusion energy and exotic power fields create luminous currents through the spine while storm clouds and lightning continue to define the lower atmosphere. The image presents a terrifyingly beautiful lateral view of the final machine form, flexible and alive like a colossal engineered organism without becoming humanoid.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

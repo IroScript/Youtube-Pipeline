@@ -1,0 +1,18 @@
+{
+  "idea_id": 89,
+  "idea_title": "The Planetary Peel Excavator",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 89,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Planetary Peel Excavator completes a slow orbital arc around its maximum alien vertical tower above infinite Banana Plantation worlds in one continuous 8-second 9:16 vertical shot. At 1s HUD popup: CALIBRATE, reading endless organic ecosystems. At 2s HUD popup: ENGAGE, awakening universe-scale recycling systems. At 3s HUD popup: CONVEY, displaying material movement across galaxies. At 4s HUD popup: SEPARATE, revealing impossible potassium battery creation layers. At 5s HUD popup: DISCHARGE, showing fertilizer systems restoring worlds. The final five-second orbital movement surrounds the colossal tower as light races through a full day cycle across galaxies while the Planetary Peel Excavator continues operating without pause.",
+  "video_prompt_title": "The Planetary Peel Excavator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Planetary Peel Excavator is an impossible alien-scale slender vertical tower extending beyond galaxies, yet unmistakably built as a banana peel recycling machine with stacked working tiers ascending endlessly upward. The structure contains universe-scale peel intake systems, potassium battery generation chambers, compost ecosystems larger than planets, and vertical organic conversion pathways. Infinite Banana Plantations cover worlds surrounding the tower, with civilizations and planets acting as scale markers. The machine is powered by captured stellar energy and living bio-electric networks visible through its transparent spine. Harsh vertical noon sunlight creates extreme bleached highlights and sharp black shadows across the ultimate agricultural invention.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 95,
+  "idea_title": "Sky Orchard Shepherd",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 95,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Sky Orchard Shepherd spirals around a maximum-scale honeycomb atmospheric engine above endless Apple Orchard worlds, the camera wrapping the impossible structure while revealing infinite climate cells and moving weather systems. The continuous 8-second shot shows the ultimate evolution of the floating climate guardian. At 0.8s HUD: PRIME, infinite energy activates. At 1.6s HUD: LOCK ON, orchard worlds synchronize. At 2.4s HUD: HARVEST, cosmic climate signals gather. At 3.2s HUD: SORT, impossible weather paths calculate. At 4.5s HUD: LOAD, atmospheric resources circulate. The final two seconds reveal the colossal outer shell peeling away in a synchronized sequence, exposing the complete internal cross-section of a universe-scale weather machine.",
+  "video_prompt_title": "Sky Orchard Shepherd - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Sky Orchard Shepherd reaches impossible maximum scale as a universe-dominating honeycomb atmospheric megastructure regulating endless Apple Orchard worlds. Its repeating cells form a gigantic floating architecture larger than planets, filled with atmospheric turbines, quantum-gravity buoyancy engines, cloud fabrication chambers, sunlight-control mirrors, and climate-resource vaults. The machine resembles a metallic mountain range suspended above countless orchards, with fusion-powered spines glowing blue across unimaginable distances. Artificial aurora exhaust wings illuminate the cold pre-dawn darkness while mist gathers across planetary surfaces below. The Sky Orchard Shepherd represents the ultimate atmospheric guardian, balancing artificial weather with natural planetary cycles.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 93,
+  "idea_title": "Orchard Moon Harvester",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 93,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Orchard Moon Harvester, locked low-angle push-in shot from an Apple Orchard planet surface, reveals an alien-scale harvesting civilization machine for exactly 8 seconds. 0-1s HUD IGNITE activates cosmic fusion arrays. 1-2s HUD SWEEP maps every apple ecosystem across worlds. 2-3s HUD LIFT creates impossible gravity harvest streams. 3-4s HUD DISTILL processes universal orchard output. 4-8s HUD EJECT opens vast collection pathways while storms, clouds, and planetary weather systems transform around the structure, yet Orchard Moon Harvester continues its operation unchanged.",
+  "video_prompt_title": "Orchard Moon Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Orchard Moon Harvester becomes an alien maximum-scale agricultural entity, a universe-spanning low continuous-track crawler chassis supporting an artificial moon ring above an Apple Orchard world. The structure contains impossible quantum-gravity anchor networks, fusion star reactors, magnetic suspension oceans, atmospheric stabilizers, and silver harvesting roots extending across planetside apple forests. Galaxies, moons, storms, and continents provide scale. Plasma energy illuminates the impossible machine while lightning tears across its surface and the orchard world reacts beneath it.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

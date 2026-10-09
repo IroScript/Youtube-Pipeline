@@ -1,0 +1,18 @@
+{
+  "idea_id": 92,
+  "idea_title": "The Infinite Plantation Caretaker",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 92,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Infinite Plantation Caretaker begins a maximum alien lateral tracking shot along its universe-scale honeycomb working face as it protects countless Banana Plantation worlds with endless bio-robotic pruning and natural pest-repellent systems. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. At 1s HUD popup CALIBRATE, at 2s HUD popup ENGAGE, at 3s HUD popup CONVEY, at 4s HUD popup SEPARATE. The camera races beside impossible repeating cells carrying ecological materials across the structure. During seconds 5-8, the camera follows the discharge point where a continuous stream of planetary-scale restoration material emerges from the caretaker and flows onward through the alien plantation network beneath the aurora glow.",
+  "video_prompt_title": "The Infinite Plantation Caretaker - Level 10 - MAXIMUM ALIEN LEVEL (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Infinite Plantation Caretaker reaches impossible alien scale as a universe-spanning bio-robotic sentinel formed entirely from a dense honeycomb mass of repeating maintenance cells. Every cell contains autonomous pruning organisms, natural pest-repellent generators, and intelligent foliage restoration systems dedicated to protecting Banana Plantation worlds. Entire planets covered with banana forests orbit beneath the colossal structure, revealing unimaginable scale. The caretaker's mechanism is a vast cellular network transporting biological treatments through endless corridors. Energy comes from impossible aurora-powered solar membranes stretching across cosmic distances, visibly glowing through the honeycomb architecture. The scene remains under the signature cool green-violet sky and crisp cold atmosphere, presenting the ultimate agricultural guardian.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

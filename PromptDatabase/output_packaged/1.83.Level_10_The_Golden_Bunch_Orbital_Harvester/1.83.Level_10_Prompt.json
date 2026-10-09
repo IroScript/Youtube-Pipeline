@@ -1,0 +1,18 @@
+{
+  "idea_id": 83,
+  "idea_title": "The Golden Bunch Orbital Harvester",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 83,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Golden Bunch Orbital Harvester opens with a close shot of an alien-scale cable crane lifting a gigantic banana bunch from the plantation canopy, then the camera relentlessly pulls back to reveal the impossible vertical tower dominating the entire Banana Plantation world. At 0-1s HUD popup: CALIBRATE. At 1-2s HUD popup: ENGAGE. At 2-3s HUD popup: CONVEY. At 3-4s HUD popup: SEPARATE. At 4-5s HUD popup: DISCHARGE. The final three seconds settle beside the single human silhouette at the base, holding the immense contrast as the Golden Bunch Orbital Harvester works far above.",
+  "video_prompt_title": "The Golden Bunch Orbital Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Golden Bunch Orbital Harvester reaches alien maximum scale as a single impossibly slender vertical tower rising from a Banana Plantation that spans continents and planets. Its endless stacked working tiers contain colossal cable-suspended robotic cranes, atmospheric monorail networks, and enormous banana bunch transport systems moving multi-ton golden harvests through space-like heights. The mechanism is an ultimate evolution of cable harvesting technology, with infinite lifting lines, automated fruit carriers, and orbital transfer platforms. Energy comes from gigantic solar collector structures wrapped around the tower, glowing through the cold blue pre-dawn atmosphere. Mist surrounds the base where the tiny human silhouette reveals the unimaginable size.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

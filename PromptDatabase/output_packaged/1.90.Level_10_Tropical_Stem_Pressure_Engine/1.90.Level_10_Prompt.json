@@ -1,0 +1,18 @@
+{
+  "idea_id": 90,
+  "idea_title": "Tropical Stem Pressure Engine",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 90,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Tropical Stem Pressure Engine lateral tracking shot races along the alien-scale torus working face surrounding a planetary Banana Plantation ecosystem, revealing impossible hydraulic systems extracting moisture from endless banana pseu_",
+  "video_prompt_title": "Tropical Stem Pressure Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, extreme detail. Tropical Stem Pressure Engine becomes an alien-scale impossible torus surrounding an entire planetary Banana Plantation ecosystem. The closed rotating ring dominates space while preserving its true identity as a hydraulic press extracting pure plant water from fibrous banana pseudostems. Infinite-looking hydraulic compression layers, autonomous stem pathways, pressure membranes, and massive water circulation arteries fill the structure around the central void. Planet surfaces covered with banana plantations, oceans, and atmospheric clouds create unimaginable scale. The machine is powered by colossal solar-hydraulic networks glowing through the shell. Amber dust, heavy haze, and dim sun disc define the final cinematic presentation.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

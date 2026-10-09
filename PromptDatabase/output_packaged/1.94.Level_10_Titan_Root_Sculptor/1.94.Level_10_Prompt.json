@@ -1,0 +1,18 @@
+{
+  "idea_id": 94,
+  "idea_title": "Titan Root Sculptor",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 94,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Titan Root Sculptor begins a slow orbital arc around a planet-wide Apple Orchard landscape, revealing the maximum-scale crawler machine in an 8-second uninterrupted shot. At second 1, Titan Root Sculptor activates its global underground root-sculpting network. HUD popup at 1.0s: SPIN UP. HUD popup at 2.0s: DEPLOY. HUD popup at 3.0s: CHANNEL. HUD popup at 4.0s: FILTER. The camera circles through massive storm systems, exposing planetary factories, energy arteries, and endless soil-engineering mechanisms. The final four seconds retreat into an extreme wide cosmic perspective, revealing dozens of Titan Root Sculptors stretching across the horizon in formation.",
+  "video_prompt_title": "Titan Root Sculptor - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Titan Root Sculptor reaches maximum alien scale as a landscape-dominating continuous-track crawler machine beneath a planet-wide Apple Orchard ecosystem. Its immense armored chassis becomes a mechanical continent supporting infinite networks of robotic root tendrils, quantum prediction engines, microscopic soil manipulators, fusion reactors, plasma conduits, and gravity stabilization systems. The Apple Orchard world curves beneath storm clouds with mountains and oceans providing scale. Lightning repeatedly reveals the impossible machine while energy flows through colossal structures and underground artificial rhizosphere networks. The image presents Titan Root Sculptor as the ultimate planetary gardener, a machine larger than civilization itself.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

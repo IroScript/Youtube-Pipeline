@@ -1,0 +1,18 @@
+{
+  "idea_id": 98,
+  "idea_title": "Orchard Time Engine",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 98,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Orchard Time Engine executes a final lateral tracking shot along its impossible alien-scale torus surrounding an infinite Apple Orchard world. At 0-1s HUD: POWER UP as universe-scale reactors illuminate. At 1-2s HUD: EXTEND as endless temporal arms unfold. At 2-3s HUD: INTAKE as reality-wide orchard scans begin. At 3-4s HUD: REFINE as countless seasons synchronize. At 4-6s HUD: STORE as infinite preservation systems activate. The camera races beside the colossal circular structure through violent storm clouds and lightning. At 6-8s the Orchard Time Engine falls into stark silhouette against a vast sky as its running lights ignite in sequence around the endless ring.",
+  "video_prompt_title": "Orchard Time Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Orchard Time Engine reaches maximum impossible scale as an alien closed torus larger than worlds, rotating around an infinite Apple Orchard civilization. The circular chassis forms a mechanical mountain range surrounding a central void, supported by unimaginable quantum-gravity foundations and containing endless temporal sectors. Its inner circumference carries limitless blossom injectors, fruit-support systems, climate manipulators, molecular pruning arrays, and chronometric reactors controlling entire agricultural realities. The Apple Orchard stretches beyond horizons with countless simultaneous seasons. Fusion energy appears as colossal blue-white rivers across the ring while storm clouds and lightning surround the final planetary-scale machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

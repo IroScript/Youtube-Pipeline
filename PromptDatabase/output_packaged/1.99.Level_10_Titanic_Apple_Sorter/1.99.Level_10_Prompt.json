@@ -1,0 +1,18 @@
+{
+  "idea_id": 99,
+  "idea_title": "Titanic Apple Sorter",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 99,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Titanic Apple Sorter appears in a slow orbital arc shot around an alien-scale Apple Orchard spanning worlds, revealing the impossible segmented spine, endless conveyor civilizations, robotic apple systems, and planetary sorting architecture. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. At 1 second HUD popup: SPIN UP, the universe-scale spine begins synchronized movement. At 2 seconds HUD popup: DEPLOY, infinite processing modules unfold. At 3 seconds HUD popup: CHANNEL, impossible apple transport pathways activate. At 4 seconds HUD popup: FILTER, cosmic inspection networks awaken. At 5 seconds HUD popup: DELIVER, distribution vaults across worlds connect. The final five seconds hold the orbital camera as a massive energy wave travels along the full Titanic Apple Sorter spine, flooding every structure with light until the complete alien apple-processing system reaches absolute synchronized output beneath the green-violet aurora.",
+  "video_prompt_title": "Titanic Apple Sorter - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. The Titanic Apple Sorter reaches an alien maximum form, a universe-spanning segmented spine that still functions as the ultimate Apple Orchard sorting machine. Its articulated structure curves across planetary landscapes, with impossible conveyor highways, microscopic inspection civilizations, robotic fruit-handling networks, and colossal preservation vaults integrated into every section. Apple orchards exist as vast cultivated ecosystems surrounding the machine's unimaginable scale. Superconducting plasma conduits create flowing rivers of green-violet energy through the entire spine, producing aurora-like atmospheric phenomena across worlds. The presentation is a breathtaking orbital composition with cold crystalline air, luminous skies, and a final vision of the Titanic Apple Sorter as an impossible agricultural intelligence built entirely around sorting and distributing apples.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

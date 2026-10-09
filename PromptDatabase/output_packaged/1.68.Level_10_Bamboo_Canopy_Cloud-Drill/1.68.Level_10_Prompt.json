@@ -1,0 +1,18 @@
+{
+  "idea_id": 68,
+  "idea_title": "Bamboo Canopy Cloud-Drill",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 68,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Bamboo Canopy Cloud-Drill opens with a close shot of one enormous titanium condensation mechanism moving inside the honeycomb core. The camera relentlessly pulls backward through expanding layers of machinery until the impossible planetary-scale cloud-drill and endless Bamboo Forest fill the frame. HUD beats appear: 1s UNLOCK, 2s UNFOLD, 3s GATHER, 4s COMPRESS, 5s RELEASE, 6s FLOW. The final two seconds bring the camera to rest inside the control heart of Bamboo Canopy Cloud-Drill, surrounded by colossal moving readouts, cloud analysis systems, and mechanical structures. Exactly 8 seconds, 9:16 vertical, one continuous shot.",
+  "video_prompt_title": "Bamboo Canopy Cloud-Drill - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Bamboo Canopy Cloud-Drill becomes a physically impossible landscape-dominating titanium needle that pierces planetary cloud oceans above an endless Bamboo Forest world. Its colossal honeycomb body contains infinite repeating cells carrying condensed rainwater through unimaginable compression chambers and root-delivery networks. The Bamboo Forest stretches beneath the machine like a living planet-scale ecosystem. Energy comes from planetary storms, atmospheric currents, and immense collector surfaces visible across the wet metallic structure. Flat overcast diffusion, desaturated industrial palette, and reflective surfaces create the ultimate alien ecological machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

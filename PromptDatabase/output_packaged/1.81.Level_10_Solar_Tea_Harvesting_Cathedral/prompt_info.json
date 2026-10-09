@@ -1,0 +1,18 @@
+{
+  "idea_id": 81,
+  "idea_title": "Solar Tea Harvesting Cathedral",
+  "idea_topic": "Tea Garden",
+  "element_id": 8,
+  "idea_index_in_element": 81,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Solar Tea Harvesting Cathedral begins a sweeping crane shot beyond the highest clouds above the Tea Garden, descending through vast aurora haze as the alien honeycomb cathedral fills the horizon. The impossible machine harvests and processes tea with countless articulated systems powered by enormous solar collectors. HUD popups appear: 0.8s UNLOCK, 1.6s UNFOLD, 2.4s GATHER, 2.9s COMPRESS, 3.0s RELEASE. The final five seconds create a slow cinematic passage beside the colossal repeating cells, showing material moving between chambers and luminous energy crossing the structure, before the camera settles beside a single human silhouette dwarfed at the base while the Solar Tea Harvesting Cathedral works endlessly overhead. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "Solar Tea Harvesting Cathedral - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, extreme high detail. Solar Tea Harvesting Cathedral reaches maximum impossible scale above the Tea Garden, becoming an alien honeycomb cathedral-machine spanning entire regions with infinite repeating cells, colossal arches, and moving agricultural infrastructure. Every cellular chamber contains advanced tea harvesting arms, optical botanical intelligence systems, vacuum leaf transport networks, grading worlds, oxidation halls, drying environments, and atmospheric tea storage vaults. The enormous solar collector roof converts sunlight into visible energy rivers flowing through plasma conduits while magnetic and gravity technologies support the landscape-dominating structure. The Tea Garden remains a tiny recognizable pattern below. Present the final vision with the same cool green-violet aurora glow, crisp cold air, and overwhelming scale.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 66,
+  "idea_title": "Hollow-Stem Resonance Engine",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 66,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Hollow-Stem Resonance Engine appears in a spiralling descent shot around a maximum-scale buried acoustic machine beneath an endless Bamboo Forest, revealing alien-sized hollow bamboo pipes channeling planetary winds. At 0-1s HUD popup: SPIN UP. At 1-2s HUD popup: DEPLOY. At 2-3s HUD popup: CHANNEL. At 3-4s HUD popup: FILTER. At 4-5s HUD popup: DELIVER. The final three seconds spiral far away into an extreme wide reveal showing dozens of identical Hollow-Stem Resonance Engines continuing toward the horizon in a colossal formation under the harsh noon sun.",
+  "video_prompt_title": "Hollow-Stem Resonance Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Hollow-Stem Resonance Engine reaches maximum impossible scale as an alien buried acoustic organism beneath an endless Bamboo Forest, with only planetary intake structures, mountain-sized bamboo organ towers, and gigantic spoil formations visible above the surface. The machine operates through unimaginable hollow-stem resonance networks, atmospheric wind collectors, harmonic reactors, and underground vibration systems that stimulate bamboo cell division across an entire world. The bamboo forest surrounds the exposed structures like an infinite living ocean. Wind energy visibly bends the atmosphere around the acoustic machine. Harsh vertical noon sunlight, bleached highlights, and razor-sharp black shadows preserve the unique identity.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

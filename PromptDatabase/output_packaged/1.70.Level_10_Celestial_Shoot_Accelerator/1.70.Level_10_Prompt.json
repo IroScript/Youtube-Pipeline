@@ -1,0 +1,18 @@
+{
+  "idea_id": 70,
+  "idea_title": "Celestial Shoot Accelerator",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 70,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Celestial Shoot Accelerator vertical ascent shot begins inside an endless Bamboo Forest world and climbs along the universe-scale segmented spine as impossible solar glass domes focus ultraviolet energy through infinite articulated sections. At 0-1s HUD: IGNITE. At 1-2s HUD: SWEEP. At 2-3s HUD: LIFT. At 3-4s HUD: DISTILL. The final four seconds continue the ascent beyond galaxies while the complete Celestial Shoot Accelerator structure flexes across cosmic space; the closing beat shows light racing through a full universal day cycle while the machine continues its bamboo growth rhythm without pause. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "Celestial Shoot Accelerator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. Celestial Shoot Accelerator becomes a universe-scale segmented spine machine stretching beyond galaxies while still functioning as a solar-focusing ultraviolet bamboo growth accelerator. Its impossible articulated length contains infinite glass domes, colossal UV concentration chambers, adaptive mechanical joints, and energy pathways flowing like rivers of green-violet light. Bamboo Forest ecosystems cover countless planets beneath the structure, creating the ultimate scale reference. Energy is powered by accumulated cosmic sunlight gathered through transparent solar architecture and transformed into concentrated ultraviolet growth force. The presentation keeps the cold aurora glow, crisp frozen atmosphere, and alien civilization engineering aesthetic while remaining centered on the Celestial Shoot Accelerator.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

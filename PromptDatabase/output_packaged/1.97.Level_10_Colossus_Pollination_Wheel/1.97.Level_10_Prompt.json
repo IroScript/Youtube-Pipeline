@@ -1,0 +1,18 @@
+{
+  "idea_id": 97,
+  "idea_title": "Colossus Pollination Wheel",
+  "idea_topic": "Apple Orchard",
+  "element_id": 10,
+  "idea_index_in_element": 97,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Colossus Pollination Wheel begins a maximum-scale lateral tracking shot across an alien Apple Orchard planet, the camera racing along the impossible working face as endless drone civilizations perform synchronized pollination. The shot reveals planetary pollen factories, quantum coordination systems, atmospheric engines, and enormous magnetic wheel structures. At 1s HUD: IGNITE. At 2s HUD: SWEEP. At 3s HUD: LIFT. At 4s HUD: DISTILL. At 5s HUD: EJECT. At 6s HUD: ETERNAL BLOOM. The final two seconds rise into a flawless straight top-down orthographic view where the Colossus Pollination Wheel becomes a gigantic geometric circle governing the entire Apple Orchard world beneath the golden atmospheric glow. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "Colossus Pollination Wheel - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. The Colossus Pollination Wheel reaches alien maximum scale, becoming a physically impossible planetary agricultural framework spanning an entire Apple Orchard world. Its broad flat overhead canopy becomes a second sky supported by countless thin masts and impossible suspension fields, while the circular chassis remains unmistakably a pollination machine. The structure contains infinite drone migration routes, quantum synchronization chambers, planetary pollen databases, genetic diversity preservation systems, atmospheric current engines, magnetic orbital bearings, and microscopic applicator networks. Energy appears as planet-wide fusion plasma rivers and colossal thermal radiator leaves glowing along the canopy. The image maintains low golden-hour sun, warm rim light, and dust suspended through the air while showing the Colossus Pollination Wheel as the ultimate guardian of apple reproduction.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

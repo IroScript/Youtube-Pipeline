@@ -1,0 +1,18 @@
+{
+  "idea_id": 88,
+  "idea_title": "Monsoon Banana Ripening Dome",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 88,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Monsoon Banana Ripening Dome, a lateral tracking shot racing beside the maximum-scale honeycomb working face above the infinite Banana Plantation world, exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. The camera travels along endless repeating cells where banana ripening atmospheres, ethylene vapor streams, and humidity systems move with alien precision. HUD popup at 1s shows PRIME, at 2s shows LOCK ON, at 3s shows HARVEST. The final five seconds show the outer shell peeling away in one continuous motion, revealing the enormous synchronized internal layers of the ultimate atmospheric ripening machine.",
+  "video_prompt_title": "Monsoon Banana Ripening Dome - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Monsoon Banana Ripening Dome reaches maximum impossible scale as an alien honeycomb atmospheric machine covering an entire world of Banana Plantation landscapes. Its dense repeating geodesic cells form a planetary shell where material continuously moves between chambers containing colossal ethylene vapor circulation systems, humidity oceans, banana transport networks, cooling membranes, and perfect ripening environments. Energy flows from artificial suns, planetary storms, and cosmic collectors embedded across the structure. Flat overcast diffusion, wet reflective surfaces, and a desaturated industrial palette remain unchanged, creating the final evolution of the banana ripening technology.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

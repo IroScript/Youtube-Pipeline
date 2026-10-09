@@ -1,0 +1,18 @@
+{
+  "idea_id": 87,
+  "idea_title": "The Titan Fruit Loom",
+  "idea_topic": "Banana Plantation",
+  "element_id": 9,
+  "idea_index_in_element": 87,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Titan Fruit Loom spirals around an alien-scale honeycomb processing cathedral beyond planetary limits, showing endless banana wrapping cells, sorting corridors, and nitrogen preservation networks. At 0-1s HUD: IGNITE, alien energy systems awaken. At 1-2s HUD: SWEEP, galaxy-scale fruit pathways move. At 2-3s HUD: LIFT, impossible transport layers rise. At 3-4s HUD: DISTILL, cosmic nitrogen flows stabilize. At 4-5s HUD: EJECT, universal distribution begins. At 5-6s HUD: ASCEND, the complete system synchronizes. At 6-8s the camera retreats into an extreme wide perspective revealing dozens of identical Titan Fruit Loom structures stretching across the horizon in formation while lightning tears through the storm clouds.",
+  "video_prompt_title": "The Titan Fruit Loom - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Titan Fruit Loom is an alien-scale honeycomb processing cathedral spanning impossible distances while continuing its original purpose of wrapping, sorting, and chilling delicate tropical produce from Banana Plantations. Its endless repeating cells form a colossal robotic civilization of banana preservation chambers, nitrogen flow networks, automated wrapping systems, and intelligent sorting pathways. Entire planets appear as plantation environments around the structure. Energy comes from artificial cosmic storms, stellar collectors, and unimaginable power systems glowing through the honeycomb mass. Heavy clouds, lightning, and storm illumination dominate the scene as the largest agricultural processing machine imaginable towers beyond reality.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

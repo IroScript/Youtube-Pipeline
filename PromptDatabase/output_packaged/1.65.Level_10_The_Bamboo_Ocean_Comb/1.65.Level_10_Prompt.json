@@ -1,0 +1,18 @@
+{
+  "idea_id": 65,
+  "idea_title": "The Bamboo Ocean Comb",
+  "idea_topic": "Bamboo Forest",
+  "element_id": 5,
+  "idea_index_in_element": 65,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Bamboo Ocean Comb begins a final lateral tracking shot along its universe-scale rotating torus face as it moves through endless Bamboo Forest planets. At 0s-1s HUD popup: CALIBRATE, revealing universal moisture mapping. At 1s-2s HUD popup: ENGAGE, activating infinite rake structures. At 2s-3s HUD popup: CONVEY, showing cosmic water movement. At 3s-4s HUD popup: SEPARATE, displaying impossible processing networks. At 4s-5s HUD popup: DISCHARGE, revealing interstellar water distribution. At 5s-6s the camera races across the gigantic illuminated torus surface. At 6s-8s the camera reaches the control heart of The Bamboo Ocean Comb, surrounded by endless moving readouts, alien machinery, and the rotating core systems of a universe-scale extraction engine.",
+  "video_prompt_title": "The Bamboo Ocean Comb - Level 10 - MAXIMUM ALIEN LEVEL (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Bamboo Ocean Comb reaches maximum impossible scale as a universe-spanning closed torus machine rotating around a central void while operating on endless Bamboo Forest worlds. The colossal ring's horizontal rake surface extends beyond planetary horizons, extracting water stored inside infinite hollow bamboo culm oceans. The mechanism consists of unimaginable layered comb systems, cosmic water circulation arteries, autonomous machine networks, and gigantic rotating extraction structures fused into the torus. Energy comes from captured stellar networks visibly powering the entire ring through luminous transmission paths. The presentation remains deep night with extreme artificial floodlights, vast darkness, and an overwhelming alien industrial atmosphere.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
