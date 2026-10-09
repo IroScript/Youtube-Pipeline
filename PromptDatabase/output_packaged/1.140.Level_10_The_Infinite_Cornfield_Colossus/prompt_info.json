@@ -1,0 +1,18 @@
+{
+  "idea_id": 140,
+  "idea_title": "The Infinite Cornfield Colossus",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 140,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Infinite Cornfield Colossus moves in a lateral tracking shot along its impossible planet-dominating segmented spine while commanding endless automated harvesting drones across the Corn Field. The shot lasts exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. At 0-1 seconds HUD popup: IGNITE, showing unimaginable energy activation. At 1-2 seconds HUD popup: SWEEP, showing infinite drone coordination. At 2-3 seconds HUD popup: LIFT, showing planet-scale farming mechanisms. At 3-4 seconds HUD popup: DISTILL, showing ultimate agricultural intelligence. At 4-5 seconds HUD popup: EJECT, showing endless drone fleets launching. From 5-8 seconds the camera maintains its rapid lateral journey beside The Infinite Cornfield Colossus as the storm world shifts around it, lightning tears across the structure, and the environment reacts while the machine continues harvesting forever.",
+  "video_prompt_title": "The Infinite Cornfield Colossus - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Infinite Cornfield Colossus becomes a physically impossible autonomous agricultural mothership whose segmented spine spans an entire planet-sized Corn Field, each articulated section functioning as a gigantic farming intelligence node. The environment shows endless prairie continents, miniature civilizations, planetary storms, and atmospheric systems surrounding the machine. Its mechanism includes infinite linked spine modules, self-coordinating harvesting drone fleets, planetary command centers, adaptive agricultural systems, and unimaginable autonomous farming networks. Energy is generated through planet-scale solar collectors and storm-energy channels visible across the entire structure. The final presentation is a cinematic storm world with massive moving clouds, intense lightning, rain, and The Infinite Cornfield Colossus remaining motionless in purpose while the environment reacts to its operation.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

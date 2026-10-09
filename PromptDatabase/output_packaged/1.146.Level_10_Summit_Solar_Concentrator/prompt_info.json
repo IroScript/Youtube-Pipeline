@@ -1,0 +1,18 @@
+{
+  "idea_id": 146,
+  "idea_title": "Summit Solar Concentrator",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 146,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 120-kilometer hyper-dimensional solar singularity forge permanently melded with the continental mountain spine. The entire mountain range has been transformed into a living geometric alien engine of dark polished obsidian and pulsing crystalline gold. The summits form an impossible macro-ring that traps solar photons in perpetual relativistic orbit, turning the mountain peaks into a perpetual synthetic star.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM STELLAR AWAKENING\" — The 120-kilometer obsidian mountain ring awakens with a blinding flash of golden tachyons, opening multidimensional solar capture conduits that pierce through the upper atmosphere into deep interplanetary space.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PHOTON ORBIT TRAPPING\" — Streams of solar light bend into perpetual closed orbits around the mountain peaks, forming a blinding ring of pure relativistic plasma that hovers silently above the snowfields.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING LITHOSPHERIC DIGESTION\" — The mountain bedrock itself pulses with golden veins of liquid starlight as the alien engine fuses planetary minerals with stellar energy at the subatomic scale.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: TRANSDIMENSIONAL POWER TRANSMISSION\" — Limitless energy radiates downward into the planet's core and outward across interstellar subspace channels, turning the entire world into an active stellar power hub.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: INFINITE STELLAR HARMONY\" — The synthetic star stabilizes at the mountain apex, casting an eternal warm golden twilight across surrounding continents while ancient glaciers glow with inner luminescence.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous dive from high planetary orbit, plunging down the center of the blinding photon ring, skirting razor-sharp obsidian ridges and gliding inches above a frozen glacial lake reflecting the golden alien star, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Summit Solar Concentrator - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

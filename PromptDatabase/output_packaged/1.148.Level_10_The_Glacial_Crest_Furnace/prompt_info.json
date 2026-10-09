@@ -1,0 +1,18 @@
+{
+  "idea_id": 148,
+  "idea_title": "The Glacial Crest Furnace",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 148,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 110-kilometer stellar core simulator rooted into the earth's core, turning snow peaks into perpetually radiating solar mountains. The entire continental mountain range is re-engineered into an immortal biomechanical engine of solid dark crystal and blazing stellar fusion fire. The peaks burn with cold fusion light that defies physics, creating an eternal beacon visible across the solar system.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: CORE-TO-SUMMIT STELLAR IGNITION\" — A monolithic conduit connecting the earth's molten iron core to the mountain summits ignites, channeling pure primordial stellar energy into every peak.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: SOLAR CONVECTION LOOPS\" — Ribbons of liquid stellar fire loop between mountain horns like solar prominences, held in impossible balance by hyper-dimensional gravity fields.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LITHOSPHERIC STELLARIZATION\" — The mountain rock turns into translucent black diamond with glowing golden veins, pulsating in rhythm with the heartbeat of the galaxy.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INFINITE PLANETARY EQUILIBRIUM\" — The stellar mountain engine permanently anchors the planet's atmospheric, magnetic, and thermal systems into indestructible balance.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: COSMIC BEACON ENERGIZATION\" — A pillar of pure starlight erupts from the highest summit, projecting a message of planetary harmony and infinite energy into deep interstellar space.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes a continuous impossible descent from interplanetary space, diving down through the auroral rings, skimming inches over the looping stellar fire prominences connecting the crystal mountain peaks, and plunging into the radiant golden core of the summit furnace, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Glacial Crest Furnace - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

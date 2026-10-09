@@ -1,0 +1,18 @@
+{
+  "idea_id": 159,
+  "idea_title": "The Polar Bedrock Tectonic Pincer",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 159,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 145-kilometer god-tier living obsidian and golden pincer engine holding the planet's polar crust in eternal balance. The entire polar continental ice sheet and its bedrock foundations have transformed into an impossible, conscious entity of dark polished obsidian, pulsing liquid starlight, and singing diamond monoliths. The engine grips the tectonic roots of the Earth with divine power, transmuting geological friction into rivers of cosmic stellar plasma that link Earth's core directly to the galactic energy grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL TECTONIC PINCER AWAKENING\" — The 145-kilometer god-engine ignites with blinding golden tachyon fire, its diamond pincers locking into the deepest roots of the continental lithosphere.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY CRUST TRANSCENDENCE\" — The solid granite and basal ice transform into living conscious diamond-crystal that flows with golden stellar energy.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COSMIC SINGULARITY HARMONY\" — Tectonic plate friction is converted into pure cosmic starlight within central hyper-dimensional singularities.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GALACTIC CORE ANCHORAGE\" — Beams of pure stellar plasma erupt from diamond monoliths into deep space, linking Earth directly to the galactic core.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL CRYO-TECTONIC NIRVANA\" — The god-engine locks the planet's mountains, glaciers, and crust into eternal, indestructible perfection and peace.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous descent from orbit, diving through swirling auroral rings of liquid gold, skimming alongside monumental obsidian monoliths rising from glowing blue ice, and plunging into the radiant golden core of the cosmic singularity forge, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Polar Bedrock Tectonic Pincer - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
