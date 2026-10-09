@@ -1,0 +1,18 @@
+{
+  "idea_id": 336,
+  "idea_title": "Continental Pile-Driver Array",
+  "idea_topic": "Mega Construction Site",
+  "element_id": 83,
+  "idea_index_in_element": 336,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism. The fully evolved Continental Pile-Driver Array spans the visible planet, its endless hammer towers striking in perfect synchronization while mantle-anchored columns support a completely reengineered landscape. Entire continents appear as stabilized construction platforms connected by colossal geometric foundation systems, with atmospheric shock rings encircling the world. Second 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: FINAL SYNCHRONIZATION\" — Every hammer array across the planet enters unified operation. Second 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MAXIMUM TECTONIC TORQUE\" — Ultimate mechanical force propagates through global support structures. Second 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: PLANETARY FOUNDATION LOCK\" — Mantle-scale anchoring systems complete total structural integration. Second 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: WORLD REENGINEERING\" — Entire continental landscapes settle into engineered perfection. Second 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: IMPOSSIBLE URBAN PLATFORM ACHIEVED\" — The planet becomes a rigid foundation for impossible mega-structures. Seconds 6-8 [0:05-0:08]: HUD text completely fades; camera performs a continuous pull-back from active hammer towers to a world-scale reveal of the completed foundation network encircling the planet, unbroken motion, zero cuts, exactly 8 seconds.",
+  "video_prompt_title": "Continental Pile-Driver Array - Level 10 (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
