@@ -1,0 +1,18 @@
+{
+  "idea_id": 131,
+  "idea_title": "The Shifting Sand Ocean Ark",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 131,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic rendering, maximum cinematic realism, one unbroken shot, zero cuts, zero scene transitions. The ultimate realization of The Shifting Sand Ocean Ark emerges as the greatest desert vessel imaginable: a colossal hydrofoil-inspired land ship with a vast segmented spine that flexes across an entire desert horizon while carrying countless sealed glass terrariums containing complete oasis ecosystems. The machine remains a moving sanctuary, not a weapon, perfectly belonging to the desert as it glides above endless sand waves through impossible engineering precision. The locked low-angle push-in camera from ground level captures the enormous articulated structure filling the vertical frame, revealing monumental curvature, transparent habitats, adaptive surfaces, and flawless motion across the dunes. Harsh vertical noon sun, bleached desert palette, sharp black shadows, maximum photorealism. Six rapid HUD beats: PRIME, LOCK ON, HARVEST, SORT, LOAD, displaying the Ark awakening, reading the desert, gathering scarce resources, organizing oasis systems, and preparing endless habitat movement. The final cinematic revelation shows the Ark functioning as a legendary moving ocean of life across the desert sands. Final two-second closing accent: the camera settles beside one human silhouette at the base of The Shifting Sand Ocean Ark, dwarfed beneath the colossal segmented spine as the impossible oasis carrier continues its silent journey overhead. Instrumental cinematic background music only, derived from desert wind, immense scale, and the emotional wonder of an impossible sanctuary, with absolutely no human voice.",
+  "video_prompt_title": "The Shifting Sand Ocean Ark - Level 10 - ULTIMATE CINEMATIC IMPOSSIBILITY (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

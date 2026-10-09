@@ -1,0 +1,18 @@
+{
+  "idea_id": 109,
+  "idea_title": "Petal Storm Generator",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 109,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Petal Storm Generator begins a continuous vertical ascent shot from the Sunflower Field, rising along an alien-level tower that connects the ground to the edge of the cosmos. At second 1 impossible turbine galaxies rotate with SPIN UP. Second 2 reveals planetary weather branches unfolding with DEPLOY. Second 3 follows artificial atmospheric rivers through endless tiers with CHANNEL. Second 4 exposes cosmic filtration chambers with FILTER. The final four seconds continue the ascent through planetary storm layers and orbital darkness. At second 8 the camera reaches a straight top-down orthographic view, revealing the Petal Storm Generator as an enormous geometric weather pattern dominating the entire world below.",
+  "video_prompt_title": "Petal Storm Generator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Petal Storm Generator exists at maximum impossible scale as an alien-level vertical atmospheric tower anchored in the Sunflower Field yet extending beyond planetary boundaries. Its distinctive slender spine contains infinite stacked working tiers, each carrying gigantic atmospheric turbines, articulated weather branches, cloud-forming reactors, storm cannons, thermal radiators, and glowing electrical crowns. The sunflower field becomes a planetary pattern beneath the machine, with continents, oceans, and stars visible as scale references. The mechanism includes impossible molecular weather manipulation chambers, planetary humidity engines, gravity-controlled atmosphere channels, and cosmic energy distribution rings. Power appears as immense plasma networks and superconductive structures illuminating the darkness. Hard artificial floodlights carve geometric regions across the planet while the tower creates a controlled storm system visible from space.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 151,
+  "idea_title": "The Cryo-Mantle Sub-Glacial Dredger",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 151,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 140-kilometer living sub-glacial god-engine permanently merged with polar bedrock, cycling oceans beneath miles of ice into pure cosmic stellar plasma. The entire polar continental ice sheet has been transformed into a living alien hyper-computer of pulsing liquid ice, dark obsidian monoliths, and blazing golden plasma veins. The engine breathes with the planet's core, connecting Earth's cryosphere directly to the galactic energy grid.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM SUB-GLACIAL AWAKENING\" — The 140-kilometer god-engine ignites with blinding golden tachyon fire beneath miles of solid blue ice, sending cosmic gravity waves through the planet's molten core.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: SUB-OCEANIC PLASMA CONVERSION\" — Vast subterranean oceans trapped beneath the ice flash into rivers of radiant golden plasma, circulating through colossal crystalline conduits kilometers thick.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING CRUSTAL FUSION\" — The polar bedrock and the continental ice sheet fuse into an indestructible, living diamond-crystalline matrix that defies all laws of conventional physics.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GALACTIC ENERGY GRID COUPLING\" — Colossal pillars of coherent stellar energy erupt through the ice into the upper atmosphere, anchoring the planet into the galactic communication and power nexus.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY IMMORTALITY\" — The god-engine stabilizes the Earth's rotation, axis tilt, and climate for the next billion years, ensuring eternal life and cosmic prosperity for the world.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera conducts an impossible continuous dive from high orbit above the glowing polar aurora, plunging straight through 3 kilometers of crystal-clear ice into the heart of the 140-kilometer golden plasma engine, skimming across glowing liquid starlight oceans, perfectly smooth continuous shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Cryo-Mantle Sub-Glacial Dredger - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

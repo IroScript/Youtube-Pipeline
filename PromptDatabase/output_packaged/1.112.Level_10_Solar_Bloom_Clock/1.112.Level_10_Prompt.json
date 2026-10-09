@@ -1,0 +1,18 @@
+{
+  "idea_id": 112,
+  "idea_title": "Solar Bloom Clock",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 112,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Solar Bloom Clock emerges across an impossible planetary Sunflower Field in a continuous locked low-angle push-in shot, the articulated multi-legged chassis walking beneath a clock structure larger than mountains. At 1s HUD popup: UNLOCK. At 2s HUD popup: UNFOLD. At 3s HUD popup: GATHER. The final five seconds reveal the machine synchronizing an entire world as mirrored hands move through the atmosphere, sunlight systems illuminate distant regions, and pollination networks surround the colossal structure. Golden-hour light glows across alien-scale machinery while dust rises from its endless mechanical legs. The final beat settles beside a lone human silhouette at the base of Solar Bloom Clock, staring upward as the impossible machine continues its planetary cycle.",
+  "video_prompt_title": "Solar Bloom Clock - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, extreme detail. Solar Bloom Clock reaches an alien level of impossible scale above a Sunflower Field covering an entire world, becoming a living temporal-agricultural machine with an articulated multi-legged walking chassis spanning continents. The circular clock body forms a mechanical celestial object, its central tower reaching beyond the atmosphere while enormous mirrored hands orbit through the sky carrying irrigation cannons, pollination systems, spectral sensors, and artificial sunlight engines. The sunflower field below appears as a planetary texture beneath the machine's moving legs. Solar Bloom Clock is powered by vast solar energy rings, plasma conduits, gravitational stabilizers, and magnetic suspension fields visible across its structure. The low-angle composition preserves the golden-hour identity with warm rim light, suspended dust, and an overwhelming alien engineering presence.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

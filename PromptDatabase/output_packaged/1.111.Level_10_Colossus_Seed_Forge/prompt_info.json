@@ -1,0 +1,18 @@
+{
+  "idea_id": 111,
+  "idea_title": "Colossus Seed Forge",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 111,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Colossus Seed Forge delivers a maximum-scale lateral tracking shot along its impossible honeycomb refinery face in the Sunflower Field, where entire regions of sunflower harvest move through endless processing cells. At 0 seconds HUD popup: CALIBRATE. At 1 second HUD popup: ENGAGE. At 2 seconds HUD popup: CONVEY. At 3 seconds HUD popup: SEPARATE. At 4 seconds HUD popup: DISCHARGE. From 5 to 8 seconds the camera rises into a flawless top-down orthographic view, revealing the Colossus Seed Forge as a gigantic geometric pattern dominating the landscape beneath the aurora sky.",
+  "video_prompt_title": "Colossus Seed Forge - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Colossus Seed Forge reaches maximum impossible scale on the Sunflower Field, becoming a landscape-dominating honeycomb agricultural refinery whose repeating cells form a planetary geometric architecture. The crawler chassis spans beyond horizons while endless intake portals, crushing systems, magnetic conveyors, oil galleries, biomass reactors, and storage chambers operate as one colossal processing organism. Quantum gravity manipulation suspends the machine's impossible mass, while plasma conduits and thermal exhaust towers illuminate the frozen atmosphere. The green-violet aurora reflects across the largest agricultural machine ever imagined. The final image presents the Colossus Seed Forge as a moving industrial continent viewed from a dramatic lateral perspective.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

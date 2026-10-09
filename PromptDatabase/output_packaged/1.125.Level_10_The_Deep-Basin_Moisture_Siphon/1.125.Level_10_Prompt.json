@@ -1,0 +1,18 @@
+{
+  "idea_id": 125,
+  "idea_title": "The Deep-Basin Moisture Siphon",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 125,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Deep-Basin Moisture Siphon performs a slow orbital arc around its alien-scale suspended platform above a desert planet, revealing impossible atmospheric collectors, endless cables, and planetary cryogenic systems. At 0-1s HUD: CALIBRATE, 1-2s HUD: ENGAGE, 2-3s HUD: CONVEY, 3-4s HUD: SEPARATE, 4-5s HUD: DISCHARGE, 5-6s HUD: PLANET CORE. The camera completes its rotation through the enormous machine as aurora energy flows across the structure. At 6-8s the camera comes to rest inside the control heart of The Deep-Basin Moisture Siphon, surrounded by alien readouts, moving mechanisms, and the active command center of a planetary moisture system.",
+  "video_prompt_title": "The Deep-Basin Moisture Siphon - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Deep-Basin Moisture Siphon reaches maximum alien scale as an impossible suspended aerial platform surrounding a desert planet, tethered by endless cable-like structures reaching into planetary water caverns beneath the surface. The machine contains astronomical atmospheric intake formations, infinite cryogenic condenser networks, planet-scale moisture transfer channels, and colossal cooling engines designed to draw desert air into hidden underground oceans. The desert world below appears as a miniature planetary landscape of dunes, mountains, and basins. Energy radiates through immense aurora fields, magnetic suspension webs, and impossible green-violet cold reactors. The presentation shows a breathtaking vertical scene of extraterrestrial engineering under crisp frozen air.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

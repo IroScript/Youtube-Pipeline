@@ -1,0 +1,18 @@
+{
+  "idea_id": 127,
+  "idea_title": "The Obsidian Dune Walker",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 127,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Obsidian Dune Walker begins a spiralling descent shot around its universe-scale obsidian torus while crossing the Desert with impossible solar thermal glass-melting feet. At 1s HUD shows IGNITE as the colossal solar ring awakens, at 2s HUD shows SWEEP as the endless torus rotates, at 3s HUD shows LIFT as planetary legs advance, at 4s HUD shows DISTILL as infinite thermal_",
+  "video_prompt_title": "The Obsidian Dune Walker - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Obsidian Dune Walker exists at maximum impossible scale as an alien Desert engine, its closed obsidian torus rotating around a central void larger than continents. Endless mechanical legs stride across planetary ergs while deploying solar thermal glass-melting tracks that permanently reshape the Desert world beneath each movement. The environment shows infinite dunes, mountain ranges, civilizations, and storms appearing miniature compared with the walker. The mechanism includes unimaginable solar collectors covering the rotating ring, endless thermal reactors, enormous molten glass arteries, and perfectly synchronized walking systems. Energy appears as solar rivers, lightning storms, and glowing heat patterns across the obsidian surface. The presentation is a dark storm-lit cinematic vision of the ultimate desert machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

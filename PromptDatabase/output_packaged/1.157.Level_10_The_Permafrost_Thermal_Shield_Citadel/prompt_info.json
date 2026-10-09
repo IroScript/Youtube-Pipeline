@@ -1,0 +1,18 @@
+{
+  "idea_id": 157,
+  "idea_title": "The Permafrost Thermal Shield Citadel",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 157,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 160-kilometer god-tier living obsidian and golden tachyon citadel locking the planet's cryosphere into eternal cosmic equilibrium. The entire polar continental plateau has transformed into an impossible, conscious entity of dark polished obsidian, pulsing liquid starlight, and singing diamond monoliths. The citadel breathes with the heartbeat of the Earth, weaving the permafrost, glaciers, and atmosphere into an indestructible living planetary shield that shines as a beacon of perfection across the Milky Way.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL CRYOSPHERIC ASCENSION\" — The 160-kilometer god-citadel ignites with blinding golden tachyon fire, its diamond monoliths erupting with pillars of cosmic starlight into space.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: LIVING PERMAFROST TRANSCENDENCE\" — The planet's permafrost and glaciers transform into living, conscious diamond-ice that sings with universal harmonic frequencies.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COSMIC STELLAR SHIELD FORGE\" — A shimmering crystalline canopy of sentient aurora borealis covers the entire planet, protecting all life for the next billion years.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INFINITE PLANETARY TRANSCENDENCE\" — Global climates, oceans, and atmospheres achieve absolute, eternal, self-healing perfection and peace.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL COSMIC NIRVANA\" — The citadel connects directly to the galactic energy grid, anchoring Earth as an immortal jewel of cosmic beauty and infinite wisdom.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous descent from orbit, diving through rings of singing golden light, skimming along the 160-kilometer obsidian citadel crests rising from living liquid starlight glaciers, and plunging into the radiant golden heart of the central cosmic singularity, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Permafrost Thermal Shield Citadel - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

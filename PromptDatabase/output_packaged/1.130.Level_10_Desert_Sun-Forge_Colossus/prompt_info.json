@@ -1,0 +1,18 @@
+{
+  "idea_id": 130,
+  "idea_title": "Desert Sun-Forge Colossus",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 130,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Desert Sun-Forge Colossus is revealed in a sweeping crane shot descending from above planetary desert haze, slowly uncovering an alien-scale honeycomb solar forge covering the world below. The camera glides over endless parabolic mirrors, quartz melting networks, and gigantic optical lens manufacturing cells. At 1s HUD popup: SPIN UP. At 2.5s HUD popup: DEPLOY. At 4s HUD popup: CHANNEL. The final five seconds settle beside a single human silhouette at the base of the Desert Sun-Forge Colossus, holding on the impossible contrast between one person and a planet-sized machine forging telescopic lenses across the darkness.",
+  "video_prompt_title": "Desert Sun-Forge Colossus - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. Desert Sun-Forge Colossus becomes an alien-level impossible machine covering an entire desert planet with a dense honeycomb mass of repeating optical forge cells. The structure forms a planetary geometric organism of machinery without a humanoid shape, with endless parabolic mirror fields, colossal quartz melting chambers, optical lens creation corridors, and interconnected energy pathways stretching across continents. Deserts, mountain ranges, and atmospheric layers reveal the unimaginable scale. Solar energy is harvested by planetary mirror networks and concentrated into glowing internal furnace systems visible across the honeycomb surface. Deep night remains dominant, with artificial floodlights creating enormous pools of illumination across the alien industrial landscape.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

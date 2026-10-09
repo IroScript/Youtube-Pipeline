@@ -1,0 +1,18 @@
+{
+  "idea_id": 141,
+  "idea_title": "The Ridge-Carver Leviathan",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 141,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 100+ kilometer alien megastructure that permanently fuses with the planet's lithosphere. The mountain range itself becomes the physical chassis of an impossible planetary engine. Tectonic plates are held in gravitational suspension, glowing rivers of liquid geothermal plasma flow uphill across sculpted crystal ridges, and an impossible central singularity forge pulses with blinding stellar energy.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM PLANETARY AWAKENING\" — Every sensor crown across the cosmic summit titan ignites simultaneously into nested holographic halos, planetary scanning grids sweep across entire continents, and quantum crustal conduits awaken under immense gravitational fields.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: INFINITE EXTRACTION ARRAY\" — An impossible number of colossal harvesting pylons deploy across mountain peaks, diamond-tipped halos carve bedrock at continental scale while autonomous drone swarms organize energy streams into synchronized multidimensional patterns.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: INFINITE BELLY ENGINE\" — Harvested planetary matter floods into the titan's internal belly factories, passing through nested magnetic conduits, cyclopean heat exchangers, and alien processing chambers that extend beyond conventional Euclidean geometry.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: QUANTUM PRESSURE PURIFICATION\" — Quantum electromagnetic fields and controlled gravity gradients suspend individual rock and ice particles, separating them at atomic precision while stellar thermal loops purify raw energy streams.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: INFINITE RESERVOIR CASCADE\" — Finished energy cascades through endless luminous shafts into gigantic sub-glacial storage reservoirs, each chamber folding into deeper layers of the megastructure while magnetic suspension maintains perfect stability.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from low planetary orbit into the heart of the mountain titan, diving through alien processing architecture and glowing plasma conduits down to a maximum close-up of a single suspended granite crystal beside a colossal quantum mechanism, with the surrounding mountain machinery stabilizing into a mesmerizing continuous harvesting rhythm, no cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "The Ridge-Carver Leviathan - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

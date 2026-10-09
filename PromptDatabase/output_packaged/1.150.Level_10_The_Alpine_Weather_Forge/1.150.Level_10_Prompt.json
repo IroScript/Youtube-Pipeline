@@ -1,0 +1,18 @@
+{
+  "idea_id": 150,
+  "idea_title": "The Alpine Weather Forge",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 150,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer god-tier planetary atmospheric engine permanently fused with the highest mountain peaks, orchestrating global climate harmony across the entire hemisphere. The entire mountain range has evolved into an impossible entity of dark iridescent metal and pure sentient atmospheric plasma that breathes life into the planet. Its peaks touch the stars, weaving the planet's atmosphere into an immortal living shield of pure beauty.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL ATMOSPHERIC ASCENSION\" — The 150-kilometer mountain engine awakens with a cosmic harmonic roar, its peaks erupting with towering ribbons of iridescent atmospheric plasma reaching into orbit.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PLANETARY BREATH SYNCHRONIZATION\" — The entire atmosphere of the planet pulses in rhythm with the engine, cycling air currents across hemispheres in majestic, harmonious waves.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: LIVING PLASMA SHIELD FORGE\" — A shimmering crystalline canopy of sentient aurora borealis covers the entire planet, protecting all life from cosmic hazards while bathing the world in gentle starlight.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INFINITE BIOSPHERIC REGENERATION\" — Extinct species regenerate, arid lands transform into paradise valleys, and the planet's ecosystems reach peak evolutionary vitality.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL CLIMATIC NIRVANA\" — The mountain engine enters eternal equilibrium, anchoring the world into a perpetual state of temperate bliss, abundance, and cosmic peace.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera conducts an impossible continuous dive from high interplanetary orbit, diving through the glowing sentient auroral canopy, plunging along the 150-kilometer plasma-crowned mountain crests, and swooping inches above an eternal crystal-clear mountain lake reflecting the infinite starry universe, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Alpine Weather Forge - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

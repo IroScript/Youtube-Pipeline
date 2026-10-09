@@ -1,0 +1,18 @@
+{
+  "idea_id": 113,
+  "idea_title": "The Grassland Tide Engine",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 113,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Grassland Tide Engine opens with an extreme close shot of its continuous-track crawler chassis as alien-scale soil belts move beneath a planet-wide grassland transformation engine. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts. At 1.5s HUD popup: WAKE. At 3s HUD popup: REACH. At 4.5s HUD popup: COLLECT. The camera relentlessly pulls backward until the entire planetary crawler appears wrapped around the grassland world. At 6s HUD popup: PROCESS. At 7s HUD popup: EMIT. The final five-second move shows continents of prairie shifting beneath the Grassland Tide Engine while the light races through a full day cycle and the impossible structure continues its endless rhythm.",
+  "video_prompt_title": "The Grassland Tide Engine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Grassland Tide Engine reaches maximum alien scale as a low continuous-track crawler whose circular chassis wraps around an entire planet covered in grassland. The machine resembles a mountain range folded into a wheel, with an armored rim above the surface and infinite soil belts beneath that roll continents of living prairie forward. Trillions of articulated systems manage roots, moisture, minerals, and regenerative cycles through impossible underground galleries. Planetary solar collectors, wind turbine forests, geothermal towers, and plasma conduits power the structure. The planet, oceans, storms, and atmosphere become part of the machine's environment. Harsh vertical noon sunlight creates colossal shadows and surreal industrial grandeur.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

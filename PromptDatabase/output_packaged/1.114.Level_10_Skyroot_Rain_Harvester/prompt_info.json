@@ -1,0 +1,18 @@
+{
+  "idea_id": 114,
+  "idea_title": "Skyroot Rain Harvester",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 114,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Skyroot Rain Harvester vertical ascent shot begins beside the world-scale crawler chassis embedded across Grassland and rises through the ultimate atmospheric machine. At 1s HUD: WAKE, 2s HUD: REACH, 3s HUD: COLLECT, 4s HUD: PROCESS, 5s HUD: EMIT, 6s HUD: WORLD. The camera climbs through impossible cloud-harvesting petals, gravity condensers, and planetary water systems. The final two seconds show Skyroot Rain Harvester as a monumental silhouette against the vast sky while running lights ignite in sequence from the endless base to the distant crown.",
+  "video_prompt_title": "Skyroot Rain Harvester - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Skyroot Rain Harvester reaches maximum impossible scale on Grassland, becoming a world-spanning crawler-based atmospheric engine. Its low continuous tracks reshape valleys beneath it while its lattice pressure-frame tower extends beyond the atmosphere like a mechanical reed reaching into space. City-sized petal collectors inhale entire cloud systems through superconductive membranes, while quantum gravity condensers, plasma arteries, cyclone separators, and planetary reservoirs transform weather across continents. The Grassland below contains oceans of prairie, tiny storms, and mountain ranges as scale markers. Superconductive energy rings glow beneath the surface. Harsh vertical noon sunlight creates bleached brilliance and absolute black shadows across the alien machine.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 153,
+  "idea_title": "The Continental Calving Arrester",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 153,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 160-kilometer god-tier living barrier of dark polished obsidian and pulsing liquid starlight spanning the entire polar continental shelf. The barrier permanently unites the world's oceans and the continental ice sheet into a conscious biomechanical megastructure. Monolithic gravity gates kilometer-high modulate planetary ocean currents and polar ice flow with divine precision.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL OCEAN-CRYOSPHERE AWAKENING\" — The 160-kilometer obsidian barrier ignites with blinding golden tachyon fire along the edge of the continental shelf, opening cosmic gravity gates.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: RELATIVISTIC CURRENT HARMONIZATION\" — Planetary ocean currents flow through massive crystalline sluices without friction, their kinetic energy converted into stellar plasma.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: CONTINENTAL ICE MATRIX IMMORTALITY\" — The entire polar ice cap fuses with the barrier, becoming an indestructible, self-repairing living diamond continent.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GLOBAL SEA-LEVEL ZERO-LOCK\" — Sub-atomic graviton fields anchor planetary sea levels to absolute millimeter precision across all world coastlines.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY CRYO-NIRVANA\" — The barrier pulses a radiant aurora of golden light into the stratosphere, linking Earth's cryosphere to the cosmic galactic grid for eternity.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous descent from low Earth orbit, plunging through golden auroral rings, gliding alongside kilometers-tall obsidian gravity gates, and skimming across a sea of glowing liquid starlight reflecting the eternal polar ice sheet, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Continental Calving Arrester - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

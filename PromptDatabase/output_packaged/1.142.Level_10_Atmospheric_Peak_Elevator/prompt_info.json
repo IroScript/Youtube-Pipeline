@@ -1,0 +1,18 @@
+{
+  "idea_id": 142,
+  "idea_title": "Atmospheric Peak Elevator",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 142,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 250+ kilometer alien orbital tether megastructure connecting the highest mountain summit directly to a celestial planetary orbital ring. The entire mountain range acts as a gravitational anchor, with rivers of superconducting geothermal energy surging up the impossible carbon-nanotube hyper-spire to power planetary defense and terraforming systems across the globe.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: PLANETARY GRAVITATIONAL ANCHOR\" — Every mountain peak across the continent locks into a synchronized gravitational web, securing the hyper-spire to the planetary core.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: INFINITE SPACE-ELEVATOR ARRAY\" — Thousands of luminescent elevator pods ascend simultaneously along nested quantum light-strands toward the celestial ring.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COSMIC JETSTREAM VACUUM\" — High-altitude atmospheric layers are siphoned into trans-dimensional processing engines that extend into folded spatial dimensions.\nSecond 4 [0:04-0:05] — HUD Popup Text: \"STEP 4: SINGULARITY ENERGY PURIFICATION\" — Micro-black-hole power cores at the mountain base convert planetary crustal pressure into pure coherent gravitational light.\nSecond 5 [0:05-0:06] — HUD Popup Text: \"STEP 5: CELESTIAL RING SYNCHRONIZATION\" — The mountain elevator fuses with the planetary ring in orbit, pulsing with blinding stellar energy across the cosmos.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs a continuous impossible-scale descent from the celestial orbital ring in space down the luminous spire, passing atmospheric boundaries into the heart of the mountain peak where a single glowing crystal resonator stabilizes the entire planetary tether, no cuts, no scene transition, exactly 8 seconds.",
+  "video_prompt_title": "Atmospheric Peak Elevator - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

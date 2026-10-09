@@ -1,0 +1,18 @@
+{
+  "idea_id": 121,
+  "idea_title": "The Seed Moon",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 121,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Seed Moon dominates a sweeping crane shot above the Grassland, revealing a planet-scale ecological sphere moving on continental continuous tracks. At 1s HUD: IGNITE. At 2s HUD: SWEEP. At 3s HUD: LIFT. At 4s HUD: DISTILL. At 5s HUD: EJECT. The final three seconds present the ultimate spectacle as the Seed Moon alters weather, paints the prairie with living patterns, and remains in motion while the light races through a complete day cycle.",
+  "video_prompt_title": "The Seed Moon - Level 10 - MAXIMUM IMPOSSIBLE (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Seed Moon is the ultimate impossible spherical fabrication vessel, a machine-moon larger than a planet hovering above an infinite Grassland, with a continuous-track crawler chassis spanning continental plates beneath it. Its rotating equatorial rings contain limitless seed fabrication galaxies, molecular inspection worlds, quantum gravity launch systems, and ecological computation engines. The prairie below becomes a planetary living circuit board of forests, grass oceans, flowering corridors, and engineered wildlife refuges shaped by invisible calculations. Energy radiates from planet-wide plasma conduits, superconducting magnetic fields, and artificial auroras surrounding the sphere. The image is a colossal crane reveal through amber dust and heavy haze, with the dim sun beside the Seed Moon's impossible silhouette.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

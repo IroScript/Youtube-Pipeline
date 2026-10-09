@@ -1,0 +1,18 @@
+{
+  "idea_id": 158,
+  "idea_title": "Glacial Melt Sub-Hydro Dynamo",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 158,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 145-kilometer god-tier living obsidian and golden water-dynamo singularity harmonizing Earth's hydrosphere with galactic currents. The entire continental glacier and its subterranean waterfall systems have transformed into an impossible, conscious entity of dark polished obsidian, pulsing liquid starlight, and singing diamond monoliths. The dynamo drinks the roaring torrents of melting ice and births rivers of pure cosmic stellar plasma, linking Earth's water cycle directly to the creation of new stars in the galactic core.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL HYDRO-SINGULARITY AWAKENING\" — The 145-kilometer god-dynamo ignites with blinding golden tachyon fire, its diamond monoliths erupting with pillars of cosmic starlight into space.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: CELESTIAL MAELSTROM TRANSMUTATION\" — The roaring glacial waterfalls transform into swirling vortexes of liquid starlight and pure cosmic energy, cascading into the central singularity maw.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: MULTIDIMENSIONAL ENERGY FUSION\" — Earth's water molecules fuse with higher-dimensional space, generating limitless energy that feeds planetary defense and life-support grids.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ETERNAL PLANETARY HYDRATION\" — Global rainfall, ocean currents, and ice sheets achieve eternal, self-healing, indestructible perfection and peace.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: GALACTIC HARMONY COMMUNION\" — The living dynamo connects directly to the galactic energy grid, anchoring Earth as an immortal jewel of cosmic beauty and infinite wisdom.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous descent from orbit, diving through swirling auroral rings of liquid gold, skimming alongside monumental obsidian monoliths rising from glowing blue ice, and soaring into the radiant heart of the central cosmic water-dynamo singularity, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Glacial Melt Sub-Hydro Dynamo - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

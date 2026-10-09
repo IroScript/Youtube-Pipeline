@@ -1,0 +1,18 @@
+{
+  "idea_id": 138,
+  "idea_title": "The Atmospheric Corn Elevator",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 138,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Atmospheric Corn Elevator rises from a planet-spanning Corn Field as the camera makes a continuous vertical ascent along its impossible vacuum pipeline reaching beyond the atmosphere. At 0s HUD INITIALIZE activates the alien buried transport intelligence; 1.3s HUD ALIGN coordinates planetary harvest pathways; 2.6s HUD DRAW IN reveals endless streams of corn cobs flowing through cosmic vacuum routes; 3.8s HUD TRANSFORM displays anti-gravity transport chambers operating across worlds; 5s HUD OUTPUT shows orbital storage civilizations receiving crops. The camera continues upward through clouds, atmosphere, and space in one uninterrupted shot. At 6s it arrives inside the control heart, surrounded by alien readouts, living mechanical systems, and endless moving control structures.",
+  "video_prompt_title": "The Atmospheric Corn Elevator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Atmospheric Corn Elevator is an alien-scale impossible machine buried beneath a planet-sized Corn Field, with only a colossal atmospheric vacuum column and intake structures breaking the surface. The machine stretches from deep underground to orbital storage worlds, yet retains its distinctive buried pipeline identity. The mechanism includes planetary vacuum arteries, artificial atmosphere channels, anti-gravity cob transport chambers, orbital storage civilizations, and self-expanding underground machine networks. Energy comes from alien solar harvesting structures surrounding the planet and invisible atmospheric power systems shown through glowing blue conduits. The Corn Field becomes an entire world beneath the structure. Cold blue pre-dawn light, massive mist layers, and monumental vertical framing create the ultimate impossible agricultural vision.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 108,
+  "idea_title": "Sunflower Leviathan",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 108,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Sunflower Leviathan completes a slow orbital camera arc around an alien-scale sunflower field where the buried machine extends beyond the horizon in every direction. At 1s HUD popup: SPIN UP. At 2s HUD popup: DEPLOY. At 3s HUD popup: CHANNEL. At 4s HUD popup: FILTER. At 5s HUD popup: DELIVER. At 6s HUD popup: ASCEND. The camera reveals impossible intake continents, atmospheric irrigation systems, and gigantic articulated segments moving beneath the planetary surface as lightning tears across the storm. The final two seconds come to rest inside the control heart of the Sunflower Leviathan, surrounded by alien-scale moving readouts, rotating mechanisms, and the command systems of the ultimate agricultural machine. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "Sunflower Leviathan - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. Sunflower Leviathan is an alien-scale agricultural megamachine larger than a world, with its serpentine armored chassis buried beneath a limitless sunflower field and only impossible intake continents and spoil structures breaking the surface. Hundreds of thousands of articulated segments connect through gigantic magnetic spherical joints while quantum suspension systems allow the impossible body to move. The machine operates with planet-sized harvesting manipulators, irrigation turbines, pollen clouds, processing chambers, and atmospheric control systems. Plasma conduits glow beneath the armor like artificial stars, and quantum gravity fields bend storms around the structure. The slow orbital presentation reveals a mechanical dragon hidden beneath an entire living landscape.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 149,
+  "idea_title": "Chrono-Fossil Extractor",
+  "idea_topic": "Mountain",
+  "element_id": 14,
+  "idea_index_in_element": 149,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 140-kilometer hyper-dimensional chrono-anchor turning mountain gorges into physical timelines of planetary evolution. The entire mountain range transcends linear time, appearing as an impossible alien megastructure of liquid dark mirror and golden tachyonic crystal that displays all eras of Earth's past, present, and future simultaneously across its monumental canyon walls.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL CHRONO-ANCHOR AWAKENING\" — The 140-kilometer mountain megastructure ignites with blinding tachyonic fire, opening physical dimensional windows into every geological era simultaneously.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: MULTI-EPOCH CANYON STRATIFICATION\" — The walls of the canyon transform into living physical dioramas: primordial oceans at the base, dinosaur-filled jungles in the middle strata, and futuristic crystal cities crowning the summits.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: OMNIPRESENT TEMPORAL HARVEST\" — Streams of golden chronological energy flow from every stratum into a massive floating singularity core above the mountain divide.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: COSMIC CONSCIOUSNESS FUSION\" — The entire living history of the planet fuses with the planetary consciousness, turning the mountain range into a sentient galactic oracle.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL PLANETARY IMMORTALITY\" — The chrono-anchor locks the planet's timeline into an immortal state, guaranteeing that no past life will ever be forgotten and the future remains infinite.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an impossible continuous descent from orbit, diving straight down through the layers of living time in the canyon—past glowing prehistoric seas, through ancient forests, and into the radiant golden singularity core, perfectly smooth unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Chrono-Fossil Extractor - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

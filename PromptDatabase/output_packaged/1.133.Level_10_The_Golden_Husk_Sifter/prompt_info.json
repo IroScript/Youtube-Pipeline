@@ -1,0 +1,18 @@
+{
+  "idea_id": 133,
+  "idea_title": "The Golden Husk Sifter",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 133,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Golden Husk Sifter begins a sweeping crane descent from beyond the atmosphere, revealing the ultimate vertical tower emerging through cold blue haze above the planet-sized Corn Field. At 0-1s HUD: INITIALIZE, cosmic systems activate. At 1-2s HUD: ALIGN, planetary agriculture synchronizes. At 2-3s HUD: DRAW IN, infinite husk streams enter. At 3-4s HUD: TRANSFORM, alien bio-polymer worlds form. At 4-5s HUD: OUTPUT, golden grain networks illuminate the planet. The final 5-8s camera rises into a perfectly straight top-down orthographic view, revealing The Golden Husk Sifter as an impossible geometric pattern spanning the entire agricultural world.",
+  "video_prompt_title": "The Golden Husk Sifter - Level 10 - MAXIMUM ALIEN (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Golden Husk Sifter reaches maximum impossible scale as a singular slender vertical tower rising beyond planetary atmosphere from an entire Corn Field world. Its endless stacked tiers contain infinite husk peeling systems, cosmic bio-polymer weaving structures, gravitational grain separation chambers, and agricultural processing layers extending into space. The planet below is covered with immense corn patterns surrounding the tower. A stellar energy network powers the machine through brilliant blue conduits and orbital collectors. Cold blue pre-dawn light, mist around the planetary foundation, and enormous geometric shadows create the final alien agricultural monument.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

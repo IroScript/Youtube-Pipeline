@@ -1,0 +1,18 @@
+{
+  "idea_id": 110,
+  "idea_title": "The Million-Arm Pollinator",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 110,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Million-Arm Pollinator starts with an extreme close shot of a pollination arm activating inside a single honeycomb cell, then the camera relentlessly pulls back until the alien-scale structure fills the entire vertical view above the Sunflower Field in one continuous 8-second shot. At 1s HUD shows WAKE, at 2s REACH, at 3s COLLECT, at 4s PROCESS, at 5s EMIT, and at 6s ASCEND as the planetary system reaches maximum synchronization. The final two seconds show the outer shell peeling away in one continuous motion, exposing infinite cross-sectional layers of pollination factories, energy networks, and synchronized mechanical intelligence.",
+  "video_prompt_title": "The Million-Arm Pollinator - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. The Million-Arm Pollinator exists as an impossible alien-scale honeycomb universe surrounding an entire planet covered in Sunflower Field. Its repeating carbon-titanium cells form a second atmosphere filled with infinite pollination arms, each containing optical intelligence, molecular pollen analysis, electrostatic transfer systems, and microscopic flower manipulation technology. Colossal pylons merge with planetary infrastructure while quantum gravity fields suspend the unimaginable lattice. Plasma conduits create vast aurora rivers across the structure beneath a cool green-violet sky. The final image shows the ultimate agricultural machine as a geometric world above endless sunflowers, where biological life and engineered intelligence merge.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

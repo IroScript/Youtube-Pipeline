@@ -1,0 +1,18 @@
+{
+  "idea_id": 124,
+  "idea_title": "Solar Mirage Energy Tower",
+  "idea_topic": "Desert",
+  "element_id": 13,
+  "idea_index_in_element": 124,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Solar Mirage Energy Tower vertical ascent shot rises from the Desert world surface along the alien maximum obsidian spire, revealing infinite stacked tiers that transform planetary mirages into molten salt energy. 9:16 vertical, exactly 8 seconds, one continuous shot, no cuts. At 0-1s HUD: POWER UP, world-scale collectors ignite. At 1-2s HUD: EXTEND, impossible tower tiers rise. At 2-3s HUD: INTAKE, planetary heat fields converge. At 3-4s HUD: REFINE, alien thermal systems process energy. At 4-5s HUD: STORE, endless molten salt batteries activate. Final 5-8s the camera continues its vertical ascent while light races through a complete day cycle across the Desert planet and the Solar Mirage Energy Tower maintains its endless rhythm without pause.",
+  "video_prompt_title": "Solar Mirage Energy Tower - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. Solar Mirage Energy Tower reaches alien maximum scale as a physically impossible slender obsidian spire rising from an entire Desert world, with stacked working tiers climbing from salt plains into deep space while preserving the single tower identity. The Desert below contains continent-wide salt fields, atmospheric layers, and microscopic civilizations for unimaginable scale. The mechanism includes planet-spanning mirage focusing arrays, endless vertical thermal refinement chambers, colossal molten salt energy batteries embedded through the tower, and impossible heat transfer systems connecting the world below. Energy appears as golden rivers of concentrated mirage heat flowing into the infinite black spire. Presentation uses deep night, brutal artificial floodlights, massive darkness, and an overwhelming vertical perspective.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

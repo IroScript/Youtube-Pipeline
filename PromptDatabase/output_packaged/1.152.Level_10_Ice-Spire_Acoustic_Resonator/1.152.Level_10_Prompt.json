@@ -1,0 +1,18 @@
+{
+  "idea_id": 152,
+  "idea_title": "Ice-Spire Acoustic Resonator",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 152,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 135-kilometer god-tier living sound-crystal monument harmonizing Earth's cryosphere with the cosmos. The entire polar glacial landscape has transformed into an impossible, sentient musical organism of polished dark obsidian, liquid starlight, and singing diamond monoliths. The monument plays a perpetual cosmic symphony of creation, turning Earth's glaciers into an immortal beacon of cosmic harmony.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: MAXIMUM COSMIC HARMONIC AWAKENING\" — The 135-kilometer sound-crystal monument erupts with blinding golden tachyon resonance, its diamond monoliths singing with the birth frequency of the universe.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: UNIVERSAL PHONON RESTRUCTURE\" — The ice of the polar continent transforms into living sentient crystal that flows like liquid music without ever melting or decaying.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: GALACTIC CHORD COUPLING\" — Gravitational acoustic waves resonate with distant star clusters, linking Earth's cryosphere directly to the harmonies of the Milky Way core.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INFINITE PLANETARY TRANSCENDENCE\" — The planet's climate, oceans, and life systems enter a state of eternal, indestructible perfection and peace.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL COSMIC SYMPHONY\" — The living sound monument anchors the planet into the galactic symphony of immortal civilizations for all eternity.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an impossible continuous descent from orbit, diving through rings of singing golden light, skirting towering diamond monoliths rising from liquid crystal glaciers, and soaring into the radiant heart of the central acoustic singularity, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Ice-Spire Acoustic Resonator - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

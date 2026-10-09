@@ -1,0 +1,18 @@
+{
+  "idea_id": 104,
+  "idea_title": "Sunflower Skywheel",
+  "idea_topic": "Sunflower Field",
+  "element_id": 11,
+  "idea_index_in_element": 104,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Sunflower Skywheel creates a slow orbital arc around its alien-level honeycomb agricultural ring spanning an entire world of Sunflower Fields. At 0-1s HUD: WAKE, planetary energy awakens. At 1-2s HUD: REACH, infinite mechanisms unfold. At 2-3s HUD: COLLECT, world-scale crop systems converge. At 3-4s HUD: PROCESS, endless circular factories operate. The final four seconds continue the majestic golden-hour orbit through impossible repeating cells before the camera arrives inside the Sunflower Skywheel control heart, surrounded by vast moving readouts and alien agricultural machinery.",
+  "video_prompt_title": "Sunflower Skywheel - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Sunflower Skywheel reaches alien maximum scale as a physically impossible planetary agricultural ring larger than a world, a dense honeycomb mass of infinite repeating cells wrapped around a Sunflower Field planet. Its distinctive circular chassis contains uncountable articulated harvesting arms, pollen manipulation systems, nutrient conduits, seed-processing galleries, recycling chambers, and autonomous agricultural networks. The upper rim carries star-powered solar collectors connected by glowing plasma pathways. Low golden-hour sunlight, warm rim lighting, and floating dust surround the impossible structure as it reshapes the horizon and becomes a visible golden ring from orbit.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

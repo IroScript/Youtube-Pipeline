@@ -1,0 +1,18 @@
+{
+  "idea_id": 139,
+  "idea_title": "Golden Silk Weaving Engine",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 139,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Golden Silk Weaving Engine appears in a sweeping crane shot descending from the edge of space toward a planet-wide Corn Field, with the buried machine resolving through atmospheric haze. At 0-1 seconds HUD popup: INITIALIZE, at 1-2 seconds HUD popup: ALIGN, at 2-3 seconds HUD popup: DRAW IN, at 3-4 seconds HUD popup: TRANSFORM, revealing the ultimate corn silk weaving network. At 4-8 seconds the camera follows the OUTPUT stream as a continuous river of finished golden bio-medical thread emerges from the colossal discharge point and travels away across the dark planetary landscape.",
+  "video_prompt_title": "Golden Silk Weaving Engine - Level 10 - MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Golden Silk Weaving Engine reaches maximum impossible scale as a planet-dominating buried precision loom beneath a world covered entirely by Corn Fields. Only continent-sized intake structures, immense spoil formations, and horizon-spanning discharge zones reveal the hidden machine below. The corn landscape appears like a thin natural layer over the gigantic engineered system. The mechanism contains infinite silk extraction pathways, planetary weaving chambers, self-expanding fiber transformation networks, and unimaginable bio-medical thread creation systems built solely from corn silk. The engine is powered by a stellar core buried within the planet, visible through enormous energy vents. Deep night, brutal floodlights, and endless darkness create the ultimate impossible machine vision.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

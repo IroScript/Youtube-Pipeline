@@ -1,0 +1,18 @@
+{
+  "idea_id": 156,
+  "idea_title": "Sub-Zero Plasma Ice-Cutter",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 156,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 150-kilometer god-tier living obsidian and golden plasma cutter carving trans-planetary canals through polar ice caps. The entire polar ocean-cryosphere system has transformed into an impossible, conscious entity of dark polished obsidian, pulsing liquid starlight, and singing diamond monoliths. The cutter's plasma prow burns with primordial stellar fire, cleaving paths between worlds and linking Earth's oceans directly to the cosmic rivers of the galactic core.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL COSMIC CUTTER AWAKENING\" — The 150-kilometer god-cutter ignites with blinding golden tachyon fire, its diamond prow erupting with pillars of primordial stellar plasma that pierce into space.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: CELESTIAL CANAL TRANSMUTATION\" — The cutter glides across the polar continent, turning solid blue glacier ice into flowing rivers of liquid starlight and pure cosmic energy.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: MULTIDIMENSIONAL OCEAN FUSION\" — Earth's polar oceans fuse with higher-dimensional space, turning the canal into an interstellar gateway for cosmic starships.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: ETERNAL CRYO-HYDRO BALANCE\" — The planet's ice sheets, sea levels, and atmospheric cycles reach eternal, self-healing, indestructible perfection.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: GALACTIC SEAWAY ENERGIZATION\" — The living canal connects directly to the galactic energy matrix, shining as a beacon of infinite harmony and beauty across the cosmos.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera conducts an impossible continuous dive from interplanetary orbit, plunging through golden auroral vortexes, skimming alongside kilometers-high obsidian monoliths rising from glowing blue ice, and soaring into the radiant heart of the golden plasma prow, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Sub-Zero Plasma Ice-Cutter - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

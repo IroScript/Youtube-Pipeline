@@ -1,0 +1,18 @@
+{
+  "idea_id": 134,
+  "idea_title": "The Corn Maze Planetary Combine",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 134,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Corn Maze Planetary Combine appears as an infinite alien honeycomb harvester in a locked low-angle push-in shot from a Corn Field beneath the impossible structure. Spiral furrow systems move through endless dimensions while repeating cells process agricultural worlds. At 1 second HUD: WAKE. At 2 seconds HUD: REACH. At 3 seconds HUD: COLLECT. The final five seconds arrive inside the control heart of the machine, where alien readouts, endless moving mechanisms, and vast agricultural command systems surround the camera in a living mechanical core. Exactly 8 seconds, 9:16 vertical, one continuous shot, no cuts.",
+  "video_prompt_title": "The Corn Maze Planetary Combine - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, maximum detail. The Corn Maze Planetary Combine reaches alien-level impossible scale as an infinite honeycomb harvesting intelligence stretching beyond galaxies while still visibly operating on a Corn Field. The structure is a limitless repeating cell matrix containing spiral furrow engines, endless agricultural transport channels, and self-organizing harvesting pathways. Corn Fields appear as tiny patterns embedded inside the machine's planetary geometry. Its power comes from impossible cosmic energy networks woven through the honeycomb cells, glowing beneath the darkness. Deep night, brutal artificial floodlights, and a low-angle ground view create a terrifyingly enormous vision of the ultimate agricultural machine filling the entire vertical frame.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

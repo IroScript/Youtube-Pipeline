@@ -1,0 +1,18 @@
+{
+  "idea_id": 155,
+  "idea_title": "The Glacial Moraine Maglev Smelter",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 155,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 140-kilometer living god-engine of dark obsidian and liquid gold smelting entire mountain moraines into cosmic stellar matter. The entire continental glacier and its moraine systems have evolved into an impossible entity of dark polished obsidian, pulsing liquid starlight, and singing diamond monoliths. The engine digests planetary rock and births pure starlight, linking Earth's geological foundations directly to the creation of new stars in the galactic core.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL COSMIC SMELTER AWAKENING\" — The 140-kilometer god-engine ignites with blinding golden tachyon fire, opening transdimensional smelting crucibles across the entire mountain range.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: LIVING LITHOSPHERIC TRANSMUTATION\" — Whole mountain moraines dissolve into cascading waterfalls of liquid starlight and molten gold, flowing uphill into the central singularity forge.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: COSMIC STELLAR MATTER FORGE\" — Within the singularity core, ordinary glacial rock is transfigured into primordial star-stuff, glowing with the birth colors of new galaxies.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: GALACTIC CORE ANCHORAGE\" — Beams of pure stellar plasma erupt from diamond monoliths into deep space, feeding newly forming stars across the Milky Way.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL CRYO-TECTONIC NIRVANA\" — The god-engine locks the planet's mountains, glaciers, and crust into eternal, indestructible perfection and peace.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera executes an impossible continuous descent from orbit, diving through swirling auroral rings of liquid gold, skimming alongside monumental obsidian monoliths rising from glowing blue glaciers, and plunging into the radiant golden core of the cosmic singularity forge, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "The Glacial Moraine Maglev Smelter - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

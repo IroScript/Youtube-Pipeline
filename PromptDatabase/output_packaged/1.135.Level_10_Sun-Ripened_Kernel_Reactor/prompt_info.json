@@ -1,0 +1,18 @@
+{
+  "idea_id": 135,
+  "idea_title": "Sun-Ripened Kernel Reactor",
+  "idea_topic": "Corn Field",
+  "element_id": 6,
+  "idea_index_in_element": 135,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Sun-Ripened Kernel Reactor vertical ascent shot begins at the base of the alien-scale tower rising from an endless Corn Field, revealing the ultimate solar-thermal corn energy transformation machine. At 0-1 seconds HUD shows UNLOCK as planetary intake networks activate. At 1-2 seconds HUD shows UNFOLD as impossible solar structures expand. At 2-3 seconds HUD shows GATHER as vast thermal extraction systems synchronize. At 3-4 seconds HUD shows COMPRESS as enormous starch capsule reactors engage. From 4-8 seconds the camera completes its vertical journey through the tower’s unimaginable height, passing atmospheric and orbital processing tiers before settling inside the control heart surrounded by alien-scale readouts, moving mechanisms, and the living pulse of the reactor.",
+  "video_prompt_title": "Sun-Ripened Kernel Reactor - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Sun-Ripened Kernel Reactor reaches alien maximum scale as a single impossibly slender vertical tower rising from a Corn Field covering an entire planet, with stacked working tiers extending beyond the sky and into orbital space. Its distinctive silhouette remains a solar-thermal distillation reactor, not a generic structure, containing colossal kernel intake pathways, planetary starch conversion chambers, atmospheric moisture separation systems, and unimaginable capsule compression floors. Energy flows from a galaxy-like arrangement of solar mirrors feeding the tower’s radiant thermal spine. The scene preserves low golden-hour sunlight, warm rim illumination, suspended dust above the endless Corn Field, and an epic vertical perspective showing a machine beyond human engineering limits.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

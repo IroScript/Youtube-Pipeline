@@ -1,0 +1,18 @@
+{
+  "idea_id": 115,
+  "idea_title": "Prairie Wind Shepherd",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 115,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Prairie Wind Shepherd appears in a slow orbital arc shot around the ultimate Grassland torus, revealing a planetary-scale atmospheric machine whose sails cross the sky like moving continents. 9:16 vertical, exactly 8 seconds, one continuous shot, no cuts. At 0-1s HUD popup: POWER UP as impossible energy networks ignite. At 1-2s HUD popup: EXTEND as the planetary sail ring unfolds. At 2-3s HUD popup: INTAKE as weather corridors flow into the structure. At 3-4s HUD popup: REFINE as vast atmospheric factories operate. At 4-5s HUD popup: STORE as hidden planetary vaults stabilize. From 5-8s the orbital camera completes its final arc and settles beside a single human silhouette at the Prairie Wind Shepherd base, holding the overwhelming contrast between the tiny observer and the alien ring reshaping the sky.",
+  "video_prompt_title": "Prairie Wind Shepherd - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, ultra high detail. Prairie Wind Shepherd reaches maximum alien scale over the Grassland, becoming a closed torus machine whose circumference dominates the planet and whose central void contains entire cloud systems. The grassland remains visible below with rivers, wildlife corridors, and settlements appearing microscopic beneath the atmospheric guardian. The structure combines planetary crawler formations, quantum gravity manipulation systems, magnetic suspension sails, colossal intake decks, endless refinement chambers, aerodynamic control vanes, and immense biological storage vaults. Energy appears as enormous blue superconductive waves and plasma streams flowing around the ring. Cold blue pre-dawn light, mist pooling at the base, and a monumental orbital composition present Prairie Wind Shepherd as an impossible mechanical shepherd for the atmosphere.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

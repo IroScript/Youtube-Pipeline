@@ -1,0 +1,18 @@
+{
+  "idea_id": 154,
+  "idea_title": "Chrono-Ice Stratum Siphon",
+  "idea_topic": "Glacier",
+  "element_id": 15,
+  "idea_index_in_element": 154,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "Exactly 8 seconds, 9:16 vertical aspect ratio, photorealistic cinematic render, smooth continuous motion, no cuts, maximum cinematic realism.\n\nA 145-kilometer god-tier living chrono-ice monument uniting Earth's primordial past with its cosmic future. The entire polar ice dome has evolved into an impossible entity of dark polished obsidian, pulsing liquid starlight, and singing diamond monoliths. The monument traps time itself within frozen light, displaying all 4.5 billion years of Earth's atmosphere in a majestic living cosmic museum that connects directly to the galactic core.\n\nSecond 1 [0:00-0:01] — HUD Popup Text: \"STEP 1: TOTAL CHRONO-ICE AWAKENING\" — The 145-kilometer monument ignites with blinding golden tachyon fire, opening physical portals into every epoch of Earth's ancient atmosphere.\nSecond 2 [0:01-0:02] — HUD Popup Text: \"STEP 2: PRIMORDIAL SKY TRANSCENDENCE\" — Ancient atmospheres swirl in concentric glowing rings above the polar dome: methane skies, oxygen blooms, and ice-age blizzards dancing in harmony.\nSecond 3 [0:02-0:03] — HUD Popup Text: \"STEP 3: DIAMOND-ICE CONSCIOUSNESS FUSION\" — The entire polar ice sheet achieves cosmic sentience, becoming an eternal galactic archive of planetary life and atmosphere.\nSecond 4 [0:03-0:04] — HUD Popup Text: \"STEP 4: INTERSTELLAR BREATH BROADCAST\" — A pillar of pure golden starlight erupts into deep space, seeding dead star systems with the living breath of primordial Earth.\nSecond 5 [0:04-0:05] — HUD Popup Text: \"STEP 5: ETERNAL COSMIC TIMELESSNESS\" — The monument locks the planet's atmospheric history and future into eternal, indestructible perfection.\nSeconds 6-8 [0:05-0:08]: HUD text completely fades; the camera performs an impossible continuous dive from interplanetary orbit, plunging through concentric rings of glowing ancient atmospheres, soaring inches above singing diamond monoliths, and descending into the radiant golden core of the living ice singularity, seamless unbroken shot, no cuts, exactly 8 seconds.",
+  "video_prompt_title": "Chrono-Ice Stratum Siphon - Level 10 - Alien Level / Maximum Climax (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": null,
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}

@@ -1,0 +1,18 @@
+{
+  "idea_id": 116,
+  "idea_title": "The Buried Sunwheel",
+  "idea_topic": "Grassland",
+  "element_id": 12,
+  "idea_index_in_element": 116,
+  "target_generation": "10-Second Veo Video",
+  "escalation_level": 10,
+  "level_name": "ALIEN LEVEL / MAXIMUM",
+  "primary_video_prompt_used": "The Buried Sunwheel opens with a close shot of a planetary terrain-control mechanism moving beneath the immense canopy while a Grassland climate zone changes around it. At 0-1 seconds HUD shows UNLOCK as the planetary system awakens. At 1-2 seconds HUD shows UNFOLD as the artificial sky expands. At 2-3 seconds HUD shows GATHER as every climate sector synchronizes. At 3-4 seconds HUD shows COMPRESS as gravity systems hold the impossible structure. At 4-5 seconds HUD shows RELEASE as all seasons appear across the prairie. From 5-8 seconds the camera performs the ultimate pull-back, revealing the Buried Sunwheel as a hemisphere-scale ring beneath the aurora sky, ending with the machine falling into stark silhouette while its running lights ignite in sequence around the world-sized rim.",
+  "video_prompt_title": "The Buried Sunwheel - Level 10 - ALIEN LEVEL / MAXIMUM (Video 8s)",
+  "model": "Veo 3.1 Lower Priority / 1Video10Sec",
+  "duration": "8s",
+  "aspect_ratio": "9:16",
+  "reference_image_prompt": "9:16 vertical, photorealistic, high detail. The Buried Sunwheel reaches maximum impossible scale, becoming a planet-dominating Grassland climate machine embedded beneath an entire hemisphere. Its buried circular chassis forms a colossal ring mountain around the prairie while a broad flat overhead canopy floats above the surface on impossibly slender masts reaching into the atmosphere. The mechanism includes world-scale articulated ring segments, quantum gravity cores, underground circular factories, solar exposure engines, and terrain sectors that create localized versions of spring, summer, autumn, and winter. The Grassland becomes a planetary instrument with migrating ecosystems, artificial weather systems, and glowing climate boundaries. Plasma conduits illuminate the rim and magnetic fields reshape the green-violet aurora. The final image captures an alien engineering achievement built into Earth itself.",
+  "source_pipeline": "PromptDatabase Hierarchical Chain (SQLite Verified)",
+  "exported_from_sqlite_at": "2026-09-25T11:40:36.565936+00:00"
+}
